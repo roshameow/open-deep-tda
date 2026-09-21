@@ -1,0 +1,155 @@
+{
+  "measurements": [
+    {
+      "method": "legacy",
+      "status": "ok",
+      "samples": 7352,
+      "features": 561,
+      "graph_seconds": 1.6385532500000002,
+      "process_peak_rss_mib": 1053.109375,
+      "audit": {
+        "performed": true,
+        "query_count": 64,
+        "population_size": 7352,
+        "strict_id_recall": 1.0,
+        "tie_aware_distance_recall": 1.0,
+        "acceptance_metric": "tie_aware_distance_recall",
+        "min_recall": 0,
+        "accepted": true,
+        "scope": "uniform queries against ALL population rows; self excluded",
+        "tie_rule": "exact float64 distance equality; strictly closer IDs remain mandatory"
+      },
+      "backend_diagnostics": {}
+    },
+    {
+      "method": "exact",
+      "status": "ok",
+      "samples": 7352,
+      "features": 561,
+      "graph_seconds": 15.979429167000001,
+      "process_peak_rss_mib": 345.625,
+      "audit": {
+        "performed": true,
+        "query_count": 64,
+        "population_size": 7352,
+        "strict_id_recall": 1.0,
+        "tie_aware_distance_recall": 1.0,
+        "acceptance_metric": "tie_aware_distance_recall",
+        "min_recall": 0,
+        "accepted": true,
+        "scope": "uniform queries against ALL population rows; self excluded",
+        "tie_rule": "exact float64 distance equality; strictly closer IDs remain mandatory"
+      },
+      "backend_diagnostics": {
+        "backend": "exact",
+        "population_size": 7352,
+        "n_features": 561,
+        "requested_k": 15,
+        "effective_k": 15,
+        "seed": 0,
+        "metric": "euclidean",
+        "tie_break": "distance then current input row ID",
+        "edge_count": 80232,
+        "memory": {
+          "budget_bytes": 67108864,
+          "distance_block_rows": 1132,
+          "distance_block_bytes": 66579712,
+          "selection_scratch_allowance_bytes": 475584,
+          "estimated_workspace_bytes": 67055296,
+          "scope": "parent distance/selection workspace, not total RSS or ANN worker memory",
+          "float64_input_bytes": 32995776,
+          "neighbors_bytes": 882240,
+          "edges_bytes": 1283712,
+          "edge_assembly_extra_upper_estimate_bytes": 3529920,
+          "ann_worker_memory_bounded": false,
+          "exclusions": "caller input/conversion, outputs/edge assembly, library/runtime/allocator overhead, filesystem cache, and NN-descent/Numba child process"
+        },
+        "audit": {
+          "performed": false,
+          "query_count": 0,
+          "population_size": 7352,
+          "strict_id_recall": null,
+          "tie_aware_distance_recall": null,
+          "acceptance_metric": "tie_aware_distance_recall",
+          "min_recall": 0.9,
+          "accepted": true,
+          "reason": "exact by construction"
+        },
+        "ann_subprocess": false,
+        "ann_worker": {},
+        "candidate_neighbors": null,
+        "timeout_seconds": 300.0,
+        "timeout_scope": "ANN subprocess only",
+        "elapsed_seconds": 15.979416833000002
+      }
+    },
+    {
+      "method": "pynndescent",
+      "status": "ok",
+      "samples": 7352,
+      "features": 561,
+      "graph_seconds": 11.411919042000001,
+      "process_peak_rss_mib": 280.984375,
+      "audit": {
+        "performed": true,
+        "query_count": 64,
+        "population_size": 7352,
+        "strict_id_recall": 1.0,
+        "tie_aware_distance_recall": 1.0,
+        "acceptance_metric": "tie_aware_distance_recall",
+        "min_recall": 0,
+        "accepted": true,
+        "scope": "uniform queries against ALL population rows; self excluded",
+        "tie_rule": "exact float64 distance equality; strictly closer IDs remain mandatory"
+      },
+      "backend_diagnostics": {
+        "backend": "pynndescent",
+        "population_size": 7352,
+        "n_features": 561,
+        "requested_k": 15,
+        "effective_k": 15,
+        "seed": 0,
+        "metric": "euclidean",
+        "tie_break": "distance then current input row ID",
+        "edge_count": 80231,
+        "memory": {
+          "budget_bytes": 67108864,
+          "distance_block_rows": 1,
+          "distance_block_bytes": 58816,
+          "selection_scratch_allowance_bytes": 475584,
+          "estimated_workspace_bytes": 534400,
+          "scope": "parent distance/selection workspace, not total RSS or ANN worker memory",
+          "float64_input_bytes": 32995776,
+          "neighbors_bytes": 882240,
+          "edges_bytes": 1283696,
+          "edge_assembly_extra_upper_estimate_bytes": 3529920,
+          "ann_worker_memory_bounded": false,
+          "exclusions": "caller input/conversion, outputs/edge assembly, library/runtime/allocator overhead, filesystem cache, and NN-descent/Numba child process"
+        },
+        "audit": {
+          "performed": true,
+          "query_count": 64,
+          "population_size": 7352,
+          "strict_id_recall": 1.0,
+          "tie_aware_distance_recall": 1.0,
+          "acceptance_metric": "tie_aware_distance_recall",
+          "min_recall": 0.9,
+          "accepted": true,
+          "scope": "uniform queries against ALL population rows; self excluded",
+          "tie_rule": "exact float64 distance equality; strictly closer IDs remain mandatory"
+        },
+        "ann_subprocess": true,
+        "ann_worker": {
+          "child_peak_rss_mib": 345.796875,
+          "scope": "isolated ANN worker high-water RSS including imports/JIT/index/data; not a hard memory cap"
+        },
+        "candidate_neighbors": 31,
+        "timeout_seconds": 300.0,
+        "timeout_scope": "ANN subprocess only",
+        "elapsed_seconds": 11.411889917
+      }
+    }
+  ],
+  "scope": "same stored HAR train reference input; independent process per backend; RSS includes imports; ANN child RSS separately reported",
+  "publication_note": "Aggregate/provenance record. Sample IDs and per-point diagrams removed; seeds and sampling recipes retained. Raw local artifacts are not distributed."
+}

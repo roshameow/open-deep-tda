@@ -1,0 +1,15 @@
+include README.md README.zh-CN.md LICENSE THIRD_PARTY_NOTICES.md CONTRIBUTING.md SECURITY.md CMakeLists.txt
+recursive-include include *.hpp
+recursive-include src *.cpp
+recursive-include bindings *.cpp
+recursive-include assets *.svg *.png
+recursive-include configs *.json
+recursive-include tests *.py *.cpp *.md
+recursive-include examples *.py
+recursive-include benchmarks *.py *.json
+recursive-include tools *.py
+prune data
+prune outputs
+prune build
+prune dist
+global-exclude __pycache__ *.py[cod] *.so *.dylib *.o *.a *.pt *.pth *.npy *.npz

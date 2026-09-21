@@ -1,0 +1,11 @@
+{
+  "steps": 40,
+  "warmup_steps": 5,
+  "h0_size": 64,
+  "h1_size": 32,
+  "subset_bank_size": 6,
+  "evaluation_size": 32,
+  "validation_interval": 20,
+  "n_neighbors": 10,
+  "seed": 0
+}

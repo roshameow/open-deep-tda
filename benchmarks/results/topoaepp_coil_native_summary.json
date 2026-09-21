@@ -1,0 +1,76 @@
+{
+  "method": "TopoAE++ official core, native CPU/no-CGAL compile adapter",
+  "status": "ok",
+  "seed": 0,
+  "n_runs": 1,
+  "scope": "shared train960/test480 PCA64, official model and asymmetric-cascade loss; independent driver/eval-mode inference; not untouched ParaView protocol",
+  "actual_updates": 1000,
+  "fit_plus_source_ph_seconds": 508.558937001,
+  "native_runtime_peak_rss_mib": 484.171875,
+  "reload_max_error": 0,
+  "heldout_population_geometry": {
+    "trustworthiness": 0.9570753572688779,
+    "continuity": 0.983931354387203,
+    "knn_overlap": 0.5385416666666667,
+    "population_size": 1440,
+    "query_count": 256,
+    "requested_k": 15,
+    "overlap_k": 15,
+    "rank_k": 15,
+    "scope": "query rows versus all supplied population rows; self excluded; stable sample-ID ties",
+    "rank_metric_status": "defined",
+    "memory_scope": "two block_size by N float64 distance blocks plus per-row rank/order arrays",
+    "block_size": 16,
+    "limitations": "Only query rows are sampled. Semantic relevance and global topology are not implied."
+  },
+  "heldout_label_probe": {
+    "accuracy": 0.8104166666666667,
+    "balanced_accuracy": 0.8104166666666666,
+    "macro_f1": 0.7977759834284812,
+    "n_train": 960,
+    "n_test": 480,
+    "scope": "exact 15NN probe fit AFTER unsupervised reduction using training labels only; ALL official/declared test images scored"
+  },
+  "acknowledgment": "This document includes materials generated with TTK (the Topology ToolKit) which is developed by the CNRS & Sorbonne Universite and its contributors.",
+  "citation": [
+    "Topological Autoencoders++: Fast and Accurate Cycle-Aware Dimensionality Reduction (TVCG 2025)",
+    "Julien Tierny et al., The Topology ToolKit"
+  ],
+  "rotation_summary": {
+    "n_objects": 20,
+    "source_strong_h1_objects": 20,
+    "target_strong_h1_objects": 17,
+    "reference_adjacent_recall": 0.8739583333333332,
+    "embedding_adjacent_recall": 0.3875,
+    "reference_neighbor_angle_degrees": 11.645833333333334,
+    "embedding_neighbor_angle_degrees": 50.15625,
+    "mean_strict_crossings": 22.7,
+    "mean_per_object_aligned_transport": 0.08972649227740734
+  },
+  "ph_counts": {
+    "h0": [
+      1023,
+      1023
+    ],
+    "h1": [
+      317,
+      139
+    ]
+  },
+  "configuration": {
+    "model": "official ttk::AutoEncoder",
+    "architecture": "64-128-32-2",
+    "activation": "ReLU",
+    "batch_normalization": true,
+    "loss": "official ASYMMETRIC_CASCADE",
+    "lambda": 0.01,
+    "optimizer": "Adam",
+    "lr": 0.01,
+    "seed": 0,
+    "torch_threads": 1,
+    "minibatching": false,
+    "checkpoint_selection": "last update; no best-run selection",
+    "output_mode": "eval; no-grad"
+  },
+  "publication_note": "Aggregate/provenance record. Sample IDs and per-point diagrams removed; seeds and sampling recipes retained. Raw local artifacts are not distributed."
+}

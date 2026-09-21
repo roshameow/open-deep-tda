@@ -1,0 +1,39 @@
+{
+  "scope": "same learned model, CPU one thread; warm public transform including preprocessing; not training speed or accuracy",
+  "queries": 10000,
+  "features": 64,
+  "measurements": [
+    {
+      "batch_size": 256,
+      "median_seconds": 0.012065667000000113,
+      "seconds": [
+        0.011557250000000074,
+        0.010574416999999947,
+        0.01207679099999992,
+        0.012220666000000158,
+        0.012663415999999872,
+        0.012065667000000113,
+        0.011864500000000167
+      ]
+    },
+    {
+      "batch_size": 4096,
+      "median_seconds": 0.010144124999999837,
+      "seconds": [
+        0.010144124999999837,
+        0.010447125000000002,
+        0.009854332999999826,
+        0.010314291999999892,
+        0.010181624999999972,
+        0.009759749999999956,
+        0.009838333999999893
+      ]
+    }
+  ],
+  "max_abs_difference_between_batch_partitions": 0.0,
+  "full_checkpoint_bytes": 15971797,
+  "inference_checkpoint_bytes": 75217,
+  "compact_reload_max_abs_error": 0.0,
+  "privacy_note": "inference checkpoint omits training rows/coordinates/histories; learned weights/statistics are still data-derived",
+  "publication_note": "Aggregate/provenance record. Sample IDs and per-point diagrams removed; seeds and sampling recipes retained. Raw local artifacts are not distributed."
+}

@@ -1,0 +1,12 @@
+{
+  "mode": "semantic",
+  "semantic_dim": 32,
+  "semantic_steps": 200,
+  "mask_probability": 0.2,
+  "steps": 200,
+  "warmup_steps": 20,
+  "h0_size": 128,
+  "h1_size": 64,
+  "evaluation_size": 64,
+  "seed": 0
+}

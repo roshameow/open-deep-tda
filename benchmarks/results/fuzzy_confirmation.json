@@ -1,0 +1,741 @@
+{
+  "plan": {
+    "kind": "fixed-confirmation-not-search",
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "candidates": [
+      {
+        "name": "stress_none",
+        "objective": "stress",
+        "repulsion": null,
+        "topology": "none"
+      },
+      {
+        "name": "stress_weak",
+        "objective": "stress",
+        "repulsion": null,
+        "topology": "weak"
+      },
+      {
+        "name": "fuzzy_r1_none",
+        "objective": "fuzzy",
+        "repulsion": 1.0,
+        "topology": "none"
+      },
+      {
+        "name": "fuzzy_r1_weak",
+        "objective": "fuzzy",
+        "repulsion": 1.0,
+        "topology": "weak"
+      }
+    ],
+    "selected_before_test": "fuzzy_r1_none",
+    "harness": {
+      "protocol": "geometry-pilot-v1",
+      "seeds": [
+        0
+      ],
+      "steps": 400,
+      "validation_subject_ids": [
+        3,
+        8,
+        17,
+        25
+      ],
+      "data": "Only official UCI HAR TRAIN; raw 561 columns; no class labels",
+      "preprocessing": "training-fold standardization, no missing indicators; fixed positive random-pair median scalar",
+      "architecture": "shared ParametricEmbedding: PCA linear skip + 561->128->64->2 SiLU residual",
+      "pca": "exact shared training-fold PCA initialization; no validation fit",
+      "device": "cpu",
+      "threads": 1,
+      "learning_rate": 0.001,
+      "optimizer": "Adam",
+      "gradient_clip": 10.0,
+      "n_neighbors": 15,
+      "batch_edges": 256,
+      "negative_sampling": "256 uniform nonedge pairs per update; shared draws across all configurations",
+      "fuzzy_scale": "fixed median positive training kNN union-edge length",
+      "stress_delta": "same median positive training kNN union-edge length",
+      "stress_margin": "positive training kNN union-edge length 75th percentile",
+      "lambda_near": 1.0,
+      "lambda_sep_stress": 0.1,
+      "warmup_steps": 40,
+      "topology_interval": 5,
+      "h0_size": 64,
+      "h1_size": 32,
+      "subset_bank_size": 24,
+      "landmark_size": 256,
+      "topology_sampling": "fixed shared bank, rotating local/cover/random",
+      "weak_topology": {
+        "lambda_h0": 0.1,
+        "lambda_h1": 0.01,
+        "lambda_critical": 0.1
+      },
+      "topology_ramp": "min(1,(step-warmup+1)/warmup), multiplied by interval; both H0/H1 every interval",
+      "candidates": [
+        {
+          "name": "stress_weak",
+          "objective": "stress",
+          "repulsion": null,
+          "topology": "weak"
+        },
+        {
+          "name": "fuzzy_r01_none",
+          "objective": "fuzzy",
+          "repulsion": 0.1,
+          "topology": "none"
+        },
+        {
+          "name": "fuzzy_r01_weak",
+          "objective": "fuzzy",
+          "repulsion": 0.1,
+          "topology": "weak"
+        },
+        {
+          "name": "fuzzy_r1_none",
+          "objective": "fuzzy",
+          "repulsion": 1.0,
+          "topology": "none"
+        },
+        {
+          "name": "fuzzy_r1_weak",
+          "objective": "fuzzy",
+          "repulsion": 1.0,
+          "topology": "weak"
+        }
+      ],
+      "selection": "highest validation-query population kNN overlap k=15, then trustworthiness; all tradeoffs disclosed",
+      "geometry_evaluation": "256 fixed validation queries against ALL official TRAIN rows (training fold + validation); seed=917",
+      "topology_evaluation": "validation-only paired 64-point PH subsets, evaluation seeds 917/918/919; raw and globally scale-aligned",
+      "no_early_stopping": true,
+      "restrictions": "No official TEST feature access, no class labels, no final-test selection, no hidden extra candidates",
+      "harness": "standalone shared production models/losses/graph; not a DeepTDA estimator benchmark"
+    },
+    "attribution_control": "stress_none added before TEST to separate geometry from removing topology",
+    "official_test_rule": "evaluate every declared arm; never choose a new winner or retune on test",
+    "labels_rule": "labels loaded for final frozen-coordinate probes only, after ALL model fits",
+    "scope": "HAR official TRAIN7352/TEST2947; same pilot harness, not DeepTDA.fit latency; test already used in earlier project baselines, not globally untouched data"
+  },
+  "preregistration_sha256": "fc2f95cede85c8aaec5d4c092d43ba6a6ffd86075f2cfd9b8e735b4db1d5ce60",
+  "preparation": {
+    "training_rows": 7352,
+    "validation_rows": 2947,
+    "features": 561,
+    "reference_pair_scale": 30.322114944458008,
+    "fuzzy_scale_and_stress_delta": 0.42686325311660767,
+    "stress_margin": 0.5243788063526154,
+    "graph_edges": 85123,
+    "graph_seconds": 15.5648035,
+    "fuzzy_weights_seconds": 1.1520415420000027,
+    "source_topology_cache_seconds": 0.09686158300000258,
+    "common_preparation_seconds": 17.939432125,
+    "fuzzy_diagnostics": {
+      "n_samples": 7352,
+      "n_neighbors": 15,
+      "edge_count": 85123,
+      "target_directed_mass": 3.9068905956085187,
+      "directed_mass_range": [
+        3.9068905956085187,
+        3.906890595608521
+      ],
+      "rho_range": [
+        0.11534443902135486,
+        1.526754505092844
+      ],
+      "sigma_range": [
+        0.002093966538267297,
+        1.125625949938373
+      ],
+      "sigma_zero_rows": 0,
+      "unattainable_target_rows": 0,
+      "rows_with_duplicate_points": 0,
+      "weight_range": [
+        7.051138709357474e-06,
+        1.0
+      ],
+      "metric": "euclidean",
+      "symmetrization": "a+b-a*b",
+      "degenerate_rule": "sigma=0 hard limit when minimum mass >= target; no jitter",
+      "claim": "existing fuzzy-neighbor probability idea; not exact UMAP reproduction"
+    }
+  },
+  "summary": [
+    {
+      "candidate": "stress_none",
+      "runs": 3,
+      "overlap": {
+        "mean": 0.03220486111111111,
+        "std": 0.00404554867976772
+      },
+      "trustworthiness": {
+        "mean": 0.87834010477488,
+        "std": 0.0048275201439919885
+      },
+      "continuity": {
+        "mean": 0.9508641275112452,
+        "std": 0.001742830844809506
+      },
+      "test_accuracy": {
+        "mean": 0.5301436489084945,
+        "std": 0.01732346820675583
+      },
+      "h1_raw": {
+        "mean": 0.0017104285916047486,
+        "std": 0.0004779017436104856
+      },
+      "h1_aligned": {
+        "mean": 0.0004410602450130019,
+        "std": 5.0985376108213876e-05
+      }
+    },
+    {
+      "candidate": "stress_weak",
+      "runs": 3,
+      "overlap": {
+        "mean": 0.03342013888888889,
+        "std": 0.00015035163260146252
+      },
+      "trustworthiness": {
+        "mean": 0.875917532019052,
+        "std": 0.002054667276851123
+      },
+      "continuity": {
+        "mean": 0.9531554106656286,
+        "std": 0.0005278069816213343
+      },
+      "test_accuracy": {
+        "mean": 0.5520868680013573,
+        "std": 0.014763698620839523
+      },
+      "h1_raw": {
+        "mean": 0.0020150772255774787,
+        "std": 0.00045915717591154924
+      },
+      "h1_aligned": {
+        "mean": 0.00048509060263468746,
+        "std": 9.122237038143096e-05
+      }
+    },
+    {
+      "candidate": "fuzzy_r1_none",
+      "runs": 3,
+      "overlap": {
+        "mean": 0.03828125,
+        "std": 0.0017076662823703166
+      },
+      "trustworthiness": {
+        "mean": 0.8943199465583236,
+        "std": 0.0025716546359895597
+      },
+      "continuity": {
+        "mean": 0.9591150310459107,
+        "std": 0.0015076079251699244
+      },
+      "test_accuracy": {
+        "mean": 0.602420540662821,
+        "std": 0.019199296362600374
+      },
+      "h1_raw": {
+        "mean": 0.017399708802527787,
+        "std": 0.002308225391379869
+      },
+      "h1_aligned": {
+        "mean": 0.00039856545373981615,
+        "std": 2.726127170371638e-05
+      }
+    },
+    {
+      "candidate": "fuzzy_r1_weak",
+      "runs": 3,
+      "overlap": {
+        "mean": 0.03576388888888889,
+        "std": 0.003535661780280605
+      },
+      "trustworthiness": {
+        "mean": 0.8866049803209204,
+        "std": 0.0025553616138231806
+      },
+      "continuity": {
+        "mean": 0.9558658963982959,
+        "std": 0.00028239548679797737
+      },
+      "test_accuracy": {
+        "mean": 0.5795724465558195,
+        "std": 0.010247484812040334
+      },
+      "h1_raw": {
+        "mean": 0.009775421355778833,
+        "std": 0.002325005873339908
+      },
+      "h1_aligned": {
+        "mean": 0.00040528570022433,
+        "std": 5.9801960158962875e-05
+      }
+    }
+  ],
+  "per_run": [
+    {
+      "candidate": "stress_none",
+      "seed": 0,
+      "status": "ok",
+      "population_geometry": {
+        "trustworthiness": 0.8740863875778513,
+        "continuity": 0.9501764832295316,
+        "knn_overlap": 0.036718749999999994,
+        "population_size": 10299,
+        "query_count": 256,
+        "requested_k": 15,
+        "scope": "query rows versus all supplied population rows; self excluded; stable sample-ID ties"
+      },
+      "test_subset_mean": {
+        "scale_alignment": 0.4344910760261444,
+        "raw_stress": 1.2820914298391555,
+        "aligned_stress": 0.2693472913922928,
+        "h0_raw_normalized_cost": 0.07074542006577438,
+        "h0_scale_aligned_normalized_cost": 0.1301932888936167,
+        "h0_raw_bottleneck": 0.2988339447836776,
+        "h0_scale_aligned_bottleneck": 0.4591777986516015,
+        "h0_source_bars": 63.0,
+        "h0_target_bars": 63.0,
+        "h0_raw_long_source_unmatched_fraction": 0.020833333333333332,
+        "h1_raw_normalized_cost": 0.0014137028842162048,
+        "h1_scale_aligned_normalized_cost": 0.0004063508732541291,
+        "h1_raw_bottleneck": 0.07201536102175417,
+        "h1_scale_aligned_bottleneck": 0.03158783462482486,
+        "h1_source_bars": 14.333333333333334,
+        "h1_target_bars": 7.666666666666667,
+        "h1_raw_long_source_unmatched_fraction": 0.6833333333333332
+      },
+      "probe": {
+        "test_accuracy": 0.5218866644044792,
+        "test_macro_f1": 0.5205453643350683,
+        "scope": "labels first parsed after all fits; diagnostic, not selection"
+      }
+    },
+    {
+      "candidate": "stress_weak",
+      "seed": 0,
+      "status": "ok",
+      "population_geometry": {
+        "trustworthiness": 0.8736885147025432,
+        "continuity": 0.9536912972784481,
+        "knn_overlap": 0.03333333333333334,
+        "population_size": 10299,
+        "query_count": 256,
+        "requested_k": 15,
+        "scope": "query rows versus all supplied population rows; self excluded; stable sample-ID ties"
+      },
+      "test_subset_mean": {
+        "scale_alignment": 0.4198645404255288,
+        "raw_stress": 1.358422255708323,
+        "aligned_stress": 0.2650090217458208,
+        "h0_raw_normalized_cost": 0.06430152157348813,
+        "h0_scale_aligned_normalized_cost": 0.12860263181586765,
+        "h0_raw_bottleneck": 0.36276264635190697,
+        "h0_scale_aligned_bottleneck": 0.4459778824493735,
+        "h0_source_bars": 63.0,
+        "h0_target_bars": 63.0,
+        "h0_raw_long_source_unmatched_fraction": 0.0,
+        "h1_raw_normalized_cost": 0.0025412660103015816,
+        "h1_scale_aligned_normalized_cost": 0.0005899549075200971,
+        "h1_raw_bottleneck": 0.09400140322013566,
+        "h1_scale_aligned_bottleneck": 0.039456632444582605,
+        "h1_source_bars": 14.333333333333334,
+        "h1_target_bars": 9.333333333333334,
+        "h1_raw_long_source_unmatched_fraction": 0.6833333333333332
+      },
+      "probe": {
+        "test_accuracy": 0.5670173057346454,
+        "test_macro_f1": 0.5656571539784688,
+        "scope": "labels first parsed after all fits; diagnostic, not selection"
+      }
+    },
+    {
+      "candidate": "fuzzy_r1_none",
+      "seed": 0,
+      "status": "ok",
+      "population_geometry": {
+        "trustworthiness": 0.892964771271247,
+        "continuity": 0.9574114593470222,
+        "knn_overlap": 0.036718749999999994,
+        "population_size": 10299,
+        "query_count": 256,
+        "requested_k": 15,
+        "scope": "query rows versus all supplied population rows; self excluded; stable sample-ID ties"
+      },
+      "test_subset_mean": {
+        "scale_alignment": 0.12261146238396965,
+        "raw_stress": 6.803967665166515,
+        "aligned_stress": 0.31282734029623865,
+        "h0_raw_normalized_cost": 0.21597999179723223,
+        "h0_scale_aligned_normalized_cost": 0.13663213085622927,
+        "h0_raw_bottleneck": 1.9106132390348751,
+        "h0_scale_aligned_bottleneck": 0.4467371812472622,
+        "h0_source_bars": 63.0,
+        "h0_target_bars": 63.0,
+        "h0_raw_long_source_unmatched_fraction": 0.0,
+        "h1_raw_normalized_cost": 0.014819382307354594,
+        "h1_scale_aligned_normalized_cost": 0.0003772582699706674,
+        "h1_raw_bottleneck": 0.23637703614489194,
+        "h1_scale_aligned_bottleneck": 0.02901702586442395,
+        "h1_source_bars": 14.333333333333334,
+        "h1_target_bars": 8.333333333333334,
+        "h1_raw_long_source_unmatched_fraction": 0.9333333333333332
+      },
+      "probe": {
+        "test_accuracy": 0.5863590091618596,
+        "test_macro_f1": 0.578850630257071,
+        "scope": "labels first parsed after all fits; diagnostic, not selection"
+      }
+    },
+    {
+      "candidate": "fuzzy_r1_weak",
+      "seed": 0,
+      "status": "ok",
+      "population_geometry": {
+        "trustworthiness": 0.8839625046629688,
+        "continuity": 0.9558311944498508,
+        "knn_overlap": 0.03984375,
+        "population_size": 10299,
+        "query_count": 256,
+        "requested_k": 15,
+        "scope": "query rows versus all supplied population rows; self excluded; stable sample-ID ties"
+      },
+      "test_subset_mean": {
+        "scale_alignment": 0.16188909057757825,
+        "raw_stress": 4.947742335943928,
+        "aligned_stress": 0.3000351363114073,
+        "h0_raw_normalized_cost": 0.0974184039838299,
+        "h0_scale_aligned_normalized_cost": 0.1344631553015113,
+        "h0_raw_bottleneck": 1.1374546510305732,
+        "h0_scale_aligned_bottleneck": 0.4676782994519377,
+        "h0_source_bars": 63.0,
+        "h0_target_bars": 63.0,
+        "h0_raw_long_source_unmatched_fraction": 0.0,
+        "h1_raw_normalized_cost": 0.01001441050914729,
+        "h1_scale_aligned_normalized_cost": 0.00043186428740147237,
+        "h1_raw_bottleneck": 0.15313769118020104,
+        "h1_scale_aligned_bottleneck": 0.025555945355300425,
+        "h1_source_bars": 14.333333333333334,
+        "h1_target_bars": 10.666666666666666,
+        "h1_raw_long_source_unmatched_fraction": 0.5333333333333333
+      },
+      "probe": {
+        "test_accuracy": 0.5687139463861555,
+        "test_macro_f1": 0.5667622405105366,
+        "scope": "labels first parsed after all fits; diagnostic, not selection"
+      }
+    },
+    {
+      "candidate": "stress_none",
+      "seed": 1,
+      "status": "ok",
+      "population_geometry": {
+        "trustworthiness": 0.8773469684621124,
+        "continuity": 0.9495700185302323,
+        "knn_overlap": 0.030989583333333334,
+        "population_size": 10299,
+        "query_count": 256,
+        "requested_k": 15,
+        "scope": "query rows versus all supplied population rows; self excluded; stable sample-ID ties"
+      },
+      "test_subset_mean": {
+        "scale_alignment": 0.4114295133169179,
+        "raw_stress": 1.4022341720621185,
+        "aligned_stress": 0.2769035621086539,
+        "h0_raw_normalized_cost": 0.07245327401939416,
+        "h0_scale_aligned_normalized_cost": 0.13202744047717355,
+        "h0_raw_bottleneck": 0.32152159543862674,
+        "h0_scale_aligned_bottleneck": 0.4637965804647331,
+        "h0_source_bars": 63.0,
+        "h0_target_bars": 63.0,
+        "h0_raw_long_source_unmatched_fraction": 0.0,
+        "h1_raw_normalized_cost": 0.0022617250223027478,
+        "h1_scale_aligned_normalized_cost": 0.0004995968833834786,
+        "h1_raw_bottleneck": 0.08631056512665071,
+        "h1_scale_aligned_bottleneck": 0.039171666339189136,
+        "h1_source_bars": 14.333333333333334,
+        "h1_target_bars": 10.0,
+        "h1_raw_long_source_unmatched_fraction": 0.9166666666666666
+      },
+      "probe": {
+        "test_accuracy": 0.5184933831014591,
+        "test_macro_f1": 0.5143891716479466,
+        "scope": "labels first parsed after all fits; diagnostic, not selection"
+      }
+    },
+    {
+      "candidate": "stress_weak",
+      "seed": 1,
+      "status": "ok",
+      "population_geometry": {
+        "trustworthiness": 0.8763282871902167,
+        "continuity": 0.9526360725233554,
+        "knn_overlap": 0.03333333333333333,
+        "population_size": 10299,
+        "query_count": 256,
+        "requested_k": 15,
+        "scope": "query rows versus all supplied population rows; self excluded; stable sample-ID ties"
+      },
+      "test_subset_mean": {
+        "scale_alignment": 0.41277723457407006,
+        "raw_stress": 1.3963342315093723,
+        "aligned_stress": 0.2689939095826213,
+        "h0_raw_normalized_cost": 0.06324565342489244,
+        "h0_scale_aligned_normalized_cost": 0.1289167347199552,
+        "h0_raw_bottleneck": 0.30231406201449057,
+        "h0_scale_aligned_bottleneck": 0.46450901959486685,
+        "h0_source_bars": 63.0,
+        "h0_target_bars": 63.0,
+        "h0_raw_long_source_unmatched_fraction": 0.0,
+        "h1_raw_normalized_cost": 0.0016956859921495374,
+        "h1_scale_aligned_normalized_cost": 0.00044126827183251974,
+        "h1_raw_bottleneck": 0.06695935231329864,
+        "h1_scale_aligned_bottleneck": 0.028932881185995768,
+        "h1_source_bars": 14.333333333333334,
+        "h1_target_bars": 9.333333333333334,
+        "h1_raw_long_source_unmatched_fraction": 0.7666666666666666
+      },
+      "probe": {
+        "test_accuracy": 0.5517475398710553,
+        "test_macro_f1": 0.5506382930426456,
+        "scope": "labels first parsed after all fits; diagnostic, not selection"
+      }
+    },
+    {
+      "candidate": "fuzzy_r1_none",
+      "seed": 1,
+      "status": "ok",
+      "population_geometry": {
+        "trustworthiness": 0.897285772065979,
+        "continuity": 0.9602770817114312,
+        "knn_overlap": 0.03802083333333334,
+        "population_size": 10299,
+        "query_count": 256,
+        "requested_k": 15,
+        "scope": "query rows versus all supplied population rows; self excluded; stable sample-ID ties"
+      },
+      "test_subset_mean": {
+        "scale_alignment": 0.1192911883734679,
+        "raw_stress": 7.014934606207897,
+        "aligned_stress": 0.31470235754202874,
+        "h0_raw_normalized_cost": 0.2695702874346226,
+        "h0_scale_aligned_normalized_cost": 0.13499480173799971,
+        "h0_raw_bottleneck": 1.9612489787062142,
+        "h0_scale_aligned_bottleneck": 0.4467371812472622,
+        "h0_source_bars": 63.0,
+        "h0_target_bars": 63.0,
+        "h0_raw_long_source_unmatched_fraction": 0.0,
+        "h1_raw_normalized_cost": 0.019268094188346022,
+        "h1_scale_aligned_normalized_cost": 0.0004292859306535783,
+        "h1_raw_bottleneck": 0.2580812267473536,
+        "h1_scale_aligned_bottleneck": 0.033579292728565975,
+        "h1_source_bars": 14.333333333333334,
+        "h1_target_bars": 9.333333333333334,
+        "h1_raw_long_source_unmatched_fraction": 0.9166666666666666
+      },
+      "probe": {
+        "test_accuracy": 0.6236851034950798,
+        "test_macro_f1": 0.6125470195017703,
+        "scope": "labels first parsed after all fits; diagnostic, not selection"
+      }
+    },
+    {
+      "candidate": "fuzzy_r1_weak",
+      "seed": 1,
+      "status": "ok",
+      "population_geometry": {
+        "trustworthiness": 0.8890632602666407,
+        "continuity": 0.9556024555598807,
+        "knn_overlap": 0.033854166666666664,
+        "population_size": 10299,
+        "query_count": 256,
+        "requested_k": 15,
+        "scope": "query rows versus all supplied population rows; self excluded; stable sample-ID ties"
+      },
+      "test_subset_mean": {
+        "scale_alignment": 0.1582012250166015,
+        "raw_stress": 5.074854565473802,
+        "aligned_stress": 0.30613199533674473,
+        "h0_raw_normalized_cost": 0.09641580146878996,
+        "h0_scale_aligned_normalized_cost": 0.13535828218245957,
+        "h0_raw_bottleneck": 1.2721078501497571,
+        "h0_scale_aligned_bottleneck": 0.46742714209540415,
+        "h0_source_bars": 63.0,
+        "h0_target_bars": 63.0,
+        "h0_raw_long_source_unmatched_fraction": 0.0,
+        "h1_raw_normalized_cost": 0.01197170212430714,
+        "h1_scale_aligned_normalized_cost": 0.0004471911388717654,
+        "h1_raw_bottleneck": 0.16126986292655296,
+        "h1_scale_aligned_bottleneck": 0.027542137028957806,
+        "h1_source_bars": 14.333333333333334,
+        "h1_target_bars": 10.333333333333334,
+        "h1_raw_long_source_unmatched_fraction": 0.85
+      },
+      "probe": {
+        "test_accuracy": 0.5890736342042755,
+        "test_macro_f1": 0.5816064188730942,
+        "scope": "labels first parsed after all fits; diagnostic, not selection"
+      }
+    },
+    {
+      "candidate": "stress_none",
+      "seed": 2,
+      "status": "ok",
+      "population_geometry": {
+        "trustworthiness": 0.8835869582846763,
+        "continuity": 0.9528458807739717,
+        "knn_overlap": 0.02890625,
+        "population_size": 10299,
+        "query_count": 256,
+        "requested_k": 15,
+        "scope": "query rows versus all supplied population rows; self excluded; stable sample-ID ties"
+      },
+      "test_subset_mean": {
+        "scale_alignment": 0.39152075816269205,
+        "raw_stress": 1.5174967177442589,
+        "aligned_stress": 0.28204173652122094,
+        "h0_raw_normalized_cost": 0.06686246374907438,
+        "h0_scale_aligned_normalized_cost": 0.13349533374234174,
+        "h0_raw_bottleneck": 0.3095998911129478,
+        "h0_scale_aligned_bottleneck": 0.47002684946234874,
+        "h0_source_bars": 63.0,
+        "h0_target_bars": 63.0,
+        "h0_raw_long_source_unmatched_fraction": 0.0,
+        "h1_raw_normalized_cost": 0.0014558578682952936,
+        "h1_scale_aligned_normalized_cost": 0.0004172329784013981,
+        "h1_raw_bottleneck": 0.06613039087343865,
+        "h1_scale_aligned_bottleneck": 0.028052790265067035,
+        "h1_source_bars": 14.333333333333334,
+        "h1_target_bars": 9.333333333333334,
+        "h1_raw_long_source_unmatched_fraction": 0.5333333333333333
+      },
+      "probe": {
+        "test_accuracy": 0.5500508992195453,
+        "test_macro_f1": 0.5452026779350012,
+        "scope": "labels first parsed after all fits; diagnostic, not selection"
+      }
+    },
+    {
+      "candidate": "stress_weak",
+      "seed": 2,
+      "status": "ok",
+      "population_geometry": {
+        "trustworthiness": 0.877735794164396,
+        "continuity": 0.9531388621950824,
+        "knn_overlap": 0.03359375,
+        "population_size": 10299,
+        "query_count": 256,
+        "requested_k": 15,
+        "scope": "query rows versus all supplied population rows; self excluded; stable sample-ID ties"
+      },
+      "test_subset_mean": {
+        "scale_alignment": 0.39538765859536174,
+        "raw_stress": 1.4973888694520074,
+        "aligned_stress": 0.268061608538761,
+        "h0_raw_normalized_cost": 0.062452374784800695,
+        "h0_scale_aligned_normalized_cost": 0.13062115225136608,
+        "h0_raw_bottleneck": 0.28844917605742215,
+        "h0_scale_aligned_bottleneck": 0.47002684946234874,
+        "h0_source_bars": 63.0,
+        "h0_target_bars": 63.0,
+        "h0_raw_long_source_unmatched_fraction": 0.0,
+        "h1_raw_normalized_cost": 0.0018082796742813166,
+        "h1_scale_aligned_normalized_cost": 0.00042404862855144554,
+        "h1_raw_bottleneck": 0.0758457563896494,
+        "h1_scale_aligned_bottleneck": 0.02855821389128589,
+        "h1_source_bars": 14.333333333333334,
+        "h1_target_bars": 11.666666666666666,
+        "h1_raw_long_source_unmatched_fraction": 0.5333333333333333
+      },
+      "probe": {
+        "test_accuracy": 0.5374957583983713,
+        "test_macro_f1": 0.5359841523202645,
+        "scope": "labels first parsed after all fits; diagnostic, not selection"
+      }
+    },
+    {
+      "candidate": "fuzzy_r1_none",
+      "seed": 2,
+      "status": "ok",
+      "population_geometry": {
+        "trustworthiness": 0.8927092963377449,
+        "continuity": 0.9596565520792786,
+        "knn_overlap": 0.04010416666666667,
+        "population_size": 10299,
+        "query_count": 256,
+        "requested_k": 15,
+        "scope": "query rows versus all supplied population rows; self excluded; stable sample-ID ties"
+      },
+      "test_subset_mean": {
+        "scale_alignment": 0.11393816848484027,
+        "raw_stress": 7.380918491758571,
+        "aligned_stress": 0.31761402925183524,
+        "h0_raw_normalized_cost": 0.28405303656206266,
+        "h0_scale_aligned_normalized_cost": 0.13562698739526063,
+        "h0_raw_bottleneck": 2.0117465028611434,
+        "h0_scale_aligned_bottleneck": 0.4467371812472622,
+        "h0_source_bars": 63.0,
+        "h0_target_bars": 63.0,
+        "h0_raw_long_source_unmatched_fraction": 0.0,
+        "h1_raw_normalized_cost": 0.018111649911882747,
+        "h1_scale_aligned_normalized_cost": 0.00038915216059520275,
+        "h1_raw_bottleneck": 0.21213044710026327,
+        "h1_scale_aligned_bottleneck": 0.024733192268662777,
+        "h1_source_bars": 14.333333333333334,
+        "h1_target_bars": 9.333333333333334,
+        "h1_raw_long_source_unmatched_fraction": 0.9166666666666666
+      },
+      "probe": {
+        "test_accuracy": 0.5972175093315236,
+        "test_macro_f1": 0.5943475901860387,
+        "scope": "labels first parsed after all fits; diagnostic, not selection"
+      }
+    },
+    {
+      "candidate": "fuzzy_r1_weak",
+      "seed": 2,
+      "status": "ok",
+      "population_geometry": {
+        "trustworthiness": 0.8867891760331517,
+        "continuity": 0.9561640391851564,
+        "knn_overlap": 0.033593750000000006,
+        "population_size": 10299,
+        "query_count": 256,
+        "requested_k": 15,
+        "scope": "query rows versus all supplied population rows; self excluded; stable sample-ID ties"
+      },
+      "test_subset_mean": {
+        "scale_alignment": 0.1547797611797116,
+        "raw_stress": 5.199310540428912,
+        "aligned_stress": 0.3110044375264274,
+        "h0_raw_normalized_cost": 0.09589946271088519,
+        "h0_scale_aligned_normalized_cost": 0.1357112398525536,
+        "h0_raw_bottleneck": 1.147157977706522,
+        "h0_scale_aligned_bottleneck": 0.47002684946234874,
+        "h0_source_bars": 63.0,
+        "h0_target_bars": 63.0,
+        "h0_raw_long_source_unmatched_fraction": 0.0,
+        "h1_raw_normalized_cost": 0.007340151433882068,
+        "h1_scale_aligned_normalized_cost": 0.0003368016743997522,
+        "h1_raw_bottleneck": 0.14155938124576462,
+        "h1_scale_aligned_bottleneck": 0.023592297158447854,
+        "h1_source_bars": 14.333333333333334,
+        "h1_target_bars": 9.0,
+        "h1_raw_long_source_unmatched_fraction": 0.85
+      },
+      "probe": {
+        "test_accuracy": 0.5809297590770275,
+        "test_macro_f1": 0.5755428163600638,
+        "scope": "labels first parsed after all fits; diagnostic, not selection"
+      }
+    }
+  ],
+  "selected_before_test": "fuzzy_r1_none",
+  "no_test_based_reselection": true,
+  "scope": "fixed standalone pilot harness, not estimator end-to-end latency; prior official-test benchmarks exist; no universal or topology-preservation gain claimed",
+  "publication_note": "Aggregate/provenance record. Sample IDs and per-point diagrams removed; seeds and sampling recipes retained. Raw local artifacts are not distributed."
+}

@@ -1,0 +1,11 @@
+[build-system]
+requires = ["setuptools>=59", "wheel", "pybind11>=2.12"]
+build-backend = "setuptools.build_meta"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+norecursedirs = ["cpp"]
+addopts = "-ra"
+
+[tool.ruff]
+line-length = 100

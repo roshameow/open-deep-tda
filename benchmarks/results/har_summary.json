@@ -1,0 +1,735 @@
+{
+  "protocol": {
+    "dataset": {
+      "name": "UCI HAR original 561-feature dataset",
+      "url": "https://archive.ics.uci.edu/static/public/240/human+activity+recognition+using+smartphones.zip",
+      "archive_sha256": "c00b803081a5c797cd5e4b83700a9810b38d53d9d84e01917e090e1fdbc81031",
+      "digest_kind": "observed download checksum",
+      "citation": "Reyes-Ortiz et al. (2013), Human Activity Recognition Using Smartphones, UCI, DOI:10.24432/C54S4K",
+      "license": "CC BY 4.0 per UCI dataset page",
+      "train_subjects": [
+        1,
+        3,
+        5,
+        6,
+        7,
+        8,
+        11,
+        14,
+        15,
+        16,
+        17,
+        19,
+        21,
+        22,
+        23,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
+      "test_subjects": [
+        2,
+        4,
+        9,
+        10,
+        12,
+        13,
+        18,
+        20,
+        24
+      ],
+      "split": "official subject-disjoint split; not shuffled overlapping-window splitting"
+    },
+    "feature_sha256": "c774fc0dedd14be8b5905fdd12d4c5ac168e8015d87b73e5af01660cfe8e915c",
+    "train_only_distance_scale": 9.57405295823917,
+    "reference": "all original 561 UCI features / fixed train-only median distance; no PCA, no learned reference",
+    "train_size": 7352,
+    "test_size": 2947,
+    "steps": 600,
+    "official_topoae_epochs": 20,
+    "queries": 256,
+    "ph_sizes": [
+      128,
+      512,
+      1024
+    ],
+    "evaluation_seed": 2026,
+    "selection": "fixed untuned configurations; no official-test-based model or parameter selection",
+    "protocol_limitations": "different architectures and optimization schedules are not equal compute; not a paper reproduction or leaderboard"
+  },
+  "std_definition": "sample standard deviation across optimizer seeds (ddof=1), not a generalization confidence interval",
+  "scope": "fixed official HAR split and fixed evaluation IDs; no test-based tuning; unequal architectures/compute",
+  "summary": [
+    {
+      "method": "pca",
+      "n_runs": 5,
+      "trustworthiness": {
+        "mean": 0.8860664919067082,
+        "std": 0.0
+      },
+      "continuity": {
+        "mean": 0.9513750182463994,
+        "std": 0.0
+      },
+      "knn_overlap": {
+        "mean": 0.040625,
+        "std": 0.0
+      },
+      "test_accuracy": {
+        "mean": 0.5704105870376655,
+        "std": 0.0
+      },
+      "test_macro_f1": {
+        "mean": 0.5685342236774613,
+        "std": 0.0
+      },
+      "h1_aligned_cost_1024": {
+        "mean": 0.00019805254847548608,
+        "std": 0.0
+      },
+      "h1_top20_unmatched_1024": {
+        "mean": 1.0,
+        "std": 0.0
+      },
+      "fit_seconds": {
+        "mean": 0.32910322519999996,
+        "std": 0.003353201780094194
+      },
+      "process_peak_rss_mib": {
+        "mean": 175.228125,
+        "std": 2.4444162694675184
+      }
+    },
+    {
+      "method": "deep_tda",
+      "n_runs": 5,
+      "trustworthiness": {
+        "mean": 0.9076265387796808,
+        "std": 0.0017894092866504593
+      },
+      "continuity": {
+        "mean": 0.9631135605212794,
+        "std": 0.001093793688218264
+      },
+      "knn_overlap": {
+        "mean": 0.04546875,
+        "std": 0.003181989040438737
+      },
+      "test_accuracy": {
+        "mean": 0.6777740074652189,
+        "std": 0.01256568308026048
+      },
+      "test_macro_f1": {
+        "mean": 0.6694999182822405,
+        "std": 0.013951409028829525
+      },
+      "h1_aligned_cost_1024": {
+        "mean": 0.00022023529341652425,
+        "std": 4.146248845418668e-06
+      },
+      "h1_top20_unmatched_1024": {
+        "mean": 0.98,
+        "std": 0.02738612787525833
+      },
+      "fit_seconds": {
+        "mean": 15.1103173334,
+        "std": 0.14811949134562533
+      },
+      "process_peak_rss_mib": {
+        "mean": 1952.209375,
+        "std": 2.455651565140095
+      }
+    },
+    {
+      "method": "no_h1",
+      "n_runs": 5,
+      "trustworthiness": {
+        "mean": 0.9091984610175814,
+        "std": 0.002174975916955994
+      },
+      "continuity": {
+        "mean": 0.9638527475022707,
+        "std": 0.0011315572900014008
+      },
+      "knn_overlap": {
+        "mean": 0.045781249999999996,
+        "std": 0.0030111644832421353
+      },
+      "test_accuracy": {
+        "mean": 0.689650492025789,
+        "std": 0.013011364482442087
+      },
+      "test_macro_f1": {
+        "mean": 0.6809847110219994,
+        "std": 0.014343708444553615
+      },
+      "h1_aligned_cost_1024": {
+        "mean": 0.00022031020744274607,
+        "std": 8.639656869850972e-06
+      },
+      "h1_top20_unmatched_1024": {
+        "mean": 0.97,
+        "std": 0.02738612787525833
+      },
+      "fit_seconds": {
+        "mean": 8.7199769502,
+        "std": 0.08815802323451284
+      },
+      "process_peak_rss_mib": {
+        "mean": 1616.33125,
+        "std": 5.790126209629416
+      }
+    },
+    {
+      "method": "upstream_topoae",
+      "n_runs": 5,
+      "trustworthiness": {
+        "mean": 0.9237263911865836,
+        "std": 0.004160635435806238
+      },
+      "continuity": {
+        "mean": 0.9737171666180096,
+        "std": 0.0005923512031393829
+      },
+      "knn_overlap": {
+        "mean": 0.05916666666666666,
+        "std": 0.004288581010466439
+      },
+      "test_accuracy": {
+        "mean": 0.758805564981337,
+        "std": 0.031482080517155814
+      },
+      "test_macro_f1": {
+        "mean": 0.74984413702632,
+        "std": 0.02945490219779531
+      },
+      "h1_aligned_cost_1024": {
+        "mean": 0.00023029025459030047,
+        "std": 6.339072951554084e-06
+      },
+      "h1_top20_unmatched_1024": {
+        "mean": 1.0,
+        "std": 0.0
+      },
+      "fit_seconds": {
+        "mean": 55.3454594914,
+        "std": 1.2784262789622363
+      },
+      "process_peak_rss_mib": {
+        "mean": 525.63125,
+        "std": 11.912884675386666
+      }
+    },
+    {
+      "method": "umap",
+      "n_runs": 5,
+      "trustworthiness": {
+        "mean": 0.9645639414655508,
+        "std": 0.0019962790676820987
+      },
+      "continuity": {
+        "mean": 0.9487638165790839,
+        "std": 0.0036839595292895836
+      },
+      "knn_overlap": {
+        "mean": 0.13552083333333334,
+        "std": 0.004550217724110085
+      },
+      "test_accuracy": {
+        "mean": 0.861689854088904,
+        "std": 0.0026020073990744566
+      },
+      "test_macro_f1": {
+        "mean": 0.8577987954816155,
+        "std": 0.002595717063721914
+      },
+      "h1_aligned_cost_1024": {
+        "mean": 0.0001857408352301384,
+        "std": 2.387938416225703e-06
+      },
+      "h1_top20_unmatched_1024": {
+        "mean": 0.94,
+        "std": 0.04183300132670376
+      },
+      "fit_seconds": {
+        "mean": 16.0311125998,
+        "std": 0.1402241528421092
+      },
+      "process_peak_rss_mib": {
+        "mean": 408.634375,
+        "std": 6.0910009824945845
+      }
+    }
+  ],
+  "per_run": [
+    {
+      "method": "pca",
+      "seed": 0,
+      "status": "ok",
+      "trustworthiness": 0.8860664919067082,
+      "continuity": 0.9513750182463994,
+      "knn_overlap": 0.040625,
+      "test_accuracy": 0.5704105870376655,
+      "test_macro_f1": 0.5685342236774613,
+      "h1_aligned_cost_1024": 0.00019805254847548608,
+      "h1_top20_unmatched_1024": 1.0,
+      "fit_seconds": 0.33213383400000007,
+      "process_peak_rss_mib": 173.734375
+    },
+    {
+      "method": "deep_tda",
+      "seed": 0,
+      "status": "ok",
+      "trustworthiness": 0.9069840881260542,
+      "continuity": 0.9627550187735175,
+      "knn_overlap": 0.04036458333333333,
+      "test_accuracy": 0.6871394638615541,
+      "test_macro_f1": 0.6784685180116318,
+      "h1_aligned_cost_1024": 0.00021846242967254103,
+      "h1_top20_unmatched_1024": 1.0,
+      "fit_seconds": 15.056051625,
+      "process_peak_rss_mib": 1948.5625,
+      "training_coverage": {
+        "n_training_samples": 7352,
+        "optimizer_steps": 600,
+        "geometry_unique_samples": 7352,
+        "h0_unique_samples": 3962,
+        "h1_unique_samples": 2766,
+        "h0_updates": 540,
+        "h1_updates": 108,
+        "h1_fraction": 0.3762241566920566,
+        "definition": "unique sample IDs present in active loss subsets; not proof of nonzero per-sample gradients; steps are not epochs"
+      }
+    },
+    {
+      "method": "no_h1",
+      "seed": 0,
+      "status": "ok",
+      "trustworthiness": 0.90642906813611,
+      "continuity": 0.963243363379071,
+      "knn_overlap": 0.04244791666666667,
+      "test_accuracy": 0.6993552765524262,
+      "test_macro_f1": 0.6880698019539664,
+      "h1_aligned_cost_1024": 0.00022934362448947938,
+      "h1_top20_unmatched_1024": 0.95,
+      "fit_seconds": 8.643402834,
+      "process_peak_rss_mib": 1613.265625,
+      "training_coverage": {
+        "n_training_samples": 7352,
+        "optimizer_steps": 600,
+        "geometry_unique_samples": 7352,
+        "h0_unique_samples": 3962,
+        "h1_unique_samples": 0,
+        "h0_updates": 540,
+        "h1_updates": 0,
+        "h1_fraction": 0.0,
+        "definition": "unique sample IDs present in active loss subsets; not proof of nonzero per-sample gradients; steps are not epochs"
+      }
+    },
+    {
+      "method": "upstream_topoae",
+      "seed": 0,
+      "status": "ok",
+      "trustworthiness": 0.9261540594183859,
+      "continuity": 0.9735597001913845,
+      "knn_overlap": 0.05885416666666666,
+      "test_accuracy": 0.7835086528673227,
+      "test_macro_f1": 0.7726661424951354,
+      "h1_aligned_cost_1024": 0.0002354063192766857,
+      "h1_top20_unmatched_1024": 1.0,
+      "fit_seconds": 54.177410041,
+      "process_peak_rss_mib": 507.78125,
+      "upstream_commit": "203e94a69c5f9cda049b9c3985b7c2b1e39ca922"
+    },
+    {
+      "method": "umap",
+      "seed": 0,
+      "status": "ok",
+      "trustworthiness": 0.9646791776145063,
+      "continuity": 0.946799226758142,
+      "knn_overlap": 0.13645833333333335,
+      "test_accuracy": 0.8656260604004072,
+      "test_macro_f1": 0.861891504545834,
+      "h1_aligned_cost_1024": 0.00018382374498590693,
+      "h1_top20_unmatched_1024": 0.95,
+      "fit_seconds": 16.233235625,
+      "process_peak_rss_mib": 412.828125
+    },
+    {
+      "method": "pca",
+      "seed": 1,
+      "status": "ok",
+      "trustworthiness": 0.8860664919067082,
+      "continuity": 0.9513750182463994,
+      "knn_overlap": 0.040625,
+      "test_accuracy": 0.5704105870376655,
+      "test_macro_f1": 0.5685342236774613,
+      "h1_aligned_cost_1024": 0.00019805254847548608,
+      "h1_top20_unmatched_1024": 1.0,
+      "fit_seconds": 0.32625775,
+      "process_peak_rss_mib": 173.6875
+    },
+    {
+      "method": "deep_tda",
+      "seed": 1,
+      "status": "ok",
+      "trustworthiness": 0.9076733712047489,
+      "continuity": 0.9640716992263527,
+      "knn_overlap": 0.0484375,
+      "test_accuracy": 0.66440447913132,
+      "test_macro_f1": 0.6543817210172688,
+      "h1_aligned_cost_1024": 0.00022156685762059753,
+      "h1_top20_unmatched_1024": 1.0,
+      "fit_seconds": 15.070844916999999,
+      "process_peak_rss_mib": 1954.1875,
+      "training_coverage": {
+        "n_training_samples": 7352,
+        "optimizer_steps": 600,
+        "geometry_unique_samples": 7352,
+        "h0_unique_samples": 3868,
+        "h1_unique_samples": 2648,
+        "h0_updates": 540,
+        "h1_updates": 108,
+        "h1_fraction": 0.3601741022850925,
+        "definition": "unique sample IDs present in active loss subsets; not proof of nonzero per-sample gradients; steps are not epochs"
+      }
+    },
+    {
+      "method": "no_h1",
+      "seed": 1,
+      "status": "ok",
+      "trustworthiness": 0.9125176888705073,
+      "continuity": 0.965246361870702,
+      "knn_overlap": 0.04895833333333333,
+      "test_accuracy": 0.6827281981676281,
+      "test_macro_f1": 0.6736232046127716,
+      "h1_aligned_cost_1024": 0.00022077410208448534,
+      "h1_top20_unmatched_1024": 1.0,
+      "fit_seconds": 8.684591334,
+      "process_peak_rss_mib": 1614.640625,
+      "training_coverage": {
+        "n_training_samples": 7352,
+        "optimizer_steps": 600,
+        "geometry_unique_samples": 7352,
+        "h0_unique_samples": 3868,
+        "h1_unique_samples": 0,
+        "h0_updates": 540,
+        "h1_updates": 0,
+        "h1_fraction": 0.0,
+        "definition": "unique sample IDs present in active loss subsets; not proof of nonzero per-sample gradients; steps are not epochs"
+      }
+    },
+    {
+      "method": "upstream_topoae",
+      "seed": 1,
+      "status": "ok",
+      "trustworthiness": 0.9272934710328273,
+      "continuity": 0.9735594467691708,
+      "knn_overlap": 0.06302083333333333,
+      "test_accuracy": 0.7729894808279606,
+      "test_macro_f1": 0.7632213955498716,
+      "h1_aligned_cost_1024": 0.00022351338201755217,
+      "h1_top20_unmatched_1024": 1.0,
+      "fit_seconds": 54.721460584,
+      "process_peak_rss_mib": 528.1875,
+      "upstream_commit": "203e94a69c5f9cda049b9c3985b7c2b1e39ca922"
+    },
+    {
+      "method": "umap",
+      "seed": 1,
+      "status": "ok",
+      "trustworthiness": 0.962608261969638,
+      "continuity": 0.9510442769154664,
+      "knn_overlap": 0.12916666666666665,
+      "test_accuracy": 0.8608754665761792,
+      "test_macro_f1": 0.8566046977338497,
+      "h1_aligned_cost_1024": 0.0001866460376667438,
+      "h1_top20_unmatched_1024": 0.9,
+      "fit_seconds": 15.865960791000001,
+      "process_peak_rss_mib": 413.21875
+    },
+    {
+      "method": "pca",
+      "seed": 2,
+      "status": "ok",
+      "trustworthiness": 0.8860664919067082,
+      "continuity": 0.9513750182463994,
+      "knn_overlap": 0.040625,
+      "test_accuracy": 0.5704105870376655,
+      "test_macro_f1": 0.5685342236774613,
+      "h1_aligned_cost_1024": 0.00019805254847548608,
+      "h1_top20_unmatched_1024": 1.0,
+      "fit_seconds": 0.33247779199999994,
+      "process_peak_rss_mib": 174.234375
+    },
+    {
+      "method": "deep_tda",
+      "seed": 2,
+      "status": "ok",
+      "trustworthiness": 0.9051917595205657,
+      "continuity": 0.9615865649734008,
+      "knn_overlap": 0.04479166666666667,
+      "test_accuracy": 0.66779776043434,
+      "test_macro_f1": 0.6574782541096617,
+      "h1_aligned_cost_1024": 0.00021629280445761877,
+      "h1_top20_unmatched_1024": 0.95,
+      "fit_seconds": 15.073620125000001,
+      "process_peak_rss_mib": 1954.546875,
+      "training_coverage": {
+        "n_training_samples": 7352,
+        "optimizer_steps": 600,
+        "geometry_unique_samples": 7352,
+        "h0_unique_samples": 3960,
+        "h1_unique_samples": 2711,
+        "h0_updates": 540,
+        "h1_updates": 108,
+        "h1_fraction": 0.36874319912948855,
+        "definition": "unique sample IDs present in active loss subsets; not proof of nonzero per-sample gradients; steps are not epochs"
+      }
+    },
+    {
+      "method": "no_h1",
+      "seed": 2,
+      "status": "ok",
+      "trustworthiness": 0.9091174976887895,
+      "continuity": 0.9623930558258725,
+      "knn_overlap": 0.043229166666666666,
+      "test_accuracy": 0.671869697997964,
+      "test_macro_f1": 0.6614191064912728,
+      "h1_aligned_cost_1024": 0.00020913571216299502,
+      "h1_top20_unmatched_1024": 0.95,
+      "fit_seconds": 8.782540083,
+      "process_peak_rss_mib": 1622.21875,
+      "training_coverage": {
+        "n_training_samples": 7352,
+        "optimizer_steps": 600,
+        "geometry_unique_samples": 7352,
+        "h0_unique_samples": 3960,
+        "h1_unique_samples": 0,
+        "h0_updates": 540,
+        "h1_updates": 0,
+        "h1_fraction": 0.0,
+        "definition": "unique sample IDs present in active loss subsets; not proof of nonzero per-sample gradients; steps are not epochs"
+      }
+    },
+    {
+      "method": "upstream_topoae",
+      "seed": 2,
+      "status": "ok",
+      "trustworthiness": 0.9267760588993772,
+      "continuity": 0.9747525585506682,
+      "knn_overlap": 0.05208333333333333,
+      "test_accuracy": 0.7875805904309467,
+      "test_macro_f1": 0.7770586173674401,
+      "h1_aligned_cost_1024": 0.00022858598132106505,
+      "h1_top20_unmatched_1024": 1.0,
+      "fit_seconds": 55.088906166,
+      "process_peak_rss_mib": 520.296875,
+      "upstream_commit": "203e94a69c5f9cda049b9c3985b7c2b1e39ca922"
+    },
+    {
+      "method": "umap",
+      "seed": 2,
+      "status": "ok",
+      "trustworthiness": 0.9631197947077332,
+      "continuity": 0.9438291944417413,
+      "knn_overlap": 0.1328125,
+      "test_accuracy": 0.8595181540549711,
+      "test_macro_f1": 0.8558364364260211,
+      "h1_aligned_cost_1024": 0.00018904366191792999,
+      "h1_top20_unmatched_1024": 0.95,
+      "fit_seconds": 15.962887958,
+      "process_peak_rss_mib": 398.375
+    },
+    {
+      "method": "pca",
+      "seed": 3,
+      "status": "ok",
+      "trustworthiness": 0.8860664919067082,
+      "continuity": 0.9513750182463994,
+      "knn_overlap": 0.040625,
+      "test_accuracy": 0.5704105870376655,
+      "test_macro_f1": 0.5685342236774613,
+      "h1_aligned_cost_1024": 0.00019805254847548608,
+      "h1_top20_unmatched_1024": 1.0,
+      "fit_seconds": 0.3250905409999999,
+      "process_peak_rss_mib": 174.984375
+    },
+    {
+      "method": "deep_tda",
+      "seed": 3,
+      "status": "ok",
+      "trustworthiness": 0.9101095189438173,
+      "continuity": 0.9642762616371481,
+      "knn_overlap": 0.04609375,
+      "test_accuracy": 0.6939260264675942,
+      "test_macro_f1": 0.687528529634977,
+      "h1_aligned_cost_1024": 0.0002268259027553631,
+      "h1_top20_unmatched_1024": 1.0,
+      "fit_seconds": 14.983960832999998,
+      "process_peak_rss_mib": 1952.65625,
+      "training_coverage": {
+        "n_training_samples": 7352,
+        "optimizer_steps": 600,
+        "geometry_unique_samples": 7352,
+        "h0_unique_samples": 4031,
+        "h1_unique_samples": 2728,
+        "h0_updates": 540,
+        "h1_updates": 108,
+        "h1_fraction": 0.3710554951033732,
+        "definition": "unique sample IDs present in active loss subsets; not proof of nonzero per-sample gradients; steps are not epochs"
+      }
+    },
+    {
+      "method": "no_h1",
+      "seed": 3,
+      "status": "ok",
+      "trustworthiness": 0.9092077413390425,
+      "continuity": 0.9646644791261191,
+      "knn_overlap": 0.04869791666666666,
+      "test_accuracy": 0.7044451985069562,
+      "test_macro_f1": 0.6992397428039409,
+      "h1_aligned_cost_1024": 0.0002278749067449451,
+      "h1_top20_unmatched_1024": 1.0,
+      "fit_seconds": 8.647625125000001,
+      "process_peak_rss_mib": 1609.1875,
+      "training_coverage": {
+        "n_training_samples": 7352,
+        "optimizer_steps": 600,
+        "geometry_unique_samples": 7352,
+        "h0_unique_samples": 4031,
+        "h1_unique_samples": 0,
+        "h0_updates": 540,
+        "h1_updates": 0,
+        "h1_fraction": 0.0,
+        "definition": "unique sample IDs present in active loss subsets; not proof of nonzero per-sample gradients; steps are not epochs"
+      }
+    },
+    {
+      "method": "upstream_topoae",
+      "seed": 3,
+      "status": "ok",
+      "trustworthiness": 0.9187433603380044,
+      "continuity": 0.973463044959128,
+      "knn_overlap": 0.06197916666666666,
+      "test_accuracy": 0.7292161520190024,
+      "test_macro_f1": 0.7212429571550657,
+      "h1_aligned_cost_1024": 0.0002256455196552964,
+      "h1_top20_unmatched_1024": 1.0,
+      "fit_seconds": 55.225300458,
+      "process_peak_rss_mib": 536.75,
+      "upstream_commit": "203e94a69c5f9cda049b9c3985b7c2b1e39ca922"
+    },
+    {
+      "method": "umap",
+      "seed": 3,
+      "status": "ok",
+      "trustworthiness": 0.9646859186453873,
+      "continuity": 0.9488138573293758,
+      "knn_overlap": 0.13880208333333333,
+      "test_accuracy": 0.8629114353579912,
+      "test_macro_f1": 0.8588282864873363,
+      "h1_aligned_cost_1024": 0.00018614157218912845,
+      "h1_top20_unmatched_1024": 1.0,
+      "fit_seconds": 16.09860175,
+      "process_peak_rss_mib": 410.6875
+    },
+    {
+      "method": "pca",
+      "seed": 4,
+      "status": "ok",
+      "trustworthiness": 0.8860664919067082,
+      "continuity": 0.9513750182463994,
+      "knn_overlap": 0.040625,
+      "test_accuracy": 0.5704105870376655,
+      "test_macro_f1": 0.5685342236774613,
+      "h1_aligned_cost_1024": 0.00019805254847548608,
+      "h1_top20_unmatched_1024": 1.0,
+      "fit_seconds": 0.32955620899999993,
+      "process_peak_rss_mib": 179.5
+    },
+    {
+      "method": "deep_tda",
+      "seed": 4,
+      "status": "ok",
+      "trustworthiness": 0.9081739561032178,
+      "continuity": 0.9628782579959777,
+      "knn_overlap": 0.04765625,
+      "test_accuracy": 0.675602307431286,
+      "test_macro_f1": 0.6696425686376637,
+      "h1_aligned_cost_1024": 0.00021802847257650087,
+      "h1_top20_unmatched_1024": 0.95,
+      "fit_seconds": 15.367109166999999,
+      "process_peak_rss_mib": 1951.09375,
+      "training_coverage": {
+        "n_training_samples": 7352,
+        "optimizer_steps": 600,
+        "geometry_unique_samples": 7352,
+        "h0_unique_samples": 4025,
+        "h1_unique_samples": 2748,
+        "h0_updates": 540,
+        "h1_updates": 108,
+        "h1_fraction": 0.3737758433079434,
+        "definition": "unique sample IDs present in active loss subsets; not proof of nonzero per-sample gradients; steps are not epochs"
+      }
+    },
+    {
+      "method": "no_h1",
+      "seed": 4,
+      "status": "ok",
+      "trustworthiness": 0.9087203090534579,
+      "continuity": 0.9637164773095886,
+      "knn_overlap": 0.045572916666666664,
+      "test_accuracy": 0.6898540889039702,
+      "test_macro_f1": 0.6825716992480455,
+      "h1_aligned_cost_1024": 0.00021442269173182547,
+      "h1_top20_unmatched_1024": 0.95,
+      "fit_seconds": 8.841725375,
+      "process_peak_rss_mib": 1622.34375,
+      "training_coverage": {
+        "n_training_samples": 7352,
+        "optimizer_steps": 600,
+        "geometry_unique_samples": 7352,
+        "h0_unique_samples": 4025,
+        "h1_unique_samples": 0,
+        "h0_updates": 540,
+        "h1_updates": 0,
+        "h1_fraction": 0.0,
+        "definition": "unique sample IDs present in active loss subsets; not proof of nonzero per-sample gradients; steps are not epochs"
+      }
+    },
+    {
+      "method": "upstream_topoae",
+      "seed": 4,
+      "status": "ok",
+      "trustworthiness": 0.9196650062443233,
+      "continuity": 0.9732510826196964,
+      "knn_overlap": 0.05989583333333333,
+      "test_accuracy": 0.7207329487614523,
+      "test_macro_f1": 0.7150315725640871,
+      "h1_aligned_cost_1024": 0.00023830007068090296,
+      "h1_top20_unmatched_1024": 1.0,
+      "fit_seconds": 57.514220208000005,
+      "process_peak_rss_mib": 535.140625,
+      "upstream_commit": "203e94a69c5f9cda049b9c3985b7c2b1e39ca922"
+    },
+    {
+      "method": "umap",
+      "seed": 4,
+      "status": "ok",
+      "trustworthiness": 0.9677265543904892,
+      "continuity": 0.9533325274506942,
+      "knn_overlap": 0.14036458333333332,
+      "test_accuracy": 0.8595181540549711,
+      "test_macro_f1": 0.8558330522150367,
+      "h1_aligned_cost_1024": 0.00018304915939098293,
+      "h1_top20_unmatched_1024": 0.9,
+      "fit_seconds": 15.994876875,
+      "process_peak_rss_mib": 408.0625
+    }
+  ],
+  "publication_note": "Aggregate/provenance record. Sample IDs and per-point diagrams removed; seeds and sampling recipes retained. Raw local artifacts are not distributed."
+}

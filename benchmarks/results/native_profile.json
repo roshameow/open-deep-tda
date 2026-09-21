@@ -1,0 +1,62 @@
+{
+  "platform": "macOS-15.4-arm64-arm-64bit",
+  "python": "3.9.16 | packaged by conda-forge | (main, Feb  1 2023, 21:38:11) \n[Clang 14.0.6 ]",
+  "seed": 17,
+  "repeats": 3,
+  "measurement": "warm import; native wrapper wall time, input distances precomputed",
+  "measurements": [
+    {
+      "n": 16,
+      "dimension": 8,
+      "median_seconds": 0.00028162499999995205,
+      "seconds": [
+        0.00041354099999990623,
+        0.00028162499999995205,
+        0.0002115409999996487
+      ],
+      "n_simplices": 696,
+      "operations": 3892,
+      "peak_entries": 349
+    },
+    {
+      "n": 32,
+      "dimension": 8,
+      "median_seconds": 0.0012868750000003537,
+      "seconds": [
+        0.0012868750000003537,
+        0.0018042080000002514,
+        0.0012361670000000657
+      ],
+      "n_simplices": 5488,
+      "operations": 24291,
+      "peak_entries": 1466
+    },
+    {
+      "n": 64,
+      "dimension": 8,
+      "median_seconds": 0.013597541000000213,
+      "seconds": [
+        0.01345149999999995,
+        0.013688082999999907,
+        0.013597541000000213
+      ],
+      "n_simplices": 43744,
+      "operations": 641941,
+      "peak_entries": 6054
+    },
+    {
+      "n": 128,
+      "dimension": 8,
+      "median_seconds": 0.15480912499999988,
+      "seconds": [
+        0.15480912499999988,
+        0.10828266600000003,
+        0.1600429160000001
+      ],
+      "n_simplices": 349632,
+      "operations": 7205926,
+      "peak_entries": 24497
+    }
+  ],
+  "publication_note": "Aggregate/provenance record. Sample IDs and per-point diagrams removed; seeds and sampling recipes retained. Raw local artifacts are not distributed."
+}

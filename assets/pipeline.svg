@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="250" viewBox="0 0 1000 250" role="img" aria-labelledby="title desc">
+<title id="title">Open Deep-TDA pipeline</title><desc id="desc">Numeric data is transformed into a frozen reference representation, sampled for geometry and topology constraints, and optimized through a parametric embedding network.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0l10 5-10 5z" fill="#64748b"/></marker><linearGradient id="g" x1="0" x2="1"><stop stop-color="#2563eb"/><stop offset="1" stop-color="#7c3aed"/></linearGradient></defs>
+<rect width="1000" height="250" rx="18" fill="#f8fafc"/><style>text{font-family:system-ui,-apple-system,sans-serif;fill:#0f172a}.box{fill:white;stroke:#94a3b8;stroke-width:1.5}.small{font-size:13px;fill:#475569}.arrow{stroke:#64748b;stroke-width:2;marker-end:url(#arrow)}</style>
+<text x="500" y="30" text-anchor="middle" font-size="20" font-weight="700">Inspectable topology-regularized reduction</text>
+<rect class="box" x="25" y="70" width="155" height="105" rx="12"/><text x="102" y="105" text-anchor="middle" font-weight="700">Numeric data</text><text x="102" y="130" text-anchor="middle" class="small">fit-only preprocessing</text><text x="102" y="150" text-anchor="middle" class="small">missing-value handling</text>
+<path class="arrow" d="M180 122h45"/>
+<rect class="box" x="225" y="70" width="180" height="105" rx="12"/><text x="315" y="105" text-anchor="middle" font-weight="700">Frozen reference</text><text x="315" y="130" text-anchor="middle" class="small">geometry or masked AE</text><text x="315" y="150" text-anchor="middle" class="small">never uses labels</text>
+<path class="arrow" d="M405 122h45"/>
+<rect class="box" x="450" y="52" width="190" height="142" rx="12"/><text x="545" y="82" text-anchor="middle" font-weight="700">Audited objectives</text><text x="545" y="108" text-anchor="middle" class="small">neighbors + stress/fuzzy</text><text x="545" y="130" text-anchor="middle" class="small">H₀ MST + H₁ matching</text><text x="545" y="152" text-anchor="middle" class="small">critical edges + budgets</text><text x="545" y="174" text-anchor="middle" class="small">online sampled subclouds</text>
+<path class="arrow" d="M640 122h45"/>
+<rect class="box" x="685" y="70" width="160" height="105" rx="12"/><text x="765" y="105" text-anchor="middle" font-weight="700">Residual MLP</text><text x="765" y="130" text-anchor="middle" class="small">PCA initialization</text><text x="765" y="150" text-anchor="middle" class="small">2D / 3D transform</text>
+<path class="arrow" d="M845 122h45"/>
+<rect x="890" y="70" width="85" height="105" rx="12" fill="url(#g)"/><text x="932" y="112" text-anchor="middle" fill="white" font-weight="700">Z</text><text x="932" y="136" text-anchor="middle" fill="white" font-size="13">embedding</text>
+<text x="500" y="225" text-anchor="middle" class="small">Persistent homology is computed exactly on selected small subclouds—not globally over the full population.</text>
+</svg>

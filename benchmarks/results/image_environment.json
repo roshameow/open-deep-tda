@@ -1,0 +1,29 @@
+{
+  "platform": "macOS-15.4-arm64-arm-64bit",
+  "python": "3.9.16 | packaged by conda-forge | (main, Feb  1 2023, 21:38:11) \n[Clang 14.0.6 ]",
+  "packages": {
+    "torch": "2.7.1",
+    "numpy": "1.21.6",
+    "scipy": "1.10.1",
+    "scikit-learn": "1.0.2",
+    "Pillow": "11.3.0",
+    "psutil": "5.9.5",
+    "ripser": "0.6.15",
+    "persim": "0.3.8",
+    "umap-learn": "0.5.3",
+    "pynndescent": "0.5.13",
+    "numba": "0.55.0",
+    "pybind11": "2.8.1"
+  },
+  "source_hashes_at_closeout": {
+    "python/open_deep_tda/estimator.py": "c3d666527d2a70c814ed1881ab10c44227d6c55b9a12d2d235358801d615bed9",
+    "python/open_deep_tda/neighbors.py": "f920d2cb47d1d07c682104f71cdc6a498127225f2b880cb305e3c26802beb22d",
+    "python/open_deep_tda/cycle_metrics.py": "9cee297fecf99ec04ccd9fd8e1523158f1deceb2248a8ebbcef5f1164033732f",
+    "benchmarks/image_protocol.py": "34a2e7be97362b01b9991b4b3aa4641cf6be5a83ec9e68425642912e743dfdb2",
+    "benchmarks/benchmark_images.py": "26da121facdbb08edc8fceb1b83ae3b7e693c3bb7c8001d6b67768c6c8da9efe",
+    "benchmarks/image_reducer_worker.py": "31ec5c0996d2c7b49c2a0aac8c6bf718275ced935baaea0a2fd0939c3381c0b8",
+    "benchmarks/topoaepp_coil_native.py": "ee9783c8e6f10645d0222e912533c55d12bec30af6c5a4e9bff69b4891e6fa60"
+  },
+  "note": "Hashes reflect final checked source; a nonnumerical input-validation indentation defect during integration was fixed and two failed Fashion seed2 jobs rerun unchanged. Strict crossing rescaling hardening was checked not to change any recorded COIL crossing count.",
+  "publication_note": "Aggregate/provenance record. Sample IDs and per-point diagrams removed; seeds and sampling recipes retained. Raw local artifacts are not distributed."
+}
