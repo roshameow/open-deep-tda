@@ -5,8 +5,16 @@ from torch import nn
 
 
 class ParametricEmbedding(nn.Module):
-    def __init__(self, input_dim, output_dim):
+    """PCA skip plus a residual with opt-in input scaling.
+
+    High-dimensional, distance-normalized references may leave SiLU near-linear.
+    Scaling residual inputs is a hypothesis pending a TRAIN-only experiment,
+    not a demonstrated improvement; it never rescales the PCA skip or metric.
+    """
+    def __init__(self, input_dim, output_dim, residual_input_scale=1.0):
         super().__init__()
+        # Configuration scalar, not a state buffer: legacy tensor states still load.
+        self.residual_input_scale = float(residual_input_scale)
         self.linear = nn.Linear(input_dim, output_dim)
         self.residual = nn.Sequential(nn.Linear(input_dim, 128), nn.SiLU(),
                                       nn.Linear(128, 64), nn.SiLU(), nn.Linear(64, output_dim))
@@ -14,7 +22,7 @@ class ParametricEmbedding(nn.Module):
         nn.init.zeros_(self.residual[-1].bias)
 
     def forward(self, x):
-        return self.linear(x) + self.residual(x)
+        return self.linear(x) + self.residual(x * self.residual_input_scale)
 
     def initialize_pca(self, X):
         mean = X.astype(np.float64).mean(axis=0)

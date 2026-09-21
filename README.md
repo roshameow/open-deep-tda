@@ -39,6 +39,8 @@ This figure uses the real bundled scikit-learn Digits dataset: 1,400 training ro
 
 ### Additional real-data examples
 
+These earlier configurations are retained for transparency. See the [new paired optimization results](#unreleased-neighborhood-optimization-fixed-confirmation) below rather than treating these pictures as the best available configuration.
+
 #### UCI Human Activity Recognition
 
 <p align="center">
@@ -129,9 +131,24 @@ DeepTDA(geometry_objective="fuzzy", fuzzy_repulsion=1.0)
 
 It independently implements established local-affinity/fuzzy-union ideas; it is not exact ParametricUMAP. In the fixed HAR confirmation, it improved neighborhood overlap and label-probe accuracy but substantially worsened raw-scale H₁ cost. It therefore remains experimental and is not silently selected as a better topology method.
 
+### Neighborhood-oriented graph objective
+
+`geometry_objective="fuzzy_graph"` replaces fuzzy edge cross-entropy with **weighted neighbor attraction plus sampled nonedge repulsion**. Weak graph edges are no longer explicitly repelled by the positive-edge loss. Attraction is normalized within each sampled batch; this is not an unbiased whole-graph ratio estimator or exact UMAP.
+
+```python
+model = DeepTDA(
+    geometry_objective="fuzzy_graph", fuzzy_repulsion=1.0,
+    lambda_h0=0.1, lambda_h1=0.01, steps=2400,
+)
+```
+
+`residual_input_scale` optionally conditions only the neural residual's input (default `1.0`). It does **not** rescale the reference metric, PCA skip, or PH targets. The dimension-based scale tested below is a dataset-specific experiment, not a universal recommendation. Existing defaults and legacy checkpoint behavior remain unchanged.
+
 ## Benchmarks
 
 Reviewed aggregate outputs are committed under [`benchmarks/results/`](benchmarks/results/); datasets, trained models, embeddings and raw machine logs are not.
+
+Historical stress-based benchmarks (not the new graph presets):
 
 | Protocol | Open Deep-TDA | External comparison | Honest interpretation |
 |---|---:|---:|---|
@@ -141,6 +158,44 @@ Reviewed aggregate outputs are committed under [`benchmarks/results/`](benchmark
 | TopoAE++ author core, COIL-20 | — | 81.04% accuracy; one seed | Real external core with disclosed adapters, not an untouched paper reproduction. |
 
 Architectures and compute are not matched. Test labels are used only for final probes. See the JSON records and benchmark scripts for seeds, protocols and sampling fields.
+
+### Why the earlier embeddings were weak
+
+- **Distance matching is not neighbor ranking.** The stress/hinge objective can be zero even when nearest-neighbor identities are wrong; a regression counterexample is in [`tests/test_geometry_objective_limits.py`](tests/test_geometry_objective_limits.py).
+- **Weak correction of false neighbors.** Uniform nonedge samples usually miss the confusing near pairs, and the hinge stops pushing once its global margin is satisfied.
+- **Competing objectives.** In the earlier HAR/Fashion logs, H₀ embedding-gradient norms substantially exceeded the neighborhood term. This shows an imbalance, not proof that topology is always harmful.
+- **More steps alone were insufficient.** On a fixed subject-held-out split within HAR TRAIN, stress overlap changed from **0.0617 → 0.0659** at 600 versus 2,400 steps. Graph + weak topology reached **0.0966**; residual conditioning reached **0.0987**. No labels or official TEST rows were used in these two development searches.
+
+The complete candidate sets, including unsuccessful variants, are reproducible through [`benchmarks/optimize_geometry.py`](benchmarks/optimize_geometry.py) and [`benchmarks/optimize_residual_scale.py`](benchmarks/optimize_residual_scale.py). Each requires `--preregister` before `--run`; use separate `--output` directories. These are reused development data, not fresh generalization evidence.
+
+### Unreleased neighborhood optimization: fixed confirmation
+
+<p align="center">
+  <img src="assets/har-optimization.png" alt="All HAR test rows: paired stress baseline and train-selected graph model, fixed seed zero" width="1000">
+</p>
+
+**HAR, three fixed seeds:** test 15-NN accuracy **58.23% → 82.55%**, population 15-NN overlap **0.0380 → 0.0775**, and KMeans test ARI **0.314 → 0.685**. KMeans on the standardized 561-dimensional reference gives ARI **0.437**. Raw normalized H₁ cost on three fixed 64-point test subclouds decreases **0.002291 → 0.000901**; PCA still has a smaller raw H₁ cost (**0.000243**).
+
+Both arms here use the same **train-fitted feature standardization**, unlike the older HAR table above; the 58.23% control is a new paired baseline, not a replacement for the historical 67.78% result. All 7,352 training / 2,947 test rows are used. The image shows seed 0; numbers in this paragraph are three-seed means. Query metrics use 256 fixed test queries against the full train+test population.
+
+The selected configuration was frozen using only internal TRAIN validation. The no-topology control is slightly better on HAR test overlap/accuracy, so these results **do not establish added value from topology regularization**. The gain is primarily a geometry/optimization result. We retain the preselected weak-topology model rather than switching based on TEST results. Training budgets differ (600 versus 2,400 steps); reused official test data are not an untouched external validation set.
+
+Exact HAR settings: [`configs/har-neighborhood.json`](configs/har-neighborhood.json). All arms, seeds, raw/aligned PH and uncertainty summaries: [`geometry_optimization_har.json`](benchmarks/results/geometry_optimization_har.json). Reproduce with [`confirm_geometry_optimization.py`](benchmarks/confirm_geometry_optimization.py); pass `--conditioning-pilot` for the second development stage, and use identical options for registration/run. Render all test rows with [`render_geometry_comparison.py`](benchmarks/render_geometry_comparison.py).
+
+#### Direct transfer to Fashion-MNIST — no Fashion tuning
+
+<p align="center">
+  <img src="assets/fashion-optimization.png" alt="All Fashion-MNIST test rows: stress versus the fixed HAR-selected graph configuration, seed zero" width="1000">
+</p>
+
+On the complete **60,000/10,000 PCA64 protocol**, three-seed test 15-NN accuracy improves **53.90% → 64.67%**, overlap **0.0230 → 0.0431**, KMeans ARI **0.281 → 0.366**, and raw normalized subcloud H₁ cost **0.009057 → 0.002009**. Direct PCA64 KMeans gives ARI **0.359**: the new 2D representation is competitive in this bounded clustering check, not decisively superior. Its classification accuracy remains below the earlier UMAP result (77.85%; unequal protocols/compute), and the unchanged PCA64 reference retains 85.77% probe accuracy.
+
+The HAR-selected graph/weights were transferred without searching Fashion settings; residual scaling follows the same dimension-only rule (`sqrt(64)=8`). Training steps increase from 1,200 to 2,400. All ANN graphs passed the independent exact recall audit. Original arrays/checkpoints remain private.
+
+Use [`configs/fashion-pca64-neighborhood.json`](configs/fashion-pca64-neighborhood.json) **on the benchmark's train-fitted PCA64 features**, not raw pixels. Full records: [`geometry_optimization_fashion.json`](benchmarks/results/geometry_optimization_fashion.json). Reproduction: [`confirm_geometry_fashion.py`](benchmarks/confirm_geometry_fashion.py); default input paths refer to local benchmark outputs, not bundled data. Run `render_geometry_comparison.py --dataset fashion_mnist` for the figure.
+
+> [!WARNING]
+> Better clustering is **not** better topology across the board. Raw normalized H₀ cost increases **0.0594 → 0.1144 (HAR)** and **0.0265 → 0.0770 (Fashion)**. The fraction of long source H₁ bars left unmatched rises **61.1% → 83.9%** and **27.8% → 51.7%**, respectively. A smaller diagram cost can coexist with losing more meaningful bars. These are fixed-subcloud diagnostics, not population-wide topology guarantees. The graph presets are therefore opt-in; the stress default is unchanged.
 
 ### Measured v0.3 engineering changes
 

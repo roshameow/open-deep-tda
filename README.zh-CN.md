@@ -39,6 +39,8 @@
 
 ### 更多真实数据示例
 
+以下保留早期配置结果以便追溯；新的配对优化结果见下方“尚未发布版本的邻域优化”，不要把旧图理解为当前最佳可用配置。
+
 #### UCI Human Activity Recognition
 
 <p align="center">
@@ -129,6 +131,19 @@ DeepTDA(geometry_objective="fuzzy", fuzzy_repulsion=1.0)
 
 它独立实现已有的局部亲和度与 fuzzy union 思路，不是精确 ParametricUMAP。固定 HAR 验证中，邻域重叠和标签 probe 有提升，但原始尺度 H₁ 代价明显变差，所以它仍是实验选项，未替换默认目标。
 
+### 面向邻域保持的图目标
+
+`geometry_objective="fuzzy_graph"` 使用**加权邻居吸引＋采样非邻居排斥**，不再在正边损失中显式排斥弱权重邻居。吸引项在每个采样批次内归一化，不是整个图比值目标的无偏估计，也不是精确 UMAP。
+
+```python
+model = DeepTDA(
+    geometry_objective="fuzzy_graph", fuzzy_repulsion=1.0,
+    lambda_h0=0.1, lambda_h1=0.01, steps=2400,
+)
+```
+
+`residual_input_scale` 只调整神经网络残差分支的输入尺度，默认 `1.0`；**不改变参考空间距离、PCA 跳连或 PH 目标**。下面测试的按维数缩放只是特定数据上的实验，并非通用推荐。原默认配置及旧检查点行为不变。
+
 ## 基准结果
 
 审查后的聚合结果位于 [`benchmarks/results/`](benchmarks/results/)；数据、训练模型、嵌入和原始本机日志不上传。
@@ -141,6 +156,44 @@ DeepTDA(geometry_objective="fuzzy", fuzzy_repulsion=1.0)
 | TopoAE++ 作者核心，COIL-20 | — | 准确率 81.04%；单种子 | 使用真实外部核心与明确适配，不是无改动论文复现。 |
 
 架构与计算量并未完全匹配；测试标签只用于最终 probe。种子、协议和采样字段可查看 JSON 与 benchmark 脚本。
+
+### 原有嵌入效果不佳的原因
+
+- **匹配距离不等于保持邻居排名。** 即使 stress/hinge 损失为零，最近邻身份仍可能错误；反例见 [`tests/test_geometry_objective_limits.py`](tests/test_geometry_objective_limits.py)。
+- **错误近邻的纠正力度不足。** 均匀非邻居采样不容易命中最易混淆的近邻对，超过全局 margin 后 hinge 不再提供排斥梯度。
+- **损失目标存在竞争。** 旧 HAR/Fashion 日志中 H₀ 的嵌入梯度明显大于邻域项；这说明配比值得调整，不证明拓扑约束永远有害。
+- **单纯增加训练量不够。** HAR TRAIN 内部固定受试者留出验证：stress 从 600 增至 2,400 步，邻域重叠仅 **0.0617 → 0.0659**；图目标＋弱拓扑达到 **0.0966**，残差输入调尺度后为 **0.0987**。两轮搜索均未读取类别标签或官方 TEST 数据。
+
+全部候选（包括没有改善的变体）可通过 [`benchmarks/optimize_geometry.py`](benchmarks/optimize_geometry.py) 和 [`benchmarks/optimize_residual_scale.py`](benchmarks/optimize_residual_scale.py) 复现。先 `--preregister` 再 `--run`，两轮使用不同 `--output` 目录。这是重复使用的开发数据，并非全新的泛化证据。
+
+### 尚未发布版本的邻域优化：固定方案确认
+
+<p align="center">
+  <img src="assets/har-optimization.png" alt="HAR 全部测试样本：固定 seed 0 的 stress 对照与仅在 TRAIN 内选出的图模型" width="1000">
+</p>
+
+**HAR，固定三个种子：**测试 15-NN 准确率 **58.23% → 82.55%**，全体候选上的 15-NN 邻域重叠 **0.0380 → 0.0775**，KMeans 测试 ARI **0.314 → 0.685**。直接在标准化 561 维参考特征上运行 KMeans，ARI 为 **0.437**。三个固定 64 点测试子集上的原始归一化 H₁ 误差 **0.002291 → 0.000901**；PCA 的原始 H₁ 误差仍更低（**0.000243**）。
+
+本轮两组均采用相同的**仅拟合训练集的特征标准化**，与上方旧 HAR 表的预处理不同；58.23% 是新实验的配对对照，不替换历史 67.78% 结果。完整使用 7,352/2,947 个训练/测试样本。图片固定为 seed 0，段落数字为三个种子的均值；邻域指标为 256 个固定测试查询对全部训练＋测试样本计算。
+
+配置仅依据 TRAIN 内部验证选定并锁定。HAR 测试中的无拓扑对照在邻域重叠和准确率上略好，因此这些结果**尚不能证明拓扑正则带来额外收益**；主要改善来自几何目标与优化。我们保留预先选定的弱拓扑配置，不根据 TEST 重新选择。训练预算不同（600 与 2,400 步），且官方测试数据曾在旧实验使用，并非全新外部验证集。
+
+精确 HAR 配置见 [`configs/har-neighborhood.json`](configs/har-neighborhood.json)；所有候选、种子、原始/尺度对齐 PH 及波动统计见 [`geometry_optimization_har.json`](benchmarks/results/geometry_optimization_har.json)。复现用 [`confirm_geometry_optimization.py`](benchmarks/confirm_geometry_optimization.py)，通过 `--conditioning-pilot` 指定第二轮开发结果；注册与运行需使用相同选项。全部测试点的绘图脚本为 [`render_geometry_comparison.py`](benchmarks/render_geometry_comparison.py)。
+
+#### 直接迁移到 Fashion-MNIST，不在 Fashion 上调参
+
+<p align="center">
+  <img src="assets/fashion-optimization.png" alt="Fashion-MNIST 全部测试样本：stress 与固定 HAR 选择配置，seed 0" width="1000">
+</p>
+
+完整 **60,000/10,000 PCA64 协议**下，三个种子的测试 15-NN 准确率 **53.90% → 64.67%**，邻域重叠 **0.0230 → 0.0431**，KMeans ARI **0.281 → 0.366**，原始归一化子集 H₁ 误差 **0.009057 → 0.002009**。直接在 PCA64 上运行 KMeans，ARI 为 **0.359**：新二维表征在这项有限聚类检查中有竞争力，但不是压倒性优势。分类准确率仍低于此前 UMAP 的 77.85%（协议/计算量不完全匹配）；原始 PCA64 参考表征的 probe 准确率仍为 85.77%。
+
+图目标和权重直接沿用 HAR 选择结果，不搜索 Fashion 参数；残差输入采用同一维数规则 `sqrt(64)=8`。训练量从 1,200 增为 2,400 步。所有 ANN 图均通过独立精确召回率检查。原始数组与检查点保持私有。
+
+[`configs/fashion-pca64-neighborhood.json`](configs/fashion-pca64-neighborhood.json) 用于**基准中仅拟合训练集的 PCA64 特征**，不是原始像素。完整结果见 [`geometry_optimization_fashion.json`](benchmarks/results/geometry_optimization_fashion.json)，复现脚本为 [`confirm_geometry_fashion.py`](benchmarks/confirm_geometry_fashion.py)，默认输入路径指向本地数据，不随代码发布。绘图运行 `render_geometry_comparison.py --dataset fashion_mnist`。
+
+> [!WARNING]
+> 聚类改善**不等于拓扑全面改善**。原始归一化 H₀ 误差上升：HAR **0.0594 → 0.1144**，Fashion **0.0265 → 0.0770**；较长源 H₁ 条带的未匹配比例分别从 **61.1% → 83.9%**、**27.8% → 51.7%**。图间距离更小，仍可能丢失更多长条带。这些只是固定子集诊断，不是总体拓扑保证。因此新图配置保持可选，默认 stress 不变。
 
 ### v0.3 工程实测
 

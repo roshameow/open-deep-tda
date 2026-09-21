@@ -1,4 +1,4 @@
-"""Fuzzy neighbor cross-entropy, not an exact (Parametric) UMAP reproduction.
+"""Fuzzy neighbor cross-entropy or weighted graph attraction, not exact UMAP.
 
 Local exponential neighbor probabilities and fuzzy union are existing ideas:
 McInnes, Healy & Melville (2018), https://arxiv.org/abs/1802.03426.
@@ -132,17 +132,25 @@ def build_fuzzy_weights(reference, neighbors, edges):
     return weights, diagnostics
 
 
-def fuzzy_losses(positive_lengths_tensor, negative_lengths_tensor, weights_tensor, scale=1.0):
-    """Return positive CE and sampled-negative repulsion (each a scalar mean).
+def fuzzy_losses(positive_lengths_tensor, negative_lengths_tensor, weights_tensor, scale=1.0,
+                 *, positive_mode="cross_entropy"):
+    """Return positive graph loss and sampled-nonedge repulsion (scalar means).
 
     t=(d/scale)^2; attraction=log1p(t); repulsion=log1p(1/(t+1e-8)).
-    Positive CE averages w*attraction+(1-w)*repulsion; negatives average
-    repulsion. Scale is fixed, positive and finite; outputs are NOT normalized.
+    ``cross_entropy`` (default) averages w*attraction+(1-w)*repulsion.
+    ``attraction`` uses sum(w*attraction)/sum(w) within the supplied batch:
+    self-normalized weighted attraction, not an unbiased estimate of the
+    whole-graph ratio under uniform edge sampling. With singleton batches,
+    nonzero weights cancel. All-zero weights give a graph-connected zero.
+    Both modes average repulsion over sampled nonedges, not exact UMAP.
+    Scale is fixed, positive and finite; embedding outputs are NOT normalized.
     Inputs are nonnegative finite floating vectors on the same device/dtype,
     weights in [0,1] aligned with positives. Empty terms are connected zeros.
     Log-domain evaluation avoids squared-length overflow. Half precision is
     promoted to float32; distances below dtype tiny have zero branch gradient.
     """
+    if positive_mode not in ("cross_entropy", "attraction"):
+        raise ValueError("positive_mode must be cross_entropy or attraction")
     if (isinstance(scale, (bool, np.bool_)) or not isinstance(scale, numbers.Real)
             or not math.isfinite(scale) or scale <= 0):
         raise ValueError("scale must be finite and positive")
@@ -169,7 +177,15 @@ def fuzzy_losses(positive_lengths_tensor, negative_lengths_tensor, weights_tenso
 
     if pos.numel():
         attraction, repulsion = terms(pos)
-        positive = (weights * attraction + (1 - weights) * repulsion).mean()
+        if positive_mode == "attraction":
+            mass = weights.sum()
+            numerator = (weights * attraction).sum()
+            # Guard the denominator before division: masking a 0/0 result
+            # afterward would still introduce NaNs in backward.
+            denominator = torch.where(mass > 0, mass, torch.ones_like(mass))
+            positive = torch.where(mass > 0, numerator / denominator, numerator * 0)
+        else:
+            positive = (weights * attraction + (1 - weights) * repulsion).mean()
     else:
         positive = pos.sum() + weights.sum()
     negative = terms(neg)[1].mean() if neg.numel() else neg.sum()

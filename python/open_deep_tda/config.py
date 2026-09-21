@@ -33,6 +33,9 @@ class TDAConfig:
     subset_bank_size: int = 12
     landmark_size: int = 256
     topology_sampling: str = "mixed"
+    # fuzzy: edge cross-entropy; fuzzy_graph: weight-normalized graph attraction.
+    # Both fuzzy modes use sampled nonedge repulsion, not exact UMAP. The
+    # opt-in fuzzy_graph objective is a hypothesis, not a guaranteed improvement.
     geometry_objective: str = "stress"
     fuzzy_repulsion: float = 0.1
     fuzzy_scale: Optional[float] = None
@@ -54,6 +57,8 @@ class TDAConfig:
     semantic_steps: int = 100
     mask_probability: float = 0.2
     num_threads: int = 1
+    # Only the neural residual sees scaled inputs; PCA and reference metrics do not.
+    residual_input_scale: float = 1.0
 
     def validate(self):
         if self.n_components not in (2, 3):
@@ -64,8 +69,8 @@ class TDAConfig:
             raise ValueError("optimizer_mode must be parametric or coordinates")
         if self.topology_sampling not in ("mixed", "local", "cover", "random"):
             raise ValueError("invalid topology_sampling")
-        if self.geometry_objective not in ("stress", "fuzzy"):
-            raise ValueError("geometry_objective must be stress or fuzzy")
+        if self.geometry_objective not in ("stress", "fuzzy", "fuzzy_graph"):
+            raise ValueError("geometry_objective must be stress, fuzzy or fuzzy_graph")
         if self.neighbor_backend not in ("exact", "pynndescent"):
             raise ValueError("neighbor_backend must be exact or pynndescent")
         if self.device not in ("cpu", "cuda", "mps"):
@@ -97,6 +102,10 @@ class TDAConfig:
             if isinstance(self.fuzzy_scale, bool) or not isinstance(self.fuzzy_scale, Real) or not math.isfinite(self.fuzzy_scale) or self.fuzzy_scale <= 0:
                 raise ValueError("fuzzy_scale must be None or finite positive")
             self.fuzzy_scale = float(self.fuzzy_scale)
+        value = self.residual_input_scale
+        if isinstance(value, bool) or not isinstance(value, Real) or not math.isfinite(value) or value <= 0:
+            raise ValueError("residual_input_scale must be finite and positive")
+        self.residual_input_scale = float(value)
         if self.seed >= 2**32:
             raise ValueError("seed must be in [0, 2**32-1] for all supported baselines")
         if self.learning_rate == 0 or self.gradient_clip == 0:

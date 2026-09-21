@@ -48,6 +48,9 @@ class DeepTDA:
     Labels never enter fit. Supply validation_data explicitly for held-out evaluation;
     otherwise report_ describes training samples/subsets, not held-out generalization.
     CPU is the reproducible default. Direct coordinate mode intentionally has no transform.
+    geometry_objective='fuzzy_graph' opts into weighted graph attraction instead
+    of fuzzy edge cross-entropy, with the same sampled nonedge repulsion. This
+    is not exact UMAP or a claim of improvement over stress/fuzzy.
     """
     def __init__(self, config=None, **config_overrides):
         if config is None:
@@ -180,12 +183,16 @@ class DeepTDA:
             raise ValueError("nonfinite reference space; rescale data")
         self.reference_dim_ = self.reference_.shape[1]
         self.constant_ = bool(np.all(self.reference_ == self.reference_[0]))
-        self.model_ = ParametricEmbedding(self.reference_dim_, cfg.n_components)
+        self.model_ = ParametricEmbedding(self.reference_dim_, cfg.n_components,
+                                          residual_input_scale=cfg.residual_input_scale)
         self.input_rank_ = self.model_.initialize_pca(self.reference_)
         self.model_.to(self.device_)
         self.decoder_ = None
         self._coordinates = None
         if self.constant_:
+            if cfg.geometry_objective == "fuzzy_graph":
+                self.geometry_diagnostics_ = {"objective": "fuzzy_graph",
+                    "positive_mode": "attraction", "trained": False}
             with torch.no_grad():
                 for p in self.model_.parameters():
                     p.zero_()
@@ -223,6 +230,8 @@ class DeepTDA:
 
     def _optimize(self, topology, losses, rng):
         cfg, U = self.config, self.reference_
+        is_fuzzy = cfg.geometry_objective in ("fuzzy", "fuzzy_graph")
+        positive_mode = "attraction" if cfg.geometry_objective == "fuzzy_graph" else "cross_entropy"
         if cfg.steps == 0:
             # A PCA-initialized model is useful as a reference/initialization
             # baseline. No graph, landmark bank, PH cache or optimizer is needed.
@@ -234,6 +243,8 @@ class DeepTDA:
                 "definition":"initialization-only run; no training objective evaluated"}
             self.neighbor_diagnostics_ = {"skipped":True,"reason":"steps=0"}
             self.geometry_diagnostics_ = {"objective":cfg.geometry_objective,"trained":False}
+            if is_fuzzy:
+                self.geometry_diagnostics_["positive_mode"] = positive_mode
             self.timings_.update({"knn_and_landmarks_seconds":0., "source_cache_seconds":0.,
                 "online_source_ph_seconds":0., "optimization_seconds":0.})
             return
@@ -262,15 +273,18 @@ class DeepTDA:
         tau = max(self.local_scale_ * .1, 1e-8)
         fuzzy_weights = fuzzy_keys = None
         fuzzy_scale = cfg.fuzzy_scale if cfg.fuzzy_scale is not None else self.local_scale_
-        if cfg.geometry_objective == "fuzzy":
+        if is_fuzzy:
             from .fuzzy import build_fuzzy_weights, fuzzy_losses
             weights, diagnostics = build_fuzzy_weights(U, neighbors, edges)
             edge_keys = edges[:, 0] * len(U) + edges[:, 1]
             order = np.argsort(edge_keys)
             fuzzy_keys, fuzzy_weights = edge_keys[order], weights[order]
-            self.geometry_diagnostics_ = dict(diagnostics, objective="fuzzy", kernel_scale=float(fuzzy_scale),
+            positive_description = ("Weight-normalized graph attraction" if positive_mode == "attraction"
+                                    else "Fuzzy edge cross-entropy")
+            self.geometry_diagnostics_ = dict(diagnostics, objective=cfg.geometry_objective,
+                positive_mode=positive_mode, kernel_scale=float(fuzzy_scale),
                 negative_repulsion=cfg.fuzzy_repulsion,
-                note="Fuzzy edge cross-entropy with sampled nonedge repulsion; not an exact ParametricUMAP reproduction. PH metric is unchanged.")
+                note=f"{positive_description} with sampled nonedge repulsion; not an exact ParametricUMAP reproduction. PH metric is unchanged.")
         else:
             self.geometry_diagnostics_ = {"objective":"stress", "huber_delta":self.local_scale_, "separation_margin":margin}
         graph_seconds = time.perf_counter() - graph_start
@@ -367,12 +381,13 @@ class DeepTDA:
 
             positive_source, positive_target = lengths(positive_pairs)
             negative_source, negative_target = lengths(negative_pairs)
-            if cfg.geometry_objective == "fuzzy":
+            if is_fuzzy:
                 keys = positive_pairs[:, 0] * len(U) + positive_pairs[:, 1]
                 weights = torch.as_tensor(fuzzy_weights[np.searchsorted(fuzzy_keys, keys)], device=self.device_, dtype=z.dtype)
                 # A missing graph edge between duplicate inputs is not a true
                 # negative: a parametric encoder must map identical inputs alike.
-                near, separation = fuzzy_losses(positive_target, negative_target[negative_source > 0], weights, scale=fuzzy_scale)
+                near, separation = fuzzy_losses(positive_target, negative_target[negative_source > 0],
+                    weights, scale=fuzzy_scale, positive_mode=positive_mode)
             else:
                 near = losses.near_loss(positive_source, positive_target, delta=self.local_scale_) if len(positive_source) else zero
                 separation = losses.separation_loss(negative_source, negative_target, margin=margin) if len(negative_source) else zero
@@ -391,7 +406,7 @@ class DeepTDA:
             if self.decoder_ is not None:
                 rec = torch.mean((self.decoder_(z) - x) ** 2)
             ramp = min(1.0, max(0.0, (step - cfg.warmup_steps + 1) / max(1, cfg.warmup_steps)))
-            separation_weight = cfg.fuzzy_repulsion if cfg.geometry_objective == "fuzzy" else cfg.lambda_sep
+            separation_weight = cfg.fuzzy_repulsion if is_fuzzy else cfg.lambda_sep
             parts = {"near": cfg.lambda_near * near, "separation": separation_weight * separation,
                      "h0": ramp * cfg.lambda_h0 * h0,
                      "h1": ramp * cfg.lambda_h1 * cfg.topology_interval * (pd1 + cfg.lambda_critical * crit1),
@@ -545,7 +560,8 @@ class DeepTDA:
         obj.constant_, obj.input_rank_ = state["constant"], state["input_rank"]
         # Construction must not alter the caller's global random stream.
         with _torch_context(obj.config.seed, obj.config.num_threads, device):
-            obj.model_ = ParametricEmbedding(obj.reference_dim_, obj.config.n_components).to(obj.device_)
+            obj.model_ = ParametricEmbedding(obj.reference_dim_, obj.config.n_components,
+                                             residual_input_scale=obj.config.residual_input_scale).to(obj.device_)
             obj.model_.load_state_dict(state["model"])
             obj.model_.eval()
             obj.reference_encoder_ = None
