@@ -22,7 +22,7 @@ The table is a dependency inventory, not a replacement for the complete notices 
 
 The mathematical ideas are attributed in the README and references below, especially Topological Autoencoders (Moor et al., 2020). DataRefiner and other third-party names identify external publications/software only; there is no claimed affiliation or endorsement.
 
-The optional `sklearn.datasets.load_digits` validation example uses scikit-learn's bundled optical recognition digits data. No copy of this real dataset is committed to the source tree; consult the dataset's upstream description before redistributing data artifacts. Synthetic benchmark generators are original and included.
+The optional `sklearn.datasets.load_digits` validation example uses scikit-learn's bundled optical recognition digits data. `assets/digits-example.png` contains ten rendered 8×8 examples and a derived embedding visualization, but no raw dataset arrays. Consult scikit-learn's upstream dataset description and original UCI attribution when redistributing derived artifacts. Synthetic benchmark generators are original and included.
 
 ## Added real-data / upstream comparisons
 
@@ -42,7 +42,8 @@ The optional `sklearn.datasets.load_digits` validation example uses scikit-learn
 
 ## v0.2 image data and optional native research adapter
 
-- Fashion-MNIST: official Zalando SE dataset, MIT (2017); cite Xiao, Rasul and Vollgraf (2017), arXiv:1708.07747. Original gzip checksums and observed SHA256 are recorded by the loader. Data archives remain outside the source distribution.
+- Fashion-MNIST: official Zalando SE dataset, MIT (2017); cite Xiao, Rasul and Vollgraf (2017), arXiv:1708.07747. Original gzip checksums and observed SHA256 are recorded by the loader. Data archives remain outside the source distribution. `assets/fashion-mnist-example.png` includes ten rendered examples and a derived, display-subsampled embedding.
+- UCI Human Activity Recognition: Reyes-Ortiz et al. (2013), DOI https://doi.org/10.24432/C54S4K, CC BY 4.0. `assets/har-example.png` is a derived, display-subsampled embedding of the official subject-disjoint split; raw sensor rows are not shipped.
 - COIL-20: cite Nene, Nayar and Murase (1996), CUCS-005-96, Columbia CAVE. The inspected official pages do not state an explicit license grant. Do NOT assume MIT, commercial permission, or invented research-only terms; confirm rights before redistribution/use beyond the intended local research. No original photographs are bundled here.
 - Optional NN-descent uses external `pynndescent`/Numba in an isolated process; their own licenses and binary dependency notices apply. Pillow is used to decode/downsample images. psutil is used by the bounded research native-run adapter.
 - TopoAE++ is now also used in a real external-source native CPU experiment. Only independent adapters and result metadata are stored here; upstream source, Boost headers, compiled upstream libraries and trained model binaries are not shipped. The audited TTK license has five conditions, including acknowledgment/citation, and must be checked before redistributing any linked executable.

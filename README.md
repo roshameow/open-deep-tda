@@ -37,6 +37,26 @@
 
 This figure uses the real bundled scikit-learn Digits dataset: 1,400 training rows and 397 held-out rows mapped with `transform`. Dots are training samples, `×` marks held-out samples, and colors are digit labels used **only after training**. Held-out trustworthiness is 0.864 and 15-neighbor overlap is 0.407. The figure demonstrates out-of-sample behavior; it does not claim superiority over another method.
 
+### Additional real-data examples
+
+#### UCI Human Activity Recognition
+
+<p align="center">
+  <img src="assets/har-example.png" alt="Open Deep-TDA embedding of the official subject-disjoint UCI HAR split" width="850">
+</p>
+
+The model used all **7,352 official training rows** and transformed all **2,947 test rows**; train and test subjects are disjoint. The plot uses a stratified display subset for readability. Activity labels are evaluation-only. Seed-0 test diagnostics are trustworthiness **0.907**, 15-NN overlap **0.040**, and post-fit 15-NN probe accuracy **68.7%**.
+
+#### Fashion-MNIST
+
+<p align="center">
+  <img src="assets/fashion-mnist-example.png" alt="Open Deep-TDA embedding of the full official Fashion-MNIST train and test protocol" width="850">
+</p>
+
+The model was fit on all **60,000 training images** and transformed all **10,000 official test images**. Only the rendered plot is stratified-subsampled. Labels are used after fitting. Seed-0 test diagnostics are trustworthiness **0.914**, 15-NN overlap **0.020**, and post-fit 15-NN probe accuracy **54.1%**.
+
+These are fixed-run visualizations, not selected best seeds. The low neighborhood overlaps and class mixing are intentionally visible; the figures are evidence of actual behavior, not marketing illustrations. Dataset attribution and redistribution terms are listed in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+
 ## Installation
 
 Requirements: Python 3.9+, PyTorch 2.6+, and a C++17 compiler.

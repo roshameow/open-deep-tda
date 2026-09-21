@@ -37,6 +37,26 @@
 
 该图使用真实的 scikit-learn 内置 Digits 数据：1,400 个训练样本和 397 个通过 `transform` 映射的留出样本。圆点表示训练样本，`×` 表示留出样本；数字标签仅用于训练完成后的着色，未参与表征学习或优化。留出集 trustworthiness 为 0.864，15 邻居重叠为 0.407。此图说明样本外映射能力，不宣称优于其他方法。
 
+### 更多真实数据示例
+
+#### UCI Human Activity Recognition
+
+<p align="center">
+  <img src="assets/har-example.png" alt="Open Deep-TDA 在 UCI HAR 官方受试者独立划分上的嵌入" width="850">
+</p>
+
+模型使用全部 **7,352 个官方训练样本**，并映射全部 **2,947 个测试样本**；训练与测试受试者不重叠。图中仅为清晰显示而进行分层抽样，活动标签只用于训练后评价。Seed 0 测试诊断：trustworthiness **0.907**、15-NN overlap **0.040**、训练后 15-NN probe 准确率 **68.7%**。
+
+#### Fashion-MNIST
+
+<p align="center">
+  <img src="assets/fashion-mnist-example.png" alt="Open Deep-TDA 在完整 Fashion-MNIST 官方训练测试协议上的嵌入" width="850">
+</p>
+
+模型拟合全部 **60,000 张训练图像**，并映射全部 **10,000 张官方测试图像**；只有渲染图为了可读性进行分层抽样。标签在拟合后才使用。Seed 0 测试诊断：trustworthiness **0.914**、15-NN overlap **0.020**、训练后 15-NN probe 准确率 **54.1%**。
+
+这些图来自固定运行，不是挑选最好看的随机种子。较低的邻域重叠和类别混合被如实保留；它们展示实际行为，不是营销示意图。数据署名和再分发条款见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
+
 ## 安装
 
 要求 Python 3.9+、PyTorch 2.6+ 和 C++17 编译器。
