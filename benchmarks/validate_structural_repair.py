@@ -27,6 +27,7 @@ from open_deep_tda.structural_h0 import compare_h0
 from open_deep_tda.structural_h1 import check_h1_witnesses
 from open_deep_tda.structural_witnesses import select_h1_witnesses
 from open_deep_tda.structural_layout import repair_layout
+from open_deep_tda.structural_dual_layout import solve_structural_layout
 
 ROOT=Path(__file__).resolve().parents[1]
 PLAN=dict(protocol='small-structural-repair-diagnostic-v1',
@@ -59,6 +60,7 @@ def load_train(path):
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--output',type=Path,default=Path('outputs/structural-repair-real'))
+    p.add_argument('--solver',choices=['sequential','dual'],default='dual')
     a=p.add_mutually_exclusive_group(required=True)
     a.add_argument('--preregister',action='store_true');a.add_argument('--run',action='store_true')
     args=p.parse_args()
@@ -66,13 +68,15 @@ def main():
         p.error('local arrays must stay under ignored outputs')
     args.output.mkdir(parents=True,exist_ok=True)
     reg=args.output/'preregistration.json'
-    registration=dict(plan=PLAN,source_hashes=hashes())
+    plan=dict(PLAN,solver=args.solver)
+    registration=dict(plan=plan,source_hashes=hashes())
     if args.preregister:
         with reg.open('x') as f:json.dump(registration,f,indent=2)
         return
     if json.loads(reg.read_text())!=registration:raise ValueError('registered code/plan changed')
     with (args.output/'run_started.json').open('x') as f:json.dump({'started':True},f)
-    report=dict(plan=PLAN,source_hashes=registration['source_hashes'],runs=[])
+    report=dict(plan=plan,source_hashes=registration['source_hashes'],runs=[])
+    solve=repair_layout if args.solver=='sequential' else solve_structural_layout
     with threadpool_limits(limits=1):
         for dataset,path in [('coil20',ROOT/'outputs/v02-coil20/features.npz'),
                              ('fashion',ROOT/'outputs/v02-fashion_mnist/features.npz')]:
@@ -103,7 +107,7 @@ def main():
                          before_h0=compare_h0(D,topology.distance_matrix(initial),tolerance=.05))
                 started=time.perf_counter()
                 try:
-                    result=repair_layout(D,initial,selected['cycles'],lo,hi,h0_tolerance=tolerance,
+                    result=solve(D,initial,selected['cycles'],lo,hi,h0_tolerance=tolerance,
                                          **PLAN['search'],**PLAN['budgets'])
                     row.update({k:v for k,v in result.items() if k not in ('embedding','last_candidate')})
                     np.savez_compressed(args.output/(dataset+'-'+name+'.npz'),reference=X,initial=initial,

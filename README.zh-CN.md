@@ -17,7 +17,7 @@
 
 ## 结构 core 重构：先落地验证层
 
-重构的第一部分已经可以运行：**直接检查结构要求，而不是把 loss 小当作成功**。它尚未替换 `DeepTDA` 的训练目标，也不是新的布局优化器。
+重构现在包括**结构检查及有预算限制的平面修复原型**，不再把 loss 小当作成功。它尚未替换 `DeepTDA` 的训练目标，也不是已经通过效果验证的新降维算法。
 
 - [`compare_h0`](python/open_deep_tda/structural_h0.py)：在**全部传入行**上计算全局 MST，核对相同样本 ID 的连通分量合并尺度的精确最大误差；区分真实层级误差与更保守的 MST 边误差上界。
 - [`check_h1_witnesses`](python/open_deep_tda/structural_h1.py)：检查明确给出的源环代表元及尺度区间。目标中必须保留环边、不能成为边界，而且多个类不能合并；**不属于环边界的其他传入顶点**形成的填充三角形也会参与检查。
@@ -30,6 +30,19 @@ python examples/check_structural_contracts.py
 ```
 
 完整正方形通过；缺环、条形码相同但行对应错误、外部顶点填环、两个独立类合并、全局桥接尺度错误均被拒绝。这些是**正确性门槛，不是真实数据效果基准**。后续布局求解器及学习映射还必须通过这些检查，并在邻域保持与样本外泛化上达到有竞争力的结果，才能称为算法改善。
+
+### 结构证据驱动的布局修复原型
+
+- [`select_h1_witnesses`](python/open_deep_tda/structural_witnesses.py)：不使用标签，在指定尺度区间选择独立源环；即使限制返回数量，也报告完整区间像空间的秩。
+- [`find_h1_obstructions`](python/open_deep_tda/structural_obstructions.py)：返回实际填充三角形，或使所选类合并的关系，并核验其 F₂ 边界。
+- [`dual_h1_certificate`](python/open_deep_tda/structural_dual.py)：构造源对偶上闭链，检测目标中破坏所选类充分条件的三角形，不必逐个填充地反复修补。这是充分条件，不是必要条件，更不是完整复形同构证明。
+- [`solve_structural_layout`](python/open_deep_tda/structural_dual_layout.py)：批量生成与源结构一致的分离约束，并为可选 H₀ 要求自适应选择符合源合并层级的连接边。SLSQP 只提出坐标，**独立结构检查决定是否接受**。搜索失败返回 `embedding=None`，不伪称成功，也不当作不可行性证明。
+
+```bash
+python examples/repair_structural_layout.py
+```
+
+解析案例现在可以真正修复缺环、外部填充、独立类合并及错误连接，而不只是检测。这仍是**最多 64 点、显式结构要求、直接坐标修复原型**：没有学习型 `transform`，不承诺大数据、语义质量或降维效果提升。当前优化的是相对初始布局的最小位移，不是完整的邻域可视化目标。旧的逐填充 [`repair_layout`](python/open_deep_tda/structural_layout.py) 保留作实验对照，不作为推荐 core 路线。
 
 ## 功能
 

@@ -9,7 +9,7 @@ import json
 import numpy as np
 
 from open_deep_tda.topology import distance_matrix
-from open_deep_tda.structural_layout import repair_layout
+from open_deep_tda.structural_dual_layout import solve_structural_layout
 
 
 SQUARE=np.array([[0.,0.],[1.,0.],[1.,1.],[0.,1.]])
@@ -31,7 +31,7 @@ def run_cases():
     reports={}
     for name,source,initial,cycles in cases:
         radii=dict(birth_radius=1.,survival_radius=1.2) if cycles else {}
-        result=repair_layout(distance_matrix(source),initial,cycles,h0_tolerance=.05,**radii)
+        result=solve_structural_layout(distance_matrix(source),initial,cycles,h0_tolerance=.05,**radii)
         assert result['status']=='certified', (name,result['status'])
         reports[name]=dict(status=result['status'],rounds=len(result['history']),
                           h0_max_merge_error=result['certificate']['h0']['max_merge_error'],

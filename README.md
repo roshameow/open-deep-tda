@@ -17,7 +17,7 @@
 
 ## Structural-core rewrite: verification foundation
 
-The first part of the core rewrite is now executable: **checking structural obligations rather than assuming a small loss means success**. It does not yet replace the `DeepTDA` training objective or provide a new layout optimizer.
+The core rewrite now includes **structural checks and a bounded planar repair prototype**, rather than assuming a small loss means success. It does not replace the `DeepTDA` training objective or constitute a validated new dimensionality reducer.
 
 - [`compare_h0`](python/open_deep_tda/structural_h0.py) computes global MSTs on **all supplied rows** and checks the exact maximum error of same-ID component merge distances. It distinguishes the actual hierarchy error from the more conservative MST-edge error bound.
 - [`check_h1_witnesses`](python/open_deep_tda/structural_h1.py) checks explicitly supplied source cycle representatives over a declared radius interval. Target cycles must retain their edges, remain nonboundaries, and remain independent. Triangles involving *other supplied vertices* count as possible fillings.
@@ -30,6 +30,19 @@ python examples/check_structural_contracts.py
 ```
 
 The intact square passes; missing cycles, identical barcodes with wrong row correspondence, filling by an extra vertex, merging two independent classes, and an incorrect global bridge are rejected. These are **correctness gates, not real-data quality benchmarks**. A future layout solver and learned mapping must pass them *and* demonstrate competitive neighborhood/generalization results before being presented as an algorithmic improvement.
+
+### Certificate-guided layout repair prototype
+
+- [`select_h1_witnesses`](python/open_deep_tda/structural_witnesses.py) selects independent source cycles over a specified interval without labels. It reports the full interval-image rank even when the returned family is capped.
+- [`find_h1_obstructions`](python/open_deep_tda/structural_obstructions.py) returns explicit filling triangles or relations merging selected classes. Each certificate's F₂ boundary is verified.
+- [`dual_h1_certificate`](python/open_deep_tda/structural_dual.py) constructs source dual cocycles. These detect target triangles incompatible with a sufficient certificate for the selected classes, so the solver need not eliminate one filling at a time. This is sufficient, not necessary, and is not a whole-complex isomorphism proof.
+- [`solve_structural_layout`](python/open_deep_tda/structural_dual_layout.py) batches source-consistent separation cuts and uses adaptive reference-hierarchy merge edges for optional H₀ constraints. SLSQP proposes coordinates; **only independent structural verification accepts them**. A failed search returns `embedding=None`, never a claimed solution or proof of infeasibility.
+
+```bash
+python examples/repair_structural_layout.py
+```
+
+The analytic cases now actually repair missing cycles, external fillings, merged classes and wrong connectivity, not merely detect them. This is a **maximum-64-vertex, explicit-contract, direct-coordinate prototype**: no learned `transform`, large-data claim, semantic guarantee, or performance upgrade is implied. Its objective is minimal displacement from a supplied layout, not a complete neighborhood-visualization objective. The older single-filling [`repair_layout`](python/open_deep_tda/structural_layout.py) remains an experimental reference, not the recommended core path.
 
 ## Features
 
