@@ -4,20 +4,42 @@
 [![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-**可检查的拓扑正则化降维：C++ 持久同调核心 + PyTorch 参数化映射。**
+**可检查的降维：新的图布局与查询映射、可复现的神经基线，以及显式结构证书。**
 
 [English](README.md) · [快速开始](#快速开始) · [相关项目](#相关项目) · [基准结果](#基准结果)
 
 > [!IMPORTANT]
 > 这是受公开 Deep-TDA 思路启发的独立实验实现，**不是** DataRefiner 官方或数值等价复现，也不宣称达到 SOTA。TopoAE 与 TopoAE++ 是各自论文作者的独立项目，只作为外部参考/基线。
 
-<p align="center">
-  <img src="assets/pipeline.svg" alt="Open Deep-TDA 处理流程" width="920">
-</p>
+## 新主干：真实数据确认（main 未发布开发版）
 
-## 结构 core 重构：先落地验证层
+新增 `GraphEmbedding`：**按连通分量做谱初始化 → 直接优化稀疏图的二维坐标 → 在固定 TRAIN 凸包内求解条件分布匹配，映射新样本**。不是再给旧 MLP 换一组 loss 权重。实现借鉴标准图嵌入、UMAP 和条件嵌入思想，不宣称数学创新或原厂一比一复现；旧 `DeepTDA` 保留作可复现基线。
 
-重构现在包括**结构检查及有预算限制的平面修复原型**，不再把 loss 小当作成功。它尚未替换 `DeepTDA` 的训练目标，也不是已经通过效果验证的新降维算法。
+固定官方划分、种子 **0/1/2**，标签仅在全部拟合/映射结束后用于评价：
+
+| 数据集 | 原有配置准确率 | 新图布局＋条件映射 | 作者 UMAP | 新方法 / UMAP 的邻居重叠率@15 |
+|---|---:|---:|---:|---:|
+| Fashion-MNIST | 69.21% | **78.49%** | 77.88% | **.1727** / .1442 |
+| HAR | 82.21% | 83.02% | **83.38%** | **.1973** / .1550 |
+| COIL-20 | 72.78% | **87.08%** | 85.14% | **.7899** / .7700 |
+
+准确率是在**全部官方 TEST 行**上的拟合后 15-NN 探针；几何指标使用固定查询、对**完整 TRAIN 参考集**排名，不是小子云或候选集指标。各方法共享参考特征和经审计的邻居。表中为新配对协议的三种子均值，不能替换历史不同协议的数字；COIL 旧对照是已记录的 600-step stress 配置，不宣称它是最强竞争方法。
+
+**仍有代价和退步：**Fashion 聚类 ARI 为 .421，低于 UMAP 的 .471；HAR 相对原配置的 ARI 从 .653 降到 .534。原完整 Fashion 查询阶段约 **142 秒 / 10,000 行**，UMAP 约 8 秒；另测有界修复约增加 .53 秒，不能当作新的整轮计时。模型需要保留全部训练特征。因此不能把邻居恢复率提高说成所有聚类任务全面胜出。没有根据本轮 TEST 调参、选最佳种子或删除未收敛查询；这些 TEST 在历史开发中使用过，不伪称全新外部验证。
+
+表格采用默认的 **TRAIN 凸包有界映射**后续确认，原训练布局及对照方法全部固定。无界 KL 曾产生远离训练布局的有限异常坐标，成功标志、小梯度也不能保证位置合理。修复规则先在 TRAIN 内验证，再做固定后续确认：**40,281 个官方查询中 430 个做了约束优化，没有删点；原本在凸包内的输出逐位不变**。这是插值假设，不保证分布外外推，也不是裁图掩盖问题。旧模式仍可用 `mapping_domain="unbounded"` 复现。
+
+[有界后续确认：全部九组](benchmarks/results/graph_core_compact_confirmation.json) · [原始 30 组及越界失败](benchmarks/results/graph_core_confirmation.json) · [协议与复现](benchmarks/graph_core/README.md)
+
+<p align="center"><img src="assets/graph-core-fashion.png" alt="固定种子的真实 Fashion-MNIST 对照" width="1100"></p>
+<p align="center"><img src="assets/graph-core-har.png" alt="官方受试者不重叠 HAR 对照" width="1100"></p>
+<p align="center"><img src="assets/graph-core-coil.png" alt="真实 COIL-20 对照" width="1100"></p>
+
+图主干本身**不保证 H₀/H₁ 保持**。下面的结构构造是独立、显式请求的路径，不会偷偷替换上表中的算法。
+
+## 结构契约与构造式布局
+
+结构是否合格与优化器是否成功分开判断。原有检查器继续保留；新增稀疏检查与构造路径会检查**全部传入行**，不会静默采样。
 
 - [`compare_h0`](python/open_deep_tda/structural_h0.py)：在**全部传入行**上计算全局 MST，核对相同样本 ID 的连通分量合并尺度的精确最大误差；区分真实层级误差与更保守的 MST 边误差上界。
 - [`check_h1_witnesses`](python/open_deep_tda/structural_h1.py)：检查明确给出的源环代表元及尺度区间。目标中必须保留环边、不能成为边界，而且多个类不能合并；**不属于环边界的其他传入顶点**形成的填充三角形也会参与检查。
@@ -30,6 +52,28 @@ python examples/check_structural_contracts.py
 ```
 
 完整正方形通过；缺环、条形码相同但行对应错误、外部顶点填环、两个独立类合并、全局桥接尺度错误均被拒绝。这些是**正确性门槛，不是真实数据效果基准**。后续布局求解器及学习映射还必须通过这些检查，并在邻域保持与样本外泛化上达到有竞争力的结果，才能称为算法改善。
+
+### 完整传入域上的构造路径
+
+- [`analyze_sparse_h1`](python/open_deep_tda/structural_sparse_h1.py)：只为生存尺度内的边分配代数坐标，流式约化三角形；有预算限制地支持 **1,024 点**，不忽略可能填环的其他顶点。
+- [`auto_global_witnesses`](python/open_deep_tda/structural_auto_witness.py)：通过可选的作者 Ripser 提出全域源类，再独立核验。调用外部求解器须显式同意，其内部资源不受本项目 core 预算约束。
+- [`construct_global_layout`](python/open_deep_tda/structural_constructive.py)：先构造环骨架，再按源合并层级接入其余点；**完整域 H₀/H₁ 检查通过才返回坐标**。目前仅支持一个所选简单环，合法输入也可能构造失败。
+- [`structural_planar.certify`](python/open_deep_tda/structural_planar.py)：用受保护空圆盘和精确 F₂ 绕数检查所有顶点，提供可扩展的目标充分证据。其范围是表示为 float64 的点的实数欧氏几何，**不等同于舍入后的 `pdist` 过滤**，也不单独验证源。
+
+在 **COIL 全部 960 个训练样本**上，全域无标签选择的一个源类得以保留；同样本 ID 的 H₀ 合并误差 **.049 ≤ .05**，独立 H₁ 检查秩为 **1**。不是只看环顶点或 48 点子云。但这只证明所选类在指定区间存活，**不证明全部 H₁、精确死亡时刻、条形码相等或语义标签正确**。
+
+结构约束有真实代价：训练邻居重叠率从无约束图引导的 **.769 降到 .571**。额外的固定 seed-0 样本外消融，分类准确率为 **93.54%**，匹配的精确邻居图引导为 **88.75%**，但 TEST 邻居重叠率从 **.7833 降到 .5908**。这**不是**上表的共享 ANN 三种子研究。加入全部 480 个预测 TEST 点后，所选目标 H₁ 仍通过，但完整 1,440 行 H₀ 误差达到 **1.5295**：**样本外 .05 要求失败**。空圆盘保护未移动任何查询点，不把它算作收益。
+
+更早的新样本迁移也不顺利：首个构造规则通过 0/6 个新小样本，前沿扩展通过 1/6。这些失败仍保留，不能宣称普遍可行。960 点成功在匹配运行环境中已复核，新运行环境的构造未成功也予以保留。[完整结果与范围](benchmarks/results/global_structural_diagnostic.json) · [复现程序](benchmarks/validate_global_structural.py)
+
+```bash
+python examples/construct_global_layout.py
+```
+
+可以用 `GraphEmbedding.from_layout(X, checked_layout)` 为外部构造坐标配置同一个查询映射器。工厂函数**不会把训练证书自动推广到新查询**，也不会替任意传入布局背书。
+
+<details>
+<summary>保留的早期填充约束修复实验及联合失败</summary>
 
 ### 结构证据驱动的布局修复原型
 
@@ -53,7 +97,9 @@ python examples/repair_structural_layout.py
 | COIL-20，48 点 | 48 轮后未解决 | 1 轮后通过验证 | **未解决** |
 | Fashion，48 点 | 48 轮后未解决 | 1 轮后通过验证 | **未解决** |
 
-联合失败候选的 H₀ 误差约 **4.94 / 659.55**，所需 H₁ 类也未保留，因此不会返回认证 embedding。这是求解失败，**不是所要求平面结构不可行的证明**。新 core 尚未完成，不接入估计器，也不宣传降维效果改善。[全部八项结果及源代码哈希](benchmarks/results/structural_repair_diagnostic.json) 均保留，原始坐标和日志留在本地。复现使用 [`validate_structural_repair.py`](benchmarks/validate_structural_repair.py)，不同 `--output` 目录分别运行 `--solver sequential` / `--solver dual`，先注册再运行。原始逐填充快照为提交 `62b4aeb`，本轮实测公共对偶版本为 `4c643dd`。
+联合失败候选的 H₀ 误差约 **4.94 / 659.55**，所需 H₁ 类也未保留，因此不会返回认证 embedding。这是求解失败，**不是所要求平面结构不可行的证明**。这个联合 SLSQP 路线仍是未成功的实验对照，不是上面的新图主干或构造路径。[全部八项结果及源代码哈希](benchmarks/results/structural_repair_diagnostic.json) 均保留，原始坐标和日志留在本地。复现使用 [`validate_structural_repair.py`](benchmarks/validate_structural_repair.py)，不同 `--output` 目录分别运行 `--solver sequential` / `--solver dual`，先注册再运行。原始逐填充快照为提交 `62b4aeb`，本轮实测公共对偶版本为 `4c643dd`。
+
+</details>
 
 ## 功能
 
@@ -63,15 +109,15 @@ python examples/repair_structural_layout.py
 - 默认距离 stress；可选 fuzzy 邻域；H₀/H₁ 与关键边目标。
 - 有界分块精确近邻，或隔离进程 NN-descent + 精确 recall 审计。
 - 在线拓扑子云刷新和实际样本覆盖诊断。
-- 可省略训练样本的推理专用检查点。
+- 旧神经模型可省略训练样本；新图预测器的安全 NPZ 必须保留训练特征。
 - 离线 HTML/SVG、持久图、Mapper 摘要和命令行工具。
 
 > [!NOTE]
-> PH 只对选中的小子云精确计算，不是大规模总体上的全局拓扑保证。持久图相似也不保证语义对应或物理循环顺序正确。
+> 旧神经训练器的 PH 只对选中小子云精确计算，不是大规模总体的全局保证；新结构 API 分别声明完整传入域及预算。持久图相似也不保证语义对应或物理循环顺序正确。
 
-真实数据实测配置可直接使用 [Fashion-MNIST PCA64 NCE](configs/fashion-pca64-nce.json) 或 [HAR 图目标](configs/har-neighborhood.json)。它们是数据集专用实验配置，不是通用默认；HAR 的 NCE 迁移没有成功改善聚类。
+新图路线使用 `GraphEmbedding`（需安装 `graph` 可选依赖）。历史神经实验保留 [Fashion-MNIST PCA64 NCE](configs/fashion-pca64-nce.json) 或 [HAR 图目标](configs/har-neighborhood.json)。它们是数据集专用实验配置，不是通用默认；HAR 的 NCE 迁移没有成功改善聚类。
 
-## 可视化示例
+## 保留的历史神经模型图例
 
 <p align="center">
   <img src="assets/digits-example.png" alt="Open Deep-TDA 在真实 scikit-learn Digits 数据上的嵌入，留出样本用叉号表示" width="820">
@@ -125,6 +171,34 @@ python -m pip install -e '.[benchmark,images]' # 基准工具
 安装过程不会自动下载数据或连接训练服务。真实数据下载必须显式启用，且不会加入仓库。
 
 ## 快速开始
+
+新 API 位于 **main 未发布开发版**，不在旧 v0.3 prerelease 中。安装图依赖：
+
+```bash
+python -m pip install -e '.[graph,plot]'
+```
+
+```python
+from open_deep_tda import GraphEmbedding
+
+model = GraphEmbedding(neighbor_backend="exact", seed=0)
+Z_train = model.fit_transform(X_train)
+Z_new, diagnostics = model.transform(X_new, return_diagnostics=True)
+# 大训练集可显式使用 neighbor_backend="pynndescent"。
+model.save("graph-predictor.npz")  # 包含完整训练特征，不是紧凑/匿名化模型
+restored = GraphEmbedding.load("graph-predictor.npz")
+```
+
+不静默拟合预处理：fit/transform 应传入相同定义的有限数值特征。固定 source15 要求至少 16 个训练样本。每行始终按新查询优化，即使与训练特征相同，也不承诺精确插值到训练锚点。默认限制在 TRAIN 凸包，并报告约束优化及未收敛状态；旧图检查点保留原无界策略，不静默改变预测。默认临时文件在成功/失败后清理；保留原始调试数据须显式开启。安全 NPZ 不序列化外部查询索引。
+
+```bash
+python examples/run_graph_embedding.py --plot
+deep-tda graph-fit --input train.npy --validation test.npy --output outputs/graph-run
+deep-tda graph-transform --model outputs/graph-run/model.npz --input new.npy --output outputs/graph-new.npy
+```
+
+### 保留的神经参数化基线
+
 
 ```bash
 deep-tda demo --dataset circle --samples 256 --features 8 \

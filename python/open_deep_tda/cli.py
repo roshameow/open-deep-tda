@@ -7,7 +7,6 @@ import sys
 import numpy as np
 
 from .config import TDAConfig
-from .estimator import DeepTDA
 
 
 def load_array(path, delimiter=",", skip_header=0):
@@ -122,6 +121,19 @@ def main(argv=None):
     p.add_argument("--output", required=True, help="output NPY file")
     p.add_argument("--ood-output", help="optional output NPY for nearest-reference distances")
 
+    p = sub.add_parser("graph-fit", help="fit the independent graph layout and conditional query mapper")
+    data_options(p); output_options(p)
+    p.add_argument("--validation", help="held-out array; never used by the layout optimizer")
+    p.add_argument("--neighbor-backend", choices=["exact", "pynndescent"], default="exact")
+    p.add_argument("--epochs", type=int, default=300)
+    p.add_argument("--seed", type=int, default=0)
+
+    p = sub.add_parser("graph-transform", help="map queries using a safe NPZ graph predictor")
+    data_options(p)
+    p.add_argument("--model", required=True)
+    p.add_argument("--output", required=True, help="output NPY file")
+    p.add_argument("--diagnostics", help="optional JSON optimizer diagnostics")
+
     p = sub.add_parser("evaluate", help="evaluate aligned sample IDs in two arrays")
     p.add_argument("--reference", required=True)
     p.add_argument("--embedding", required=True)
@@ -144,6 +156,7 @@ def main(argv=None):
     args = parser.parse_args(argv)
     try:
         if args.command in ("demo", "fit"):
+            from .estimator import DeepTDA
             cfg = config_from_args(args)
             out = output_dir(args.output, args.overwrite)
             validation, labels = None, None
@@ -168,6 +181,7 @@ def main(argv=None):
             print(json.dumps({"status": "ok", "output": str(out.resolve()), "samples": len(X),
                               "fit_seconds": model.fit_seconds_}, ensure_ascii=False))
         elif args.command == "transform":
+            from .estimator import DeepTDA
             model = DeepTDA.load(args.model)
             X = load_array(args.input, args.delimiter, args.skip_header)
             output = Path(args.output)
@@ -176,6 +190,36 @@ def main(argv=None):
             if args.ood_output:
                 Path(args.ood_output).parent.mkdir(parents=True, exist_ok=True)
                 np.save(args.ood_output, model.ood_scores(X))
+            print(str(output))
+        elif args.command == "graph-fit":
+            from .graph_embedding import GraphEmbedding
+            out = output_dir(args.output, args.overwrite)
+            X = load_array(args.input, args.delimiter, args.skip_header)
+            model = GraphEmbedding(neighbor_backend=args.neighbor_backend,
+                                   epochs=args.epochs, seed=args.seed).fit(X)
+            np.save(out / "embedding.npy", model.embedding_)
+            write_json(out / "fit.json", model.diagnostics_)
+            if args.validation:
+                queries = load_array(args.validation, args.delimiter, args.skip_header)
+                prediction, diagnostic = model.transform(queries, return_diagnostics=True)
+                np.save(out / "validation_embedding.npy", prediction)
+                write_json(out / "transform.json", diagnostic)
+            # This predictor necessarily contains reference features. Unlike the
+            # legacy neural compact checkpoint, it is NOT training-data-free.
+            model.save(out / "model.npz", overwrite=args.overwrite)
+            print(json.dumps({"status": "ok", "output": str(out.resolve()),
+                              "samples": len(X), "reference_data_in_checkpoint": True}))
+        elif args.command == "graph-transform":
+            from .graph_embedding import GraphEmbedding
+            model = GraphEmbedding.load(args.model)
+            queries = load_array(args.input, args.delimiter, args.skip_header)
+            prediction, diagnostic = model.transform(queries, return_diagnostics=True)
+            output = Path(args.output)
+            output.parent.mkdir(parents=True, exist_ok=True)
+            np.save(output, prediction)
+            if args.diagnostics:
+                Path(args.diagnostics).parent.mkdir(parents=True, exist_ok=True)
+                write_json(args.diagnostics, diagnostic)
             print(str(output))
         elif args.command == "evaluate":
             from .evaluation import evaluate_embedding, evaluate_stability

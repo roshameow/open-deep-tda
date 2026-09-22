@@ -1,0 +1,3790 @@
+{
+  "figures": [
+    {
+      "classes": 10,
+      "clipping": false,
+      "controls": "original unbounded-v1 benchmark controls reused",
+      "dataset": "fashion",
+      "directA_protocol": "train_hull compact followup",
+      "excluded_points": 0,
+      "file": "assets/graph-core-fashion.png",
+      "full_extent": true,
+      "numbers": "seed0, not three-seed means",
+      "points": 10000,
+      "seed": 0,
+      "sha256": "b5df6ae0f99acb6285b667ddab5b4a79392c537aa94d10b519c38cc13a6a13eb",
+      "view_cropping": false
+    },
+    {
+      "classes": 6,
+      "clipping": false,
+      "controls": "original unbounded-v1 benchmark controls reused",
+      "dataset": "har",
+      "directA_protocol": "train_hull compact followup",
+      "excluded_points": 0,
+      "file": "assets/graph-core-har.png",
+      "full_extent": true,
+      "numbers": "seed0, not three-seed means",
+      "points": 2947,
+      "seed": 0,
+      "sha256": "b0ffbce6b9c286ed8aaaebb23dc80946e07462324cb2f3ba64e76423ae6bdfae",
+      "view_cropping": false
+    },
+    {
+      "classes": 20,
+      "clipping": false,
+      "controls": "original unbounded-v1 benchmark controls reused",
+      "dataset": "coil",
+      "directA_protocol": "train_hull compact followup",
+      "excluded_points": 0,
+      "file": "assets/graph-core-coil.png",
+      "full_extent": true,
+      "numbers": "seed0, not three-seed means",
+      "points": 480,
+      "seed": 0,
+      "sha256": "958a4cb6ba218844186ac4bad2725ea029131c2559aa084534f010876f5c0bdf",
+      "view_cropping": false
+    }
+  ],
+  "historical_artifacts": {
+    "legacy_cli_snapshot": {
+      "file": "benchmarks/graph_core/history/confirm_graph_core_v1.py",
+      "sha256": "54e0f1c03931eb40ccca3d39c8b55bed8d6b42ee88ba090c6372ad8f8fb964fe"
+    },
+    "legacy_readme_snapshot": {
+      "file": "benchmarks/graph_core/UNBOUNDED_V1.md",
+      "sha256": "8e2eb8fd10bf866f76011c07b2657936d2a166305b94fc74ee3f0f0ebe8d9464"
+    },
+    "original_30_records_file": "graph_core_confirmation.json",
+    "original_30_records_sha256": "bec5ec354d39f01d40982b76e8fcfa6d7aac0d257c72cb4bc393ef54c0825b4b",
+    "original_source_manifest_file": "graph_core_provenance.json",
+    "original_source_manifest_sha256": "75d1df79d0ea60625d2fdf2fc75440366f7b41b3b3f947d135eb09cccf59bc2c",
+    "retained_figures": [
+      {
+        "retained_file": "assets/graph-core-unbounded-fashion.png",
+        "sha256": "a6716ef31ef2fafd696a94703896255656d41bc02fff58e7fcdf1f34008fba96",
+        "snapshot_name": "assets/graph-core-fashion.png"
+      },
+      {
+        "retained_file": "assets/graph-core-unbounded-har.png",
+        "sha256": "2c8cf80a2caa4f3f0f91613cf1dd86e0cd2627845063550c39cba5c978dee7ba",
+        "snapshot_name": "assets/graph-core-har.png"
+      },
+      {
+        "retained_file": "assets/graph-core-unbounded-coil.png",
+        "sha256": "d94c72804081ba648d4ed2a4087537caf807f2ec2ac29ab688275ef8d534bdae",
+        "snapshot_name": "assets/graph-core-coil.png"
+      }
+    ],
+    "unbounded_numerical_source_hashes": {
+      "benchmarks/graph_core/__init__.py": "6873477a5338063d69377b28ef8de6f8cadbc284a8f817c0b23c81331874e43a",
+      "benchmarks/graph_core/common.py": "a27b8c06e55701d29e2782259b04589da4d084a018ef262c7cd14b5120ea8bec",
+      "benchmarks/graph_core/figures.py": "c92dafaf884802fa5c5a4f4c73db8c7ece3b5b9973c990efc0117cfc0f2539cb",
+      "benchmarks/graph_core/kernels.py": "d1cccdc3f518217106eb26754a7769a3e8122f8fc3e66c42327a9d06ebd43f46",
+      "benchmarks/graph_core/publish.py": "62759bbada57bdfd5e4b9dba38047127abf82fa827ee41969242ea24dfbd91bd",
+      "benchmarks/graph_core/report.py": "e17cf7ed92ac4d052cc9a595f46d48873fb35ebfec5ea56875274a6606452c5e",
+      "benchmarks/graph_core/runner.py": "8c6e1c15060eb975fb8d9c5b823e4359a1b928970f9d2bab7ae5f9dc46db8758",
+      "benchmarks/graph_core/worker.py": "1df3948d14f80ca730f9eaab1c8f8fabf3e17365ea0e968f7f21e52cb7de04d3"
+    },
+    "unbounded_numerical_sources_unchanged": true
+  },
+  "integrity": {
+    "as_run_original_inputs_and_sources_unchanged_at_closeout": true,
+    "frozen_generation_before_labels": true,
+    "inside_rows_unchanged": true,
+    "old_TRAIN_KMeans_assignments_verified": true,
+    "old_TRAIN_geometry_reused": true
+  },
+  "protocol": {
+    "TEST_previously_seen": true,
+    "clipping": false,
+    "historical_protocol": "unbounded-v1; original30 records unchanged",
+    "labels": "New all9 output/hash barrier before labels or saved cluster predictions",
+    "layout_refits": 0,
+    "mapping_domain": "train_hull",
+    "metric_population": "Same512 TRAIN/1024 TEST queries vsFULLTRAIN; COILall480TEST; allTEST classification",
+    "name": "FIXED9-official-compact-v1",
+    "norm_units": "Euclidean norm in TRAIN-centered layout divided by TRAIN edge-median unit",
+    "public_reproducer": "graph-core-compact-followup-public-v2",
+    "query_exclusions": 0,
+    "selection": "Fixed authorized TRAIN-hull followup motivated by TRAIN-internal validation; no official TEST tuning or seed selection",
+    "solver": "Exact production CompactMap, outside-only SLSQP over TRAIN convex hull; inside rows bitwise unchanged, feasible visited incumbent retained; no global optimum guarantee",
+    "source_graph_rebuilds": 0
+  },
+  "provenance": {
+    "as_run_authorized_source_hashes": {
+      "production/_graph_mapping.py": "5bd96e43ed2b7fcb81d690c08e8c09cd0ed898ace8e9892ddcfd77b7afbca3cd",
+      "production/graph_embedding.py": "7fcf74e64b88b213664982d296a89d6b86d9338e265980129ebc5263e0196a84"
+    },
+    "as_run_global_output_barrier_sha256": "c651ad6b979069f45182256982ce3da962c449d97c32b7db1b9b969ca90a0459",
+    "as_run_source_freeze_sha256": "fa32bb34f073fe715f11f86c00e0693dad76658b9e8f91c10ddc70d93437ed9a",
+    "current_production_source_comparison": {
+      "production/_graph_mapping.py": {
+        "as_run": "5bd96e43ed2b7fcb81d690c08e8c09cd0ed898ace8e9892ddcfd77b7afbca3cd",
+        "current": "f376d9d58752ce77f82f5fdcfad277847062e50a5337375fb8204f6c0419c273",
+        "matches_as_run": false
+      },
+      "production/graph_embedding.py": {
+        "as_run": "7fcf74e64b88b213664982d296a89d6b86d9338e265980129ebc5263e0196a84",
+        "current": "ad1ce527b3838c02df303432a88589cf91fdc7ffb6a7f09016746432f7637c78",
+        "matches_as_run": false
+      }
+    },
+    "current_source_note": "As-run authorized hashes were verified at original closeout. Current production may include subsequent validation hardening; differing current hashes are disclosed, not claimed identical. No real maps were rerun for this export.",
+    "historical_aggregate": "graph_core_confirmation.json",
+    "historical_aggregate_sha256": "bec5ec354d39f01d40982b76e8fcfa6d7aac0d257c72cb4bc393ef54c0825b4b",
+    "historical_source_manifest": "graph_core_provenance.json",
+    "historical_source_manifest_sha256": "75d1df79d0ea60625d2fdf2fc75440366f7b41b3b3f947d135eb09cccf59bc2c",
+    "note": "Separate followup; old numbers/source manifest remain historical and are not relabeled current default",
+    "port_scope": "Source/API relocation of fixed cached-output followup; only synthetic tests and read-only export/plot here, no real fit or map rerun. Historical method source hashes are not relabeled as public-port file hashes.",
+    "public_followup_port_source_hashes": {
+      "benchmarks/confirm_graph_core.py": "c77a6bdbc276e0b09ae119d50fcf07fed2e5fffd961ff65a51d9bb273a041590",
+      "benchmarks/graph_core/compact.py": "c408ff11eab00e84a52803969515023e4c9e7a1366dd5efa4a9ca77d54743a32",
+      "benchmarks/graph_core/compact_figures.py": "23dbb26033811db1069bc433b8363728c67c17daa00130d7a6122f8830cb6922",
+      "benchmarks/graph_core/compact_publish.py": "0b7bd44339e07a538a6a2df5b99ac7cd1240ae550b097cf62dc7485c8ef4d88c",
+      "benchmarks/graph_core/support.py": "6bc04c5109d3f14559afe11586331e94d8a286f574dd328b636e9b46f3134b7f",
+      "tests/test_graph_core_compact_protocol.py": "48c2a232246bd7773d9d801234f4581635d5354561c17642702cf0e1c3378a6a"
+    }
+  },
+  "records": [
+    {
+      "TRAIN_centers_reproduce_all_old_clusters": true,
+      "all_final_feasible": true,
+      "all_final_finite": true,
+      "as_run_public_API_parity": {
+        "all_routed_as_expected": true,
+        "inside_queries": 3,
+        "max_physical_linf_difference": 0.0,
+        "outside_queries": 31,
+        "public_center_exact": true,
+        "public_positive_ids_exact": true,
+        "public_probabilities_exact": true,
+        "public_probability_max_difference": 0.0,
+        "public_unit_exact": true,
+        "seconds": 3.1983211669999996
+      },
+      "changed_rows": 31,
+      "changes_vs_unbounded": {
+        "ari_delta": 3.120053017785507e-05,
+        "classification": {
+          "accuracy_delta": -0.000200000000000089,
+          "correct_gained": 0,
+          "correct_lost": 2,
+          "predictions_changed": 3
+        },
+        "nmi_delta": -9.793000103286431e-06,
+        "test_geometry": {
+          "15": {
+            "continuity": {
+              "improved": 0,
+              "mean": -9.226473317986133e-08,
+              "unchanged": 1020,
+              "worsened": 4
+            },
+            "overlap": {
+              "improved": 0,
+              "mean": -0.00013020833333333339,
+              "unchanged": 1022,
+              "worsened": 2
+            },
+            "trustworthiness": {
+              "improved": 0,
+              "mean": -6.14374576233547e-07,
+              "unchanged": 1022,
+              "worsened": 2
+            }
+          },
+          "5": {
+            "continuity": {
+              "improved": 0,
+              "mean": -8.464529195064633e-08,
+              "unchanged": 1021,
+              "worsened": 3
+            },
+            "overlap": {
+              "improved": 0,
+              "mean": 0.0,
+              "unchanged": 1024,
+              "worsened": 0
+            },
+            "trustworthiness": {
+              "improved": 0,
+              "mean": 0.0,
+              "unchanged": 1024,
+              "worsened": 0
+            }
+          },
+          "50": {
+            "continuity": {
+              "improved": 1,
+              "mean": -2.5422190887136598e-08,
+              "unchanged": 1020,
+              "worsened": 3
+            },
+            "overlap": {
+              "improved": 0,
+              "mean": 0.0,
+              "unchanged": 1024,
+              "worsened": 0
+            },
+            "trustworthiness": {
+              "improved": 1,
+              "mean": 2.477033983873736e-08,
+              "unchanged": 1022,
+              "worsened": 1
+            }
+          }
+        }
+      },
+      "classification": {
+        "accuracy": 0.7847,
+        "all_test_rows": 10000,
+        "balanced_accuracy": 0.7847
+      },
+      "dataset": "fashion",
+      "feasibility_tolerance": 7.524547029667398e-13,
+      "final_max_norm": 51.90662660228738,
+      "fit_file_unchanged": true,
+      "inside_bytes_unchanged": true,
+      "inside_count": 9969,
+      "kmeans": {
+        "ari": 0.41851654354176554,
+        "n_clusters": 10,
+        "nmi": 0.6107540212112174
+      },
+      "mapping_domain": "train_hull",
+      "max_cached_gradient_difference": 0.0,
+      "max_cached_objective_difference": 0.0,
+      "max_final_violation": 7.105427357601002e-15,
+      "old_max_norm": 84942.15855618769,
+      "original_unbounded_transform_seconds": 137.464497333,
+      "outside_count": 31,
+      "phase_II_failures": 0,
+      "phase_II_successes": 31,
+      "phase_I_failures": 0,
+      "query_count": 10000,
+      "readonly_baselines": {
+        "strong": {
+          "classification": {
+            "accuracy": 0.6884,
+            "all_test_rows": 10000,
+            "balanced_accuracy": 0.6884
+          },
+          "kmeans": {
+            "ari": 0.41312155822724095,
+            "n_clusters": 10,
+            "nmi": 0.5683618061938909
+          },
+          "test_metrics": {
+            "15": {
+              "continuity": 0.9931382924172893,
+              "overlap": 0.06223958333333377,
+              "trustworthiness": 0.9535253279935273
+            },
+            "5": {
+              "continuity": 0.9944733558758921,
+              "overlap": 0.03085937499999993,
+              "trustworthiness": 0.9530300442603717
+            },
+            "50": {
+              "continuity": 0.991268998198805,
+              "overlap": 0.12812499999999996,
+              "trustworthiness": 0.9542896805199792
+            }
+          },
+          "train_metrics": {
+            "15": {
+              "continuity": 0.9936906999245546,
+              "overlap": 0.05846354166666653,
+              "trustworthiness": 0.9594152563170046
+            },
+            "5": {
+              "continuity": 0.9950334653995535,
+              "overlap": 0.031249999999999962,
+              "trustworthiness": 0.9582849978955527
+            },
+            "50": {
+              "continuity": 0.9918218973719012,
+              "overlap": 0.12417968750000011,
+              "trustworthiness": 0.9581457389871834
+            }
+          }
+        },
+        "umap": {
+          "classification": {
+            "accuracy": 0.7788,
+            "all_test_rows": 10000,
+            "balanced_accuracy": 0.7788
+          },
+          "kmeans": {
+            "ari": 0.4709878333946852,
+            "n_clusters": 10,
+            "nmi": 0.635465485792418
+          },
+          "test_metrics": {
+            "15": {
+              "continuity": 0.9916604317416392,
+              "overlap": 0.1432942708333336,
+              "trustworthiness": 0.9830301025740694
+            },
+            "5": {
+              "continuity": 0.9936778626777303,
+              "overlap": 0.06855468750000028,
+              "trustworthiness": 0.9827521413956624
+            },
+            "50": {
+              "continuity": 0.9880018131888753,
+              "overlap": 0.23230468749999997,
+              "trustworthiness": 0.9826708273449954
+            }
+          },
+          "train_metrics": {
+            "15": {
+              "continuity": 0.9922156379563561,
+              "overlap": 0.16197916666666695,
+              "trustworthiness": 0.9843969767403897
+            },
+            "5": {
+              "continuity": 0.9949781520348555,
+              "overlap": 0.10039062500000016,
+              "trustworthiness": 0.9842583047531331
+            },
+            "50": {
+              "continuity": 0.9889540829762866,
+              "overlap": 0.24003906250000023,
+              "trustworthiness": 0.9832806763615047
+            }
+          }
+        },
+        "unbounded_A": {
+          "classification": {
+            "accuracy": 0.7849,
+            "all_test_rows": 10000,
+            "balanced_accuracy": 0.7848999999999999
+          },
+          "kmeans": {
+            "ari": 0.4184853430115877,
+            "n_clusters": 10,
+            "nmi": 0.6107638142113206
+          },
+          "test_metrics": {
+            "15": {
+              "continuity": 0.9914340401376337,
+              "overlap": 0.17076822916666637,
+              "trustworthiness": 0.9821502313435063
+            },
+            "5": {
+              "continuity": 0.9941444210157856,
+              "overlap": 0.12343750000000087,
+              "trustworthiness": 0.9821917277067723
+            },
+            "50": {
+              "continuity": 0.988072098376317,
+              "overlap": 0.2369531249999998,
+              "trustworthiness": 0.9809879271971024
+            }
+          },
+          "train_metrics": {
+            "15": {
+              "continuity": 0.9930689793934908,
+              "overlap": 0.1496093750000004,
+              "trustworthiness": 0.9806017002698257
+            },
+            "5": {
+              "continuity": 0.9956455652420324,
+              "overlap": 0.09179687500000004,
+              "trustworthiness": 0.9797990187754202
+            },
+            "50": {
+              "continuity": 0.989926033227228,
+              "overlap": 0.22472656250000017,
+              "trustworthiness": 0.980896359038248
+            }
+          }
+        }
+      },
+      "refinement_seconds": 0.508789375000001,
+      "scoring_seconds": 17.326315540999992,
+      "seed": 0,
+      "status": "completed",
+      "test_metrics": {
+        "15": {
+          "continuity": 0.9914339478729006,
+          "overlap": 0.17063802083333304,
+          "trustworthiness": 0.9821496169689302
+        },
+        "5": {
+          "continuity": 0.9941443363704936,
+          "overlap": 0.12343750000000087,
+          "trustworthiness": 0.9821917277067723
+        },
+        "50": {
+          "continuity": 0.9880720729541264,
+          "overlap": 0.2369531249999998,
+          "trustworthiness": 0.9809879519674423
+        }
+      },
+      "train_metrics": {
+        "15": {
+          "continuity": 0.9930689793934908,
+          "overlap": 0.1496093750000004,
+          "trustworthiness": 0.9806017002698257
+        },
+        "5": {
+          "continuity": 0.9956455652420324,
+          "overlap": 0.09179687500000004,
+          "trustworthiness": 0.9797990187754202
+        },
+        "50": {
+          "continuity": 0.989926033227228,
+          "overlap": 0.22472656250000017,
+          "trustworthiness": 0.980896359038248
+        }
+      },
+      "validation_seconds": 12.969193583000001
+    },
+    {
+      "TRAIN_centers_reproduce_all_old_clusters": true,
+      "all_final_feasible": true,
+      "all_final_finite": true,
+      "as_run_public_API_parity": {
+        "all_routed_as_expected": true,
+        "inside_queries": 3,
+        "max_physical_linf_difference": 0.0,
+        "outside_queries": 30,
+        "public_center_exact": true,
+        "public_positive_ids_exact": true,
+        "public_probabilities_exact": true,
+        "public_probability_max_difference": 0.0,
+        "public_unit_exact": true,
+        "seconds": 3.058746792000001
+      },
+      "changed_rows": 30,
+      "changes_vs_unbounded": {
+        "ari_delta": -0.00013957797456903842,
+        "classification": {
+          "accuracy_delta": -9.999999999998899e-05,
+          "correct_gained": 0,
+          "correct_lost": 1,
+          "predictions_changed": 2
+        },
+        "nmi_delta": -0.00012098810427663143,
+        "test_geometry": {
+          "15": {
+            "continuity": {
+              "improved": 0,
+              "mean": -3.799136072109386e-08,
+              "unchanged": 1021,
+              "worsened": 3
+            },
+            "overlap": {
+              "improved": 0,
+              "mean": 0.0,
+              "unchanged": 1024,
+              "worsened": 0
+            },
+            "trustworthiness": {
+              "improved": 2,
+              "mean": 7.468016050330394e-07,
+              "unchanged": 1022,
+              "worsened": 0
+            }
+          },
+          "5": {
+            "continuity": {
+              "improved": 0,
+              "mean": -2.278911706359802e-08,
+              "unchanged": 1021,
+              "worsened": 3
+            },
+            "overlap": {
+              "improved": 0,
+              "mean": 0.0,
+              "unchanged": 1024,
+              "worsened": 0
+            },
+            "trustworthiness": {
+              "improved": 0,
+              "mean": 0.0,
+              "unchanged": 1024,
+              "worsened": 0
+            }
+          },
+          "50": {
+            "continuity": {
+              "improved": 0,
+              "mean": -4.367402024177316e-08,
+              "unchanged": 1021,
+              "worsened": 3
+            },
+            "overlap": {
+              "improved": 0,
+              "mean": -1.9531250000000017e-05,
+              "unchanged": 1023,
+              "worsened": 1
+            },
+            "trustworthiness": {
+              "improved": 0,
+              "mean": -7.039991322559981e-08,
+              "unchanged": 1023,
+              "worsened": 1
+            }
+          }
+        }
+      },
+      "classification": {
+        "accuracy": 0.7842,
+        "all_test_rows": 10000,
+        "balanced_accuracy": 0.7842
+      },
+      "dataset": "fashion",
+      "feasibility_tolerance": 7.420872713265193e-13,
+      "final_max_norm": 51.10235943025606,
+      "fit_file_unchanged": true,
+      "inside_bytes_unchanged": true,
+      "inside_count": 9970,
+      "kmeans": {
+        "ari": 0.4185858545383801,
+        "n_clusters": 10,
+        "nmi": 0.6111018593673834
+      },
+      "mapping_domain": "train_hull",
+      "max_cached_gradient_difference": 0.0,
+      "max_cached_objective_difference": 0.0,
+      "max_final_violation": 2.842170943040401e-14,
+      "old_max_norm": 51.10235943025606,
+      "original_unbounded_transform_seconds": 144.783812834,
+      "outside_count": 30,
+      "phase_II_failures": 0,
+      "phase_II_successes": 30,
+      "phase_I_failures": 0,
+      "query_count": 10000,
+      "readonly_baselines": {
+        "strong": {
+          "classification": {
+            "accuracy": 0.6867,
+            "all_test_rows": 10000,
+            "balanced_accuracy": 0.6867
+          },
+          "kmeans": {
+            "ari": 0.3853100770276603,
+            "n_clusters": 10,
+            "nmi": 0.5514907255671438
+          },
+          "test_metrics": {
+            "15": {
+              "continuity": 0.9932298146907328,
+              "overlap": 0.06308593750000051,
+              "trustworthiness": 0.9571140624826341
+            },
+            "5": {
+              "continuity": 0.9945251034495693,
+              "overlap": 0.029882812499999935,
+              "trustworthiness": 0.9575160233537671
+            },
+            "50": {
+              "continuity": 0.9913690384310512,
+              "overlap": 0.12908203125000028,
+              "trustworthiness": 0.9570895789355107
+            }
+          },
+          "train_metrics": {
+            "15": {
+              "continuity": 0.9936411409964099,
+              "overlap": 0.05898437499999987,
+              "trustworthiness": 0.9614234024084222
+            },
+            "5": {
+              "continuity": 0.995022428771753,
+              "overlap": 0.037890624999999956,
+              "trustworthiness": 0.9629949097379646
+            },
+            "50": {
+              "continuity": 0.9917357694630329,
+              "overlap": 0.12656250000000002,
+              "trustworthiness": 0.9611668752190253
+            }
+          }
+        },
+        "umap": {
+          "classification": {
+            "accuracy": 0.7779,
+            "all_test_rows": 10000,
+            "balanced_accuracy": 0.7779
+          },
+          "kmeans": {
+            "ari": 0.4730073187194103,
+            "n_clusters": 10,
+            "nmi": 0.6376019805818364
+          },
+          "test_metrics": {
+            "15": {
+              "continuity": 0.9916453296330181,
+              "overlap": 0.14570312500000027,
+              "trustworthiness": 0.9837871640174302
+            },
+            "5": {
+              "continuity": 0.9935176486735958,
+              "overlap": 0.07226562500000036,
+              "trustworthiness": 0.9836749671576247
+            },
+            "50": {
+              "continuity": 0.9880569539209102,
+              "overlap": 0.23316406249999985,
+              "trustworthiness": 0.9833007331759855
+            }
+          },
+          "train_metrics": {
+            "15": {
+              "continuity": 0.9926678382095078,
+              "overlap": 0.1656250000000005,
+              "trustworthiness": 0.984344995008503
+            },
+            "5": {
+              "continuity": 0.9955031829764821,
+              "overlap": 0.10703125000000019,
+              "trustworthiness": 0.9844494174744126
+            },
+            "50": {
+              "continuity": 0.9891463685554324,
+              "overlap": 0.24199218750000004,
+              "trustworthiness": 0.9836466231727014
+            }
+          }
+        },
+        "unbounded_A": {
+          "classification": {
+            "accuracy": 0.7843,
+            "all_test_rows": 10000,
+            "balanced_accuracy": 0.7843
+          },
+          "kmeans": {
+            "ari": 0.41872543251294914,
+            "n_clusters": 10,
+            "nmi": 0.61122284747166
+          },
+          "test_metrics": {
+            "15": {
+              "continuity": 0.9913898616124525,
+              "overlap": 0.17259114583333318,
+              "trustworthiness": 0.9819654174846751
+            },
+            "5": {
+              "continuity": 0.99417599696527,
+              "overlap": 0.12773437500000076,
+              "trustworthiness": 0.9821510295992864
+            },
+            "50": {
+              "continuity": 0.9879680362231018,
+              "overlap": 0.23818359375000026,
+              "trustworthiness": 0.9807974944540507
+            }
+          },
+          "train_metrics": {
+            "15": {
+              "continuity": 0.9925664733981354,
+              "overlap": 0.14440104166666715,
+              "trustworthiness": 0.9807887728490366
+            },
+            "5": {
+              "continuity": 0.9952168948047239,
+              "overlap": 0.09179687500000008,
+              "trustworthiness": 0.9818602050585905
+            },
+            "50": {
+              "continuity": 0.9894226771812863,
+              "overlap": 0.22734375000000023,
+              "trustworthiness": 0.9806527465028915
+            }
+          }
+        }
+      },
+      "refinement_seconds": 0.4485801670000029,
+      "scoring_seconds": 16.873252292000004,
+      "seed": 1,
+      "status": "completed",
+      "test_metrics": {
+        "15": {
+          "continuity": 0.9913898236210917,
+          "overlap": 0.17259114583333318,
+          "trustworthiness": 0.9819661642862803
+        },
+        "5": {
+          "continuity": 0.9941759741761529,
+          "overlap": 0.12773437500000076,
+          "trustworthiness": 0.9821510295992864
+        },
+        "50": {
+          "continuity": 0.9879679925490815,
+          "overlap": 0.23816406250000027,
+          "trustworthiness": 0.9807974240541375
+        }
+      },
+      "train_metrics": {
+        "15": {
+          "continuity": 0.9925664733981354,
+          "overlap": 0.14440104166666715,
+          "trustworthiness": 0.9807887728490366
+        },
+        "5": {
+          "continuity": 0.9952168948047239,
+          "overlap": 0.09179687500000008,
+          "trustworthiness": 0.9818602050585905
+        },
+        "50": {
+          "continuity": 0.9894226771812863,
+          "overlap": 0.22734375000000023,
+          "trustworthiness": 0.9806527465028915
+        }
+      },
+      "validation_seconds": 13.207923083
+    },
+    {
+      "TRAIN_centers_reproduce_all_old_clusters": true,
+      "all_final_feasible": true,
+      "all_final_finite": true,
+      "as_run_public_API_parity": {
+        "all_routed_as_expected": true,
+        "inside_queries": 3,
+        "max_physical_linf_difference": 0.0,
+        "outside_queries": 40,
+        "public_center_exact": true,
+        "public_positive_ids_exact": true,
+        "public_probabilities_exact": true,
+        "public_probability_max_difference": 0.0,
+        "public_unit_exact": true,
+        "seconds": 3.305353750000002
+      },
+      "changed_rows": 40,
+      "changes_vs_unbounded": {
+        "ari_delta": 3.118746417313245e-05,
+        "classification": {
+          "accuracy_delta": 0.0,
+          "correct_gained": 1,
+          "correct_lost": 1,
+          "predictions_changed": 3
+        },
+        "nmi_delta": 0.00016477046090412895,
+        "test_geometry": {
+          "15": {
+            "continuity": {
+              "improved": 1,
+              "mean": 1.4486648576700237e-05,
+              "unchanged": 1019,
+              "worsened": 4
+            },
+            "overlap": {
+              "improved": 0,
+              "mean": -0.00013020833333333333,
+              "unchanged": 1022,
+              "worsened": 2
+            },
+            "trustworthiness": {
+              "improved": 1,
+              "mean": 2.5247972867829317e-05,
+              "unchanged": 1021,
+              "worsened": 2
+            }
+          },
+          "5": {
+            "continuity": {
+              "improved": 0,
+              "mean": -2.404902967846254e-05,
+              "unchanged": 1020,
+              "worsened": 4
+            },
+            "overlap": {
+              "improved": 0,
+              "mean": 0.0,
+              "unchanged": 1024,
+              "worsened": 0
+            },
+            "trustworthiness": {
+              "improved": 2,
+              "mean": 4.853105258113442e-05,
+              "unchanged": 1021,
+              "worsened": 1
+            }
+          },
+          "50": {
+            "continuity": {
+              "improved": 2,
+              "mean": 2.9512230290110316e-05,
+              "unchanged": 1018,
+              "worsened": 4
+            },
+            "overlap": {
+              "improved": 1,
+              "mean": 1.953125e-05,
+              "unchanged": 1023,
+              "worsened": 0
+            },
+            "trustworthiness": {
+              "improved": 1,
+              "mean": 1.9862553295341666e-05,
+              "unchanged": 1022,
+              "worsened": 1
+            }
+          }
+        }
+      },
+      "classification": {
+        "accuracy": 0.7857,
+        "all_test_rows": 10000,
+        "balanced_accuracy": 0.7857000000000001
+      },
+      "dataset": "fashion",
+      "feasibility_tolerance": 7.401627687469841e-13,
+      "final_max_norm": 51.02431210160798,
+      "fit_file_unchanged": true,
+      "inside_bytes_unchanged": true,
+      "inside_count": 9960,
+      "kmeans": {
+        "ari": 0.4261018391710693,
+        "n_clusters": 10,
+        "nmi": 0.5881686470447799
+      },
+      "mapping_domain": "train_hull",
+      "max_cached_gradient_difference": 0.0,
+      "max_cached_objective_difference": 0.0,
+      "max_final_violation": 7.105427357601002e-15,
+      "old_max_norm": 51.02431210160798,
+      "original_unbounded_transform_seconds": 143.687272125,
+      "outside_count": 40,
+      "phase_II_failures": 0,
+      "phase_II_successes": 40,
+      "phase_I_failures": 3,
+      "query_count": 10000,
+      "readonly_baselines": {
+        "strong": {
+          "classification": {
+            "accuracy": 0.7012,
+            "all_test_rows": 10000,
+            "balanced_accuracy": 0.7012
+          },
+          "kmeans": {
+            "ari": 0.39159840974360016,
+            "n_clusters": 10,
+            "nmi": 0.554034347483013
+          },
+          "test_metrics": {
+            "15": {
+              "continuity": 0.9932468424186087,
+              "overlap": 0.06699218750000045,
+              "trustworthiness": 0.9566614855134387
+            },
+            "5": {
+              "continuity": 0.9945232282307943,
+              "overlap": 0.03183593749999995,
+              "trustworthiness": 0.9573503660062425
+            },
+            "50": {
+              "continuity": 0.9914556479242975,
+              "overlap": 0.13416015625000008,
+              "trustworthiness": 0.9568550693282722
+            }
+          },
+          "train_metrics": {
+            "15": {
+              "continuity": 0.9936883292241199,
+              "overlap": 0.061067708333333186,
+              "trustworthiness": 0.9590258926512111
+            },
+            "5": {
+              "continuity": 0.995071191783904,
+              "overlap": 0.03359374999999996,
+              "trustworthiness": 0.9587536215766265
+            },
+            "50": {
+              "continuity": 0.9917948900804345,
+              "overlap": 0.12683593749999988,
+              "trustworthiness": 0.9589163362595852
+            }
+          }
+        },
+        "umap": {
+          "classification": {
+            "accuracy": 0.7797,
+            "all_test_rows": 10000,
+            "balanced_accuracy": 0.7797
+          },
+          "kmeans": {
+            "ari": 0.4692015737733137,
+            "n_clusters": 10,
+            "nmi": 0.6340479218497359
+          },
+          "test_metrics": {
+            "15": {
+              "continuity": 0.9915314152515631,
+              "overlap": 0.1436848958333336,
+              "trustworthiness": 0.9834604014093362
+            },
+            "5": {
+              "continuity": 0.9935393374018632,
+              "overlap": 0.06738281250000029,
+              "trustworthiness": 0.9840021342333688
+            },
+            "50": {
+              "continuity": 0.9880147508025593,
+              "overlap": 0.23330078124999987,
+              "trustworthiness": 0.9828416973862318
+            }
+          },
+          "train_metrics": {
+            "15": {
+              "continuity": 0.992129756510828,
+              "overlap": 0.16341145833333381,
+              "trustworthiness": 0.9837957675442252
+            },
+            "5": {
+              "continuity": 0.9951556105918302,
+              "overlap": 0.10937500000000024,
+              "trustworthiness": 0.9842066832869374
+            },
+            "50": {
+              "continuity": 0.9886505447740489,
+              "overlap": 0.24183593750000007,
+              "trustworthiness": 0.9827344460529498
+            }
+          }
+        },
+        "unbounded_A": {
+          "classification": {
+            "accuracy": 0.7857,
+            "all_test_rows": 10000,
+            "balanced_accuracy": 0.7857
+          },
+          "kmeans": {
+            "ari": 0.4260706517068962,
+            "n_clusters": 10,
+            "nmi": 0.5880038765838758
+          },
+          "test_metrics": {
+            "15": {
+              "continuity": 0.992069331671613,
+              "overlap": 0.17513020833333298,
+              "trustworthiness": 0.9811601080986615
+            },
+            "5": {
+              "continuity": 0.9947735276146811,
+              "overlap": 0.12871093750000084,
+              "trustworthiness": 0.9821223999570781
+            },
+            "50": {
+              "continuity": 0.9888381067951052,
+              "overlap": 0.2357226562499998,
+              "trustworthiness": 0.9799126949816855
+            }
+          },
+          "train_metrics": {
+            "15": {
+              "continuity": 0.992930560447477,
+              "overlap": 0.14973958333333393,
+              "trustworthiness": 0.9781390179603564
+            },
+            "5": {
+              "continuity": 0.995335654128884,
+              "overlap": 0.09257812500000014,
+              "trustworthiness": 0.9785313106851753
+            },
+            "50": {
+              "continuity": 0.9900014608225768,
+              "overlap": 0.2248828124999999,
+              "trustworthiness": 0.9781674564191197
+            }
+          }
+        }
+      },
+      "refinement_seconds": 0.6240468750000048,
+      "scoring_seconds": 16.99181479100001,
+      "seed": 2,
+      "status": "completed",
+      "test_metrics": {
+        "15": {
+          "continuity": 0.9920838183201897,
+          "overlap": 0.17499999999999966,
+          "trustworthiness": 0.9811853560715292
+        },
+        "5": {
+          "continuity": 0.9947494785850024,
+          "overlap": 0.12871093750000084,
+          "trustworthiness": 0.9821709310096591
+        },
+        "50": {
+          "continuity": 0.9888676190253954,
+          "overlap": 0.2357421874999998,
+          "trustworthiness": 0.979932557534981
+        }
+      },
+      "train_metrics": {
+        "15": {
+          "continuity": 0.992930560447477,
+          "overlap": 0.14973958333333393,
+          "trustworthiness": 0.9781390179603564
+        },
+        "5": {
+          "continuity": 0.995335654128884,
+          "overlap": 0.09257812500000014,
+          "trustworthiness": 0.9785313106851753
+        },
+        "50": {
+          "continuity": 0.9900014608225768,
+          "overlap": 0.2248828124999999,
+          "trustworthiness": 0.9781674564191197
+        }
+      },
+      "validation_seconds": 13.037518624999997
+    },
+    {
+      "TRAIN_centers_reproduce_all_old_clusters": true,
+      "all_final_feasible": true,
+      "all_final_finite": true,
+      "as_run_public_API_parity": {
+        "all_routed_as_expected": true,
+        "inside_queries": 3,
+        "max_physical_linf_difference": 0.0,
+        "outside_queries": 78,
+        "public_center_exact": true,
+        "public_positive_ids_exact": true,
+        "public_probabilities_exact": true,
+        "public_probability_max_difference": 0.0,
+        "public_unit_exact": true,
+        "seconds": 1.0726439580000005
+      },
+      "changed_rows": 78,
+      "changes_vs_unbounded": {
+        "ari_delta": -0.0010155353201968254,
+        "classification": {
+          "accuracy_delta": 0.0,
+          "correct_gained": 2,
+          "correct_lost": 2,
+          "predictions_changed": 4
+        },
+        "nmi_delta": -0.0004820951478926583,
+        "test_geometry": {
+          "15": {
+            "continuity": {
+              "improved": 13,
+              "mean": -1.006316791723528e-05,
+              "unchanged": 991,
+              "worsened": 20
+            },
+            "overlap": {
+              "improved": 7,
+              "mean": 0.00045572916666666673,
+              "unchanged": 1012,
+              "worsened": 5
+            },
+            "trustworthiness": {
+              "improved": 11,
+              "mean": -0.00017219297123692546,
+              "unchanged": 997,
+              "worsened": 16
+            }
+          },
+          "5": {
+            "continuity": {
+              "improved": 14,
+              "mean": -9.041014295438961e-06,
+              "unchanged": 993,
+              "worsened": 17
+            },
+            "overlap": {
+              "improved": 5,
+              "mean": 0.00078125,
+              "unchanged": 1018,
+              "worsened": 1
+            },
+            "trustworthiness": {
+              "improved": 6,
+              "mean": -0.0003047087729748126,
+              "unchanged": 1002,
+              "worsened": 16
+            }
+          },
+          "50": {
+            "continuity": {
+              "improved": 16,
+              "mean": -4.507954740639024e-05,
+              "unchanged": 989,
+              "worsened": 19
+            },
+            "overlap": {
+              "improved": 5,
+              "mean": -0.00042968750000000006,
+              "unchanged": 1009,
+              "worsened": 10
+            },
+            "trustworthiness": {
+              "improved": 8,
+              "mean": -0.00047668327035383024,
+              "unchanged": 998,
+              "worsened": 18
+            }
+          }
+        }
+      },
+      "classification": {
+        "accuracy": 0.832711231761113,
+        "all_test_rows": 2947,
+        "balanced_accuracy": 0.8275702451583484
+      },
+      "dataset": "har",
+      "feasibility_tolerance": 7.748486558817528e-13,
+      "final_max_norm": 53.093823143744515,
+      "fit_file_unchanged": true,
+      "inside_bytes_unchanged": true,
+      "inside_count": 2869,
+      "kmeans": {
+        "ari": 0.550814112360633,
+        "n_clusters": 6,
+        "nmi": 0.6611161533861314
+      },
+      "mapping_domain": "train_hull",
+      "max_cached_gradient_difference": 0.0,
+      "max_cached_objective_difference": 0.0,
+      "max_final_violation": 5.258016244624741e-13,
+      "old_max_norm": 62.45058129589922,
+      "original_unbounded_transform_seconds": 8.071674583,
+      "outside_count": 78,
+      "phase_II_failures": 0,
+      "phase_II_successes": 78,
+      "phase_I_failures": 1,
+      "query_count": 2947,
+      "readonly_baselines": {
+        "strong": {
+          "classification": {
+            "accuracy": 0.8266033254156769,
+            "all_test_rows": 2947,
+            "balanced_accuracy": 0.8216911381325577
+          },
+          "kmeans": {
+            "ari": 0.6679586302463602,
+            "n_clusters": 6,
+            "nmi": 0.752608007943546
+          },
+          "test_metrics": {
+            "15": {
+              "continuity": 0.953359410527512,
+              "overlap": 0.05332031250000033,
+              "trustworthiness": 0.9098605811590493
+            },
+            "5": {
+              "continuity": 0.9570309043141578,
+              "overlap": 0.021679687499999954,
+              "trustworthiness": 0.9053279229067372
+            },
+            "50": {
+              "continuity": 0.9461907715346964,
+              "overlap": 0.13867187500000006,
+              "trustworthiness": 0.915003931745964
+            }
+          },
+          "train_metrics": {
+            "15": {
+              "continuity": 0.9782544621537729,
+              "overlap": 0.1704427083333338,
+              "trustworthiness": 0.9343727614613181
+            },
+            "5": {
+              "continuity": 0.9838073597494552,
+              "overlap": 0.08359375000000006,
+              "trustworthiness": 0.9320465686274505
+            },
+            "50": {
+              "continuity": 0.9663558254741288,
+              "overlap": 0.2770703125,
+              "trustworthiness": 0.9332061903044054
+            }
+          }
+        },
+        "umap": {
+          "classification": {
+            "accuracy": 0.837801153715643,
+            "all_test_rows": 2947,
+            "balanced_accuracy": 0.8331764318804122
+          },
+          "kmeans": {
+            "ari": 0.5152479324986575,
+            "n_clusters": 6,
+            "nmi": 0.6501552490388458
+          },
+          "test_metrics": {
+            "15": {
+              "continuity": 0.9482674120338793,
+              "overlap": 0.15358072916666654,
+              "trustworthiness": 0.9465344865563883
+            },
+            "5": {
+              "continuity": 0.9548750478641942,
+              "overlap": 0.0728515625000003,
+              "trustworthiness": 0.9424764933628319
+            },
+            "50": {
+              "continuity": 0.9318241959378217,
+              "overlap": 0.2385937499999995,
+              "trustworthiness": 0.9434663641145656
+            }
+          },
+          "train_metrics": {
+            "15": {
+              "continuity": 0.9807903356244597,
+              "overlap": 0.310026041666667,
+              "trustworthiness": 0.9633221832787554
+            },
+            "5": {
+              "continuity": 0.9891743047045216,
+              "overlap": 0.21250000000000088,
+              "trustworthiness": 0.9632366238596127
+            },
+            "50": {
+              "continuity": 0.962546065459012,
+              "overlap": 0.37023437499999967,
+              "trustworthiness": 0.9530818495327428
+            }
+          }
+        },
+        "unbounded_A": {
+          "classification": {
+            "accuracy": 0.832711231761113,
+            "all_test_rows": 2947,
+            "balanced_accuracy": 0.8274659504572982
+          },
+          "kmeans": {
+            "ari": 0.5518296476808299,
+            "n_clusters": 6,
+            "nmi": 0.661598248534024
+          },
+          "test_metrics": {
+            "15": {
+              "continuity": 0.9378013532429521,
+              "overlap": 0.19739583333333305,
+              "trustworthiness": 0.9495216842172586
+            },
+            "5": {
+              "continuity": 0.9526894092494893,
+              "overlap": 0.17050781249999972,
+              "trustworthiness": 0.9533642943754255
+            },
+            "50": {
+              "continuity": 0.919589971229818,
+              "overlap": 0.23914062499999988,
+              "trustworthiness": 0.9395862756569908
+            }
+          },
+          "train_metrics": {
+            "15": {
+              "continuity": 0.9811604939850816,
+              "overlap": 0.30729166666666663,
+              "trustworthiness": 0.9609620350946011
+            },
+            "5": {
+              "continuity": 0.989095956307871,
+              "overlap": 0.20742187500000087,
+              "trustworthiness": 0.9630114719498907
+            },
+            "50": {
+              "continuity": 0.9601924592437983,
+              "overlap": 0.36363281249999985,
+              "trustworthiness": 0.9502548336253691
+            }
+          }
+        }
+      },
+      "refinement_seconds": 0.35268949999999677,
+      "scoring_seconds": 3.5758560839999944,
+      "seed": 0,
+      "status": "completed",
+      "test_metrics": {
+        "15": {
+          "continuity": 0.9377912900750347,
+          "overlap": 0.1978515624999997,
+          "trustworthiness": 0.9493494912460217
+        },
+        "5": {
+          "continuity": 0.952680368235194,
+          "overlap": 0.17128906249999973,
+          "trustworthiness": 0.9530595856024505
+        },
+        "50": {
+          "continuity": 0.9195448916824117,
+          "overlap": 0.23871093749999986,
+          "trustworthiness": 0.939109592386637
+        }
+      },
+      "train_metrics": {
+        "15": {
+          "continuity": 0.9811604939850816,
+          "overlap": 0.30729166666666663,
+          "trustworthiness": 0.9609620350946011
+        },
+        "5": {
+          "continuity": 0.989095956307871,
+          "overlap": 0.20742187500000087,
+          "trustworthiness": 0.9630114719498907
+        },
+        "50": {
+          "continuity": 0.9601924592437983,
+          "overlap": 0.36363281249999985,
+          "trustworthiness": 0.9502548336253691
+        }
+      },
+      "validation_seconds": 0.5324960000000019
+    },
+    {
+      "TRAIN_centers_reproduce_all_old_clusters": true,
+      "all_final_feasible": true,
+      "all_final_finite": true,
+      "as_run_public_API_parity": {
+        "all_routed_as_expected": true,
+        "inside_queries": 3,
+        "max_physical_linf_difference": 0.0,
+        "outside_queries": 87,
+        "public_center_exact": true,
+        "public_positive_ids_exact": true,
+        "public_probabilities_exact": true,
+        "public_probability_max_difference": 0.0,
+        "public_unit_exact": true,
+        "seconds": 1.3398573339999942
+      },
+      "changed_rows": 87,
+      "changes_vs_unbounded": {
+        "ari_delta": -0.00532407984875316,
+        "classification": {
+          "accuracy_delta": 0.0016966406515100951,
+          "correct_gained": 7,
+          "correct_lost": 2,
+          "predictions_changed": 10
+        },
+        "nmi_delta": -0.002738559542785568,
+        "test_geometry": {
+          "15": {
+            "continuity": {
+              "improved": 9,
+              "mean": -0.00038489618860845873,
+              "unchanged": 996,
+              "worsened": 19
+            },
+            "overlap": {
+              "improved": 7,
+              "mean": 0.00019531250000000007,
+              "unchanged": 1011,
+              "worsened": 6
+            },
+            "trustworthiness": {
+              "improved": 11,
+              "mean": 0.0009136077478399276,
+              "unchanged": 1001,
+              "worsened": 12
+            }
+          },
+          "5": {
+            "continuity": {
+              "improved": 11,
+              "mean": -0.0003851206177671886,
+              "unchanged": 996,
+              "worsened": 17
+            },
+            "overlap": {
+              "improved": 1,
+              "mean": -0.0001953125,
+              "unchanged": 1021,
+              "worsened": 2
+            },
+            "trustworthiness": {
+              "improved": 10,
+              "mean": 0.0009069998723621512,
+              "unchanged": 1000,
+              "worsened": 14
+            }
+          },
+          "50": {
+            "continuity": {
+              "improved": 10,
+              "mean": -0.0002473162143593262,
+              "unchanged": 996,
+              "worsened": 18
+            },
+            "overlap": {
+              "improved": 9,
+              "mean": 0.0006250000000000001,
+              "unchanged": 1010,
+              "worsened": 5
+            },
+            "trustworthiness": {
+              "improved": 13,
+              "mean": 0.0007203575875987633,
+              "unchanged": 999,
+              "worsened": 12
+            }
+          }
+        }
+      },
+      "classification": {
+        "accuracy": 0.827960637936885,
+        "all_test_rows": 2947,
+        "balanced_accuracy": 0.8218653234848977
+      },
+      "dataset": "har",
+      "feasibility_tolerance": 7.300184809469011e-13,
+      "final_max_norm": 49.78686510686172,
+      "fit_file_unchanged": true,
+      "inside_bytes_unchanged": true,
+      "inside_count": 2860,
+      "kmeans": {
+        "ari": 0.5321584137112598,
+        "n_clusters": 6,
+        "nmi": 0.6403401616351402
+      },
+      "mapping_domain": "train_hull",
+      "max_cached_gradient_difference": 0.0,
+      "max_cached_objective_difference": 0.0,
+      "max_final_violation": 2.1316282072803006e-13,
+      "old_max_norm": 77.43513742233328,
+      "original_unbounded_transform_seconds": 7.535779583,
+      "outside_count": 87,
+      "phase_II_failures": 0,
+      "phase_II_successes": 87,
+      "phase_I_failures": 0,
+      "query_count": 2947,
+      "readonly_baselines": {
+        "strong": {
+          "classification": {
+            "accuracy": 0.8282999660671869,
+            "all_test_rows": 2947,
+            "balanced_accuracy": 0.8194874059041545
+          },
+          "kmeans": {
+            "ari": 0.6778300030484684,
+            "n_clusters": 6,
+            "nmi": 0.7545548710873681
+          },
+          "test_metrics": {
+            "15": {
+              "continuity": 0.9534865102035006,
+              "overlap": 0.055078125000000366,
+              "trustworthiness": 0.9056752270208058
+            },
+            "5": {
+              "continuity": 0.9579259381381878,
+              "overlap": 0.024218749999999952,
+              "trustworthiness": 0.9035660685415242
+            },
+            "50": {
+              "continuity": 0.9465763939582622,
+              "overlap": 0.1379687500000001,
+              "trustworthiness": 0.9093235679319833
+            }
+          },
+          "train_metrics": {
+            "15": {
+              "continuity": 0.9782819286680771,
+              "overlap": 0.1709635416666672,
+              "trustworthiness": 0.9314900210920098
+            },
+            "5": {
+              "continuity": 0.9838906015965418,
+              "overlap": 0.09843750000000019,
+              "trustworthiness": 0.9328732426130167
+            },
+            "50": {
+              "continuity": 0.9665338976499684,
+              "overlap": 0.2646093749999998,
+              "trustworthiness": 0.928972312409813
+            }
+          }
+        },
+        "umap": {
+          "classification": {
+            "accuracy": 0.834407872412623,
+            "all_test_rows": 2947,
+            "balanced_accuracy": 0.8296562426618296
+          },
+          "kmeans": {
+            "ari": 0.511065548555947,
+            "n_clusters": 6,
+            "nmi": 0.6331196066409934
+          },
+          "test_metrics": {
+            "15": {
+              "continuity": 0.9491181893758525,
+              "overlap": 0.1537760416666667,
+              "trustworthiness": 0.9485016893332195
+            },
+            "5": {
+              "continuity": 0.954913738087132,
+              "overlap": 0.07871093750000037,
+              "trustworthiness": 0.947207735917289
+            },
+            "50": {
+              "continuity": 0.9336563385649257,
+              "overlap": 0.23882812499999967,
+              "trustworthiness": 0.9441950682755064
+            }
+          },
+          "train_metrics": {
+            "15": {
+              "continuity": 0.9808371139764408,
+              "overlap": 0.3083333333333338,
+              "trustworthiness": 0.962124760511893
+            },
+            "5": {
+              "continuity": 0.9889023458775875,
+              "overlap": 0.21015625000000082,
+              "trustworthiness": 0.964585726868872
+            },
+            "50": {
+              "continuity": 0.9615495086923669,
+              "overlap": 0.36691406250000025,
+              "trustworthiness": 0.9513691925633889
+            }
+          }
+        },
+        "unbounded_A": {
+          "classification": {
+            "accuracy": 0.8262639972853749,
+            "all_test_rows": 2947,
+            "balanced_accuracy": 0.8200095791114506
+          },
+          "kmeans": {
+            "ari": 0.537482493560013,
+            "n_clusters": 6,
+            "nmi": 0.6430787211779257
+          },
+          "test_metrics": {
+            "15": {
+              "continuity": 0.9438433840666207,
+              "overlap": 0.19772135416666642,
+              "trustworthiness": 0.9474224612039559
+            },
+            "5": {
+              "continuity": 0.9570259317562954,
+              "overlap": 0.16542968749999984,
+              "trustworthiness": 0.9494324104407752
+            },
+            "50": {
+              "continuity": 0.9268892428503968,
+              "overlap": 0.2371484375,
+              "trustworthiness": 0.9374385654628997
+            }
+          },
+          "train_metrics": {
+            "15": {
+              "continuity": 0.9809212013064535,
+              "overlap": 0.3118489583333335,
+              "trustworthiness": 0.9617892995008419
+            },
+            "5": {
+              "continuity": 0.9889500570193355,
+              "overlap": 0.20625000000000093,
+              "trustworthiness": 0.9654406445738023
+            },
+            "50": {
+              "continuity": 0.9622279448395519,
+              "overlap": 0.3727734375000004,
+              "trustworthiness": 0.9526483102710777
+            }
+          }
+        }
+      },
+      "refinement_seconds": 0.45962291699999724,
+      "scoring_seconds": 3.674319916999991,
+      "seed": 1,
+      "status": "completed",
+      "test_metrics": {
+        "15": {
+          "continuity": 0.9434584878780119,
+          "overlap": 0.19791666666666638,
+          "trustworthiness": 0.9483360689517957
+        },
+        "5": {
+          "continuity": 0.9566408111385282,
+          "overlap": 0.16523437499999982,
+          "trustworthiness": 0.9503394103131377
+        },
+        "50": {
+          "continuity": 0.9266419266360373,
+          "overlap": 0.23777343749999996,
+          "trustworthiness": 0.9381589230504984
+        }
+      },
+      "train_metrics": {
+        "15": {
+          "continuity": 0.9809212013064535,
+          "overlap": 0.3118489583333335,
+          "trustworthiness": 0.9617892995008419
+        },
+        "5": {
+          "continuity": 0.9889500570193355,
+          "overlap": 0.20625000000000093,
+          "trustworthiness": 0.9654406445738023
+        },
+        "50": {
+          "continuity": 0.9622279448395519,
+          "overlap": 0.3727734375000004,
+          "trustworthiness": 0.9526483102710777
+        }
+      },
+      "validation_seconds": 0.5877760830000014
+    },
+    {
+      "TRAIN_centers_reproduce_all_old_clusters": true,
+      "all_final_feasible": true,
+      "all_final_finite": true,
+      "as_run_public_API_parity": {
+        "all_routed_as_expected": true,
+        "inside_queries": 3,
+        "max_physical_linf_difference": 0.0,
+        "outside_queries": 72,
+        "public_center_exact": true,
+        "public_positive_ids_exact": true,
+        "public_probabilities_exact": true,
+        "public_probability_max_difference": 0.0,
+        "public_unit_exact": true,
+        "seconds": 1.0785729999999987
+      },
+      "changed_rows": 72,
+      "changes_vs_unbounded": {
+        "ari_delta": 0.0026874781285000093,
+        "classification": {
+          "accuracy_delta": 0.000339328130302019,
+          "correct_gained": 5,
+          "correct_lost": 4,
+          "predictions_changed": 9
+        },
+        "nmi_delta": 0.00394017677457037,
+        "test_geometry": {
+          "15": {
+            "continuity": {
+              "improved": 15,
+              "mean": -0.00010643154558890406,
+              "unchanged": 995,
+              "worsened": 14
+            },
+            "overlap": {
+              "improved": 6,
+              "mean": 0.000390625,
+              "unchanged": 1015,
+              "worsened": 3
+            },
+            "trustworthiness": {
+              "improved": 7,
+              "mean": -0.0013416432185084128,
+              "unchanged": 1006,
+              "worsened": 11
+            }
+          },
+          "5": {
+            "continuity": {
+              "improved": 9,
+              "mean": -0.0006730503318584069,
+              "unchanged": 997,
+              "worsened": 18
+            },
+            "overlap": {
+              "improved": 3,
+              "mean": 0.0005859375000000001,
+              "unchanged": 1021,
+              "worsened": 0
+            },
+            "trustworthiness": {
+              "improved": 12,
+              "mean": -0.0012666461027910142,
+              "unchanged": 999,
+              "worsened": 13
+            }
+          },
+          "50": {
+            "continuity": {
+              "improved": 16,
+              "mean": -0.0002834909610099623,
+              "unchanged": 994,
+              "worsened": 14
+            },
+            "overlap": {
+              "improved": 4,
+              "mean": -0.00025390625000000006,
+              "unchanged": 1011,
+              "worsened": 9
+            },
+            "trustworthiness": {
+              "improved": 7,
+              "mean": -0.0012936464058742698,
+              "unchanged": 1006,
+              "worsened": 11
+            }
+          }
+        }
+      },
+      "classification": {
+        "accuracy": 0.829996606718697,
+        "all_test_rows": 2947,
+        "balanced_accuracy": 0.8246249115183771
+      },
+      "dataset": "har",
+      "feasibility_tolerance": 8.035191134557828e-13,
+      "final_max_norm": 54.51735536662849,
+      "fit_file_unchanged": true,
+      "inside_bytes_unchanged": true,
+      "inside_count": 2875,
+      "kmeans": {
+        "ari": 0.5201105032555161,
+        "n_clusters": 6,
+        "nmi": 0.652395467540007
+      },
+      "mapping_domain": "train_hull",
+      "max_cached_gradient_difference": 0.0,
+      "max_cached_objective_difference": 0.0,
+      "max_final_violation": 5.471179065352771e-13,
+      "old_max_norm": 87175.87467680762,
+      "original_unbounded_transform_seconds": 8.249635999999999,
+      "outside_count": 72,
+      "phase_II_failures": 0,
+      "phase_II_successes": 72,
+      "phase_I_failures": 1,
+      "query_count": 2947,
+      "readonly_baselines": {
+        "strong": {
+          "classification": {
+            "accuracy": 0.8113335595520869,
+            "all_test_rows": 2947,
+            "balanced_accuracy": 0.8051837816231958
+          },
+          "kmeans": {
+            "ari": 0.6119087959727704,
+            "n_clusters": 6,
+            "nmi": 0.7265443519690682
+          },
+          "test_metrics": {
+            "15": {
+              "continuity": 0.9560718117610281,
+              "overlap": 0.05559895833333375,
+              "trustworthiness": 0.9196507379064344
+            },
+            "5": {
+              "continuity": 0.9599520294417961,
+              "overlap": 0.025195312499999952,
+              "trustworthiness": 0.918175044673247
+            },
+            "50": {
+              "continuity": 0.9487758797449339,
+              "overlap": 0.14488281250000004,
+              "trustworthiness": 0.9233592891188599
+            }
+          },
+          "train_metrics": {
+            "15": {
+              "continuity": 0.9789073159708009,
+              "overlap": 0.17174479166666706,
+              "trustworthiness": 0.9395478898042026
+            },
+            "5": {
+              "continuity": 0.9843034066925377,
+              "overlap": 0.09062500000000012,
+              "trustworthiness": 0.9379797709014162
+            },
+            "50": {
+              "continuity": 0.9672642614495295,
+              "overlap": 0.2751171875,
+              "trustworthiness": 0.9387312377602559
+            }
+          }
+        },
+        "umap": {
+          "classification": {
+            "accuracy": 0.829317950458093,
+            "all_test_rows": 2947,
+            "balanced_accuracy": 0.8239481262843492
+          },
+          "kmeans": {
+            "ari": 0.5390079294553373,
+            "n_clusters": 6,
+            "nmi": 0.6614183349658715
+          },
+          "test_metrics": {
+            "15": {
+              "continuity": 0.9501318781264225,
+              "overlap": 0.15768229166666647,
+              "trustworthiness": 0.9471939837710313
+            },
+            "5": {
+              "continuity": 0.9562126393379828,
+              "overlap": 0.06953125000000024,
+              "trustworthiness": 0.9442635562031988
+            },
+            "50": {
+              "continuity": 0.9352554319821377,
+              "overlap": 0.23652343749999993,
+              "trustworthiness": 0.9430490649690836
+            }
+          },
+          "train_metrics": {
+            "15": {
+              "continuity": 0.9809885173625326,
+              "overlap": 0.31484375000000003,
+              "trustworthiness": 0.9630629391799708
+            },
+            "5": {
+              "continuity": 0.9890041509225214,
+              "overlap": 0.21914062500000112,
+              "trustworthiness": 0.9653702214392702
+            },
+            "50": {
+              "continuity": 0.963291288737717,
+              "overlap": 0.36894531249999984,
+              "trustworthiness": 0.9528407534099503
+            }
+          }
+        },
+        "unbounded_A": {
+          "classification": {
+            "accuracy": 0.829657278588395,
+            "all_test_rows": 2947,
+            "balanced_accuracy": 0.8242107730397038
+          },
+          "kmeans": {
+            "ari": 0.5174230251270161,
+            "n_clusters": 6,
+            "nmi": 0.6484552907654366
+          },
+          "test_metrics": {
+            "15": {
+              "continuity": 0.9404839024840849,
+              "overlap": 0.1958333333333332,
+              "trustworthiness": 0.9485409205889039
+            },
+            "5": {
+              "continuity": 0.9546637540418644,
+              "overlap": 0.1615234374999998,
+              "trustworthiness": 0.9506545428437698
+            },
+            "50": {
+              "continuity": 0.9232097646856736,
+              "overlap": 0.23685546874999988,
+              "trustworthiness": 0.9374708030960153
+            }
+          },
+          "train_metrics": {
+            "15": {
+              "continuity": 0.9802431550461637,
+              "overlap": 0.3083333333333334,
+              "trustworthiness": 0.9612927525355883
+            },
+            "5": {
+              "continuity": 0.9887203839869287,
+              "overlap": 0.20351562500000092,
+              "trustworthiness": 0.9650936882999736
+            },
+            "50": {
+              "continuity": 0.960045866831582,
+              "overlap": 0.36890625,
+              "trustworthiness": 0.9490662792894935
+            }
+          }
+        }
+      },
+      "refinement_seconds": 0.40577583299999986,
+      "scoring_seconds": 3.617155832999998,
+      "seed": 2,
+      "status": "completed",
+      "test_metrics": {
+        "15": {
+          "continuity": 0.9403774709384959,
+          "overlap": 0.19622395833333317,
+          "trustworthiness": 0.9471992773703954
+        },
+        "5": {
+          "continuity": 0.9539907037100065,
+          "overlap": 0.16210937499999978,
+          "trustworthiness": 0.9493878967409788
+        },
+        "50": {
+          "continuity": 0.9229262737246637,
+          "overlap": 0.2366015624999999,
+          "trustworthiness": 0.9361771566901411
+        }
+      },
+      "train_metrics": {
+        "15": {
+          "continuity": 0.9802431550461637,
+          "overlap": 0.3083333333333334,
+          "trustworthiness": 0.9612927525355883
+        },
+        "5": {
+          "continuity": 0.9887203839869287,
+          "overlap": 0.20351562500000092,
+          "trustworthiness": 0.9650936882999736
+        },
+        "50": {
+          "continuity": 0.960045866831582,
+          "overlap": 0.36890625,
+          "trustworthiness": 0.9490662792894935
+        }
+      },
+      "validation_seconds": 0.571596042000003
+    },
+    {
+      "TRAIN_centers_reproduce_all_old_clusters": true,
+      "all_final_feasible": true,
+      "all_final_finite": true,
+      "as_run_public_API_parity": {
+        "all_routed_as_expected": true,
+        "inside_queries": 3,
+        "max_physical_linf_difference": 0.0,
+        "outside_queries": 31,
+        "public_center_exact": true,
+        "public_positive_ids_exact": true,
+        "public_probabilities_exact": true,
+        "public_probability_max_difference": 0.0,
+        "public_unit_exact": true,
+        "seconds": 0.10589179200000132
+      },
+      "changed_rows": 31,
+      "changes_vs_unbounded": {
+        "ari_delta": 0.0,
+        "classification": {
+          "accuracy_delta": 0.0,
+          "correct_gained": 0,
+          "correct_lost": 0,
+          "predictions_changed": 0
+        },
+        "nmi_delta": 0.0,
+        "test_geometry": {
+          "15": {
+            "continuity": {
+              "improved": 8,
+              "mean": -2.665245202558795e-06,
+              "unchanged": 466,
+              "worsened": 6
+            },
+            "overlap": {
+              "improved": 1,
+              "mean": -0.00013888888888888886,
+              "unchanged": 477,
+              "worsened": 2
+            },
+            "trustworthiness": {
+              "improved": 2,
+              "mean": -3.553660270077854e-06,
+              "unchanged": 475,
+              "worsened": 3
+            }
+          },
+          "5": {
+            "continuity": {
+              "improved": 2,
+              "mean": -3.060510668065804e-06,
+              "unchanged": 473,
+              "worsened": 5
+            },
+            "overlap": {
+              "improved": 0,
+              "mean": -0.00125,
+              "unchanged": 477,
+              "worsened": 3
+            },
+            "trustworthiness": {
+              "improved": 0,
+              "mean": -1.617698495977616e-05,
+              "unchanged": 477,
+              "worsened": 3
+            }
+          },
+          "50": {
+            "continuity": {
+              "improved": 7,
+              "mean": -9.41087897609466e-07,
+              "unchanged": 458,
+              "worsened": 15
+            },
+            "overlap": {
+              "improved": 0,
+              "mean": 0.0,
+              "unchanged": 480,
+              "worsened": 0
+            },
+            "trustworthiness": {
+              "improved": 0,
+              "mean": -6.587615283266494e-07,
+              "unchanged": 479,
+              "worsened": 1
+            }
+          }
+        }
+      },
+      "classification": {
+        "accuracy": 0.86875,
+        "all_test_rows": 480,
+        "balanced_accuracy": 0.86875
+      },
+      "dataset": "coil",
+      "feasibility_tolerance": 8.910136630191932e-13,
+      "final_max_norm": 61.648326348536315,
+      "fit_file_unchanged": true,
+      "inside_bytes_unchanged": true,
+      "inside_count": 449,
+      "kmeans": {
+        "ari": 0.7187063827249897,
+        "n_clusters": 20,
+        "nmi": 0.8450514061648641
+      },
+      "mapping_domain": "train_hull",
+      "max_cached_gradient_difference": 0.0,
+      "max_cached_objective_difference": 0.0,
+      "max_final_violation": 7.105427357601002e-15,
+      "old_max_norm": 61.84631213806347,
+      "original_unbounded_transform_seconds": 0.31202050000000003,
+      "outside_count": 31,
+      "phase_II_failures": 0,
+      "phase_II_successes": 31,
+      "phase_I_failures": 0,
+      "pose": {
+        "embedding": {
+          "adjacent_view_recall": 0.43333333333333335,
+          "mean_neighbor_angle_degrees": 55.666666666666664,
+          "queries": 480
+        },
+        "reference": {
+          "adjacent_view_recall": 0.8739583333333333,
+          "mean_neighbor_angle_degrees": 11.645833333333334,
+          "queries": 480
+        }
+      },
+      "query_count": 480,
+      "readonly_baselines": {
+        "strong": {
+          "classification": {
+            "accuracy": 0.74375,
+            "all_test_rows": 480,
+            "balanced_accuracy": 0.74375
+          },
+          "kmeans": {
+            "ari": 0.42169384406527866,
+            "n_clusters": 20,
+            "nmi": 0.6641598886825475
+          },
+          "pose": {
+            "embedding": {
+              "adjacent_view_recall": 0.40729166666666666,
+              "mean_neighbor_angle_degrees": 54.53125,
+              "queries": 480
+            },
+            "reference": {
+              "adjacent_view_recall": 0.8739583333333333,
+              "mean_neighbor_angle_degrees": 11.645833333333334,
+              "queries": 480
+            }
+          },
+          "test_metrics": {
+            "15": {
+              "continuity": 0.972275230987917,
+              "overlap": 0.4391666666666667,
+              "trustworthiness": 0.917449212271974
+            },
+            "5": {
+              "continuity": 0.9863619272472895,
+              "overlap": 0.4149999999999995,
+              "trustworthiness": 0.9270981986708636
+            },
+            "50": {
+              "continuity": 0.949308206286468,
+              "overlap": 0.5382083333333334,
+              "trustworthiness": 0.9057389892715991
+            }
+          },
+          "train_metrics": {
+            "15": {
+              "continuity": 0.9708281917022413,
+              "overlap": 0.4201822916666665,
+              "trustworthiness": 0.9110889696727147
+            },
+            "5": {
+              "continuity": 0.9838719472163879,
+              "overlap": 0.36054687499999977,
+              "trustworthiness": 0.9154231223739498
+            },
+            "50": {
+              "continuity": 0.9500389962549457,
+              "overlap": 0.5342578125000003,
+              "trustworthiness": 0.9048320908705492
+            }
+          }
+        },
+        "umap": {
+          "classification": {
+            "accuracy": 0.8458333333333333,
+            "all_test_rows": 480,
+            "balanced_accuracy": 0.8458333333333332
+          },
+          "kmeans": {
+            "ari": 0.7350596402626008,
+            "n_clusters": 20,
+            "nmi": 0.8556591267993563
+          },
+          "pose": {
+            "embedding": {
+              "adjacent_view_recall": 0.31979166666666664,
+              "mean_neighbor_angle_degrees": 59.583333333333336,
+              "queries": 480
+            },
+            "reference": {
+              "adjacent_view_recall": 0.8739583333333333,
+              "mean_neighbor_angle_degrees": 11.645833333333334,
+              "queries": 480
+            }
+          },
+          "test_metrics": {
+            "15": {
+              "continuity": 0.9874307036247333,
+              "overlap": 0.7697222222222255,
+              "trustworthiness": 0.9926341506751958
+            },
+            "5": {
+              "continuity": 0.9897617173837001,
+              "overlap": 0.5500000000000007,
+              "trustworthiness": 0.9949488457502622
+            },
+            "50": {
+              "continuity": 0.9227228496141539,
+              "overlap": 0.7227499999999979,
+              "trustworthiness": 0.9511944287596463
+            }
+          },
+          "train_metrics": {
+            "15": {
+              "continuity": 0.9905828942102468,
+              "overlap": 0.7718750000000034,
+              "trustworthiness": 0.9924090070259701
+            },
+            "5": {
+              "continuity": 0.9955328420430675,
+              "overlap": 0.6039062500000011,
+              "trustworthiness": 0.9952000722163867
+            },
+            "50": {
+              "continuity": 0.9236674586630864,
+              "overlap": 0.7203515624999991,
+              "trustworthiness": 0.9486550929197279
+            }
+          }
+        },
+        "unbounded_A": {
+          "classification": {
+            "accuracy": 0.86875,
+            "all_test_rows": 480,
+            "balanced_accuracy": 0.86875
+          },
+          "kmeans": {
+            "ari": 0.7187063827249897,
+            "n_clusters": 20,
+            "nmi": 0.8450514061648641
+          },
+          "pose": {
+            "embedding": {
+              "adjacent_view_recall": 0.42916666666666664,
+              "mean_neighbor_angle_degrees": 55.713541666666664,
+              "queries": 480
+            },
+            "reference": {
+              "adjacent_view_recall": 0.8739583333333333,
+              "mean_neighbor_angle_degrees": 11.645833333333334,
+              "queries": 480
+            }
+          },
+          "test_metrics": {
+            "15": {
+              "continuity": 0.9892067934138827,
+              "overlap": 0.7859722222222254,
+              "trustworthiness": 0.9880493366500825
+            },
+            "5": {
+              "continuity": 0.9931593214410623,
+              "overlap": 0.6620833333333349,
+              "trustworthiness": 0.9903996152500868
+            },
+            "50": {
+              "continuity": 0.92747435535479,
+              "overlap": 0.7221249999999982,
+              "trustworthiness": 0.9486261057782799
+            }
+          },
+          "train_metrics": {
+            "15": {
+              "continuity": 0.98989613905194,
+              "overlap": 0.7772135416666701,
+              "trustworthiness": 0.9912763195926718
+            },
+            "5": {
+              "continuity": 0.996402721244749,
+              "overlap": 0.6246093750000012,
+              "trustworthiness": 0.9955299698004209
+            },
+            "50": {
+              "continuity": 0.9252554850904467,
+              "overlap": 0.716835937499999,
+              "trustworthiness": 0.9468016004804978
+            }
+          }
+        }
+      },
+      "refinement_seconds": 0.0315435840000049,
+      "scoring_seconds": 0.11760862500000258,
+      "seed": 0,
+      "status": "completed",
+      "test_metrics": {
+        "15": {
+          "continuity": 0.9892041281686799,
+          "overlap": 0.7858333333333365,
+          "trustworthiness": 0.9880457829898124
+        },
+        "5": {
+          "continuity": 0.9931562609303943,
+          "overlap": 0.6608333333333348,
+          "trustworthiness": 0.990383438265127
+        },
+        "50": {
+          "continuity": 0.9274734142668923,
+          "overlap": 0.7221249999999982,
+          "trustworthiness": 0.9486254470167516
+        }
+      },
+      "train_metrics": {
+        "15": {
+          "continuity": 0.98989613905194,
+          "overlap": 0.7772135416666701,
+          "trustworthiness": 0.9912763195926718
+        },
+        "5": {
+          "continuity": 0.996402721244749,
+          "overlap": 0.6246093750000012,
+          "trustworthiness": 0.9955299698004209
+        },
+        "50": {
+          "continuity": 0.9252554850904467,
+          "overlap": 0.716835937499999,
+          "trustworthiness": 0.9468016004804978
+        }
+      },
+      "validation_seconds": 0.03256600000000276
+    },
+    {
+      "TRAIN_centers_reproduce_all_old_clusters": true,
+      "all_final_feasible": true,
+      "all_final_finite": true,
+      "as_run_public_API_parity": {
+        "all_routed_as_expected": true,
+        "inside_queries": 3,
+        "max_physical_linf_difference": 0.0,
+        "outside_queries": 27,
+        "public_center_exact": true,
+        "public_positive_ids_exact": true,
+        "public_probabilities_exact": true,
+        "public_probability_max_difference": 0.0,
+        "public_unit_exact": true,
+        "seconds": 0.10190633300000229
+      },
+      "changed_rows": 27,
+      "changes_vs_unbounded": {
+        "ari_delta": 0.0,
+        "classification": {
+          "accuracy_delta": 0.0,
+          "correct_gained": 0,
+          "correct_lost": 0,
+          "predictions_changed": 0
+        },
+        "nmi_delta": 0.0,
+        "test_geometry": {
+          "15": {
+            "continuity": {
+              "improved": 3,
+              "mean": -2.531982942430705e-05,
+              "unchanged": 469,
+              "worsened": 8
+            },
+            "overlap": {
+              "improved": 1,
+              "mean": 2.8912057932946785e-20,
+              "unchanged": 478,
+              "worsened": 1
+            },
+            "trustworthiness": {
+              "improved": 1,
+              "mean": 0.00024475835110163483,
+              "unchanged": 476,
+              "worsened": 3
+            }
+          },
+          "5": {
+            "continuity": {
+              "improved": 1,
+              "mean": -0.00016789087093389322,
+              "unchanged": 471,
+              "worsened": 8
+            },
+            "overlap": {
+              "improved": 0,
+              "mean": -0.0016666666666666666,
+              "unchanged": 476,
+              "worsened": 4
+            },
+            "trustworthiness": {
+              "improved": 2,
+              "mean": 0.00032966072053165437,
+              "unchanged": 474,
+              "worsened": 4
+            }
+          },
+          "50": {
+            "continuity": {
+              "improved": 6,
+              "mean": -0.00011547148503670232,
+              "unchanged": 459,
+              "worsened": 15
+            },
+            "overlap": {
+              "improved": 1,
+              "mean": 0.0002916666666666666,
+              "unchanged": 479,
+              "worsened": 0
+            },
+            "trustworthiness": {
+              "improved": 1,
+              "mean": 1.4963297571992985e-05,
+              "unchanged": 477,
+              "worsened": 2
+            }
+          }
+        }
+      },
+      "classification": {
+        "accuracy": 0.8708333333333333,
+        "all_test_rows": 480,
+        "balanced_accuracy": 0.8708333333333332
+      },
+      "dataset": "coil",
+      "feasibility_tolerance": 8.568346288469098e-13,
+      "final_max_norm": 59.28879443736688,
+      "fit_file_unchanged": true,
+      "inside_bytes_unchanged": true,
+      "inside_count": 453,
+      "kmeans": {
+        "ari": 0.7260001011638333,
+        "n_clusters": 20,
+        "nmi": 0.8507916106884821
+      },
+      "mapping_domain": "train_hull",
+      "max_cached_gradient_difference": 0.0,
+      "max_cached_objective_difference": 0.0,
+      "max_final_violation": 7.105427357601002e-15,
+      "old_max_norm": 59.55896417486651,
+      "original_unbounded_transform_seconds": 0.316243375,
+      "outside_count": 27,
+      "phase_II_failures": 0,
+      "phase_II_successes": 27,
+      "phase_I_failures": 0,
+      "pose": {
+        "embedding": {
+          "adjacent_view_recall": 0.459375,
+          "mean_neighbor_angle_degrees": 56.348958333333336,
+          "queries": 480
+        },
+        "reference": {
+          "adjacent_view_recall": 0.8739583333333333,
+          "mean_neighbor_angle_degrees": 11.645833333333334,
+          "queries": 480
+        }
+      },
+      "query_count": 480,
+      "readonly_baselines": {
+        "strong": {
+          "classification": {
+            "accuracy": 0.7375,
+            "all_test_rows": 480,
+            "balanced_accuracy": 0.7375
+          },
+          "kmeans": {
+            "ari": 0.3921551931902627,
+            "n_clusters": 20,
+            "nmi": 0.649171841905777
+          },
+          "pose": {
+            "embedding": {
+              "adjacent_view_recall": 0.43125,
+              "mean_neighbor_angle_degrees": 50.260416666666664,
+              "queries": 480
+            },
+            "reference": {
+              "adjacent_view_recall": 0.8739583333333333,
+              "mean_neighbor_angle_degrees": 11.645833333333334,
+              "queries": 480
+            }
+          },
+          "test_metrics": {
+            "15": {
+              "continuity": 0.9697956645344703,
+              "overlap": 0.4197222222222223,
+              "trustworthiness": 0.9008666488983658
+            },
+            "5": {
+              "continuity": 0.9850708289611753,
+              "overlap": 0.41624999999999973,
+              "trustworthiness": 0.9104284714935299
+            },
+            "50": {
+              "continuity": 0.9488568605307743,
+              "overlap": 0.514666666666667,
+              "trustworthiness": 0.8896945699228304
+            }
+          },
+          "train_metrics": {
+            "15": {
+              "continuity": 0.9674707065990747,
+              "overlap": 0.3925781250000009,
+              "trustworthiness": 0.9001239549982207
+            },
+            "5": {
+              "continuity": 0.9817107897846641,
+              "overlap": 0.36757812499999976,
+              "trustworthiness": 0.9099843257615545
+            },
+            "50": {
+              "continuity": 0.9478166513566988,
+              "overlap": 0.5130468750000003,
+              "trustworthiness": 0.8908081013284344
+            }
+          }
+        },
+        "umap": {
+          "classification": {
+            "accuracy": 0.8520833333333333,
+            "all_test_rows": 480,
+            "balanced_accuracy": 0.8520833333333334
+          },
+          "kmeans": {
+            "ari": 0.7408521996400763,
+            "n_clusters": 20,
+            "nmi": 0.8576089613529791
+          },
+          "pose": {
+            "embedding": {
+              "adjacent_view_recall": 0.284375,
+              "mean_neighbor_angle_degrees": 61.713541666666664,
+              "queries": 480
+            },
+            "reference": {
+              "adjacent_view_recall": 0.8739583333333333,
+              "mean_neighbor_angle_degrees": 11.645833333333334,
+              "queries": 480
+            }
+          },
+          "test_metrics": {
+            "15": {
+              "continuity": 0.9903707652215108,
+              "overlap": 0.7751388888888926,
+              "trustworthiness": 0.9924077529021554
+            },
+            "5": {
+              "continuity": 0.9916273172437907,
+              "overlap": 0.5512500000000004,
+              "trustworthiness": 0.9943227527107371
+            },
+            "50": {
+              "continuity": 0.913464850367025,
+              "overlap": 0.7260833333333316,
+              "trustworthiness": 0.9510877093920576
+            }
+          },
+          "train_metrics": {
+            "15": {
+              "continuity": 0.9885657072660986,
+              "overlap": 0.7654947916666703,
+              "trustworthiness": 0.9914860147634305
+            },
+            "5": {
+              "continuity": 0.9952997800682767,
+              "overlap": 0.606250000000001,
+              "trustworthiness": 0.9952484900210088
+            },
+            "50": {
+              "continuity": 0.9077723996608247,
+              "overlap": 0.7142968749999987,
+              "trustworthiness": 0.9464724508903335
+            }
+          }
+        },
+        "unbounded_A": {
+          "classification": {
+            "accuracy": 0.8708333333333333,
+            "all_test_rows": 480,
+            "balanced_accuracy": 0.8708333333333332
+          },
+          "kmeans": {
+            "ari": 0.7260001011638333,
+            "n_clusters": 20,
+            "nmi": 0.8507916106884821
+          },
+          "pose": {
+            "embedding": {
+              "adjacent_view_recall": 0.459375,
+              "mean_neighbor_angle_degrees": 56.338541666666664,
+              "queries": 480
+            },
+            "reference": {
+              "adjacent_view_recall": 0.8739583333333333,
+              "mean_neighbor_angle_degrees": 11.645833333333334,
+              "queries": 480
+            }
+          },
+          "test_metrics": {
+            "15": {
+              "continuity": 0.9893804785595832,
+              "overlap": 0.7927777777777808,
+              "trustworthiness": 0.9920312129827056
+            },
+            "5": {
+              "continuity": 0.9937574326687633,
+              "overlap": 0.6725000000000019,
+              "trustworthiness": 0.9950760755508907
+            },
+            "50": {
+              "continuity": 0.9243186523621296,
+              "overlap": 0.7272916666666644,
+              "trustworthiness": 0.9503017598343688
+            }
+          },
+          "train_metrics": {
+            "15": {
+              "continuity": 0.9900944392564937,
+              "overlap": 0.7863281250000033,
+              "trustworthiness": 0.9926298192369276
+            },
+            "5": {
+              "continuity": 0.9959603958771013,
+              "overlap": 0.6433593750000023,
+              "trustworthiness": 0.9968171448266818
+            },
+            "50": {
+              "continuity": 0.922191960500283,
+              "overlap": 0.7200781249999991,
+              "trustworthiness": 0.947087734949123
+            }
+          }
+        }
+      },
+      "refinement_seconds": 0.029759458000000905,
+      "scoring_seconds": 0.1168407500000086,
+      "seed": 1,
+      "status": "completed",
+      "test_metrics": {
+        "15": {
+          "continuity": 0.9893551587301589,
+          "overlap": 0.7927777777777809,
+          "trustworthiness": 0.9922759713338073
+        },
+        "5": {
+          "continuity": 0.9935895417978294,
+          "overlap": 0.6708333333333354,
+          "trustworthiness": 0.9954057362714224
+        },
+        "50": {
+          "continuity": 0.9242031808770931,
+          "overlap": 0.7275833333333311,
+          "trustworthiness": 0.9503167231319407
+        }
+      },
+      "train_metrics": {
+        "15": {
+          "continuity": 0.9900944392564937,
+          "overlap": 0.7863281250000033,
+          "trustworthiness": 0.9926298192369276
+        },
+        "5": {
+          "continuity": 0.9959603958771013,
+          "overlap": 0.6433593750000023,
+          "trustworthiness": 0.9968171448266818
+        },
+        "50": {
+          "continuity": 0.922191960500283,
+          "overlap": 0.7200781249999991,
+          "trustworthiness": 0.947087734949123
+        }
+      },
+      "validation_seconds": 0.022766708999995444
+    },
+    {
+      "TRAIN_centers_reproduce_all_old_clusters": true,
+      "all_final_feasible": true,
+      "all_final_finite": true,
+      "as_run_public_API_parity": {
+        "all_routed_as_expected": true,
+        "inside_queries": 3,
+        "max_physical_linf_difference": 0.0,
+        "outside_queries": 34,
+        "public_center_exact": true,
+        "public_positive_ids_exact": true,
+        "public_probabilities_exact": true,
+        "public_probability_max_difference": 0.0,
+        "public_unit_exact": true,
+        "seconds": 0.11407449999999386
+      },
+      "changed_rows": 34,
+      "changes_vs_unbounded": {
+        "ari_delta": 0.0,
+        "classification": {
+          "accuracy_delta": 0.0,
+          "correct_gained": 0,
+          "correct_lost": 0,
+          "predictions_changed": 0
+        },
+        "nmi_delta": 0.0,
+        "test_geometry": {
+          "15": {
+            "continuity": {
+              "improved": 11,
+              "mean": -3.553660270078085e-06,
+              "unchanged": 459,
+              "worsened": 10
+            },
+            "overlap": {
+              "improved": 4,
+              "mean": 0.00013888888888888886,
+              "unchanged": 473,
+              "worsened": 3
+            },
+            "trustworthiness": {
+              "improved": 6,
+              "mean": -1.0512911632314334e-05,
+              "unchanged": 470,
+              "worsened": 4
+            }
+          },
+          "5": {
+            "continuity": {
+              "improved": 2,
+              "mean": -7.432668765302436e-06,
+              "unchanged": 473,
+              "worsened": 5
+            },
+            "overlap": {
+              "improved": 0,
+              "mean": -0.0008333333333333336,
+              "unchanged": 478,
+              "worsened": 2
+            },
+            "trustworthiness": {
+              "improved": 1,
+              "mean": 6.9954529555787496e-06,
+              "unchanged": 477,
+              "worsened": 2
+            }
+          },
+          "50": {
+            "continuity": {
+              "improved": 10,
+              "mean": -5.646527385651708e-07,
+              "unchanged": 459,
+              "worsened": 11
+            },
+            "overlap": {
+              "improved": 0,
+              "mean": 0.0,
+              "unchanged": 480,
+              "worsened": 0
+            },
+            "trustworthiness": {
+              "improved": 0,
+              "mean": 0.0,
+              "unchanged": 480,
+              "worsened": 0
+            }
+          }
+        }
+      },
+      "classification": {
+        "accuracy": 0.8729166666666667,
+        "all_test_rows": 480,
+        "balanced_accuracy": 0.8729166666666666
+      },
+      "dataset": "coil",
+      "feasibility_tolerance": 8.550132131814165e-13,
+      "final_max_norm": 59.16530214884975,
+      "fit_file_unchanged": true,
+      "inside_bytes_unchanged": true,
+      "inside_count": 446,
+      "kmeans": {
+        "ari": 0.7400576764543835,
+        "n_clusters": 20,
+        "nmi": 0.853884835278986
+      },
+      "mapping_domain": "train_hull",
+      "max_cached_gradient_difference": 0.0,
+      "max_cached_objective_difference": 0.0,
+      "max_final_violation": 7.105427357601002e-15,
+      "old_max_norm": 59.53664173300172,
+      "original_unbounded_transform_seconds": 0.322305375,
+      "outside_count": 34,
+      "phase_II_failures": 0,
+      "phase_II_successes": 34,
+      "phase_I_failures": 0,
+      "pose": {
+        "embedding": {
+          "adjacent_view_recall": 0.45729166666666665,
+          "mean_neighbor_angle_degrees": 55.333333333333336,
+          "queries": 480
+        },
+        "reference": {
+          "adjacent_view_recall": 0.8739583333333333,
+          "mean_neighbor_angle_degrees": 11.645833333333334,
+          "queries": 480
+        }
+      },
+      "query_count": 480,
+      "readonly_baselines": {
+        "strong": {
+          "classification": {
+            "accuracy": 0.7020833333333333,
+            "all_test_rows": 480,
+            "balanced_accuracy": 0.7020833333333333
+          },
+          "kmeans": {
+            "ari": 0.3575923752312811,
+            "n_clusters": 20,
+            "nmi": 0.6150029187461707
+          },
+          "pose": {
+            "embedding": {
+              "adjacent_view_recall": 0.43854166666666666,
+              "mean_neighbor_angle_degrees": 53.161458333333336,
+              "queries": 480
+            },
+            "reference": {
+              "adjacent_view_recall": 0.8739583333333333,
+              "mean_neighbor_angle_degrees": 11.645833333333334,
+              "queries": 480
+            }
+          },
+          "test_metrics": {
+            "15": {
+              "continuity": 0.9669672470978442,
+              "overlap": 0.4427777777777778,
+              "trustworthiness": 0.8980012141672583
+            },
+            "5": {
+              "continuity": 0.9848229275970625,
+              "overlap": 0.41750000000000037,
+              "trustworthiness": 0.9125765127667023
+            },
+            "50": {
+              "continuity": 0.9430712874082455,
+              "overlap": 0.50975,
+              "trustworthiness": 0.8886514680971206
+            }
+          },
+          "train_metrics": {
+            "15": {
+              "continuity": 0.96501509138207,
+              "overlap": 0.41861979166666646,
+              "trustworthiness": 0.8933467293667734
+            },
+            "5": {
+              "continuity": 0.9805385044642858,
+              "overlap": 0.36757812499999953,
+              "trustworthiness": 0.905714942226891
+            },
+            "50": {
+              "continuity": 0.9427153847512718,
+              "overlap": 0.5019140625,
+              "trustworthiness": 0.8881246466930466
+            }
+          }
+        },
+        "umap": {
+          "classification": {
+            "accuracy": 0.85625,
+            "all_test_rows": 480,
+            "balanced_accuracy": 0.85625
+          },
+          "kmeans": {
+            "ari": 0.7260873826188288,
+            "n_clusters": 20,
+            "nmi": 0.8518249482357195
+          },
+          "pose": {
+            "embedding": {
+              "adjacent_view_recall": 0.28541666666666665,
+              "mean_neighbor_angle_degrees": 62.161458333333336,
+              "queries": 480
+            },
+            "reference": {
+              "adjacent_view_recall": 0.8739583333333333,
+              "mean_neighbor_angle_degrees": 11.645833333333334,
+              "queries": 480
+            }
+          },
+          "test_metrics": {
+            "15": {
+              "continuity": 0.9882542643923234,
+              "overlap": 0.765138888888892,
+              "trustworthiness": 0.9927708185264164
+            },
+            "5": {
+              "continuity": 0.9900638335082189,
+              "overlap": 0.5354166666666669,
+              "trustworthiness": 0.9938969045120671
+            },
+            "50": {
+              "continuity": 0.9199765198569554,
+              "overlap": 0.7275416666666648,
+              "trustworthiness": 0.9546342932429887
+            }
+          },
+          "train_metrics": {
+            "15": {
+              "continuity": 0.990238682853078,
+              "overlap": 0.7623697916666697,
+              "trustworthiness": 0.9914786497242983
+            },
+            "5": {
+              "continuity": 0.9954339548319332,
+              "overlap": 0.6000000000000015,
+              "trustworthiness": 0.995292804621849
+            },
+            "50": {
+              "continuity": 0.9176121749576024,
+              "overlap": 0.7221093749999987,
+              "trustworthiness": 0.9516782521905032
+            }
+          }
+        },
+        "unbounded_A": {
+          "classification": {
+            "accuracy": 0.8729166666666667,
+            "all_test_rows": 480,
+            "balanced_accuracy": 0.8729166666666666
+          },
+          "kmeans": {
+            "ari": 0.7400576764543835,
+            "n_clusters": 20,
+            "nmi": 0.853884835278986
+          },
+          "pose": {
+            "embedding": {
+              "adjacent_view_recall": 0.4552083333333333,
+              "mean_neighbor_angle_degrees": 55.1875,
+              "queries": 480
+            },
+            "reference": {
+              "adjacent_view_recall": 0.8739583333333333,
+              "mean_neighbor_angle_degrees": 11.645833333333334,
+              "queries": 480
+            }
+          },
+          "test_metrics": {
+            "15": {
+              "continuity": 0.990355662165363,
+              "overlap": 0.7909722222222257,
+              "trustworthiness": 0.9929455401563614
+            },
+            "5": {
+              "continuity": 0.99346362364463,
+              "overlap": 0.6733333333333353,
+              "trustworthiness": 0.9958892969569765
+            },
+            "50": {
+              "continuity": 0.9147955957086382,
+              "overlap": 0.7321666666666646,
+              "trustworthiness": 0.9568150762281186
+            }
+          },
+          "train_metrics": {
+            "15": {
+              "continuity": 0.9907923114549995,
+              "overlap": 0.7825520833333366,
+              "trustworthiness": 0.9919689111970839
+            },
+            "5": {
+              "continuity": 0.996524586397059,
+              "overlap": 0.641015625000001,
+              "trustworthiness": 0.9961680179884462
+            },
+            "50": {
+              "continuity": 0.911461763355003,
+              "overlap": 0.7229687499999989,
+              "trustworthiness": 0.9529501572215942
+            }
+          }
+        }
+      },
+      "refinement_seconds": 0.03583716600000031,
+      "scoring_seconds": 0.11380987500000117,
+      "seed": 2,
+      "status": "completed",
+      "test_metrics": {
+        "15": {
+          "continuity": 0.9903521085050928,
+          "overlap": 0.7911111111111144,
+          "trustworthiness": 0.992935027244729
+        },
+        "5": {
+          "continuity": 0.9934561909758648,
+          "overlap": 0.672500000000002,
+          "trustworthiness": 0.9958962924099324
+        },
+        "50": {
+          "continuity": 0.9147950310558997,
+          "overlap": 0.7321666666666646,
+          "trustworthiness": 0.9568150762281186
+        }
+      },
+      "train_metrics": {
+        "15": {
+          "continuity": 0.9907923114549995,
+          "overlap": 0.7825520833333366,
+          "trustworthiness": 0.9919689111970839
+        },
+        "5": {
+          "continuity": 0.996524586397059,
+          "overlap": 0.641015625000001,
+          "trustworthiness": 0.9961680179884462
+        },
+        "50": {
+          "continuity": 0.911461763355003,
+          "overlap": 0.7229687499999989,
+          "trustworthiness": 0.9529501572215942
+        }
+      },
+      "validation_seconds": 0.022553375000001097
+    }
+  ],
+  "regressions": [
+    "Fashion accuracy decreases for seeds0/1; boundedness is not universal metric improvement",
+    "Fashion compact ARI/NMI remain below author UMAP",
+    "HAR compact ARI/NMI remain below old strong; accuracy remains below UMAP on average",
+    "COIL compact ARI/NMI remain below UMAP",
+    "Exact A full transformation still includes expensive historical unbounded phase; refinement-only time is not total inference cost"
+  ],
+  "schema": "graph-core-compact-confirmation-v2",
+  "summary": [
+    {
+      "completed": 3,
+      "dataset": "fashion",
+      "expected": 3,
+      "statistics": {
+        "accuracy": {
+          "mean": 0.7848666666666666,
+          "sample_std": 0.0007637626158259498,
+          "values": [
+            0.7847,
+            0.7842,
+            0.7857
+          ]
+        },
+        "ari": {
+          "mean": 0.42106807908373833,
+          "sample_std": 0.0043595018598651634,
+          "values": [
+            0.41851654354176554,
+            0.4185858545383801,
+            0.4261018391710693
+          ]
+        },
+        "balanced_accuracy": {
+          "mean": 0.7848666666666667,
+          "sample_std": 0.0007637626158260104,
+          "values": [
+            0.7847,
+            0.7842,
+            0.7857000000000001
+          ]
+        },
+        "final_max_norm": {
+          "mean": 51.34443271138381,
+          "sample_std": 0.48843558900253187,
+          "values": [
+            51.90662660228738,
+            51.10235943025606,
+            51.02431210160798
+          ]
+        },
+        "nmi": {
+          "mean": 0.6033415092077935,
+          "sample_std": 0.013141235006995334,
+          "values": [
+            0.6107540212112174,
+            0.6111018593673834,
+            0.5881686470447799
+          ]
+        },
+        "old_max_norm": {
+          "mean": 28348.095075906516,
+          "sample_std": 49011.896677328186,
+          "values": [
+            84942.15855618769,
+            51.10235943025606,
+            51.02431210160798
+          ]
+        },
+        "original_unbounded_transform_seconds": {
+          "mean": 141.97852743066667,
+          "sample_std": 3.9475246894229765,
+          "values": [
+            137.464497333,
+            144.783812834,
+            143.687272125
+          ]
+        },
+        "outside_count": {
+          "mean": 33.666666666666664,
+          "sample_std": 5.507570547286102,
+          "values": [
+            31,
+            30,
+            40
+          ]
+        },
+        "refinement_seconds": {
+          "mean": 0.5271388056666696,
+          "sample_std": 0.08916090852179916,
+          "values": [
+            0.508789375000001,
+            0.4485801670000029,
+            0.6240468750000048
+          ]
+        },
+        "scoring_seconds": {
+          "mean": 17.063794208,
+          "sample_std": 0.2349518126177164,
+          "values": [
+            17.326315540999992,
+            16.873252292000004,
+            16.99181479100001
+          ]
+        },
+        "test_continuity_15": {
+          "mean": 0.991635863271394,
+          "sample_std": 0.00038856728079646657,
+          "values": [
+            0.9914339478729006,
+            0.9913898236210917,
+            0.9920838183201897
+          ]
+        },
+        "test_continuity_5": {
+          "mean": 0.9943565963772163,
+          "sample_std": 0.00034061350469835583,
+          "values": [
+            0.9941443363704936,
+            0.9941759741761529,
+            0.9947494785850024
+          ]
+        },
+        "test_continuity_50": {
+          "mean": 0.9883025615095344,
+          "sample_std": 0.0004921134826966519,
+          "values": [
+            0.9880720729541264,
+            0.9879679925490815,
+            0.9888676190253954
+          ]
+        },
+        "test_overlap_15": {
+          "mean": 0.1727430555555553,
+          "sample_std": 0.002184953771910882,
+          "values": [
+            0.17063802083333304,
+            0.17259114583333318,
+            0.17499999999999966
+          ]
+        },
+        "test_overlap_5": {
+          "mean": 0.1266276041666675,
+          "sample_std": 0.002805528831564456,
+          "values": [
+            0.12343750000000087,
+            0.12773437500000076,
+            0.12871093750000084
+          ]
+        },
+        "test_overlap_50": {
+          "mean": 0.23695312499999996,
+          "sample_std": 0.001210937500000231,
+          "values": [
+            0.2369531249999998,
+            0.23816406250000027,
+            0.2357421874999998
+          ]
+        },
+        "test_trustworthiness_15": {
+          "mean": 0.9817670457755799,
+          "sample_std": 0.0005120409217453042,
+          "values": [
+            0.9821496169689302,
+            0.9819661642862803,
+            0.9811853560715292
+          ]
+        },
+        "test_trustworthiness_5": {
+          "mean": 0.9821712294385726,
+          "sample_std": 2.035069490452827e-05,
+          "values": [
+            0.9821917277067723,
+            0.9821510295992864,
+            0.9821709310096591
+          ]
+        },
+        "test_trustworthiness_50": {
+          "mean": 0.9805726445188536,
+          "sample_std": 0.0005624577598623789,
+          "values": [
+            0.9809879519674423,
+            0.9807974240541375,
+            0.979932557534981
+          ]
+        },
+        "train_continuity_15": {
+          "mean": 0.9928553377463677,
+          "sample_std": 0.00025956099459212994,
+          "values": [
+            0.9930689793934908,
+            0.9925664733981354,
+            0.992930560447477
+          ]
+        },
+        "train_continuity_5": {
+          "mean": 0.9953993713918801,
+          "sample_std": 0.00022132442964651914,
+          "values": [
+            0.9956455652420324,
+            0.9952168948047239,
+            0.995335654128884
+          ]
+        },
+        "train_continuity_50": {
+          "mean": 0.9897833904103637,
+          "sample_std": 0.0003146551378233259,
+          "values": [
+            0.989926033227228,
+            0.9894226771812863,
+            0.9900014608225768
+          ]
+        },
+        "train_overlap_15": {
+          "mean": 0.14791666666666717,
+          "sample_std": 0.003045316553001706,
+          "values": [
+            0.1496093750000004,
+            0.14440104166666715,
+            0.14973958333333393
+          ]
+        },
+        "train_overlap_5": {
+          "mean": 0.09205729166666675,
+          "sample_std": 0.0004510548978044376,
+          "values": [
+            0.09179687500000004,
+            0.09179687500000008,
+            0.09257812500000014
+          ]
+        },
+        "train_overlap_50": {
+          "mean": 0.22565104166666677,
+          "sample_std": 0.0014680087336005206,
+          "values": [
+            0.22472656250000017,
+            0.22734375000000023,
+            0.2248828124999999
+          ]
+        },
+        "train_trustworthiness_15": {
+          "mean": 0.9798431636930729,
+          "sample_std": 0.001478794626114497,
+          "values": [
+            0.9806017002698257,
+            0.9807887728490366,
+            0.9781390179603564
+          ]
+        },
+        "train_trustworthiness_5": {
+          "mean": 0.9800635115063954,
+          "sample_std": 0.0016801344413150047,
+          "values": [
+            0.9797990187754202,
+            0.9818602050585905,
+            0.9785313106851753
+          ]
+        },
+        "train_trustworthiness_50": {
+          "mean": 0.9799055206534197,
+          "sample_std": 0.0015101282160003382,
+          "values": [
+            0.980896359038248,
+            0.9806527465028915,
+            0.9781674564191197
+          ]
+        },
+        "validation_seconds": {
+          "mean": 13.071545097,
+          "sample_std": 0.12294833931427336,
+          "values": [
+            12.969193583000001,
+            13.207923083,
+            13.037518624999997
+          ]
+        }
+      },
+      "status": "completed"
+    },
+    {
+      "completed": 3,
+      "dataset": "har",
+      "expected": 3,
+      "statistics": {
+        "accuracy": {
+          "mean": 0.8302228254722317,
+          "sample_std": 0.0023833624596431447,
+          "values": [
+            0.832711231761113,
+            0.827960637936885,
+            0.829996606718697
+          ]
+        },
+        "ari": {
+          "mean": 0.534361009775803,
+          "sample_std": 0.015469856983424594,
+          "values": [
+            0.550814112360633,
+            0.5321584137112598,
+            0.5201105032555161
+          ]
+        },
+        "balanced_accuracy": {
+          "mean": 0.824686826720541,
+          "sample_std": 0.002852964763933508,
+          "values": [
+            0.8275702451583484,
+            0.8218653234848977,
+            0.8246249115183771
+          ]
+        },
+        "final_max_norm": {
+          "mean": 52.466014539078245,
+          "sample_std": 2.426930624782431,
+          "values": [
+            53.093823143744515,
+            49.78686510686172,
+            54.51735536662849
+          ]
+        },
+        "nmi": {
+          "mean": 0.6512839275204262,
+          "sample_std": 0.01043250205946114,
+          "values": [
+            0.6611161533861314,
+            0.6403401616351402,
+            0.652395467540007
+          ]
+        },
+        "old_max_norm": {
+          "mean": 29105.253465175287,
+          "sample_std": 50290.63374091535,
+          "values": [
+            62.45058129589922,
+            77.43513742233328,
+            87175.87467680762
+          ]
+        },
+        "original_unbounded_transform_seconds": {
+          "mean": 7.952363388666666,
+          "sample_std": 0.37158325694648026,
+          "values": [
+            8.071674583,
+            7.535779583,
+            8.249635999999999
+          ]
+        },
+        "outside_count": {
+          "mean": 79,
+          "sample_std": 7.54983443527075,
+          "values": [
+            78,
+            87,
+            72
+          ]
+        },
+        "refinement_seconds": {
+          "mean": 0.40602941666666464,
+          "sample_std": 0.05346715951246145,
+          "values": [
+            0.35268949999999677,
+            0.45962291699999724,
+            0.40577583299999986
+          ]
+        },
+        "scoring_seconds": {
+          "mean": 3.6224439446666614,
+          "sample_std": 0.04944446072121866,
+          "values": [
+            3.5758560839999944,
+            3.674319916999991,
+            3.617155832999998
+          ]
+        },
+        "test_continuity_15": {
+          "mean": 0.9405424162971808,
+          "sample_std": 0.0028371972019990382,
+          "values": [
+            0.9377912900750347,
+            0.9434584878780119,
+            0.9403774709384959
+          ]
+        },
+        "test_continuity_5": {
+          "mean": 0.9544372943612429,
+          "sample_std": 0.0020176370845549378,
+          "values": [
+            0.952680368235194,
+            0.9566408111385282,
+            0.9539907037100065
+          ]
+        },
+        "test_continuity_50": {
+          "mean": 0.9230376973477042,
+          "sample_std": 0.0035498292495660094,
+          "values": [
+            0.9195448916824117,
+            0.9266419266360373,
+            0.9229262737246637
+          ]
+        },
+        "test_overlap_15": {
+          "mean": 0.1973307291666664,
+          "sample_std": 0.0009590442618916039,
+          "values": [
+            0.1978515624999997,
+            0.19791666666666638,
+            0.19622395833333317
+          ]
+        },
+        "test_overlap_5": {
+          "mean": 0.16621093749999977,
+          "sample_std": 0.004667110603651734,
+          "values": [
+            0.17128906249999973,
+            0.16523437499999982,
+            0.16210937499999978
+          ]
+        },
+        "test_overlap_50": {
+          "mean": 0.2376953124999999,
+          "sample_std": 0.0010568554108178537,
+          "values": [
+            0.23871093749999986,
+            0.23777343749999996,
+            0.2366015624999999
+          ]
+        },
+        "test_trustworthiness_15": {
+          "mean": 0.948294945856071,
+          "sample_std": 0.0010756966391531873,
+          "values": [
+            0.9493494912460217,
+            0.9483360689517957,
+            0.9471992773703954
+          ]
+        },
+        "test_trustworthiness_5": {
+          "mean": 0.9509289642188556,
+          "sample_std": 0.0019055196481995045,
+          "values": [
+            0.9530595856024505,
+            0.9503394103131377,
+            0.9493878967409788
+          ]
+        },
+        "test_trustworthiness_50": {
+          "mean": 0.9378152240424256,
+          "sample_std": 0.0014961255076475382,
+          "values": [
+            0.939109592386637,
+            0.9381589230504984,
+            0.9361771566901411
+          ]
+        },
+        "train_continuity_15": {
+          "mean": 0.9807749501125663,
+          "sample_std": 0.00047583583408449036,
+          "values": [
+            0.9811604939850816,
+            0.9809212013064535,
+            0.9802431550461637
+          ]
+        },
+        "train_continuity_5": {
+          "mean": 0.988922132438045,
+          "sample_std": 0.00018933694500720944,
+          "values": [
+            0.989095956307871,
+            0.9889500570193355,
+            0.9887203839869287
+          ]
+        },
+        "train_continuity_50": {
+          "mean": 0.9608220903049773,
+          "sample_std": 0.0012197100323919638,
+          "values": [
+            0.9601924592437983,
+            0.9622279448395519,
+            0.960045866831582
+          ]
+        },
+        "train_overlap_15": {
+          "mean": 0.30915798611111117,
+          "sample_std": 0.0023879417887985093,
+          "values": [
+            0.30729166666666663,
+            0.3118489583333335,
+            0.3083333333333334
+          ]
+        },
+        "train_overlap_5": {
+          "mean": 0.20572916666666757,
+          "sample_std": 0.002004531812283917,
+          "values": [
+            0.20742187500000087,
+            0.20625000000000093,
+            0.20351562500000092
+          ]
+        },
+        "train_overlap_50": {
+          "mean": 0.3684375000000001,
+          "sample_std": 0.004588305925887439,
+          "values": [
+            0.36363281249999985,
+            0.3727734375000004,
+            0.36890625
+          ]
+        },
+        "train_trustworthiness_15": {
+          "mean": 0.9613480290436771,
+          "sample_std": 0.00041639310599253255,
+          "values": [
+            0.9609620350946011,
+            0.9617892995008419,
+            0.9612927525355883
+          ]
+        },
+        "train_trustworthiness_5": {
+          "mean": 0.9645152682745555,
+          "sample_std": 0.0013138292139939188,
+          "values": [
+            0.9630114719498907,
+            0.9654406445738023,
+            0.9650936882999736
+          ]
+        },
+        "train_trustworthiness_50": {
+          "mean": 0.9506564743953134,
+          "sample_std": 0.001824478821285216,
+          "values": [
+            0.9502548336253691,
+            0.9526483102710777,
+            0.9490662792894935
+          ]
+        },
+        "validation_seconds": {
+          "mean": 0.5639560416666688,
+          "sample_std": 0.028420927112635157,
+          "values": [
+            0.5324960000000019,
+            0.5877760830000014,
+            0.571596042000003
+          ]
+        }
+      },
+      "status": "completed"
+    },
+    {
+      "completed": 3,
+      "dataset": "coil",
+      "expected": 3,
+      "statistics": {
+        "accuracy": {
+          "mean": 0.8708333333333333,
+          "sample_std": 0.002083333333333326,
+          "values": [
+            0.86875,
+            0.8708333333333333,
+            0.8729166666666667
+          ]
+        },
+        "ari": {
+          "mean": 0.7282547201144022,
+          "sample_std": 0.010852737716305093,
+          "values": [
+            0.7187063827249897,
+            0.7260001011638333,
+            0.7400576764543835
+          ]
+        },
+        "balanced_accuracy": {
+          "mean": 0.8708333333333332,
+          "sample_std": 0.0020833333333332704,
+          "values": [
+            0.86875,
+            0.8708333333333332,
+            0.8729166666666666
+          ]
+        },
+        "final_max_norm": {
+          "mean": 60.03414097825098,
+          "sample_std": 1.399288531205484,
+          "values": [
+            61.648326348536315,
+            59.28879443736688,
+            59.16530214884975
+          ]
+        },
+        "nmi": {
+          "mean": 0.8499092840441107,
+          "sample_std": 0.004482325591596372,
+          "values": [
+            0.8450514061648641,
+            0.8507916106884821,
+            0.853884835278986
+          ]
+        },
+        "old_max_norm": {
+          "mean": 60.31397268197723,
+          "sample_std": 1.327091831548101,
+          "values": [
+            61.84631213806347,
+            59.55896417486651,
+            59.53664173300172
+          ]
+        },
+        "original_unbounded_transform_seconds": {
+          "mean": 0.3168564166666667,
+          "sample_std": 0.0051697706433852745,
+          "values": [
+            0.31202050000000003,
+            0.316243375,
+            0.322305375
+          ]
+        },
+        "outside_count": {
+          "mean": 30.666666666666668,
+          "sample_std": 3.5118845842842465,
+          "values": [
+            31,
+            27,
+            34
+          ]
+        },
+        "refinement_seconds": {
+          "mean": 0.03238006933333537,
+          "sample_std": 0.003124006148837088,
+          "values": [
+            0.0315435840000049,
+            0.029759458000000905,
+            0.03583716600000031
+          ]
+        },
+        "scoring_seconds": {
+          "mean": 0.11608641666667079,
+          "sample_std": 0.0020085789688150365,
+          "values": [
+            0.11760862500000258,
+            0.1168407500000086,
+            0.11380987500000117
+          ]
+        },
+        "test_continuity_15": {
+          "mean": 0.9896371318013105,
+          "sample_std": 0.0006237758594549065,
+          "values": [
+            0.9892041281686799,
+            0.9893551587301589,
+            0.9903521085050928
+          ]
+        },
+        "test_continuity_5": {
+          "mean": 0.9934006645680296,
+          "sample_std": 0.00022191319022682275,
+          "values": [
+            0.9931562609303943,
+            0.9935895417978294,
+            0.9934561909758648
+          ]
+        },
+        "test_continuity_50": {
+          "mean": 0.922157208733295,
+          "sample_std": 0.006582161629821429,
+          "values": [
+            0.9274734142668923,
+            0.9242031808770931,
+            0.9147950310558997
+          ]
+        },
+        "test_overlap_15": {
+          "mean": 0.7899074074074106,
+          "sample_std": 0.0036253281389725897,
+          "values": [
+            0.7858333333333365,
+            0.7927777777777809,
+            0.7911111111111144
+          ]
+        },
+        "test_overlap_5": {
+          "mean": 0.6680555555555574,
+          "sample_std": 0.006309898162000601,
+          "values": [
+            0.6608333333333348,
+            0.6708333333333354,
+            0.672500000000002
+          ]
+        },
+        "test_overlap_50": {
+          "mean": 0.7272916666666647,
+          "sample_std": 0.005027183052609382,
+          "values": [
+            0.7221249999999982,
+            0.7275833333333311,
+            0.7321666666666646
+          ]
+        },
+        "test_trustworthiness_15": {
+          "mean": 0.9910855938561163,
+          "sample_std": 0.002653097482303369,
+          "values": [
+            0.9880457829898124,
+            0.9922759713338073,
+            0.992935027244729
+          ]
+        },
+        "test_trustworthiness_5": {
+          "mean": 0.9938951556488272,
+          "sample_std": 0.003051111366124552,
+          "values": [
+            0.990383438265127,
+            0.9954057362714224,
+            0.9958962924099324
+          ]
+        },
+        "test_trustworthiness_50": {
+          "mean": 0.9519190821256036,
+          "sample_std": 0.004323560154935773,
+          "values": [
+            0.9486254470167516,
+            0.9503167231319407,
+            0.9568150762281186
+          ]
+        },
+        "train_continuity_15": {
+          "mean": 0.9902609632544777,
+          "sample_std": 0.00047072170698811254,
+          "values": [
+            0.98989613905194,
+            0.9900944392564937,
+            0.9907923114549995
+          ]
+        },
+        "train_continuity_5": {
+          "mean": 0.9962959011729697,
+          "sample_std": 0.0002968764583184971,
+          "values": [
+            0.996402721244749,
+            0.9959603958771013,
+            0.996524586397059
+          ]
+        },
+        "train_continuity_50": {
+          "mean": 0.9196364029819108,
+          "sample_std": 0.007243262075956846,
+          "values": [
+            0.9252554850904467,
+            0.922191960500283,
+            0.911461763355003
+          ]
+        },
+        "train_overlap_15": {
+          "mean": 0.7820312500000033,
+          "sample_std": 0.004579558696632448,
+          "values": [
+            0.7772135416666701,
+            0.7863281250000033,
+            0.7825520833333366
+          ]
+        },
+        "train_overlap_5": {
+          "mean": 0.6363281250000015,
+          "sample_std": 0.01021616939892375,
+          "values": [
+            0.6246093750000012,
+            0.6433593750000023,
+            0.641015625000001
+          ]
+        },
+        "train_overlap_50": {
+          "mean": 0.719960937499999,
+          "sample_std": 0.0030680852290404497,
+          "values": [
+            0.716835937499999,
+            0.7200781249999991,
+            0.7229687499999989
+          ]
+        },
+        "train_trustworthiness_15": {
+          "mean": 0.9919583500088944,
+          "sample_std": 0.0006768116250273193,
+          "values": [
+            0.9912763195926718,
+            0.9926298192369276,
+            0.9919689111970839
+          ]
+        },
+        "train_trustworthiness_5": {
+          "mean": 0.9961717108718496,
+          "sample_std": 0.0006435954591965,
+          "values": [
+            0.9955299698004209,
+            0.9968171448266818,
+            0.9961680179884462
+          ]
+        },
+        "train_trustworthiness_50": {
+          "mean": 0.9489464975504049,
+          "sample_std": 0.003470221362617059,
+          "values": [
+            0.9468016004804978,
+            0.947087734949123,
+            0.9529501572215942
+          ]
+        },
+        "validation_seconds": {
+          "mean": 0.025962027999999766,
+          "sample_std": 0.005720202136420185,
+          "values": [
+            0.03256600000000276,
+            0.022766708999995444,
+            0.022553375000001097
+          ]
+        }
+      },
+      "status": "completed"
+    }
+  ],
+  "timing_scope": "Historical original unbounded transformation PLUS separately measured outside-only refinement; validation/API parity/scoring separate. NOT a fresh full train_hull benchmark timing.",
+  "totals": {
+    "followup_wall_seconds": 122.27271725,
+    "inside_bitwise_unchanged": 39851,
+    "original_phase_I_failures_retained": 5,
+    "original_unbounded_transform_seconds": 450.743241708,
+    "outside_refined": 430,
+    "phase_II_failures": 0,
+    "phase_II_successes": 430,
+    "queries": 40281,
+    "refinement_seconds": 2.8966448750000087,
+    "scoring_seconds": 62.406973708,
+    "validation_seconds": 40.984389500000006
+  }
+}

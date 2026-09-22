@@ -4,7 +4,7 @@ from pybind11.setup_helpers import Pybind11Extension, build_ext
 setup(
     name="open-deep-tda",
     version="0.3.0",
-    description="Topology-regularized parametric dimensionality reduction",
+    description="Graph and parametric dimensionality reduction with explicit structural certificates",
     long_description=open("README.md", encoding="utf-8").read(),
     long_description_content_type="text/markdown",
     license="MIT",
@@ -29,6 +29,7 @@ setup(
     extras_require={"dev": ["pytest>=7", "ripser>=0.6", "pybind11>=2.12", "Pillow>=9.1", "psutil>=5.9"],
                     "plot": ["matplotlib>=3.5"], "benchmark": ["umap-learn>=0.5", "threadpoolctl>=3.1"],
                     "ann": ["pynndescent>=0.5.13"],
+                    "graph": ["numba>=0.56", "pynndescent>=0.5.13"],
                     "images": ["Pillow>=9.1", "ripser>=0.6", "pynndescent>=0.5.13", "psutil>=5.9"]},
     entry_points={"console_scripts": ["deep-tda=open_deep_tda.cli:main"]},
     zip_safe=False,

@@ -128,8 +128,12 @@ def test_small_adversarial_repairs_checked_independently(name, tolerance):
         assert all(w.survives for w in failed.witnesses)
         assert failed.surviving_rank == 1
     D.flags.writeable = initial.flags.writeable = False
-    result = repair(D, initial, cycles, tolerance)
-    verify_result(result, D, cycles, tolerance)
+    # Use the documented default budget for the coincident-ring regression.
+    # The shortened smoke budget is not a cross-SciPy convergence promise.
+    search = (dict(max_rounds=16, max_iterations=300, restarts=2, seed=0)
+              if name == 'duplicate_rings' else {})
+    result = repair(D, initial, cycles, tolerance, **search)
+    verify_result(result, D, cycles, tolerance, **search)
     # Regression expectations for these tiny fixtures, not a general guarantee.
     assert result["status"] == "certified"
     assert result["history"]
@@ -456,3 +460,11 @@ def test_checker_budget_and_backend_errors_propagate(monkeypatch):
     monkeypatch.setattr(layout, "compare_h0", backend_failure)
     with pytest.raises(RuntimeError, match="H0 backend unavailable"):
         layout.repair_layout(D, POINTS, h0_tolerance=.05)
+
+
+def test_short_coincident_ring_search_never_promises_convergence():
+    D, initial, cycles = fixture('duplicate_rings')
+    result = repair(D, initial, cycles)
+    # SciPy 1.13 can exhaust this short budget on an explicitly feasible case.
+    # Neither platform-dependent convergence nor an optimizer flag is a proof.
+    verify_result(result, D, cycles)

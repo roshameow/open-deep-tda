@@ -4,20 +4,42 @@
 [![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-**Inspectable topology-regularized dimensionality reduction with a C++ persistent-homology core and a PyTorch parametric embedding.**
+**Inspectable dimensionality reduction: a new graph layout/query mapper, a reproducible PyTorch baseline, and explicit structural certificates.**
 
 [中文说明](README.zh-CN.md) · [Quick start](#quick-start) · [Related projects](#related-projects) · [Benchmarks](#benchmarks)
 
 > [!IMPORTANT]
 > This is an independent experimental implementation inspired by public Deep-TDA ideas. It is **not** DataRefiner's official implementation, an exact reproduction, or a state-of-the-art claim. TopoAE and TopoAE++ are separate research projects and are used only as external references/baselines.
 
-<p align="center">
-  <img src="assets/pipeline.svg" alt="Open Deep-TDA processing pipeline" width="920">
-</p>
+## New core: real-data confirmation (unreleased main)
 
-## Structural-core rewrite: verification foundation
+`GraphEmbedding` replaces the PCA-residual training route with **component-aware spectral initialization → direct sparse-graph coordinate SGD → fixed-layout conditional query optimization within the TRAIN convex hull**. This is an independent implementation using standard graph/UMAP and conditional-embedding ideas, **not a new weighted-loss preset or a claim of mathematical novelty**. The legacy `DeepTDA` API remains unchanged for reproducibility.
 
-The core rewrite now includes **structural checks and a bounded planar repair prototype**, rather than assuming a small loss means success. It does not replace the `DeepTDA` training objective or constitute a validated new dimensionality reducer.
+Fixed official splits, seeds **0/1/2**, labels used only after fitting:
+
+| Dataset | Prior configuration accuracy | Graph + conditional mapper | Author UMAP | Graph / UMAP neighbor overlap@15 |
+|---|---:|---:|---:|---:|
+| Fashion-MNIST | 69.21% | **78.49%** | 77.88% | **.1727** / .1442 |
+| HAR | 82.21% | 83.02% | **83.38%** | **.1973** / .1550 |
+| COIL-20 | 72.78% | **87.08%** | 85.14% | **.7899** / .7700 |
+
+Accuracy is a post-fit 15-NN probe on **every official TEST row**. Geometry uses fixed queries against **all TRAIN references**, not a small candidate subcloud. All methods use matched reference features and audited neighbors. These are three-seed means from a new paired protocol—not substitutions for historical numbers. COIL's prior control is the documented 600-step stress setting, not the best possible competing method.
+
+**Tradeoffs remain:** Fashion clustering ARI is .421 versus UMAP .471; HAR ARI falls .653→.534 relative to the prior configuration. The original full Fashion query stage takes about **142 seconds / 10,000 rows**, versus UMAP's 8 seconds; separately measured bounded refinement adds about .53 seconds. This is not a fresh end-to-end timing. Graph predictors retain all training features. Neighborhood gains do not establish universal clustering superiority. No test-dependent retuning, best-seed selection, or failed-query removal was used. Historical TEST use is disclosed; this is not virgin external validation.
+
+The table uses the default **TRAIN-hull bounded mapper** follow-up, with all original layouts and comparison methods frozen. The original unbounded KL query objective could send finite outputs far from the training layout; success flags and small gradients did not prevent this. A fixed constrained optimization rule was checked on TRAIN-only cases before the follow-up: **430 of 40,281 official queries were refined, none removed; all inside-hull outputs stayed bitwise unchanged**. This is an interpolation assumption, not an out-of-distribution guarantee or post-hoc plot clipping. The historical mode remains available as `mapping_domain="unbounded"`.
+
+[Bounded follow-up, all nine arms](benchmarks/results/graph_core_compact_confirmation.json) · [Original 30 records, including escape failures](benchmarks/results/graph_core_confirmation.json) · [Protocol and reproduction](benchmarks/graph_core/README.md)
+
+<p align="center"><img src="assets/graph-core-fashion.png" alt="Fixed-seed real Fashion-MNIST comparison of PCA, prior configuration, new graph core and author UMAP" width="1100"></p>
+<p align="center"><img src="assets/graph-core-har.png" alt="Fixed-seed official subject-disjoint HAR comparison" width="1100"></p>
+<p align="center"><img src="assets/graph-core-coil.png" alt="Fixed-seed real COIL-20 comparison" width="1100"></p>
+
+The graph core itself **does not certify H₀/H₁ preservation**. A separate, explicitly requested structural construction is described below; it is not silently substituted into these benchmark results.
+
+## Structural contracts and constructive layouts
+
+Structural acceptance is separate from optimization success. The original checks remain available, and the new sparse and constructive paths operate on **every supplied row**, without silently sampling.
 
 - [`compare_h0`](python/open_deep_tda/structural_h0.py) computes global MSTs on **all supplied rows** and checks the exact maximum error of same-ID component merge distances. It distinguishes the actual hierarchy error from the more conservative MST-edge error bound.
 - [`check_h1_witnesses`](python/open_deep_tda/structural_h1.py) checks explicitly supplied source cycle representatives over a declared radius interval. Target cycles must retain their edges, remain nonboundaries, and remain independent. Triangles involving *other supplied vertices* count as possible fillings.
@@ -29,7 +51,29 @@ Run the analytic acceptance cases:
 python examples/check_structural_contracts.py
 ```
 
-The intact square passes; missing cycles, identical barcodes with wrong row correspondence, filling by an extra vertex, merging two independent classes, and an incorrect global bridge are rejected. These are **correctness gates, not real-data quality benchmarks**. A future layout solver and learned mapping must pass them *and* demonstrate competitive neighborhood/generalization results before being presented as an algorithmic improvement.
+The intact square passes; missing cycles, identical barcodes with wrong row correspondence, filling by an extra vertex, merging two independent classes, and an incorrect global bridge are rejected. These are **correctness gates, not real-data quality benchmarks**. They do not by themselves establish dimensionality-reduction quality or successful out-of-sample structure preservation.
+
+### Full-domain constructive path
+
+- [`analyze_sparse_h1`](python/open_deep_tda/structural_sparse_h1.py) uses a sparse survival-edge coordinate space and streamed triangle reduction. Its bounded domain reaches **1,024 vertices**, without discarding other vertices that might fill a cycle.
+- [`auto_global_witnesses`](python/open_deep_tda/structural_auto_witness.py) proposes a global source class through optional author Ripser, then checks it independently. External-solver execution requires explicit consent; its internal resources are not covered by the core budgets.
+- [`construct_global_layout`](python/open_deep_tda/structural_constructive.py) builds a cycle scaffold first, then inserts remaining vertices through hierarchy-compatible contacts. It returns coordinates **only after full-domain H₀ and H₁ checks pass**. Currently it supports one simple selected cycle and can fail on valid inputs.
+- [`structural_planar.certify`](python/open_deep_tda/structural_planar.py) checks all vertices against protected empty disks and exact F₂ winding. It supplies a scalable sufficient target certificate in real represented-float64 geometry, **not exact equivalence to rounded `pdist` filtrations**, and does not validate the source by itself.
+
+On **all 960 COIL training rows**, a label-free globally selected class survives; the constructed layout has same-ID H₀ merge error **.049 ≤ .05**, and independently verified H₁ rank **1**. This concerns the complete supplied training domain, not just cycle vertices or a 48-row subcloud. It certifies selected-class survival—not all H₁, precise death times, barcode equality, or semantic labels.
+
+There is a genuine tradeoff: training overlap@15 falls **.769→.571** relative to its unconstrained graph guide. A separate, fixed seed-0 induction ablation obtains **93.54%** classification accuracy versus its matched exact-neighbor graph guide's **88.75%**, but TEST overlap falls **.7833→.5908**. This is **not** the shared-ANN three-seed benchmark above. After adding all 480 mapped TEST rows, selected target H₁ still passes, but full 1,440-row H₀ error is **1.5295**: **the .05 out-of-sample H₀ requirement fails**. The hole guard moves zero queries; no gain is attributed to it.
+
+Earlier constructive transfer trials also failed: the first rule certified 0/6 new small cohorts, and a frontier extension 1/6. Those results remain evidence against a general feasibility claim. The recorded 960-row success was reproduced in the matched runtime; a newer-runtime construction was unsupported and is also retained. [Outcomes and scope](benchmarks/results/global_structural_diagnostic.json) · [Reproducer](benchmarks/validate_global_structural.py)
+
+```bash
+python examples/construct_global_layout.py
+```
+
+Use `GraphEmbedding.from_layout(X, checked_layout)` to configure the same query mapper around externally constructed coordinates. This factory **does not transfer a training certificate to new queries** or certify arbitrary supplied layouts.
+
+<details>
+<summary>Earlier filling-cut repair experiments and their failed joint cases</summary>
 
 ### Certificate-guided layout repair prototype
 
@@ -53,25 +97,28 @@ Fixed TRAIN-only checks use 48 COIL-20 training views of the first object and 48
 | COIL-20, 48 rows | Unresolved after 48 rounds | Certified in 1 round | **Unresolved** |
 | Fashion, 48 rows | Unresolved after 48 rounds | Certified in 1 round | **Unresolved** |
 
-The joint failed candidates have H₀ errors about **4.94 / 659.55**, and do not preserve the required H₁ class. No certified embedding is returned for them. This is a solver failure, **not a proof that the requested planar structure is impossible**. The new core therefore remains incomplete and is not integrated into the estimator or advertised as better DR. [All eight outcomes and source hashes](benchmarks/results/structural_repair_diagnostic.json) are retained; raw coordinates/logs stay local. Reproduce with [`validate_structural_repair.py`](benchmarks/validate_structural_repair.py), separate `--output` directories, and `--solver sequential` / `--solver dual`; register before running. The original sequential snapshot is commit `62b4aeb`, and the measured public dual snapshot is `4c643dd`.
+The joint failed candidates have H₀ errors about **4.94 / 659.55**, and do not preserve the required H₁ class. No certified embedding is returned for them. This is a solver failure, **not a proof that the requested planar structure is impossible**. This joint SLSQP route remains an unsuccessful experimental reference; it is not the new graph reducer or the constructive path above. [All eight outcomes and source hashes](benchmarks/results/structural_repair_diagnostic.json) are retained; raw coordinates/logs stay local. Reproduce with [`validate_structural_repair.py`](benchmarks/validate_structural_repair.py), separate `--output` directories, and `--solver sequential` / `--solver dual`; register before running. The original sequential snapshot is commit `62b4aeb`, and the measured public dual snapshot is `4c643dd`.
+
+</details>
 
 ## Features
 
 - C++17 Vietoris–Rips **H₀/H₁ over F₂**, deterministic MST and critical-edge output.
 - Explicit simplex, reduction-entry, reduction-operation and matching budgets; failures are never presented as partial success.
-- Parametric 2D/3D PyTorch mapping with PCA initialization and out-of-sample `transform`.
+- New 2D graph-coordinate optimizer with independent conditional-query `transform`.
+- Preserved legacy 2D/3D PyTorch mapping with PCA initialization.
 - Distance-stress geometry, optional experimental fuzzy-neighbor geometry, H₀/H₁ and critical-edge objectives.
 - Exact blocked neighbors or isolated NN-descent with an exact recall audit.
 - Online topology subcloud refresh and measured sample-coverage diagnostics.
-- Compact inference checkpoints that omit stored training rows.
+- Legacy neural compact checkpoints can omit training rows; graph NPZ predictors necessarily retain them.
 - Offline HTML/SVG reports, persistence diagrams, Mapper summaries and CLI tools.
 
 > [!NOTE]
-> Persistent homology is exact for the **selected small subcloud**, not for the entire large population. Similar persistence diagrams do not guarantee semantic correspondence or physically correct cycle order.
+> The legacy neural trainer computes PH on **selected small subclouds**, not the entire large population. New structural APIs state their complete supplied-domain limits separately. Similar persistence diagrams do not guarantee semantic correspondence or physically correct cycle order.
 
-For the measured real-data settings, use the [Fashion-MNIST PCA64 NCE preset](configs/fashion-pca64-nce.json) or the [HAR graph preset](configs/har-neighborhood.json). These are dataset-specific experiments, not universal defaults; the HAR NCE transfer was unsuccessful.
+For the new graph route, use `GraphEmbedding` (install the `graph` extra). For historical neural experiments, the [Fashion-MNIST PCA64 NCE preset](configs/fashion-pca64-nce.json) and [HAR graph preset](configs/har-neighborhood.json) remain available. These are dataset-specific experiments, not universal defaults; the HAR NCE transfer was unsuccessful.
 
-## Visual example
+## Historical parametric visual examples
 
 <p align="center">
   <img src="assets/digits-example.png" alt="Open Deep-TDA embedding of the real scikit-learn Digits dataset, with held-out points marked" width="820">
@@ -119,12 +166,39 @@ Optional dependencies:
 ```bash
 python -m pip install -e '.[dev]'              # tests and PH oracles
 python -m pip install -e '.[ann]'              # NN-descent
+python -m pip install -e '.[graph,plot]'       # new graph core and figures
 python -m pip install -e '.[benchmark,images]' # benchmark tooling
 ```
 
 Installation does not download datasets or contact a training service. Real datasets are explicit opt-in downloads and remain outside the repository.
 
 ## Quick start
+
+The new API is on **unreleased main**, not the older v0.3 prerelease artifact:
+
+```python
+from open_deep_tda import GraphEmbedding
+
+model = GraphEmbedding(neighbor_backend="exact", seed=0)
+Z_train = model.fit_transform(X_train)
+Z_new, diagnostics = model.transform(X_new, return_diagnostics=True)
+# Large training sets can explicitly select neighbor_backend="pynndescent".
+# The mapper retains every training feature row; finite nonconvergences are reported.
+model.save("graph-predictor.npz")  # data-bearing, not compact/anonymized
+restored = GraphEmbedding.load("graph-predictor.npz")
+```
+
+No preprocessing is silently fitted: pass the same finite feature representation to fit and transform. Fixed source15 neighborhoods require at least 16 training rows. Query optimization always treats a row as a new query, even if it matches training features; it is not exact anchor interpolation. The default domain is the TRAIN convex hull; constrained/nonconverged phases are reported. Older graph checkpoints retain their historical unbounded policy rather than silently changing predictions. Default scratch files are deleted; raw debug retention requires explicit opt-in. Safe NPZ checkpoints do not serialize external query-index objects.
+
+```bash
+python examples/run_graph_embedding.py --plot
+# Numeric arrays; output directories/checkpoints remain private:
+deep-tda graph-fit --input train.npy --validation test.npy --output outputs/graph-run
+deep-tda graph-transform --model outputs/graph-run/model.npz --input new.npy --output outputs/graph-new.npy
+```
+
+### Legacy parametric baseline
+
 
 ```bash
 deep-tda demo --dataset circle --samples 256 --features 8 \

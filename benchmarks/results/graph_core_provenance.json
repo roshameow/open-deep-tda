@@ -1,0 +1,766 @@
+{
+  "aggregate": {
+    "dataset_method_summaries": 12,
+    "file": "benchmarks/results/graph_core_confirmation.json",
+    "records": 30,
+    "sample_ids_or_coordinates_published": false,
+    "sha256": "bec5ec354d39f01d40982b76e8fcfa6d7aac0d257c72cb4bc393ef54c0825b4b"
+  },
+  "as_run_sources": [
+    {
+      "as_run_sha256": "b620d328d2085cdce1d2941b7a3bac3f58a8ea61a53c97a56531d90465b7c1ff",
+      "logical_role": "reference_protocol/confirm_neighbor_nce.py",
+      "public_port_targets": [],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "34a2e7be97362b01b9991b4b3aa4641cf6be5a83ec9e68425642912e743dfdb2",
+      "logical_role": "reference_protocol/image_protocol.py",
+      "public_port_targets": [],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "31ec5c0996d2c7b49c2a0aac8c6bf718275ced935baaea0a2fd0939c3381c0b8",
+      "logical_role": "reference_protocol/image_reducer_worker.py",
+      "public_port_targets": [],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "7d49937633874028fb7bf26719768af96bbac71b9fa8f404298f3b36541cbec0",
+      "logical_role": "as_run/config/fashion-pca64-nce.json",
+      "public_port_targets": [
+        "benchmarks/graph_core/strong_configs.json"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "2f40aff77afd9476d473b23fb70aa4dfbde62b916fb14e7034defa838a2d5f49",
+      "logical_role": "as_run/config/har-neighborhood.json",
+      "public_port_targets": [
+        "benchmarks/graph_core/strong_configs.json"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "abb700c52c853b89c384507c1686fa2408eb5401393f8c3865d8453d41e95277",
+      "logical_role": "as_run/component_design_source",
+      "public_port_targets": [
+        "python/open_deep_tda/_graph_worker.py"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "7e95417b6df4026cff05c442e676a59c1c11b3f4db2326ac669c0bba35c61778",
+      "logical_role": "as_run/harness_contracts",
+      "public_port_targets": [
+        "benchmarks/graph_core/common.py",
+        "benchmarks/graph_core/strong_configs.json"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "136eed024326d0c653f20a8b31c959d28e6f4f22be179cbccd9e7dc28ca8d83c",
+      "logical_role": "as_run/component_initializer",
+      "public_port_targets": [
+        "python/open_deep_tda/_graph_worker.py"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "d0121c3a11cf86f93f96ce2b60d66b5f0f3ccb910da983ab63cf8b99c7a1b85a",
+      "logical_role": "as_run/exact_A_mapper",
+      "public_port_targets": [
+        "benchmarks/graph_core/kernels.py"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "4286bee1df3b78926fe0be9442f8c438b7dd66763f686d04da605063619a7f47",
+      "logical_role": "as_run/harness_report",
+      "public_port_targets": [
+        "benchmarks/graph_core/report.py",
+        "benchmarks/graph_core/publish.py",
+        "benchmarks/graph_core/figures.py"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "bc7b13eb47a92bf1e38aba2f339c625ae3e8c3b454c26d8944281d905e30504c",
+      "logical_role": "as_run/harness_supervisor",
+      "public_port_targets": [
+        "benchmarks/graph_core/runner.py",
+        "benchmarks/confirm_graph_core.py"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "64f9a0a2b7d7a2197bf2d92169b29ea6ee75efb1bf176e4694b1915735df7a79",
+      "logical_role": "as_run/harness_worker",
+      "public_port_targets": [
+        "benchmarks/graph_core/worker.py"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "82e0b8ea6e148ef754bd4be13e8e18d0b4960a01d10866b39b52023c7ff9e36a",
+      "logical_role": "as_run/graph_SGD_fuzzy_exact_metrics",
+      "public_port_targets": [
+        "python/open_deep_tda/_graph_worker.py",
+        "benchmarks/graph_core/kernels.py"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "07826b376c94ae8db8c2700805b58763603c0be7fda202e0c37233274666e84d",
+      "logical_role": "as_run/ANN_adapter",
+      "public_port_targets": [
+        "benchmarks/graph_core/kernels.py",
+        "benchmarks/graph_core/worker.py"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "1c995deaed4d4da29839a1577e74945b2c8a6f67a63133a190d0d546dbc549f4",
+      "logical_role": "native/include/open_deep_tda/persistence.hpp",
+      "public_port_targets": [
+        "include/open_deep_tda/persistence.hpp"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "d2e5fb3335e8cab49d2016cc5cc069987dd42d9b4168948be03b47bd8eb68aee",
+      "logical_role": "as_run/COIL_stress600_config",
+      "public_port_targets": [
+        "benchmarks/graph_core/strong_configs.json"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "0dbccc4eb88376ffd7eaa29cd51303f5a127cf51464aecb2c5440418f2fbe2ca",
+      "logical_role": "production/__init__.py",
+      "public_port_targets": [
+        "python/open_deep_tda/__init__.py"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d",
+      "logical_role": "production/__main__.py",
+      "public_port_targets": [
+        "python/open_deep_tda/__main__.py"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "79387072078cd1ff99b84d472e248353b68a31356be3c92286f0a15e63eaaaf4",
+      "logical_role": "production/_baseline_worker.py",
+      "public_port_targets": [
+        "python/open_deep_tda/_baseline_worker.py"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "f1c3d9bfb806fdb77a9ced19de8e52a1b5529c672b672b63baa897c11cff6044",
+      "logical_role": "production/_core.cpython-313-darwin.so",
+      "public_port_targets": [
+        "python/open_deep_tda/_core.cpython-313-darwin.so"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "c1374abf638817b30c52471d34a9f908be6fac97336d8eabc8958825be97401c",
+      "logical_role": "production/_core.cpython-39-darwin.so",
+      "public_port_targets": [
+        "python/open_deep_tda/_core.cpython-39-darwin.so"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "e5fbf92792fa6fb3a3ed5f4ff63f5a2087e3472fba748e9d6c4c14f2f8c69a45",
+      "logical_role": "production/_neighbor_worker.py",
+      "public_port_targets": [
+        "python/open_deep_tda/_neighbor_worker.py"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "8f067a36678e36f7845f8bfbbb1814260fb83a3967a11c330451a4af154ba81b",
+      "logical_role": "production/benchmark.py",
+      "public_port_targets": [
+        "python/open_deep_tda/benchmark.py"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "f1d669f2b12ad6f20fbf69f5dad473d319c6518eb96a74554ec4adef75f8b10a",
+      "logical_role": "production/cli.py",
+      "public_port_targets": [
+        "python/open_deep_tda/cli.py"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "c63a8e5909af146a72ceca6bccd18e119cb99b566bef5d0406f95d28e4986de4",
+      "logical_role": "production/config.py",
+      "public_port_targets": [
+        "python/open_deep_tda/config.py"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "5321488129c3e241fd4ebb7afcaaf71797c94001cc157b4eed87b6f5ad42127f",
+      "logical_role": "production/contrastive.py",
+      "public_port_targets": [
+        "python/open_deep_tda/contrastive.py"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "9cee297fecf99ec04ccd9fd8e1523158f1deceb2248a8ebbcef5f1164033732f",
+      "logical_role": "production/cycle_metrics.py",
+      "public_port_targets": [
+        "python/open_deep_tda/cycle_metrics.py"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "1ac436e9d3f498cb7aa081bd60ec37ec8f9644ae9c80f69c4c4345d9763aeacd",
+      "logical_role": "production/datasets.py",
+      "public_port_targets": [
+        "python/open_deep_tda/datasets.py"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "ed1e1f6bd6ade4ea0221aa86d9cc3e31c2b3c188a5b625057dd312e568c35d91",
+      "logical_role": "production/estimator.py",
+      "public_port_targets": [
+        "python/open_deep_tda/estimator.py"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "8d2974f4722757e3b9146b3d2905d155e6331c512426b6a7fea701981e7d65da",
+      "logical_role": "production/evaluation.py",
+      "public_port_targets": [
+        "python/open_deep_tda/evaluation.py"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "2be5171fe8096d312b75518fb45406c34dc5f4c33edcc428ff43b2147c25a0df",
+      "logical_role": "production/fuzzy.py",
+      "public_port_targets": [
+        "python/open_deep_tda/fuzzy.py"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "428f7a2bb95a0dd65f568aeebb221bcf535bcab00935aab692556cfc51cd4e38",
+      "logical_role": "production/image_datasets.py",
+      "public_port_targets": [
+        "python/open_deep_tda/image_datasets.py"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "b073e9a50ca7287bd3345267797aafedccf6a2504579a1faac8249bba169b87c",
+      "logical_role": "production/losses.py",
+      "public_port_targets": [
+        "python/open_deep_tda/losses.py"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "5d0057dbb7cc40f32a1bd2a1bc4537a79185503de4567dccf8f95ee5c47bf29c",
+      "logical_role": "production/mapper.py",
+      "public_port_targets": [
+        "python/open_deep_tda/mapper.py"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "afcce230e6907434af870f2ef30e3d632aa91185206c602823a22fe10d293533",
+      "logical_role": "production/models.py",
+      "public_port_targets": [
+        "python/open_deep_tda/models.py"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "ab86069b93a14939d8de7392c10d35e5bd62da3bb5530dd3b9cfe0a12ec3a0cd",
+      "logical_role": "production/neighbors.py",
+      "public_port_targets": [
+        "python/open_deep_tda/neighbors.py"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "145825b8293c6e7a9f18dacde14e54101008e5998854ae928566f3b590d5a144",
+      "logical_role": "production/population_metrics.py",
+      "public_port_targets": [
+        "python/open_deep_tda/population_metrics.py"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "becd1a07c78f5967be4731b9bca314e58ac71e2122d166252ebaa29aff24551b",
+      "logical_role": "production/preprocessing.py",
+      "public_port_targets": [
+        "python/open_deep_tda/preprocessing.py"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "f5f8540e8b9d26f0571641e02d4a7fa9be31b7c5121338cbfc97620d7814617f",
+      "logical_role": "production/real_datasets.py",
+      "public_port_targets": [
+        "python/open_deep_tda/real_datasets.py"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "ff2ffffde70e5cb4764c71baedfcfbc95c83841cde3951768f77cf623f708857",
+      "logical_role": "production/sampling.py",
+      "public_port_targets": [
+        "python/open_deep_tda/sampling.py"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "57f847efc1741e3b714a098ba699ea41d744960c417a3c7eb9580e4ac945df49",
+      "logical_role": "production/structural_dual.py",
+      "public_port_targets": [
+        "python/open_deep_tda/structural_dual.py"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "be41571c0365c055ee2e53c8e438e4c392ff27276b44823ca1bf7c3919cf7c05",
+      "logical_role": "production/structural_dual_layout.py",
+      "public_port_targets": [
+        "python/open_deep_tda/structural_dual_layout.py"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "6e1621af8e9e6f3da7d5778f133e6afb2b43e1646c3ecde8715603bb93af5c36",
+      "logical_role": "production/structural_h0.py",
+      "public_port_targets": [
+        "python/open_deep_tda/structural_h0.py"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "c49ee8ee0ffffe2c99501e9c5321a885e8f4238dc3d712752e595f7c4378e5ae",
+      "logical_role": "production/structural_h1.py",
+      "public_port_targets": [
+        "python/open_deep_tda/structural_h1.py"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "bab02bccec373f7d63fa0106b2c720e53353ce36c715d5e4109d565345fcc49b",
+      "logical_role": "production/structural_layout.py",
+      "public_port_targets": [
+        "python/open_deep_tda/structural_layout.py"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "6efaead740dd047f5021ebb5833eba00a0856a7b44c6a38c93212fb775195202",
+      "logical_role": "production/structural_obstructions.py",
+      "public_port_targets": [
+        "python/open_deep_tda/structural_obstructions.py"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "b55cc8472a59b61d731eda37e5b9ee8e5ec7b2f9fad2d210527563e4eeb1de02",
+      "logical_role": "production/structural_witnesses.py",
+      "public_port_targets": [
+        "python/open_deep_tda/structural_witnesses.py"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "090f8e1178cb1d688348609eee077bb9be64ed1e38fd6e4b4c68657df1ee8ec0",
+      "logical_role": "production/topology.py",
+      "public_port_targets": [
+        "python/open_deep_tda/topology.py"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "cc02e186e6268f7efecc6944f109a4c0d7ade0eb0f704f47a39ef0f4b76bf57f",
+      "logical_role": "production/visualization.py",
+      "public_port_targets": [
+        "python/open_deep_tda/visualization.py"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "400bea962724fc8958b77e59ac699c0926c190377347ab2414829d6404e0398e",
+      "logical_role": "native/src/persistence.cpp",
+      "public_port_targets": [
+        "src/persistence.cpp"
+      ],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "3ec96fbfb6fd43243ea4900ea0dc8c51e4b3848e26759ab3365af2cf9232cbc0",
+      "logical_role": "author/pynndescent/__init__.py",
+      "public_port_targets": [],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "ed62ea564cb832d53e86e89e7ff89cc40964407a93f74082a271f1253850c633",
+      "logical_role": "author/pynndescent/distances.py",
+      "public_port_targets": [],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "793b444a7da9b68f1ae786f30619c080517e481f240747a9664f9c84a54c7f19",
+      "logical_role": "author/pynndescent/graph_utils.py",
+      "public_port_targets": [],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "320b3d7ae0eb563e60d7a62387de282960b1ab1a94b376935691bb8cc4967ed0",
+      "logical_role": "author/pynndescent/optimal_transport.py",
+      "public_port_targets": [],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "6e9e29ef1e7b05efb6c197cc44754a9b6acdeb6abce8020bb1a0bc1e97ddd521",
+      "logical_role": "author/pynndescent/pynndescent_.py",
+      "public_port_targets": [],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "bf8a974911e37e1b146d26ee391bac4237af7856985386b34dfebb254d833afc",
+      "logical_role": "author/pynndescent/rp_trees.py",
+      "public_port_targets": [],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "6ff61cfd2b90bc7c940f15525e9bcaa5bf6207e9ef6e8e92bd886f5304d43374",
+      "logical_role": "author/pynndescent/sparse.py",
+      "public_port_targets": [],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "03f8c9e8cf6d2a837599791ffb9c92d3c05914df54075a297c651c658641999e",
+      "logical_role": "author/pynndescent/sparse_nndescent.py",
+      "public_port_targets": [],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "42618dc884da404098a47f8c8cc7406530609bc5fcb70ca193496cadc59a7da7",
+      "logical_role": "author/pynndescent/threaded_rp_trees.py",
+      "public_port_targets": [],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "7faae371df33d5fc7faea0264b3651fb4a435211eebc46067f96e17c3cc52308",
+      "logical_role": "author/pynndescent/utils.py",
+      "public_port_targets": [],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "a6bb0174000fb3168cc9ccd381480adf94ff15aa47e5b027a181900e3e909b4b",
+      "logical_role": "author/umap/__init__.py",
+      "public_port_targets": [],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "974a9c36265fc4f1208d92e7a35adc1b5e067e2bd7ffa32d93c1b41b367668ea",
+      "logical_role": "author/umap/aligned_umap.py",
+      "public_port_targets": [],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "65a7a11ef252818849cb2dbd323eac301f05e474e8b015d9eb693f14f0d3bb22",
+      "logical_role": "author/umap/distances.py",
+      "public_port_targets": [],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "6358f0830b7e31f6e537a268e7bc1b0ed334453f934f39cd624aa1e276a706fc",
+      "logical_role": "author/umap/layouts.py",
+      "public_port_targets": [],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "1d8efa2cc64e28580eafa34b74224373b477aeddc6318a3e18ff8f0f1981f696",
+      "logical_role": "author/umap/parametric_umap.py",
+      "public_port_targets": [],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "ae5a5c4c04819b4c6d76bf0a4af790d74b030bbe8f9968377ebb3fa03b3fd86b",
+      "logical_role": "author/umap/plot.py",
+      "public_port_targets": [],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "8ee6c71977a89336bd955173fa38bb330c9b7a1133308843fcc44ab526ee0cf5",
+      "logical_role": "author/umap/sparse.py",
+      "public_port_targets": [],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "d5c39e8de9c764378754f0a6d7c1c7bc0fb03e2737aafd00a898a82e0cc82a07",
+      "logical_role": "author/umap/spectral.py",
+      "public_port_targets": [],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "bf55118ff27497c7df8bc1c6549738077ef8dba79fe40e3d87d67dd71f7c67a6",
+      "logical_role": "author/umap/umap_.py",
+      "public_port_targets": [],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "05fe407d2125904ed80a5ce8985a5101965f1074ed353d149b532a22e67af134",
+      "logical_role": "author/umap/utils.py",
+      "public_port_targets": [],
+      "verified_at_original_closeout": true
+    },
+    {
+      "as_run_sha256": "6e17b3da7448fa35ee40b1144d0caf3dbe7f2fa9d98e39d1131822091f2d94cf",
+      "logical_role": "author/umap/validation.py",
+      "public_port_targets": [],
+      "verified_at_original_closeout": true
+    }
+  ],
+  "explicit_port_changes": [
+    "Removed local absolute imports and external dependency-directory literals; normal optional-package discovery",
+    "Extracted exact ranks, fuzzy weights and A arithmetic into benchmark kernels; unused B/tree machinery omitted",
+    "Graph initializer/SGD loaded by file from standalone public graph worker, keeping Torch isolated",
+    "Public SGD adds nonbinding event-budget counters; synthetic coordinates/counts bitwise equal",
+    "Source feature dtype retained; no float64 recanonicalization before component-centroid PCA",
+    "Frozen resolved strong configs relocated into benchmark JSON",
+    "Local artifact output and labels barrier remain; public exporter allowlists scalar aggregates only"
+  ],
+  "figures": [
+    {
+      "classes": 10,
+      "dataset": "fashion",
+      "detail_rule": "TRAIN min/max plus5% range; top full extent retains every point",
+      "display_subset": false,
+      "file": "assets/graph-core-fashion.png",
+      "methods": [
+        "pca",
+        "strong",
+        "directA",
+        "umap"
+      ],
+      "numbers": "seed0",
+      "outside_detail_counts": {
+        "directA": 1,
+        "pca": 0,
+        "strong": 0,
+        "umap": 0
+      },
+      "points": 10000,
+      "seed": 0,
+      "selection": "fixed seed0, never best seed",
+      "sha256": "a6716ef31ef2fafd696a94703896255656d41bc02fff58e7fcdf1f34008fba96"
+    },
+    {
+      "classes": 6,
+      "dataset": "har",
+      "detail_rule": "TRAIN min/max plus5% range; top full extent retains every point",
+      "display_subset": false,
+      "file": "assets/graph-core-har.png",
+      "methods": [
+        "pca",
+        "strong",
+        "directA",
+        "umap"
+      ],
+      "numbers": "seed0",
+      "outside_detail_counts": {
+        "directA": 3,
+        "pca": 0,
+        "strong": 0,
+        "umap": 0
+      },
+      "points": 2947,
+      "seed": 0,
+      "selection": "fixed seed0, never best seed",
+      "sha256": "2c8cf80a2caa4f3f0f91613cf1dd86e0cd2627845063550c39cba5c978dee7ba"
+    },
+    {
+      "classes": 20,
+      "dataset": "coil",
+      "detail_rule": "TRAIN min/max plus5% range; top full extent retains every point",
+      "display_subset": false,
+      "file": "assets/graph-core-coil.png",
+      "methods": [
+        "pca",
+        "strong",
+        "directA",
+        "umap"
+      ],
+      "numbers": "seed0",
+      "outside_detail_counts": {
+        "directA": 0,
+        "pca": 0,
+        "strong": 0,
+        "umap": 0
+      },
+      "points": 480,
+      "seed": 0,
+      "selection": "fixed seed0, never best seed",
+      "sha256": "d94c72804081ba648d4ed2a4087537caf807f2ec2ac29ab688275ef8d534bdae"
+    }
+  ],
+  "historical_run": {
+    "completion_status": "completed",
+    "independent_original_closeout_reports": 30,
+    "protocol": "final-fixed-official-splits-graph-A-v1",
+    "real_reruns_for_public_port": 0,
+    "registered_source_count": 71,
+    "registration_sha256": "35a25887aa39dcc3a836340acd748cd6c8b2dc93af96079a2927b6d94f3a94eb"
+  },
+  "numerical_parity": {
+    "frozen_output_audits": [
+      {
+        "dataset": "fashion",
+        "exact_cauchy_objective_gradient_bitwise": true,
+        "exact_metric_max_difference": 0.0,
+        "fuzzy_weights_bitwise": true,
+        "gradient_max_difference": 0.0,
+        "metric_queries_checked": 8,
+        "same_TRAIN_unit_center": true,
+        "seed": 0,
+        "source_dtype": "float32"
+      },
+      {
+        "dataset": "fashion",
+        "exact_cauchy_objective_gradient_bitwise": true,
+        "exact_metric_max_difference": 0.0,
+        "fuzzy_weights_bitwise": true,
+        "gradient_max_difference": 0.0,
+        "metric_queries_checked": 8,
+        "same_TRAIN_unit_center": true,
+        "seed": 1,
+        "source_dtype": "float32"
+      },
+      {
+        "dataset": "fashion",
+        "exact_cauchy_objective_gradient_bitwise": true,
+        "exact_metric_max_difference": 0.0,
+        "fuzzy_weights_bitwise": true,
+        "gradient_max_difference": 0.0,
+        "metric_queries_checked": 8,
+        "same_TRAIN_unit_center": true,
+        "seed": 2,
+        "source_dtype": "float32"
+      },
+      {
+        "dataset": "har",
+        "exact_cauchy_objective_gradient_bitwise": true,
+        "exact_metric_max_difference": 0.0,
+        "fuzzy_weights_bitwise": true,
+        "gradient_max_difference": 0.0,
+        "metric_queries_checked": 8,
+        "same_TRAIN_unit_center": true,
+        "seed": 0,
+        "source_dtype": "float32"
+      },
+      {
+        "dataset": "har",
+        "exact_cauchy_objective_gradient_bitwise": true,
+        "exact_metric_max_difference": 0.0,
+        "fuzzy_weights_bitwise": true,
+        "gradient_max_difference": 0.0,
+        "metric_queries_checked": 8,
+        "same_TRAIN_unit_center": true,
+        "seed": 1,
+        "source_dtype": "float32"
+      },
+      {
+        "dataset": "har",
+        "exact_cauchy_objective_gradient_bitwise": true,
+        "exact_metric_max_difference": 0.0,
+        "fuzzy_weights_bitwise": true,
+        "gradient_max_difference": 0.0,
+        "metric_queries_checked": 8,
+        "same_TRAIN_unit_center": true,
+        "seed": 2,
+        "source_dtype": "float32"
+      },
+      {
+        "dataset": "coil",
+        "exact_cauchy_objective_gradient_bitwise": true,
+        "exact_metric_max_difference": 0.0,
+        "fuzzy_weights_bitwise": true,
+        "gradient_max_difference": 0.0,
+        "metric_queries_checked": 8,
+        "same_TRAIN_unit_center": true,
+        "seed": 0,
+        "source_dtype": "float32"
+      },
+      {
+        "dataset": "coil",
+        "exact_cauchy_objective_gradient_bitwise": true,
+        "exact_metric_max_difference": 0.0,
+        "fuzzy_weights_bitwise": true,
+        "gradient_max_difference": 0.0,
+        "metric_queries_checked": 8,
+        "same_TRAIN_unit_center": true,
+        "seed": 1,
+        "source_dtype": "float32"
+      },
+      {
+        "dataset": "coil",
+        "exact_cauchy_objective_gradient_bitwise": true,
+        "exact_metric_max_difference": 0.0,
+        "fuzzy_weights_bitwise": true,
+        "gradient_max_difference": 0.0,
+        "metric_queries_checked": 8,
+        "same_TRAIN_unit_center": true,
+        "seed": 2,
+        "source_dtype": "float32"
+      }
+    ],
+    "no_real_refits_or_transforms": true,
+    "package_API_parity": "Separate main-owner review; not asserted by this benchmark-port audit",
+    "public_graph_worker_sha256_at_parity": "d54cfb13dcdadc8320d3669a1e93e705b3fa44b2f34e9d6f8eb4eaec541f29f8",
+    "scope": "Synthetic SGD/initialization/optimizer arithmetic only; saved real candidates/objectives/metrics audited without any real refit, rerun or transform.",
+    "synthetic": {
+      "SGD_bitwise": true,
+      "counts_equal": true,
+      "initializer_bitwise": true,
+      "nonbinding_event_counter": 18850,
+      "source_dtype": "float32"
+    }
+  },
+  "provenance": "Historical aggregates belong to the original frozen source hashes below. Public files are a reviewed relocation and API adaptation; hashes need not match and no exact file-hash equivalence is asserted. No real benchmark rerun generated these published scores.",
+  "public_port_source_snapshot": {
+    "benchmarks/confirm_graph_core.py": "54e0f1c03931eb40ccca3d39c8b55bed8d6b42ee88ba090c6372ad8f8fb964fe",
+    "benchmarks/graph_core/README.md": "8e2eb8fd10bf866f76011c07b2657936d2a166305b94fc74ee3f0f0ebe8d9464",
+    "benchmarks/graph_core/__init__.py": "6873477a5338063d69377b28ef8de6f8cadbc284a8f817c0b23c81331874e43a",
+    "benchmarks/graph_core/common.py": "a27b8c06e55701d29e2782259b04589da4d084a018ef262c7cd14b5120ea8bec",
+    "benchmarks/graph_core/figures.py": "c92dafaf884802fa5c5a4f4c73db8c7ece3b5b9973c990efc0117cfc0f2539cb",
+    "benchmarks/graph_core/kernels.py": "d1cccdc3f518217106eb26754a7769a3e8122f8fc3e66c42327a9d06ebd43f46",
+    "benchmarks/graph_core/publish.py": "62759bbada57bdfd5e4b9dba38047127abf82fa827ee41969242ea24dfbd91bd",
+    "benchmarks/graph_core/report.py": "e17cf7ed92ac4d052cc9a595f46d48873fb35ebfec5ea56875274a6606452c5e",
+    "benchmarks/graph_core/runner.py": "8c6e1c15060eb975fb8d9c5b823e4359a1b928970f9d2bab7ae5f9dc46db8758",
+    "benchmarks/graph_core/strong_configs.json": "0649b9795d1c888a419889585ec85f00c84c5f34440961b5497b66f76fded7a7",
+    "benchmarks/graph_core/worker.py": "1df3948d14f80ca730f9eaab1c8f8fabf3e17365ea0e968f7f21e52cb7de04d3",
+    "python/open_deep_tda/_graph_worker.py": "d54cfb13dcdadc8320d3669a1e93e705b3fa44b2f34e9d6f8eb4eaec541f29f8",
+    "tests/test_graph_core_protocol.py": "eb402071e8c5cc7bee513250c2f7207de66aed8ac823c92fea7640ee629e3255"
+  },
+  "schema": "graph-core-source-relocation-provenance-v1",
+  "verification": {
+    "source_only_protocol_tests": {
+      "passed": 25,
+      "skipped": 0
+    },
+    "synthetic_API_preflight": "passed, including actual standalone-SGD JIT, persistent genuine UMAP/index roundtrip, connected/disconnected component cases, A gradient and strong HAR preprocessing"
+  }
+}

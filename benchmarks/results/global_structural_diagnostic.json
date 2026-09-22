@@ -1,0 +1,1461 @@
+{
+  "provenance": {
+    "kind": "Sanitized historical aggregates plus two separately frozen public-API runtime replays and an independent fixed-output public audit; every outcome retained.",
+    "hash_algorithm": "SHA-256 of complete file bytes",
+    "artifact_keys": "Descriptive identifiers only; private file locations and raw payloads deliberately omitted.",
+    "report_sha256": {
+      "global_train_source_selection": "b69b715eb89c0c20357d3e690835a9a2be191581360c9a1df7d44313446c1d68",
+      "global_train_automatic_construction": "bfb6843d5bc9f313ab532a1e5cf6ad93f4e691ee77bf925a19178d6df0f60d93",
+      "global_train_graph_guide": "337bf27757a0855443868a43e2f75f9cc74ab9af93d85fca100322b71bbc23a7",
+      "private_global_port_verification": "94daee04689ebcb8745a660e359ff5de5934d960f35564f7dbe8192dbbf9ebfa",
+      "original48_exploratory_arms": "77d9a97d0efc6ae528aebedc497d7309c105045b6b8fbd0e24b2e8546f028a98",
+      "original48_fashion_scaffold": "6e6e5cd3cf0c83a8019077486cb02681c463cb184e0b3b4cdfd28c12c66a5987",
+      "original48_independent_verification": "91062c3d4a50c38ff55e04a8cadebb5c6ae7766c5ea70418e529ed4de4434b38",
+      "original48_report": "83dbe7cb4d82a1a09bcb2ef073f91b09158a26d93e4168766c2adbf0343300ae",
+      "transfer_v1_results": "5fce234a13f1fe502fc098822d36dd2473930ab8225ca3fdf67b57401b5f568f",
+      "transfer_v1_independent_verification": "ef2f9a418b410cbb76396dbc47b71dc3e0d0e33a39892e9cfcd01b4a026c3198",
+      "transfer_v1_registration": "2c2efabd149a6e7b953f8180ccb9806e78215cf5d75b0becb681a7da84c96b6c",
+      "transfer_v1_freeze": "de31777b58a2fb719fae3180d296180b6b180126c4fcc98ffae768f0acb64ee0",
+      "transfer_v1_report": "d28b1425708ebd04f8a5895bbb690e0f69f64d2f3ebf37576b039e26bfdcef35",
+      "frontier_v2_results": "61105d0d7b3e318127e8f94d005ec6f2471324aeea11248ccfaf264873ea72fe",
+      "frontier_v2_independent_verification": "03ad4bbeac63fad5aa3b5409c70cc4e1c33274d2b384188d8fd8f8c067fed4c8",
+      "frontier_v2_registration": "519395d7366b3800cba898f758c8767ee6bcf8fa30f3e5fe914ba1eecb096a47",
+      "frontier_v2_report": "e6ed65c74fc8e12f0b2013b4890f7658e3d4ca4662897d3ed3b39e322eba4e70",
+      "oos_registration": "ede4471355620b5bbb955290023a741ad0f81883b918a6419c334e3b619bc0ea",
+      "oos_predictions": "926d4ddfd137d6f7913ac59a4ba2cd6b69ce562e75d7f94cd30cc6b765374f55",
+      "oos_embeddings_frozen": "7360adacac276f8b6272e904412fd7f5c19706f07a3254874dd25750b83a678c",
+      "oos_evaluation": "277eb519ca397153fb3c4d147b9399317f9af8da53e62cd1f091c405ab08a502",
+      "combined_source_and_target_topology_audit": "4c5d3a057d5c81c9f011b60411a94526b34c802e0c4ed00bb4d8daca150f92c5",
+      "official_label_barrier": "903584fe6b3a8ac2bf68a1663696918c7168d03a52c7408cf39af8065adf8c78",
+      "coil_preprocessing": "14ccfe6adafb915afaf5bf9a339e0ba080bd269c17482e2fd56493d558e5974c"
+    },
+    "input_sha256": {
+      "train_source_archive": "175fb68bf3cff39bab788aa17833776b0c771110cb4e8fe0af882915461119ea",
+      "train_constructed_archive": "172ec3e399d6e9a93a9fee93599e53345fcd777f750aff818fd2ba8bda602723",
+      "train_unconstrained_graph_guide": "564223ddd7755c08c4e24831725d8608e4af073e711fb014c7aaf9083c08313d",
+      "train_test_pca64_cache": "1e7476cc81437c530c7b3c6a6d69c738ab1b99e6c056ac16e40c98a97bca2b43",
+      "frozen_exact_graph_A": "e1744411081f7ba1034dcc1146ebb545b07fadd75d14ae53cc1d0aa3370a67a6",
+      "frozen_constructive_A": "db522f170090c64c7b28c46d9f02216227ef26b384f0c342b8ca814b54b9e7b6",
+      "frozen_constructive_A_hole_guard": "db522f170090c64c7b28c46d9f02216227ef26b384f0c342b8ca814b54b9e7b6"
+    },
+    "recorded_code_sha256": {
+      "historical_global_selector": "1660fea7c2fff54adb42d5c7dd9e68ec81881b3f89e5f3acc8b8aeb30ba52bad",
+      "historical_global_constructor": "2c1708c1cc955dd05527223a067e2d508d1a296f31f22b4c4dd2025aadef2c8f",
+      "private_port_constructor": "5c1f3bbff9291357a66f001106628a47ade29fe736d24753d70ceafa5f1163c0",
+      "private_port_sparse_h1": "38d3de6b5395127a7c8b56c5e256a7bc76ac5f9a847aee186254f98b21e8c9bb",
+      "private_port_planar": "b8c72cf69e42387d7bbf9e7aecb802637c01cbf529412d5d33518b2fce47b84d",
+      "oos_driver": "58b1e0324c2d3576e5daa18a81dcce7c218cc17d54ffdd3ae3b3da551a5d51dc",
+      "oos_frozen_mapper": "d0121c3a11cf86f93f96ce2b60d66b5f0f3ccb910da983ab63cf8b99c7a1b85a",
+      "oos_weight_helper": "82e0b8ea6e148ef754bd4be13e8e18d0b4960a01d10866b39b52023c7ff9e36a",
+      "frozen_transfer_v1": "a1c813b76cb58714bc9b5e727038ccf7d97444e8120519b8ac1586f50b331248",
+      "frozen_frontier_v2": "24542da705075933fc9eeb22eb83468911524f79cba4e327e2435edb19e3d3ac",
+      "frozen_frontier_v2_exact_contacts": "49cd5bc87268cb90b45cea6b8805b1edc9f22391292133f4ca0cfb70200c28b9"
+    },
+    "code_hash_scope": "Global code hashes are recorded by the prior private-port verifier; OOS driver/mapper/helper hashes are recorded in the pre-prediction registration. All selected hashes match current bytes. They do not identify a public-API replay. Small-domain draft hashes come from their version-specific freeze/registration manifests and also match current bytes.",
+    "combined_audit_driver_sha256_at_aggregation": "60a6170f5564354764f2b6bb1c3f638f5df3819eee3c7d8d0b6a596011d0d9b3",
+    "combined_audit_driver_caveat": "Collected current driver hash; the combined topology report does not itself pin its as-run driver hash.",
+    "hash_checks": {
+      "oos_registered_inputs_and_code_match": true,
+      "oos_frozen_archives_match": true,
+      "global_source_and_construction_match_private_verification": true
+    },
+    "bounded_environment": {
+      "scope": "Recorded prior private global-port verification, not inferred for every historical run. OOS reports do not record a complete environment.",
+      "python": "3.9.16",
+      "numpy": "1.21.6",
+      "scipy": "1.10.1",
+      "numeric_threads": 1
+    }
+  },
+  "schema_version": 1,
+  "status": "complete_with_matched_runtime_replay_and_retained_modern_runtime_failure",
+  "scope": {
+    "data": "COIL20 fixed TRAIN-only PCA64 reference; 960 TRAIN and 480 held-out views. Earlier independent TRAIN48 COIL20/Fashion-MNIST diagnostics are reported separately.",
+    "normalization": "Positive all-pair TRAIN-distance median; same fixed TRAIN scale used for held-out features. No TEST-derived normalization or topology retuning.",
+    "train_distance_scale": 1.0048316331206935,
+    "h0": "Maximum absolute difference of source/target minimax merge distances over every same-row pair in the complete supplied domain; not sorted barcodes, original-MST edge stress, or induced witness-subset PH.",
+    "h1": "Same selected birth-present chains, closed over F2, independently nonboundary at survival modulo all triangle boundaries on the complete supplied domain. Rank means selected-family quotient rank, not ambient Betti number.",
+    "planar": "Separate target-only real-coordinate nonfilling certificate: strict protected-disk clearance of every row beyond survival/sqrt(3), birth-edge bounds and full-rank F2 winding. This does not establish source rank or replace independent matrix reduction.",
+    "no_claims": [
+      "all H1 or barcode preservation",
+      "a simplicial map or isomorphism between entire source and target complexes",
+      "general construction feasibility or infeasibility",
+      "quality superiority over unconstrained graph embeddings",
+      "population topology beyond supplied rows",
+      "multi-seed official benchmark success"
+    ],
+    "held_out_split": "20 objects, 48 TRAIN and 24 held-out views each; every third 5-degree view held out. Object/angle annotations define the split, not a layout-training target."
+  },
+  "historical_full960_train": {
+    "evidence": [
+      "global_train_source_selection",
+      "global_train_automatic_construction",
+      "private_global_port_verification"
+    ],
+    "vertices": 960,
+    "inserted_vertices": 960,
+    "status": "certified",
+    "selection": {
+      "domain": "all 960 TRAIN rows, no label/object cohort selection",
+      "rule": "One longest finite positive global Ripser H1 bar; ties by birth then solver order; fixed 20%-80% interior interval; first lexicographic MST fundamental cycle pairing one with its cocycle. No easier-bar fallback.",
+      "selected_family_size": 1,
+      "selected_chain_edge_count": 48,
+      "global_bar_birth": 0.3058176040649414,
+      "global_bar_death": 0.7171048521995544,
+      "birth_radius": 0.388075053691864,
+      "survival_radius": 0.6348474025726318,
+      "proposal_precision": "Ripser float32 endpoints; exact F2 checks at the represented float64 interval are the certification gate.",
+      "source_cocycle_triangle_violations": 0,
+      "selector_rerun_for_this_aggregate": false
+    },
+    "construction": "Explicit hierarchy contraction max(0,U-.049) within the unchanged .05 tolerance; guide-aligned single-cycle circle, analytic contacts and protected-disk exclusion. All rows participate. Floating proposals are independently checked; not a complete feasibility solver.",
+    "h0": {
+      "n_vertices": 960,
+      "tolerance": 0.05,
+      "max_merge_error": 0.04900000000000096,
+      "certified_within_tolerance": true,
+      "max_tree_edge_error": 13.815358369009283,
+      "tree_edge_bound_within_tolerance": false
+    },
+    "h0_edge_surrogate_warning": "The original-tree-edge bound fails (~13.8), while the decisive all-pair minimax criterion passes. Neither exact zero-error H0 nor preservation of original edge lengths is claimed.",
+    "source_sparse_h1": {
+      "selected_rank": 1,
+      "all_birth_edges_present": true,
+      "all_selected_classes_survive": true,
+      "survival_edges": 30615,
+      "survival_triangles": 745305,
+      "logical_word_operations": 6351967747,
+      "peak_logical_storage_words": 14198039
+    },
+    "target_sparse_h1": {
+      "selected_rank": 1,
+      "all_birth_edges_present": true,
+      "all_selected_classes_survive": true,
+      "survival_edges": 12623,
+      "survival_triangles": 165929,
+      "logical_word_operations": 547526430,
+      "peak_logical_storage_words": 2308680
+    },
+    "saved_target_planar": {
+      "evidence": "private_global_port_verification",
+      "status": "historically_verified",
+      "vertices": 960,
+      "rank": 1,
+      "certified": true,
+      "scope": "Prior private-port check of this saved target; not run again for this aggregate."
+    },
+    "prior_private_port_reconstruction": {
+      "evidence": "private_global_port_verification",
+      "distinct_from_public_replay": true,
+      "h0_max_merge_error": 0.04900000000000257,
+      "source_selected_rank": 1,
+      "target_selected_rank": 1,
+      "planar_rank": 1,
+      "max_absolute_difference_from_saved_target": 7.105427357601002e-15,
+      "matrix_precision_caveat": "Stored float64 matrix H1 and real-coordinate planar geometry are separate contracts. Hypot/cdist threshold graphs agreed for this historical dataset only."
+    },
+    "neighborhood_tradeoff": {
+      "evidence": "private_global_port_verification",
+      "queries": 960,
+      "k": 15,
+      "definition": "Mean intersection of source/target kNN sets divided by k, all TRAIN queries, self excluded, Euclidean distances and stable row-order ties.",
+      "constrained": 0.5711111111111111,
+      "pca2": 0.38958333333333334,
+      "unconstrained_graph": 0.7690277777777778,
+      "constrained_minus_pca2": 0.1815277777777778,
+      "constrained_minus_unconstrained_graph": -0.19791666666666663,
+      "interpretation": "Better than PCA on this metric, worse than the graph guide. PCA number was recomputed by the prior private verifier, not present in the original construction report."
+    }
+  },
+  "earlier_small_domain_diagnostics": {
+    "scope": "Selected TRAIN-only domains in shared full-TRAIN-fitted PCA64 caches; not held-out generalization. Joint success requires full-domain H0 <= .05 and selected source/target rank one. All failures are retained; no raw cohort membership is published.",
+    "original48_exploratory_proofs": {
+      "evidence": [
+        "original48_exploratory_arms",
+        "original48_fashion_scaffold",
+        "original48_independent_verification",
+        "original48_report"
+      ],
+      "successful_domains": 2,
+      "domain_count": 2,
+      "successful_arms": 2,
+      "arm_count": 9,
+      "unresolved_arms": 7,
+      "protocol": "Eight initial exploratory arms followed by a separately declared Fashion scaffold extension; not a preregistered nine-arm comparison.",
+      "all_arms": [
+        {
+          "dataset": "coil20",
+          "arm": "circle_source",
+          "vertices": 48,
+          "status": "certified",
+          "birth_radius": 0.46333647480238127,
+          "survival_radius": 0.6708747258190982,
+          "h0_max_merge_error": 0.04900000000000082,
+          "h0_pass": true,
+          "target_selected_rank": 1,
+          "h1_pass": true
+        },
+        {
+          "dataset": "coil20",
+          "arm": "circle_guide",
+          "vertices": 48,
+          "status": "unresolved",
+          "birth_radius": 0.46333647480238127,
+          "survival_radius": 0.6708747258190982,
+          "h0_max_merge_error": 0.049000000000000765,
+          "h0_pass": true,
+          "target_selected_rank": 0,
+          "h1_pass": false
+        },
+        {
+          "dataset": "coil20",
+          "arm": "support",
+          "vertices": 48,
+          "status": "unresolved",
+          "birth_radius": 0.46333647480238127,
+          "survival_radius": 0.6708747258190982,
+          "h0_max_merge_error": 1.0269562977782698e-15,
+          "h0_pass": true,
+          "target_selected_rank": 0,
+          "h1_pass": false
+        },
+        {
+          "dataset": "coil20",
+          "arm": "contact",
+          "vertices": 48,
+          "status": "unresolved",
+          "birth_radius": 0.46333647480238127,
+          "survival_radius": 0.6708747258190982,
+          "h0_max_merge_error": 5.273559366969494e-16,
+          "h0_pass": true,
+          "target_selected_rank": 0,
+          "h1_pass": false
+        },
+        {
+          "dataset": "fashion",
+          "arm": "circle_source",
+          "vertices": 48,
+          "status": "unresolved",
+          "birth_radius": 0.7464349642787049,
+          "survival_radius": 0.7881312184699609,
+          "h0_max_merge_error": 0.049000000000001154,
+          "h0_pass": true,
+          "target_selected_rank": 0,
+          "h1_pass": false
+        },
+        {
+          "dataset": "fashion",
+          "arm": "circle_guide",
+          "vertices": 48,
+          "status": "unresolved",
+          "birth_radius": 0.7464349642787049,
+          "survival_radius": 0.7881312184699609,
+          "h0_max_merge_error": 0.04900000000000149,
+          "h0_pass": true,
+          "target_selected_rank": 0,
+          "h1_pass": false
+        },
+        {
+          "dataset": "fashion",
+          "arm": "support",
+          "vertices": 48,
+          "status": "unresolved",
+          "birth_radius": 0.7464349642787049,
+          "survival_radius": 0.7881312184699609,
+          "h0_max_merge_error": 3.885780586188048e-15,
+          "h0_pass": true,
+          "target_selected_rank": 0,
+          "h1_pass": false
+        },
+        {
+          "dataset": "fashion",
+          "arm": "contact",
+          "vertices": 48,
+          "status": "unresolved",
+          "birth_radius": 0.7464349642787049,
+          "survival_radius": 0.7881312184699609,
+          "h0_max_merge_error": 2.3314683517128287e-15,
+          "h0_pass": true,
+          "target_selected_rank": 0,
+          "h1_pass": false
+        },
+        {
+          "dataset": "fashion",
+          "arm": "cycle_scaffold_contacts",
+          "vertices": 48,
+          "status": "certified",
+          "birth_radius": 0.7464349642787049,
+          "survival_radius": 0.7881312184699609,
+          "h0_max_merge_error": 0.049000000000000266,
+          "h0_pass": true,
+          "target_selected_rank": 1,
+          "h1_pass": true
+        }
+      ],
+      "negative_finding": "All seven unresolved arms have missing required birth edges/rank zero under the selected-chain check. They are not proofs of no other H1 or infeasibility."
+    },
+    "frozen_transfer_v1": {
+      "evidence": [
+        "transfer_v1_results",
+        "transfer_v1_independent_verification",
+        "transfer_v1_registration",
+        "transfer_v1_freeze",
+        "transfer_v1_report"
+      ],
+      "original48_successful_calls": 4,
+      "original48_calls": 4,
+      "original48_distinct_domains": 2,
+      "original_guides": "Initial PCA and prior H1-only-certified guides both succeeded; not four independent datasets.",
+      "new_successful_domains": 0,
+      "new_domains": 6,
+      "new_cohorts": "Nested 32/48/64 TRAIN cohorts for each dataset, disjoint from original cohorts; COIL64 crosses an object boundary. Initial PCA guide only, one frozen call per cohort.",
+      "all_results": [
+        {
+          "cohort": "old-coil20-initial_pca",
+          "vertices": 48,
+          "status": "certified",
+          "source_selected_rank": 1,
+          "chosen_method": "circular_hierarchy",
+          "attempts": [
+            {
+              "method": "circular_hierarchy",
+              "status": "certified",
+              "reason": null
+            },
+            {
+              "method": "simple_cycle_scaffold_contacts",
+              "status": "not_attempted_after_certification",
+              "reason": null
+            }
+          ],
+          "full_candidate_checks": [
+            {
+              "attempt": 0,
+              "h0_max_merge_error": 0.049000000000001986,
+              "target_selected_rank": 1,
+              "h1_pass": true,
+              "joint_pass": true
+            }
+          ]
+        },
+        {
+          "cohort": "old-coil20-h1_certified",
+          "vertices": 48,
+          "status": "certified",
+          "source_selected_rank": 1,
+          "chosen_method": "circular_hierarchy",
+          "attempts": [
+            {
+              "method": "circular_hierarchy",
+              "status": "certified",
+              "reason": null
+            },
+            {
+              "method": "simple_cycle_scaffold_contacts",
+              "status": "not_attempted_after_certification",
+              "reason": null
+            }
+          ],
+          "full_candidate_checks": [
+            {
+              "attempt": 0,
+              "h0_max_merge_error": 0.049000000000001986,
+              "target_selected_rank": 1,
+              "h1_pass": true,
+              "joint_pass": true
+            }
+          ]
+        },
+        {
+          "cohort": "old-fashion-initial_pca",
+          "vertices": 48,
+          "status": "certified",
+          "source_selected_rank": 1,
+          "chosen_method": "simple_cycle_scaffold_contacts",
+          "attempts": [
+            {
+              "method": "circular_hierarchy",
+              "status": "unresolved",
+              "reason": "source_mst_not_hamiltonian_path"
+            },
+            {
+              "method": "simple_cycle_scaffold_contacts",
+              "status": "certified",
+              "reason": null
+            }
+          ],
+          "full_candidate_checks": [
+            {
+              "attempt": 1,
+              "h0_max_merge_error": 0.0490000000000026,
+              "target_selected_rank": 1,
+              "h1_pass": true,
+              "joint_pass": true
+            }
+          ]
+        },
+        {
+          "cohort": "old-fashion-h1_certified",
+          "vertices": 48,
+          "status": "certified",
+          "source_selected_rank": 1,
+          "chosen_method": "simple_cycle_scaffold_contacts",
+          "attempts": [
+            {
+              "method": "circular_hierarchy",
+              "status": "unresolved",
+              "reason": "source_mst_not_hamiltonian_path"
+            },
+            {
+              "method": "simple_cycle_scaffold_contacts",
+              "status": "certified",
+              "reason": null
+            }
+          ],
+          "full_candidate_checks": [
+            {
+              "attempt": 1,
+              "h0_max_merge_error": 0.04900000000000215,
+              "target_selected_rank": 1,
+              "h1_pass": true,
+              "joint_pass": true
+            }
+          ]
+        },
+        {
+          "cohort": "new-coil20-32-initial_pca",
+          "vertices": 32,
+          "status": "unresolved",
+          "source_selected_rank": 1,
+          "chosen_method": null,
+          "attempts": [
+            {
+              "method": "circular_hierarchy",
+              "status": "unresolved",
+              "reason": null
+            },
+            {
+              "method": "simple_cycle_scaffold_contacts",
+              "status": "unresolved",
+              "reason": "no_insertion_for_frozen_scaffold"
+            }
+          ],
+          "full_candidate_checks": [
+            {
+              "attempt": 0,
+              "h0_max_merge_error": 0.04900000000000038,
+              "target_selected_rank": 0,
+              "h1_pass": false,
+              "joint_pass": false
+            }
+          ]
+        },
+        {
+          "cohort": "new-coil20-48-initial_pca",
+          "vertices": 48,
+          "status": "unresolved",
+          "source_selected_rank": 1,
+          "chosen_method": null,
+          "attempts": [
+            {
+              "method": "circular_hierarchy",
+              "status": "unresolved",
+              "reason": null
+            },
+            {
+              "method": "simple_cycle_scaffold_contacts",
+              "status": "unresolved",
+              "reason": "no_insertion_for_frozen_scaffold"
+            }
+          ],
+          "full_candidate_checks": [
+            {
+              "attempt": 0,
+              "h0_max_merge_error": 0.0490000000000011,
+              "target_selected_rank": 0,
+              "h1_pass": false,
+              "joint_pass": false
+            }
+          ]
+        },
+        {
+          "cohort": "new-coil20-64-initial_pca",
+          "vertices": 64,
+          "status": "unresolved",
+          "source_selected_rank": 1,
+          "chosen_method": null,
+          "attempts": [
+            {
+              "method": "circular_hierarchy",
+              "status": "unresolved",
+              "reason": "source_mst_not_hamiltonian_path"
+            },
+            {
+              "method": "simple_cycle_scaffold_contacts",
+              "status": "unresolved",
+              "reason": "no_insertion_for_frozen_scaffold"
+            }
+          ],
+          "full_candidate_checks": []
+        },
+        {
+          "cohort": "new-fashion-32-initial_pca",
+          "vertices": 32,
+          "status": "unresolved",
+          "source_selected_rank": 1,
+          "chosen_method": null,
+          "attempts": [
+            {
+              "method": "circular_hierarchy",
+              "status": "unresolved",
+              "reason": "source_mst_not_hamiltonian_path"
+            },
+            {
+              "method": "simple_cycle_scaffold_contacts",
+              "status": "unresolved",
+              "reason": "no_insertion_for_frozen_scaffold"
+            }
+          ],
+          "full_candidate_checks": []
+        },
+        {
+          "cohort": "new-fashion-48-initial_pca",
+          "vertices": 48,
+          "status": "unresolved",
+          "source_selected_rank": 1,
+          "chosen_method": null,
+          "attempts": [
+            {
+              "method": "circular_hierarchy",
+              "status": "unresolved",
+              "reason": "source_mst_not_hamiltonian_path"
+            },
+            {
+              "method": "simple_cycle_scaffold_contacts",
+              "status": "unresolved",
+              "reason": "no_insertion_for_frozen_scaffold"
+            }
+          ],
+          "full_candidate_checks": []
+        },
+        {
+          "cohort": "new-fashion-64-initial_pca",
+          "vertices": 64,
+          "status": "unresolved",
+          "source_selected_rank": 1,
+          "chosen_method": null,
+          "attempts": [
+            {
+              "method": "circular_hierarchy",
+              "status": "unresolved",
+              "reason": "source_mst_not_hamiltonian_path"
+            },
+            {
+              "method": "simple_cycle_scaffold_contacts",
+              "status": "unresolved",
+              "reason": "no_insertion_for_frozen_scaffold"
+            }
+          ],
+          "full_candidate_checks": []
+        }
+      ],
+      "negative_finding": "All six valid source singleton contracts remain unresolved. Two full circle candidates fail H1 birth edges; four cases produce no full candidate. Every scaffold/contact attempt stops. No omitted timeouts or source-budget/runtime exceptions were reported; unresolved embeddings are absent, not certified partial layouts."
+    },
+    "frozen_frontier_v2": {
+      "evidence": [
+        "frontier_v2_results",
+        "frontier_v2_independent_verification",
+        "frontier_v2_registration",
+        "frontier_v2_report"
+      ],
+      "original48_successful_domains": 2,
+      "original48_domains": 2,
+      "new_successful_domains": 1,
+      "new_domains": 6,
+      "new_success": "Fashion48 only",
+      "all_results": [
+        {
+          "cohort": "old-coil20-initial_pca",
+          "vertices": 48,
+          "status": "certified",
+          "source_selected_rank": 1,
+          "chosen_method": "circular_hierarchy",
+          "attempts": [
+            {
+              "method": "circular_hierarchy",
+              "status": "certified",
+              "reason": null
+            },
+            {
+              "method": "frontier_cycle_scaffold_contacts",
+              "status": "not_attempted_after_certification",
+              "reason": null
+            }
+          ],
+          "full_candidate_checks": [
+            {
+              "attempt": 0,
+              "h0_max_merge_error": 0.049000000000001986,
+              "target_selected_rank": 1,
+              "h1_pass": true,
+              "joint_pass": true
+            }
+          ]
+        },
+        {
+          "cohort": "old-fashion-initial_pca",
+          "vertices": 48,
+          "status": "certified",
+          "source_selected_rank": 1,
+          "chosen_method": "frontier_cycle_scaffold_contacts",
+          "attempts": [
+            {
+              "method": "circular_hierarchy",
+              "status": "unresolved",
+              "reason": "source_mst_not_hamiltonian_path"
+            },
+            {
+              "method": "frontier_cycle_scaffold_contacts",
+              "status": "certified",
+              "reason": null
+            }
+          ],
+          "full_candidate_checks": [
+            {
+              "attempt": 1,
+              "h0_max_merge_error": 0.0490000000000026,
+              "target_selected_rank": 1,
+              "h1_pass": true,
+              "joint_pass": true
+            }
+          ]
+        },
+        {
+          "cohort": "new-coil20-32-initial_pca",
+          "vertices": 32,
+          "status": "unresolved",
+          "source_selected_rank": 1,
+          "chosen_method": null,
+          "attempts": [
+            {
+              "method": "circular_hierarchy",
+              "status": "unresolved",
+              "reason": null
+            },
+            {
+              "method": "frontier_cycle_scaffold_contacts",
+              "status": "unresolved",
+              "reason": "scaffold_inside_required_empty_disk"
+            }
+          ],
+          "full_candidate_checks": [
+            {
+              "attempt": 0,
+              "h0_max_merge_error": 0.04900000000000038,
+              "target_selected_rank": 0,
+              "h1_pass": false,
+              "joint_pass": false
+            }
+          ]
+        },
+        {
+          "cohort": "new-coil20-48-initial_pca",
+          "vertices": 48,
+          "status": "unresolved",
+          "source_selected_rank": 1,
+          "chosen_method": null,
+          "attempts": [
+            {
+              "method": "circular_hierarchy",
+              "status": "unresolved",
+              "reason": null
+            },
+            {
+              "method": "frontier_cycle_scaffold_contacts",
+              "status": "unresolved",
+              "reason": "no_frontier_contact"
+            }
+          ],
+          "full_candidate_checks": [
+            {
+              "attempt": 0,
+              "h0_max_merge_error": 0.0490000000000011,
+              "target_selected_rank": 0,
+              "h1_pass": false,
+              "joint_pass": false
+            }
+          ]
+        },
+        {
+          "cohort": "new-coil20-64-initial_pca",
+          "vertices": 64,
+          "status": "unresolved",
+          "source_selected_rank": 1,
+          "chosen_method": null,
+          "attempts": [
+            {
+              "method": "circular_hierarchy",
+              "status": "unresolved",
+              "reason": "source_mst_not_hamiltonian_path"
+            },
+            {
+              "method": "frontier_cycle_scaffold_contacts",
+              "status": "unresolved",
+              "reason": "no_frontier_contact"
+            }
+          ],
+          "full_candidate_checks": []
+        },
+        {
+          "cohort": "new-fashion-32-initial_pca",
+          "vertices": 32,
+          "status": "unresolved",
+          "source_selected_rank": 1,
+          "chosen_method": null,
+          "attempts": [
+            {
+              "method": "circular_hierarchy",
+              "status": "unresolved",
+              "reason": "source_mst_not_hamiltonian_path"
+            },
+            {
+              "method": "frontier_cycle_scaffold_contacts",
+              "status": "unresolved",
+              "reason": "no_frontier_contact"
+            }
+          ],
+          "full_candidate_checks": []
+        },
+        {
+          "cohort": "new-fashion-48-initial_pca",
+          "vertices": 48,
+          "status": "certified",
+          "source_selected_rank": 1,
+          "chosen_method": "frontier_cycle_scaffold_contacts",
+          "attempts": [
+            {
+              "method": "circular_hierarchy",
+              "status": "unresolved",
+              "reason": "source_mst_not_hamiltonian_path"
+            },
+            {
+              "method": "frontier_cycle_scaffold_contacts",
+              "status": "certified",
+              "reason": null
+            }
+          ],
+          "full_candidate_checks": [
+            {
+              "attempt": 1,
+              "h0_max_merge_error": 0.049000000000002375,
+              "target_selected_rank": 1,
+              "h1_pass": true,
+              "joint_pass": true
+            }
+          ]
+        },
+        {
+          "cohort": "new-fashion-64-initial_pca",
+          "vertices": 64,
+          "status": "unresolved",
+          "source_selected_rank": 1,
+          "chosen_method": null,
+          "attempts": [
+            {
+              "method": "circular_hierarchy",
+              "status": "unresolved",
+              "reason": "source_mst_not_hamiltonian_path"
+            },
+            {
+              "method": "frontier_cycle_scaffold_contacts",
+              "status": "unresolved",
+              "reason": "no_frontier_contact"
+            }
+          ],
+          "full_candidate_checks": []
+        }
+      ],
+      "negative_finding": "Five transfer cohorts remain unresolved: one already-filled fixed scaffold and four future-frontier guard conflicts. Fixed-state audits are not global infeasibility proofs. Missing birth edges remain failures even when H0 and empty-disk placement succeed.",
+      "separate_steiner_extension": {
+        "evidence": "frontier_v2_report",
+        "not_a_v2_retry": true,
+        "original_coil48": "certified",
+        "original_fashion48": "unsupported branching core",
+        "new_coil32_48_64": "All three full H0/hole candidates fail required H1 birth edges (rank zero).",
+        "new_fashion32_48_64": "All three unsupported branching cores.",
+        "new_successful_domains": 0,
+        "new_domains": 6
+      }
+    }
+  },
+  "additional_seed0_oos_ablation": {
+    "evidence": [
+      "oos_registration",
+      "oos_predictions",
+      "oos_embeddings_frozen",
+      "oos_evaluation",
+      "combined_source_and_target_topology_audit",
+      "official_label_barrier"
+    ],
+    "protocol": {
+      "seed": 0,
+      "train_vertices": 960,
+      "query_vertices": 480,
+      "combined_vertices": 1440,
+      "official_benchmark_fit_member": false,
+      "best_seed_selection": false,
+      "arms_registered_before_prediction": true,
+      "embedding_freeze_labels_read": false,
+      "label_timing": "Predictions were frozen without labels. Evaluation driver checks the official global embedding barrier before reading labels; labels are used afterward only for the 15-NN supervised probe. No label-based fit/selection.",
+      "official_barrier_terminal_fit_jobs": 30,
+      "barrier_frozen_utc": "2026-09-22T05:23:54.951768+00:00",
+      "timing_evidence_caveat": "Registration, frozen hashes and the hash-matched evaluator establish the recorded workflow; this is not an independently instrumented label-access trace.",
+      "matched_mapper": "Same exact source 15-neighbor queries, fuzzy weights, fixed mapper A with all 960 frozen anchors, TRAIN-only distance bandwidth, barycentric initialization and 100-iteration query cap.",
+      "execution": "One declared prediction per base arm, no retry or tuning; hole guard is deterministic postprocessing of constructive predictions, not an independent fit.",
+      "evaluation": "All 480 queries against all 960 TRAIN anchors; overlap, trustworthiness and continuity at k=5,15,50. Accuracy is a separate labeled 15-NN diagnostic.",
+      "topology_units": "Combined SOURCE retains TRAIN feature pipeline/scale and fixed TRAIN-selected family/interval. Graph target topology uses a TRAIN-only unit alignment; no TEST/topology-fitted rescaling."
+    },
+    "arms": {
+      "exact_graph_A": {
+        "evaluation": {
+          "metrics": {
+            "5": {
+              "overlap": 0.6595833333333334,
+              "trust": 0.99254765652326,
+              "continuity": 0.9927037425673312
+            },
+            "15": {
+              "overlap": 0.7833333333333333,
+              "trust": 0.990020581615731,
+              "continuity": 0.9890727908078655
+            },
+            "50": {
+              "overlap": 0.7183333333333334,
+              "trust": 0.9490335497835498,
+              "continuity": 0.9276698193111237
+            }
+          },
+          "accuracy": 0.8875
+        },
+        "nonconverged_queries": 0,
+        "combined_h0": {
+          "n_vertices": 1440,
+          "tolerance": 0.05,
+          "max_merge_error": 7.149062207155213,
+          "certified_within_tolerance": false,
+          "max_tree_edge_error": 22.069755963279515,
+          "tree_edge_bound_within_tolerance": false
+        },
+        "combined_target_sparse_h1": {
+          "selected_rank": 1,
+          "all_birth_edges_present": true,
+          "all_selected_classes_survive": true,
+          "survival_edges": 19908,
+          "survival_triangles": 153656,
+          "logical_word_operations": 769429128,
+          "peak_logical_storage_words": 5766384
+        },
+        "graph_train_only_topology_unit_factor": 0.9291931653019653
+      },
+      "constructive_A": {
+        "evaluation": {
+          "metrics": {
+            "5": {
+              "overlap": 0.575,
+              "trust": 0.9824602133613153,
+              "continuity": 0.984273784540049
+            },
+            "15": {
+              "overlap": 0.5908333333333334,
+              "trust": 0.9548799158967068,
+              "continuity": 0.9714799514333096
+            },
+            "50": {
+              "overlap": 0.6047916666666666,
+              "trust": 0.8879461227178619,
+              "continuity": 0.9029042443064182
+            }
+          },
+          "accuracy": 0.9354166666666667
+        },
+        "nonconverged_queries": 0,
+        "combined_h0": {
+          "n_vertices": 1440,
+          "tolerance": 0.05,
+          "max_merge_error": 1.5295441934345244,
+          "certified_within_tolerance": false,
+          "max_tree_edge_error": 13.815358369009283,
+          "tree_edge_bound_within_tolerance": false
+        },
+        "combined_target_sparse_h1": {
+          "selected_rank": 1,
+          "all_birth_edges_present": true,
+          "all_selected_classes_survive": true,
+          "survival_edges": 26919,
+          "survival_triangles": 483326,
+          "logical_word_operations": 3451880461,
+          "peak_logical_storage_words": 10727501
+        },
+        "graph_train_only_topology_unit_factor": null
+      },
+      "constructive_A_hole_guard": {
+        "evaluation": {
+          "metrics": {
+            "5": {
+              "overlap": 0.575,
+              "trust": 0.9824602133613153,
+              "continuity": 0.984273784540049
+            },
+            "15": {
+              "overlap": 0.5908333333333334,
+              "trust": 0.9548799158967068,
+              "continuity": 0.9714799514333096
+            },
+            "50": {
+              "overlap": 0.6047916666666666,
+              "trust": 0.8879461227178619,
+              "continuity": 0.9029042443064182
+            }
+          },
+          "accuracy": 0.9354166666666667
+        },
+        "nonconverged_queries": 0,
+        "combined_h0": {
+          "n_vertices": 1440,
+          "tolerance": 0.05,
+          "max_merge_error": 1.5295441934345244,
+          "certified_within_tolerance": false,
+          "max_tree_edge_error": 13.815358369009283,
+          "tree_edge_bound_within_tolerance": false
+        },
+        "combined_target_sparse_h1": {
+          "selected_rank": 1,
+          "all_birth_edges_present": true,
+          "all_selected_classes_survive": true,
+          "survival_edges": 26919,
+          "survival_triangles": 483326,
+          "logical_word_operations": 3451880461,
+          "peak_logical_storage_words": 10727501
+        },
+        "graph_train_only_topology_unit_factor": null,
+        "clipped_queries": 0,
+        "identical_frozen_archive_to_constructive": true
+      }
+    },
+    "combined_source_sparse_h1": {
+      "selected_rank": 1,
+      "all_birth_edges_present": true,
+      "all_selected_classes_survive": true,
+      "survival_edges": 69616,
+      "survival_triangles": 2550696,
+      "logical_word_operations": 49899631616,
+      "peak_logical_storage_words": 74161344
+    },
+    "combined_target_planar_evidence": {
+      "scope": "Constructive arms only, all 1440 target rows; target nonfilling does not imply source preservation or H0 success.",
+      "status": "fresh_public_outward_interval_exact_winding_check_plus_historical_sparse_audit",
+      "selected_family_rank": 1,
+      "basis": "Unchanged TRAIN witness/birth edges and winding; recorded combined minimum clearance remains beyond the protected threshold. Independent all-row SOURCE and TARGET sparse reductions separately retain rank one.",
+      "recorded_minimum_combined_clearance": 0.6609748897771119,
+      "recorded_protected_radius": 0.3665303187696437,
+      "separate_outward_rounded_all1440_planar_api_check_recorded": true,
+      "fresh_public_result": {
+        "vertices": 1440,
+        "certified": true,
+        "rank": 1,
+        "distance_pairs": 1488
+      }
+    },
+    "historical_budget_scope": {
+      "classification": "Larger-budget private prototype diagnostic ONLY; not public bounded-API validation.",
+      "historical_limits_from_current_audit_driver": {
+        "max_vertices": 2048,
+        "max_edges": 200000,
+        "max_triangles": 5000000,
+        "max_word_operations": 100000000000,
+        "max_storage_words": 200000000
+      },
+      "public_sparse_core_hard_caps": {
+        "max_vertices": 1024,
+        "max_triangles": 2000000
+      },
+      "public_sparse_core_default_logical_limits": {
+        "max_word_operations": 20000000000,
+        "max_storage_words": 25000000
+      },
+      "exceeds_public_vertex_cap": true,
+      "combined_source_exceeds_public_triangle_cap": true,
+      "explanation": "1440 rows and 2,550,696 SOURCE triangles exceed public hard caps; recorded SOURCE work/storage also exceed default logical budgets. Raising soft work/storage limits cannot remove hard caps. No caps were changed and no public success is claimed."
+    },
+    "conclusion": "TRAIN H0 .049 and selected H1 rank one do not transfer as a joint certificate: combined constructive H0 fails at 1.5295441934345244 > .05 although the selected H1 family survives. Accuracy improves while neighborhood overlap declines; zero clips mean the guard changes no prediction and supplies no observed repair."
+  },
+  "remaining_uncertainties": [
+    "Success is numerically reproduced in the matched historical numerical runtime, but the newer Python/NumPy/SciPy/Numba environment changes the guide and the construction is unsupported. Both frozen attempts are retained.",
+    "External Ripser ran in both public replays; its internal time/storage are not bounded by local reduction budgets. Exact source checks, not approximate bar endpoints, decide validity.",
+    "The full-960 success is one selected singleton case. Earlier transfer is 0/6 and frontier transfer 1/6, not evidence of a generally reliable constructor.",
+    "No joint OOS guarantee: fresh public combined H0 fails at 1.5295441934345244 > .05. Target planar rank one does not repair H0 or establish all-H1 preservation.",
+    "The combined SOURCE sparse audit uses 1440 vertices and 2550696 triangles, beyond public hard caps. It was not rerun through or attributed to the public sparse API.",
+    "OOS evidence is a single additional matched exact-guide seed, not the official shared-ANN multi-seed benchmark; accuracy improves while source-neighborhood fidelity declines.",
+    "The recorded label barrier and hash-matched frozen workflow are not an independently instrumented label-access trace. Historical runtime scopes differ; logical budgets are not RSS or wall-time guarantees."
+  ],
+  "public_replay": {
+    "status": "matched_runtime_certified_modern_runtime_unsupported",
+    "policy": "One exclusive registered attempt per declared runtime; same seed, input, selector, graph policy and .05 tolerance. No output overwritten, no alternate cycle/seed searched.",
+    "registration_scope": "Prospective replay freezes of an already-known case, not retrospective preregistration of the original experiment.",
+    "attempt_count": 2,
+    "attempts": [
+      {
+        "name": "modern_runtime_compatibility_attempt",
+        "order": 1,
+        "registration_sha256": "4ba29be21e01a0eba4c03349e6c383180cc54b2b45d7692ef327c676c250b59e",
+        "result_sha256": "3cb7c1c8eb39091037e2a0813c81d17ea948f79a093f29e97713e978741212e2",
+        "runtime": {
+          "packages": {
+            "numba": "0.67.0",
+            "numpy": "2.5.3",
+            "ripser": "0.6.15",
+            "scikit-learn": "1.9.1",
+            "scipy": "1.18.1",
+            "threadpoolctl": "3.7.0"
+          },
+          "python": "3.13.2"
+        },
+        "source_sha256": {
+          "benchmarks/validate_global_structural.py": "cf66341729592a538708d2ada73fa936a7bcc0181574503a6bd1f9476dcf6c53",
+          "python/open_deep_tda/__init__.py": "63bd1920964191153ca1b4316dd3fa7a9bbd8841b7d0f785c5e67b6a3343fa42",
+          "python/open_deep_tda/_graph_worker.py": "d54cfb13dcdadc8320d3669a1e93e705b3fa44b2f34e9d6f8eb4eaec541f29f8",
+          "python/open_deep_tda/graph_embedding.py": "22339430d214d1ecd1124a684f9c2a361034ae909b20cd2460967799f5b55c21",
+          "python/open_deep_tda/neighbors.py": "ab86069b93a14939d8de7392c10d35e5bd62da3bb5530dd3b9cfe0a12ec3a0cd",
+          "python/open_deep_tda/structural_auto_witness.py": "cc21475d0541d1d24c9ca4757c02c3a272965769dbfdc9a4b6574fc5ab879e68",
+          "python/open_deep_tda/structural_constructive.py": "3ec6e76514dcc394ac8c1fefafb6c69e3f8344e82925b5386f4b12a491c275ff",
+          "python/open_deep_tda/structural_planar.py": "1ab843642e83549df921cec4bde1738598c4e3997ea8d567f51e497954be23dd",
+          "python/open_deep_tda/structural_sparse_h1.py": "fc36cb716837a488636efc4f3a8e973f823118b595fd91ad1c0b96c2d1db824d"
+        },
+        "input": {
+          "analysis_dtype": "<f8",
+          "archive_sha256": "1e7476cc81437c530c7b3c6a6d69c738ab1b99e6c056ac16e40c98a97bca2b43",
+          "member": "train",
+          "member_sha256": "ced59f1ce342bccdbaf968c61e6ed43a944343ae17672b505faa16649d21d597",
+          "original_dtype": "<f4",
+          "shape": [
+            960,
+            64
+          ]
+        },
+        "result": {
+          "attempts": 1,
+          "birth": 0.388075053691864,
+          "constructor_certified": false,
+          "cycle_count": 1,
+          "cycle_edges": 48,
+          "cycles_sha256": "195c074a86b704bf67046d428ff3abd0f92e08ed1d8be445256a595c091e5ea1",
+          "external_solver_budget": "Ripser internal time/storage outside bounded core budgets",
+          "features": 64,
+          "graph_backend": "exact",
+          "graph_seed": 0,
+          "guide_scale": 0.9296462800574603,
+          "guide_sha256": "77703f0627e808b1aa168e3637ff16a1c2015bb4e513158368aceec72498f564",
+          "h0_error": null,
+          "limits": {
+            "constructor": {
+              "candidate_chunk": 256,
+              "max_candidate_points": 2000000,
+              "max_contact_pairs": 200000000,
+              "max_matrix_entries": 1048576,
+              "max_parent_tests": 100000,
+              "max_vertices": 1024
+            },
+            "planar": {
+              "chunk_size": 65536,
+              "max_chain_edges": 100000,
+              "max_cycles": 32,
+              "max_distance_pairs": 32100000,
+              "max_exact_edge_tests": 100000,
+              "max_holes": 32,
+              "max_orientation_tests": 3200000,
+              "max_vertices": 1000000
+            },
+            "sparse_h1": {
+              "max_chain_edges": 1000000,
+              "max_cycles": 1024,
+              "max_edges": 100000,
+              "max_storage_words": 25000000,
+              "max_triangles": 2000000,
+              "max_vertices": 1024,
+              "max_word_ops": 20000000000
+            }
+          },
+          "normalized_features_sha256": "4226de44810eea1c9e5aa9e8f242ac0f52ff1b72aa6d10342c04a91b36b8bd58",
+          "overlap15": {
+            "pca2": 0.38958333333333334,
+            "unconstrained_exact_graph": 0.7723611111111112
+          },
+          "planar_scope": "real Euclidean represented float64 coordinates; not rounded-pdist equivalence",
+          "raw_guide_sha256": "2a71212dfe3b16b5a1f410041caed2f098172e3c7b4b9d0d8e6163ed14efff2c",
+          "reason": "fixed_construction_not_certified",
+          "scope": "all supplied TRAIN rows; selected same-ID family only",
+          "selection_certified": true,
+          "selection_construction_threshold_graphs_equal": true,
+          "selection_distance_sha256": "d5def68d2f2f971de49980c19b9afdc85801c06ed931696cf5f439bd4632370c",
+          "selection_source": {
+            "all_birth_edges_present": true,
+            "all_individually_survive": true,
+            "certified": true,
+            "rank": 1,
+            "work": {
+              "basis_width": 30615,
+              "boundary_rank": 29637,
+              "edges": 30615,
+              "peak_storage_words": 14198039,
+              "selected_rank": 1,
+              "triangles": 745305,
+              "vertices": 960,
+              "word_ops": 6351967747,
+              "words_per_vector": 479
+            }
+          },
+          "source": {
+            "all_birth_edges_present": true,
+            "all_individually_survive": true,
+            "certified": true,
+            "rank": 1,
+            "work": {
+              "basis_width": 30615,
+              "boundary_rank": 29637,
+              "edges": 30615,
+              "peak_storage_words": 14198039,
+              "selected_rank": 1,
+              "triangles": 745305,
+              "vertices": 960,
+              "word_ops": 6351967747,
+              "words_per_vector": 479
+            }
+          },
+          "source_distance_sha256": "c4a27768a5c334c048626215730f1c11c3fdba4996e7e1136d405611ae40bb56",
+          "source_pair_median": 1.0048316331206935,
+          "stage": "construction",
+          "status": "unsupported",
+          "survival": 0.6348474025726318,
+          "vertices": 960
+        },
+        "interpretation": "Same selected cycle and valid source contract, but different guide hash/overlap and unsupported construction. Retained as a reproduction limitation, not an equivalent successful replay or infeasibility proof."
+      },
+      {
+        "name": "historical_numerical_runtime_replay",
+        "order": 2,
+        "registration_sha256": "89cd2ba0d06511a6b65f7f97ba56d1accfbd5a774d1652e23c472cdbb2e32fbd",
+        "result_sha256": "5fe23fcdd5378691a243a6961aa0144e506c50e0bfb4e51bd8b0180ff2297185",
+        "runtime": {
+          "packages": {
+            "numba": "0.55.0",
+            "numpy": "1.21.6",
+            "ripser": "0.6.15",
+            "scikit-learn": "1.0.2",
+            "scipy": "1.10.1",
+            "threadpoolctl": "3.1.0"
+          },
+          "python": "3.9.16"
+        },
+        "source_sha256": {
+          "benchmarks/validate_global_structural.py": "cbaf1a1038b9f58640c5ce406f9bcfecced303a8d00c1e20a8196496a1985a97",
+          "python/open_deep_tda/__init__.py": "63bd1920964191153ca1b4316dd3fa7a9bbd8841b7d0f785c5e67b6a3343fa42",
+          "python/open_deep_tda/_graph_worker.py": "d54cfb13dcdadc8320d3669a1e93e705b3fa44b2f34e9d6f8eb4eaec541f29f8",
+          "python/open_deep_tda/graph_embedding.py": "22339430d214d1ecd1124a684f9c2a361034ae909b20cd2460967799f5b55c21",
+          "python/open_deep_tda/neighbors.py": "ab86069b93a14939d8de7392c10d35e5bd62da3bb5530dd3b9cfe0a12ec3a0cd",
+          "python/open_deep_tda/structural_auto_witness.py": "cc21475d0541d1d24c9ca4757c02c3a272965769dbfdc9a4b6574fc5ab879e68",
+          "python/open_deep_tda/structural_constructive.py": "3ec6e76514dcc394ac8c1fefafb6c69e3f8344e82925b5386f4b12a491c275ff",
+          "python/open_deep_tda/structural_planar.py": "1ab843642e83549df921cec4bde1738598c4e3997ea8d567f51e497954be23dd",
+          "python/open_deep_tda/structural_sparse_h1.py": "fc36cb716837a488636efc4f3a8e973f823118b595fd91ad1c0b96c2d1db824d"
+        },
+        "input": {
+          "analysis_dtype": "<f8",
+          "archive_sha256": "1e7476cc81437c530c7b3c6a6d69c738ab1b99e6c056ac16e40c98a97bca2b43",
+          "member": "train",
+          "member_sha256": "ced59f1ce342bccdbaf968c61e6ed43a944343ae17672b505faa16649d21d597",
+          "original_dtype": "<f4",
+          "shape": [
+            960,
+            64
+          ]
+        },
+        "result": {
+          "attempts": 1,
+          "birth": 0.388075053691864,
+          "constructor_certified": true,
+          "cycle_count": 1,
+          "cycle_edges": 48,
+          "cycles_sha256": "195c074a86b704bf67046d428ff3abd0f92e08ed1d8be445256a595c091e5ea1",
+          "embedding_sha256": "16b9e6304ce92106b366714af6b670a98077d8839a9df20cb4a41fd8d733974d",
+          "external_solver_budget": "Ripser internal time/storage outside bounded core budgets",
+          "features": 64,
+          "graph_backend": "exact",
+          "graph_seed": 0,
+          "guide_scale": 0.9291931653019662,
+          "guide_sha256": "8ca69f62223ddc54cca39bb3c16537cb630733348649fa3cce9d61554d527d79",
+          "h0": {
+            "all_rows": 960,
+            "certified": true,
+            "max_merge_error": 0.04900000000000257,
+            "tolerance": 0.05
+          },
+          "limits": {
+            "constructor": {
+              "candidate_chunk": 256,
+              "max_candidate_points": 2000000,
+              "max_contact_pairs": 200000000,
+              "max_matrix_entries": 1048576,
+              "max_parent_tests": 100000,
+              "max_vertices": 1024
+            },
+            "planar": {
+              "chunk_size": 65536,
+              "max_chain_edges": 100000,
+              "max_cycles": 32,
+              "max_distance_pairs": 32100000,
+              "max_exact_edge_tests": 100000,
+              "max_holes": 32,
+              "max_orientation_tests": 3200000,
+              "max_vertices": 1000000
+            },
+            "sparse_h1": {
+              "max_chain_edges": 1000000,
+              "max_cycles": 1024,
+              "max_edges": 100000,
+              "max_storage_words": 25000000,
+              "max_triangles": 2000000,
+              "max_vertices": 1024,
+              "max_word_ops": 20000000000
+            }
+          },
+          "normalized_features_sha256": "4226de44810eea1c9e5aa9e8f242ac0f52ff1b72aa6d10342c04a91b36b8bd58",
+          "overlap15": {
+            "constructive": 0.5711111111111111,
+            "constructive_minus_graph": -0.19791666666666663,
+            "constructive_minus_pca": 0.1815277777777778,
+            "pca2": 0.38958333333333334,
+            "unconstrained_exact_graph": 0.7690277777777778
+          },
+          "planar": {
+            "all_rows": 960,
+            "certified": true,
+            "distance_pairs": 1008,
+            "rank": 1
+          },
+          "planar_scope": "real Euclidean represented float64 coordinates; not rounded-pdist equivalence",
+          "raw_guide_sha256": "1c074a89eb25e530d2cf8348bf9e6204b34216892899fb56a93686a3820cf357",
+          "scope": "all supplied TRAIN rows; selected same-ID family only",
+          "selection_certified": true,
+          "selection_construction_threshold_graphs_equal": true,
+          "selection_distance_sha256": "d5def68d2f2f971de49980c19b9afdc85801c06ed931696cf5f439bd4632370c",
+          "selection_source": {
+            "all_birth_edges_present": true,
+            "all_individually_survive": true,
+            "certified": true,
+            "rank": 1,
+            "work": {
+              "basis_width": 30615,
+              "boundary_rank": 29637,
+              "edges": 30615,
+              "peak_storage_words": 14198039,
+              "selected_rank": 1,
+              "triangles": 745305,
+              "vertices": 960,
+              "word_ops": 6351967747,
+              "words_per_vector": 479
+            }
+          },
+          "source": {
+            "all_birth_edges_present": true,
+            "all_individually_survive": true,
+            "certified": true,
+            "rank": 1,
+            "work": {
+              "basis_width": 30615,
+              "boundary_rank": 29637,
+              "edges": 30615,
+              "peak_storage_words": 14198039,
+              "selected_rank": 1,
+              "triangles": 745305,
+              "vertices": 960,
+              "word_ops": 6351967747,
+              "words_per_vector": 479
+            }
+          },
+          "source_distance_sha256": "c4a27768a5c334c048626215730f1c11c3fdba4996e7e1136d405611ae40bb56",
+          "source_pair_median": 1.0048316331206935,
+          "stage": "complete",
+          "status": "certified",
+          "survival": 0.6348474025726318,
+          "target": {
+            "all_birth_edges_present": true,
+            "all_individually_survive": true,
+            "certified": true,
+            "rank": 1,
+            "work": {
+              "basis_width": 12623,
+              "boundary_rank": 11656,
+              "edges": 12623,
+              "peak_storage_words": 2308680,
+              "selected_rank": 1,
+              "triangles": 165929,
+              "vertices": 960,
+              "word_ops": 547526430,
+              "words_per_vector": 198
+            }
+          },
+          "vertices": 960
+        },
+        "interpretation": "Numerical libraries matched recorded historical runtime; Ripser was installed without upgrading those libraries. Graph guide regenerated through the exact public default, not loaded from cache. Same selected source cycle and certified full-960 target."
+      }
+    ],
+    "runtime_comparison_caveat": "The second environment was declared after the first failed, specifically to match the recorded numerical runtime, not to optimize a seed or interval. Both results are reported; no claim that arbitrary package versions reproduce the success.",
+    "diagnostic_code_delta": "Between registrations the reproducer added refusal-category/aggregate-work reporting and an early return for an invalid construction-source contract. Both observed source contracts are valid; graph, selector, construction parameters and mathematics were unchanged. As-run code hashes and the first source snapshot are retained.",
+    "numerical_equivalence": {
+      "bitwise_equal_to_original": {
+        "reference": true,
+        "guide": true,
+        "raw_guide": true
+      },
+      "same_cycle_digest": true,
+      "constructed_coordinates_bitwise_equal_to_original": false,
+      "max_absolute_coordinate_difference_from_original": 7.105427357601002e-15,
+      "same_embedding_hash_as_independent_fixed_output_audit": true,
+      "audit_sha256": "7d4a5168dbd37f363a48a5f3ad34aeeaf93c6fb3ce5bc51d6256078cf0f980d7",
+      "scope": "Offline public constructor audit directly compared all returned coordinates to the original as-run target. No coordinates are published. Equality of guides/normalized features is checked by shape/dtype/byte digests."
+    },
+    "no_private_imports_or_data_branches": true,
+    "no_raw_data_models_or_ids_published": true
+  },
+  "aggregation_closeout": {
+    "method": "Historical report extraction plus public API registered replays, independent fixed-output equivalence/H0/planar audit, and fixed-seed post-barrier figure; explicit scalar/hash allowlists.",
+    "verification_scope": "Fresh public results are separately labeled; historical larger-cap source diagnostics and earlier transfer arms remain attributed to their own reports.",
+    "verified_reusable_methods": [
+      "Separate original as-run scalars from later private-port checks and future public replay.",
+      "Carry source rank, target rank and all-row H0 independently; selected target nonfilling alone is insufficient.",
+      "Use descriptive hash keys and scalar allowlists: raw H0 reports contain full trees and worst-pair identities; prediction reports contain per-query records and a protected-center location.",
+      "Read the combined audit SOURCE as well as TARGET fields: SOURCE triangle count and domain size disqualify it as a public hard-cap replay.",
+      "Pin numerical runtime as well as source bytes: a fixed seed and unchanged public graph algorithm did not reproduce the historical guide across numerical-library generations.",
+      "Report failed modern-runtime construction before reporting the matched-runtime success; one known successful case is not universal feasibility.",
+      "Compare regenerated guides and normalized features bytewise, and explicitly measure the residual coordinate difference; do not call a near-equal constructor result bitwise identical.",
+      "A separate public planar check can cover 1440 target rows without pretending a public 1024-row sparse source API validated that domain. Fresh all-row H0 still fails."
+    ],
+    "privacy": "No raw features, labels, row IDs, coordinates, cycle edges, tree edges, protected-center locations, raw logs, local paths or per-query records included.",
+    "changed_file": "benchmarks/results/global_structural_diagnostic.json",
+    "commits_created": false,
+    "instruction_review": "Repository/ancestor worker and AGENTS files checked again; none found. CONTRIBUTING and distribution checker reread. Verified experience and completion checkpoint are persisted in this aggregate and synthetic test docstring.",
+    "numerical_tests_run_in_this_task": true,
+    "numerical_test_caveat": "Synthetic protocol tests use fixtures/mocks. Actual public full-960 replays and offline numerical audits are outside ordinary tests; no public sparse 1440-row run.",
+    "completed_aggregate_checks": {
+      "descriptive_report_hashes_resolved": 24,
+      "oos_metrics_and_h0_rank_scalars_match_sources": true,
+      "original_exploratory_arm_statuses_retained": 9,
+      "transfer_and_frontier_call_statuses_matched": 18,
+      "privacy_allowlist_and_path_secret_scan": "passed",
+      "scope": "Inline report assertions only, not numerical recomputation or a built-distribution scan.",
+      "all_runtime_outcomes_retained": true,
+      "public_api_source_pins_verified": true,
+      "source_guide_and_candidate_equivalence_verified": true,
+      "fresh_combined_h0_failure_confirmed": true,
+      "fresh_combined_real_planar_rank_one": true,
+      "json_finite_and_under_128kib": true
+    },
+    "changed_files": [
+      "benchmarks/validate_global_structural.py",
+      "benchmarks/results/global_structural_diagnostic.json",
+      "tests/test_global_structural_protocol.py",
+      "assets/global-coil-structure.png"
+    ],
+    "checkpoint": {
+      "status": "complete",
+      "blockers": [],
+      "public_replay_successful_runtime": "matched historical numerical stack",
+      "known_limitation": "modern numerical stack remains unsupported; not repaired or retried",
+      "experience_persisted": true
+    },
+    "tests": {
+      "protocol_python39": {
+        "passed": 72,
+        "skipped": 0
+      },
+      "protocol_python313": {
+        "passed": 72,
+        "skipped": 0
+      },
+      "existing_native_ctest": {
+        "passed": 2,
+        "failed": 0
+      },
+      "scope": "Only new synthetic protocol tests and existing native CTests; not a whole-repository or distribution build claim"
+    }
+  },
+  "fresh_public_combined_diagnostic": {
+    "status": "verified",
+    "kind": "offline fixed-output equivalence and OOS audit, not another policy/seed search",
+    "original_candidate_max_coordinate_difference": 7.105427357601002e-15,
+    "same_embedding_hash_as_public_replay": true,
+    "original_features_and_guides_bitwise_equal_to_public_replay": true,
+    "combined_target_planar": {
+      "vertices": 1440,
+      "certified": true,
+      "rank": 1,
+      "distance_pairs": 1488,
+      "scope": "selected target family in real represented float64 Euclidean geometry only"
+    },
+    "combined_public_h0": {
+      "vertices": 1440,
+      "max_merge_error": 1.5295441934345244,
+      "tolerance": 0.05,
+      "certified": false,
+      "max_vertices": 1440
+    },
+    "combined_source_h1": "NOT rerun with public sparse API: 1440 rows and 2550696 historical triangles exceed 1024/2000000 caps",
+    "verification_code_sha256": {
+      "structural_h0": "6e1621af8e9e6f3da7d5778f133e6afb2b43e1646c3ecde8715603bb93af5c36"
+    },
+    "no_raw_arrays_or_ids_emitted": true,
+    "planar_limits": {
+      "chunk_size": 65536,
+      "max_chain_edges": 100000,
+      "max_cycles": 32,
+      "max_distance_pairs": 32100000,
+      "max_exact_edge_tests": 100000,
+      "max_holes": 32,
+      "max_orientation_tests": 3200000,
+      "max_vertices": 1000000
+    },
+    "source_scope": "Fresh public source rank claim is TRAIN960 only; combined source rank remains attributed to the historical larger-budget audit."
+  },
+  "figure": {
+    "asset": "assets/global-coil-structure.png",
+    "sha256": "649b5e19d306f7043abbc7a13f04c297ea2c149152f828703c579b8dd55670b2",
+    "panels": [
+      "exactGraphA/unconstrained",
+      "constructiveA/training-constrained"
+    ],
+    "seed": 0,
+    "train_rows_per_panel": 960,
+    "test_rows_per_panel": 480,
+    "object_legend_entries": 20,
+    "all_points_shown": true,
+    "train_test_marks_differ": true,
+    "automatic_cycle_highlight": false,
+    "scope": "Original frozen one-seed OOS ablation, not modern-runtime replay, no hand-selected object. Labels post-barrier only; combined H0 failure explicit."
+  },
+  "data_preprocessing": {
+    "scope": "Declared upstream cache preparation, not executed by the replay. The public reproducer takes one explicit prepared TRAIN member and performs no download or label/test-array decoding.",
+    "dataset": "COIL-20 processed; Nene, Nayar and Murase, CUCS-005-96, February 1996",
+    "source_page": "https://www.cs.columbia.edu/CAVE/software/softlib/coil-20.php",
+    "rights": "No explicit dataset license was stated on the checked official pages; not MIT. Confirm terms with Columbia; no raw dataset is redistributed here.",
+    "source_archive_sha256": "517c5594820eb40066ba0ff6842e7f09392bf7fde849bf9cb9c28445b0f29e88",
+    "resize": "128x128 uint8 grayscale to fixed 32x32 via Pillow LANCZOS, then flatten and float32 divide by 255",
+    "split": "Every third 5-degree view held out: 20 objects, 48 TRAIN and 24 TEST views per object. Object/angle annotations define this split, not the layout training target.",
+    "pca": "64 components fit on TRAIN only; randomized solver, iterated_power=4, random_state=2026, whiten=False; same persisted transform applied to both splits, float32 cache.",
+    "upstream_cache_unit": "Median positive distance of 20000 sampled TRAIN pairs, fixed preprocessing RNG2026; no TEST feature values used in the scale.",
+    "upstream_cache_scale": 10.848027988117103,
+    "replay_unit": "Additional exact full-TRAIN positive all-pair median on the supplied cache after conversion to float64; scale 1.0048316331206935. Selection uses raw D/scale, construction recomputes cdist(X/scale,X/scale).",
+    "pca_baseline": "Fresh TRAIN-only full-SVD PCA2 of the normalized supplied 64-dimensional reference, not another raw-image preprocessing fit.",
+    "preparation_metadata_sha256": "14ccfe6adafb915afaf5bf9a339e0ba080bd269c17482e2fd56493d558e5974c",
+    "upstream_preparation_code_sha256_at_aggregation": "34a2e7be97362b01b9991b4b3aa4641cf6be5a83ec9e68425642912e743dfdb2",
+    "code_hash_caveat": "Current preparation code matches the documented recipe; original as-run provenance is the recorded cache/metadata hashes, not an unrecorded historical source revision."
+  }
+}

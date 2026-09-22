@@ -13,10 +13,10 @@ Runtime/build dependencies are installed separately and retain their own license
 | pybind11 | C++/Python binding headers | BSD-3-Clause |
 | setuptools / wheel | Packaging | MIT |
 | pytest | Optional tests | MIT |
-| Ripser.py | Optional independent persistence oracle | MIT |
+| Ripser.py | Optional persistence oracle and global witness proposals (independently checked) | MIT |
 | persim | Optional bottleneck oracle, installed with Ripser.py | MIT |
 | umap-learn | Optional baseline only | BSD-3-Clause |
-| pynndescent / numba | Optional UMAP dependencies | BSD-style; review exact distributions |
+| pynndescent / numba | Optional ANN and isolated graph-coordinate JIT optimization | BSD-style; review exact distributions |
 
 The table is a dependency inventory, not a replacement for the complete notices of each installed distribution or legal advice. Binary redistribution must preserve applicable upstream and transitive-library notices. Inspect licenses of the exact wheels/platform libraries being redistributed.
 
@@ -63,3 +63,30 @@ The v0.3 fuzzy objective uses existing local exponential affinity / fuzzy-union 
 The conditional neighbor objective combines established contrastive softmax and Cauchy-kernel ideas. Background: van den Oord, Li and Vinyals, *Representation Learning with Contrastive Predictive Coding* ([arXiv:1807.03748](https://arxiv.org/abs/1807.03748)); van der Maaten and Hinton, *Visualizing Data using t-SNE* (2008). The anchored graph sampler, masked loss and numerical gradient implementation here are independent code, not copied author implementations or claims of exact equivalence. TRAIN-pair least-squares output scaling is standard calibration, not a new topology-preservation method.
 
 The bounded structural verification and repair prototypes use standard F₂ homology/cohomology linear algebra, single-linkage/MST properties, and SciPy's SLSQP optimizer. The source-dual certificates and constraint-generation code are independent implementations, not copied TopoAE++ or RTD-AE author code, nor claims of exact equivalence or a novel general topology-preserving solver. Acceptance is limited to explicitly declared supplied-domain obligations.
+
+## Unreleased graph core and constructive certificates
+
+- Component-aware spectral initialization uses standard normalized graph-Laplacian
+  ideas: Belkin and Niyogi, *Laplacian Eigenmaps for Dimensionality Reduction and
+  Data Representation* (2003), DOI https://doi.org/10.1162/089976603321780317.
+- Fuzzy local memberships, fuzzy union and stochastic attraction/repulsion build
+  on UMAP's published ideas (McInnes, Healy and Melville, arXiv:1802.03426).
+  Our coordinate kernel and component policy are independent code, not the
+  author implementation, exact full fuzzy cross-entropy, or a novelty claim.
+- The fixed-anchor query objective uses standard conditional-neighbor KL and
+  Student/Cauchy kernels. Background includes Hinton and Roweis, *Stochastic
+  Neighbor Embedding* (2002), and van der Maaten and Hinton, *Visualizing Data
+  using t-SNE* (2008). This is not a claim of equivalence to their full methods.
+- Hierarchy-preserving contact geometry is independently implemented; related
+  work includes Doraiswamy et al., *TopoMap: A 0-dimensional Homology Preserving
+  Projection of High-Dimensional Data*, DOI
+  https://doi.org/10.1109/TVCG.2020.3030441. No author TopoMap code is vendored.
+  Sparse F₂ reduction, circle/ultrametric properties, planar empty-disk bounds
+  and winding parity are standard mathematical ingredients, not new theorems
+  claimed by this project. Certificates apply only to their declared domains.
+- Optional global feature proposals call installed author Ripser/Ripser.py and
+  independently verify selected classes. They are not an original persistence
+  backend or a resource-sandboxed external execution.
+- `assets/graph-core-*.png` and `assets/global-coil-structure.png` are derived
+  embedding visualizations, not raw datasets or trained models. The dataset
+  attributions and redistribution cautions above remain applicable.

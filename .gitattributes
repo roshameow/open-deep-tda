@@ -1,0 +1,3 @@
+# Frozen numerical benchmark snapshot: retain its published source hash.
+# Only its historical final blank line is exempt; other whitespace checks remain.
+benchmarks/graph_core/kernels.py whitespace=-blank-at-eof
