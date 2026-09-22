@@ -42,6 +42,12 @@ def _tensor_state(module):
     return {key: value.detach().cpu().clone() for key, value in module.state_dict().items()}
 
 
+def _skipped_output_calibration(method="none", reason="disabled"):
+    return {"method": method, "status": "skipped", "reason": reason,
+            "source": "TRAIN", "pairs": 0, "alpha": 1.0,
+            "fit_stress_before": None, "fit_stress_after": None}
+
+
 class DeepTDA:
     """Numeric geometry or masked-autoencoder semantic reduction.
 
@@ -51,6 +57,11 @@ class DeepTDA:
     geometry_objective='fuzzy_graph' opts into weighted graph attraction instead
     of fuzzy edge cross-entropy, with the same sampled nonedge repulsion. This
     is not exact UMAP or a claim of improvement over stress/fuzzy.
+    output_calibration='train_pairs' fits one positive output-distance scalar
+    after optimization, using only frozen TRAIN references and embeddings. It
+    changes scale, not topology shape or the training loss. Training histories
+    and subset diagnostics remain pre-calibration; final reports use calibrated
+    outputs. Constant references need no calibration and retain scale one.
     """
     def __init__(self, config=None, **config_overrides):
         if config is None:
@@ -133,6 +144,8 @@ class DeepTDA:
     def fit(self, X, validation_data=None):
         self.config.validate()
         self._fitted = False
+        self.output_scale_ = 1.0
+        self.calibration_diagnostics_ = _skipped_output_calibration(self.config.output_calibration)
         self.device_ = self._device()
         original = numeric_matrix(X)
         validation = None if validation_data is None else numeric_matrix(validation_data)
@@ -190,6 +203,8 @@ class DeepTDA:
         self.decoder_ = None
         self._coordinates = None
         if self.constant_:
+            self.calibration_diagnostics_ = _skipped_output_calibration(
+                cfg.output_calibration, "constant_reference: no calibration necessary")
             if cfg.geometry_objective == "fuzzy_graph":
                 self.geometry_diagnostics_ = {"objective": "fuzzy_graph",
                     "positive_mode": "attraction", "trained": False}
@@ -202,6 +217,8 @@ class DeepTDA:
                             "reference_rank": 0, "warning": "No nontrivial structure is inferred."}
         else:
             self._optimize(topology, losses, rng)
+            if cfg.output_calibration == "train_pairs":
+                self._calibrate_output()
             self._fitted = True
             self.report_ = evaluate_embedding(self.reference_, self.embedding_,
                 topology_size=min(cfg.evaluation_size, len(self.reference_)), seed=cfg.seed + 991,
@@ -214,6 +231,8 @@ class DeepTDA:
         self.report_["evaluation_scope"] = "training data, independent fixed evaluation subset"
         self.report_["config"] = cfg.to_dict()
         self.report_["reference_scale"] = self.reference_scale_
+        self.report_["output_calibration"] = copy.deepcopy(self.calibration_diagnostics_)
+        self.report_["history_scope"] = "training history and training-subset diagnostics are pre-calibration"
         self.report_["training_coverage"] = self.training_coverage_
         self.report_["neighbor_graph"] = self.neighbor_diagnostics_
         self.report_["geometry_objective"] = self.geometry_diagnostics_
@@ -228,9 +247,60 @@ class DeepTDA:
         # Test JSON compatibility now, rather than failing after a lengthy CLI run.
         json.dumps(self.report_, allow_nan=False)
 
+    def _calibrate_output(self):
+        """Fit bounded TRAIN-pair LS scale; never consume optimizer/evaluation RNG.
+
+        Sampling is with replacement (including self-pairs). Diagnostics contain
+        only aggregates, not pairs or rows. Stress follows evaluation's normalized
+        root squared-error convention, on these calibration pairs only.
+        """
+        count = min(max(1024, 2 * len(self.reference_)), 20000)
+        seed = self.config.seed + 211
+        ids = np.random.default_rng(seed).integers(len(self.reference_), size=(count, 2))
+
+        def distances(X):
+            # Promote BEFORE subtraction/norm to avoid float32 overflow.
+            difference = X[ids[:, 0]].astype(np.float64) - X[ids[:, 1]].astype(np.float64)
+            return np.linalg.norm(difference, axis=1)
+
+        source, target = distances(self.reference_), distances(self.embedding_)
+        if not np.isfinite(source).all() or not np.isfinite(target).all():
+            raise ValueError("output calibration requires finite pair distances")
+        unit = max(float(source.max()), float(target.max()), np.finfo(np.float64).tiny)
+        a, b = source / unit, target / unit
+        denominator = float(b @ b)
+        alpha = float((a @ b) / denominator) if denominator > 0 else 1.0
+        if not np.isfinite(alpha) or alpha <= 0:
+            raise ValueError("output calibration requires a finite positive scale")
+        source_energy = float(a @ a)
+
+        def stress(scale):
+            residual = a - scale * b
+            energy = float(residual @ residual)
+            result = float(np.sqrt(energy / source_energy)) if source_energy > 0 else (0.0 if energy == 0 else None)
+            if result is not None and not np.isfinite(result):
+                raise ValueError("output calibration stress overflowed; rescale inputs")
+            return result
+
+        diagnostics = {"method": "train_pairs", "source": "TRAIN", "pairs": count,
+            "seed": seed, "sampling": "independent uniform pairs with replacement, including self-pairs",
+            "status": "fitted" if denominator > 0 else "degenerate", "alpha": alpha,
+            "fit_stress_before": stress(1.0), "fit_stress_after": stress(alpha),
+            "stress_convention": "sqrt(sum squared distance errors / sum squared source distances)",
+            "scope": "post-optimization scale only; histories/subset diagnostics are pre-calibration; no topology-shape improvement claimed"}
+        if denominator == 0:
+            diagnostics["reason"] = "all sampled target distances are zero; scale one retained"
+        with np.errstate(over="ignore", invalid="ignore"):
+            self.embedding_ *= alpha
+        if not np.isfinite(self.embedding_).all():
+            raise ValueError("output calibration produced nonfinite coordinates; rescale inputs")
+        self.output_scale_ = alpha
+        self.calibration_diagnostics_ = diagnostics
+
     def _optimize(self, topology, losses, rng):
         cfg, U = self.config, self.reference_
         is_fuzzy = cfg.geometry_objective in ("fuzzy", "fuzzy_graph")
+        is_nce = cfg.geometry_objective == "neighbor_nce"
         positive_mode = "attraction" if cfg.geometry_objective == "fuzzy_graph" else "cross_entropy"
         if cfg.steps == 0:
             # A PCA-initialized model is useful as a reference/initialization
@@ -256,7 +326,11 @@ class DeepTDA:
             timeout_seconds=cfg.neighbor_timeout_seconds)
         edges, neighbors = graph["edges"], graph["neighbors"]
         self.neighbor_diagnostics_ = graph["diagnostics"]
-        sampler = GeometrySampler(edges, len(U))
+        if is_nce:
+            from .contrastive import AnchoredNeighborSampler, neighbor_nce_loss
+            sampler = AnchoredNeighborSampler(edges, len(U))
+        else:
+            sampler = GeometrySampler(edges, len(U))
         topo_sampler = TopologySampler(U, neighbors, cfg.landmark_size, cfg.seed + 17)
         h0_sampler = h1_sampler = topo_sampler
         if cfg.h0_refresh_every or cfg.h1_refresh_every:
@@ -273,7 +347,7 @@ class DeepTDA:
         tau = max(self.local_scale_ * .1, 1e-8)
         fuzzy_weights = fuzzy_keys = None
         fuzzy_scale = cfg.fuzzy_scale if cfg.fuzzy_scale is not None else self.local_scale_
-        if is_fuzzy:
+        if is_fuzzy or is_nce:
             from .fuzzy import build_fuzzy_weights, fuzzy_losses
             weights, diagnostics = build_fuzzy_weights(U, neighbors, edges)
             edge_keys = edges[:, 0] * len(U) + edges[:, 1]
@@ -285,6 +359,13 @@ class DeepTDA:
                 positive_mode=positive_mode, kernel_scale=float(fuzzy_scale),
                 negative_repulsion=cfg.fuzzy_repulsion,
                 note=f"{positive_description} with sampled nonedge repulsion; not an exact ParametricUMAP reproduction. PH metric is unchanged.")
+            if is_nce:
+                self.geometry_diagnostics_.update(positive_mode="conditional_neighbor_nce",
+                    candidates_per_anchor=cfg.contrastive_candidates,
+                    hard_negatives=cfg.contrastive_hard_negatives,
+                    temperature=cfg.contrastive_temperature,
+                    negative_repulsion=None,
+                    note="Conditional Cauchy neighbor loss with anchored sampled nonedges; optional detached hard mining changes the objective. Batch-normalized affinities. Not exact t-SNE/UMAP. fuzzy_repulsion and lambda_sep are unused; lambda_near scales the complete NCE term. PH metric unchanged.")
         else:
             self.geometry_diagnostics_ = {"objective":"stress", "huber_delta":self.local_scale_, "separation_margin":margin}
         graph_seconds = time.perf_counter() - graph_start
@@ -322,6 +403,10 @@ class DeepTDA:
         U_cpu = torch.from_numpy(U)
         train_start = time.perf_counter()
         seen_geometry = np.zeros(len(U), dtype=bool)
+        seen_positive_vertices = np.zeros(len(U), dtype=bool)
+        geometry_edge_keys = np.sort(edges[:, 0] * len(U) + edges[:, 1])
+        seen_positive_edges = np.zeros(len(edges), dtype=bool)
+        positive_draws = 0
         seen_h0 = np.zeros(len(U), dtype=bool)
         seen_h1 = np.zeros(len(U), dtype=bool)
         h0_updates = h1_updates = online_refreshes = h0_online_refreshes = 0
@@ -332,7 +417,13 @@ class DeepTDA:
             if not cfg.h1_refresh_every and step == (3 * cfg.steps) // 4 and cfg.steps >= 20 and h1_bank:
                 renewed = build_bank(cfg.h1_size, True)
                 h1_bank[len(h1_bank) // 2:] = renewed[len(h1_bank) // 2:]
-            positive_pairs, negative_pairs = sampler.sample(cfg.batch_size, rng)
+            if is_nce:
+                positive_pairs, negative_ids, negative_valid = sampler.sample(
+                    cfg.batch_size, cfg.contrastive_candidates, rng)
+                negative_pairs = np.column_stack((
+                    np.repeat(positive_pairs[:, 0], cfg.contrastive_candidates), negative_ids.ravel()))
+            else:
+                positive_pairs, negative_pairs = sampler.sample(cfg.batch_size, rng)
             item0 = h0_bank[step % len(h0_bank)] if h0_bank else None
             active = step >= cfg.warmup_steps
             if h0_bank and active and cfg.h0_refresh_every:
@@ -358,7 +449,12 @@ class DeepTDA:
                     online_refreshes += 1
                 item1 = h1_bank[slot]
             seen_geometry[positive_pairs.ravel()] = True
-            seen_geometry[negative_pairs.ravel()] = True
+            seen_positive_vertices[positive_pairs.ravel()] = True
+            canonical_positive = np.sort(positive_pairs, axis=1)
+            sampled_keys = canonical_positive[:, 0] * len(U) + canonical_positive[:, 1]
+            seen_positive_edges[np.searchsorted(geometry_edge_keys, sampled_keys)] = True
+            positive_draws += len(positive_pairs)
+            seen_geometry[(negative_pairs[negative_valid.ravel()] if is_nce else negative_pairs).ravel()] = True
             if item0 is not None and active:
                 seen_h0[item0["ids"]] = True
                 h0_updates += 1
@@ -381,13 +477,21 @@ class DeepTDA:
 
             positive_source, positive_target = lengths(positive_pairs)
             negative_source, negative_target = lengths(negative_pairs)
-            if is_fuzzy:
-                keys = positive_pairs[:, 0] * len(U) + positive_pairs[:, 1]
+            if is_fuzzy or is_nce:
+                canonical = np.sort(positive_pairs, axis=1) if is_nce else positive_pairs
+                keys = canonical[:, 0] * len(U) + canonical[:, 1]
                 weights = torch.as_tensor(fuzzy_weights[np.searchsorted(fuzzy_keys, keys)], device=self.device_, dtype=z.dtype)
                 # A missing graph edge between duplicate inputs is not a true
                 # negative: a parametric encoder must map identical inputs alike.
-                near, separation = fuzzy_losses(positive_target, negative_target[negative_source > 0],
-                    weights, scale=fuzzy_scale, positive_mode=positive_mode)
+                if is_nce:
+                    mask = torch.as_tensor(negative_valid, device=self.device_) & (negative_source.reshape(negative_ids.shape) > 0)
+                    near = neighbor_nce_loss(positive_target, negative_target.reshape(negative_ids.shape),
+                        weights, mask, scale=fuzzy_scale, temperature=cfg.contrastive_temperature,
+                        hard_negatives=cfg.contrastive_hard_negatives or None)
+                    separation = zero  # NCE includes its conditional repulsion.
+                else:
+                    near, separation = fuzzy_losses(positive_target, negative_target[negative_source > 0],
+                        weights, scale=fuzzy_scale, positive_mode=positive_mode)
             else:
                 near = losses.near_loss(positive_source, positive_target, delta=self.local_scale_) if len(positive_source) else zero
                 separation = losses.separation_loss(negative_source, negative_target, margin=margin) if len(negative_source) else zero
@@ -425,7 +529,7 @@ class DeepTDA:
             grad_norm = nn.utils.clip_grad_norm_(parameters, cfg.gradient_clip, error_if_nonfinite=True)
             optimizer.step()
             if log:
-                self.history_.append({"step": step, "loss": float(total.detach()),
+                self.history_.append({"step": step, "output_scale_scope": "pre-calibration", "loss": float(total.detach()),
                     "near": float(near.detach()), "separation": float(separation.detach()),
                     "h0": float(h0.detach()), "pd1": float(pd1.detach()), "crit1": float(crit1.detach()),
                     "reconstruction": float(rec.detach()), "gradient_norm": float(grad_norm),
@@ -443,6 +547,11 @@ class DeepTDA:
         self.training_coverage_ = {
             "n_training_samples": len(U), "optimizer_steps": cfg.steps,
             "geometry_unique_samples": int(seen_geometry.sum()),
+            "positive_unique_samples": int(seen_positive_vertices.sum()),
+            "positive_pair_draws": int(positive_draws),
+            "positive_unique_edges": int(seen_positive_edges.sum()),
+            "graph_edge_count": len(edges),
+            "positive_edge_fraction": float(seen_positive_edges.mean()) if len(edges) else 0.,
             "h0_unique_samples": int(seen_h0.sum()), "h1_unique_samples": int(seen_h1.sum()),
             "h0_updates": h0_updates, "h1_updates": h1_updates,
             "h1_initial_subsets": initial_h1_subsets, "h1_online_refreshes": online_refreshes,
@@ -463,7 +572,7 @@ class DeepTDA:
              else self._forward_numpy(self.model_, U))
         metrics = evaluate_embedding(U, Z, topology_size=len(ids), seed=cfg.seed + 1013,
                                      k=cfg.n_neighbors, budgets=cfg.evaluation_budgets())
-        return {"step": step, "scope": "fixed training subset, not out-of-sample", "metrics": metrics}
+        return {"step": step, "scope": "fixed training subset, not out-of-sample; pre-calibration", "metrics": metrics}
 
     def _require_fitted(self):
         if not self._fitted:
@@ -489,7 +598,15 @@ class DeepTDA:
         U = self.reference_transform(X)
         if len(U) == 0:
             return np.empty((0, self.config.n_components), dtype=np.float32)
-        return self._forward_numpy(self.model_, U)
+        result = self._forward_numpy(self.model_, U)
+        scale = getattr(self, "output_scale_", 1.0)
+        if scale == 1.0:
+            return result
+        with np.errstate(over="ignore", invalid="ignore"):
+            result = result * scale
+        if not np.isfinite(result).all():
+            raise ValueError("output calibration produced nonfinite transformed coordinates; rescale inputs")
+        return result
 
     def fit_transform(self, X, validation_data=None):
         return self.fit(X, validation_data=validation_data).embedding_.copy()
@@ -522,6 +639,9 @@ class DeepTDA:
         path.parent.mkdir(parents=True, exist_ok=True)
         state = {"format_version": 1, "config": self.config.to_dict(),
             "preprocessor": self.preprocessor_.state(), "reference_scale": self.reference_scale_,
+            "output_scale": getattr(self, "output_scale_", 1.0),
+            "output_calibration": copy.deepcopy(getattr(self, "calibration_diagnostics_",
+                _skipped_output_calibration(reason="legacy checkpoint"))),
             "processed_dim": self.processed_dim_, "reference_dim": self.reference_dim_,
             "constant": self.constant_, "input_rank": self.input_rank_,
             "model": _tensor_state(self.model_),
@@ -535,6 +655,8 @@ class DeepTDA:
             "semantic_history": copy.deepcopy(self.semantic_history_) if include_training_data else [],
             "report": copy.deepcopy(self.report_) if include_training_data else {
                 "status":"inference_only", "config":self.config.to_dict(),
+                "output_calibration": copy.deepcopy(getattr(self, "calibration_diagnostics_",
+                    _skipped_output_calibration(reason="legacy checkpoint"))),
                 "scope":"training rows, coordinates, histories and detailed reports omitted; weights/statistics retained"},
             "timings": getattr(self, "timings_", {}), "fit_seconds": getattr(self, "fit_seconds_", 0.0)}
         with tempfile.NamedTemporaryFile(dir=path.parent, prefix=path.name + ".", suffix=".tmp", delete=False) as handle:
@@ -556,6 +678,11 @@ class DeepTDA:
         obj.device_ = obj._device()
         obj.preprocessor_ = NumericPreprocessor.from_state(state["preprocessor"])
         obj.reference_scale_ = float(state["reference_scale"])
+        obj.output_scale_ = float(state.get("output_scale", 1.0))
+        if not np.isfinite(obj.output_scale_) or obj.output_scale_ <= 0:
+            raise ValueError("checkpoint output_scale must be finite and positive")
+        obj.calibration_diagnostics_ = copy.deepcopy(state.get("output_calibration",
+            _skipped_output_calibration(reason="legacy checkpoint")))
         obj.processed_dim_, obj.reference_dim_ = state["processed_dim"], state["reference_dim"]
         obj.constant_, obj.input_rank_ = state["constant"], state["input_rank"]
         # Construction must not alter the caller's global random stream.
@@ -579,6 +706,7 @@ class DeepTDA:
         obj.embedding_ = state["embedding"].numpy().copy() if state["embedding"] is not None else None
         obj.history_, obj.validation_history_ = state["history"], state["validation_history"]
         obj.semantic_history_, obj.report_ = state["semantic_history"], state["report"]
+        obj.report_["output_calibration"] = copy.deepcopy(obj.calibration_diagnostics_)
         obj.timings_, obj.fit_seconds_ = state["timings"], state["fit_seconds"]
         obj.training_coverage_ = obj.report_.get("training_coverage", {})
         obj.neighbor_diagnostics_ = obj.report_.get("neighbor_graph", {})

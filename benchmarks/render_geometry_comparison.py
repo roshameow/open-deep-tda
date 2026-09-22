@@ -27,8 +27,9 @@ def main():
     args.cache = args.cache or Path('outputs/v02-fashion_mnist/annotations.npz' if fashion else 'data/uci_har/features.npz')
     args.output = args.output or Path('assets/fashion-optimization.png' if fashion else 'assets/har-optimization.png')
     result = json.loads((args.run / 'results.json').read_text())
-    selected = 'transferred_graph_weak_2400' if fashion else result['plan']['selection']['selected_candidate']
-    methods = ['original_stress_1200' if fashion else 'stress_600', selected]
+    nce_round = result['plan'].get('protocol') == 'neighbor-nce-confirmation-v1'
+    selected = ('selected' if nce_round else 'transferred_graph_weak_2400' if fashion else result['plan']['selection']['selected_candidate'])
+    methods = ['previous_graph' if nce_round else 'original_stress_1200' if fashion else 'stress_600', selected]
     with np.load(args.cache, allow_pickle=False) as data:
         labels = data['test_labels'] if fashion else data['y_test'] - 1
     names = (['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat', 'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle boot'] if fashion else
@@ -36,8 +37,11 @@ def main():
     colors = plt.get_cmap('tab10' if fashion else 'Dark2').colors[:len(names)]
     fig, axes = plt.subplots(1, 2, figsize=(14, 6.5), facecolor='#f8fafc')
     fig.subplots_adjust(left=.06, right=.98, bottom=.25, top=.79, wspace=.18)
-    fig.suptitle(('Fashion-MNIST: direct transfer of the HAR-selected graph objective' if fashion else
-                  'UCI HAR: distance stress vs. the TRAIN-selected graph objective'),
+    title = (('Fashion-MNIST: conditional neighbor objective vs. the previous graph' if fashion else
+              'UCI HAR: direct transfer of the Fashion-selected neighbor objective') if nce_round else
+             ('Fashion-MNIST: direct transfer of the HAR-selected graph objective' if fashion else
+              'UCI HAR: distance stress vs. the TRAIN-selected graph objective'))
+    fig.suptitle(title,
                  fontsize=17, fontweight='bold', color='#0f172a', y=.96)
     for ax, method in zip(axes, methods):
         record = next(r for r in result['records'] if r['method'] == method and r['seed'] == args.seed)
@@ -59,6 +63,9 @@ def main():
             spine.set_color('#cbd5e1')
         g, p, k = record['population_geometry'], record['probe'], record['kmeans']
         title = ('Stress baseline (1,200 steps)' if fashion else 'Stress baseline (600 steps)') if method == methods[0] else 'Graph + weak topology (2,400 steps)'
+        if nce_round:
+            objective = 'Previous graph' if method == methods[0] else 'Conditional neighbor NCE'
+            title = f'{objective} ({record["config"]["steps"]:,} steps)'
         ax.set_title(f'{title}\n15-NN {p["test_accuracy"]:.1%} · overlap {g["knn_overlap"]:.3f} · KMeans ARI {k["test_ari"]:.3f}', fontsize=10.5, pad=12)
         ax.set_xlabel('embedding dimension 1')
         ax.set_ylabel('embedding dimension 2')
@@ -66,8 +73,10 @@ def main():
                for c, n in zip(colors, names)]
     fig.legend(handles=handles, ncol=5 if fashion else 6, loc='lower center', bbox_to_anchor=(.5, .10),
                title='Class labels: post-fit diagnostics only', frameon=False)
-    scope = ('All 10,000 official TEST rows; both fit all 60,000 TRAIN PCA64 rows. No Fashion tuning.' if fashion else
+    scope = ('All 10,000 official TEST rows; both fit all 60,000 TRAIN PCA64 rows.' if fashion else
              'All 2,947 official TEST rows; both fit all 7,352 TRAIN rows with identical train-only standardization.')
+    if nce_round:
+        scope += ' Both use TRAIN-only output-scale calibration.'
     fig.text(.5, .035, f'{scope} Fixed seed {args.seed}; out-of-sample transform.\n'
              'Axes autoscale separately; no clipped points. Unequal training budgets. This view does not prove topology or baseline superiority.',
              ha='center', fontsize=9, color='#475569', linespacing=1.5)

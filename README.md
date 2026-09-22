@@ -29,6 +29,8 @@
 > [!NOTE]
 > Persistent homology is exact for the **selected small subcloud**, not for the entire large population. Similar persistence diagrams do not guarantee semantic correspondence or physically correct cycle order.
 
+For the measured real-data settings, use the [Fashion-MNIST PCA64 NCE preset](configs/fashion-pca64-nce.json) or the [HAR graph preset](configs/har-neighborhood.json). These are dataset-specific experiments, not universal defaults; the HAR NCE transfer was unsuccessful.
+
 ## Visual example
 
 <p align="center">
@@ -39,7 +41,7 @@ This figure uses the real bundled scikit-learn Digits dataset: 1,400 training ro
 
 ### Additional real-data examples
 
-These earlier configurations are retained for transparency. See the [new paired optimization results](#unreleased-neighborhood-optimization-fixed-confirmation) below rather than treating these pictures as the best available configuration.
+These earlier configurations are retained for transparency. See the [paired graph results](#unreleased-neighborhood-optimization-fixed-confirmation) and [latest NCE results](#fixed-full-data-nce-confirmation) below rather than treating these pictures as the best available configuration.
 
 #### UCI Human Activity Recognition
 
@@ -144,6 +146,12 @@ model = DeepTDA(
 
 `residual_input_scale` optionally conditions only the neural residual's input (default `1.0`). It does **not** rescale the reference metric, PCA skip, or PH targets. The dimension-based scale tested below is a dataset-specific experiment, not a universal recommendation. Existing defaults and legacy checkpoint behavior remain unchanged.
 
+### Conditional neighbor objective
+
+`geometry_objective="neighbor_nce"` compares each sampled neighbor with multiple **nonneighbors of the same anchor** using Cauchy-kernel logits and a conditional softmax loss. Self-pairs, source graph edges and duplicate-input negatives are excluded. The selected setup uses 16 random candidates, temperature 1, and **no hard mining**; hard mining did not win the TRAIN-only search. This is an independently implemented sampled objective, not exact t-SNE, UMAP, or proprietary Deep TDA.
+
+`output_calibration="train_pairs"` optionally fits a single positive output scale on up to 20,000 **TRAIN-only** pairs after optimization. It changes units, not neighbor ranking or clustering capability. Saved checkpoints retain the scale. Raw uncalibrated PH results remain available alongside calibrated results; calibration is not evidence of better topology shape.
+
 ## Benchmarks
 
 Reviewed aggregate outputs are committed under [`benchmarks/results/`](benchmarks/results/); datasets, trained models, embeddings and raw machine logs are not.
@@ -196,6 +204,36 @@ Use [`configs/fashion-pca64-neighborhood.json`](configs/fashion-pca64-neighborho
 
 > [!WARNING]
 > Better clustering is **not** better topology across the board. Raw normalized H₀ cost increases **0.0594 → 0.1144 (HAR)** and **0.0265 → 0.0770 (Fashion)**. The fraction of long source H₁ bars left unmatched rises **61.1% → 83.9%** and **27.8% → 51.7%**, respectively. A smaller diagram cost can coexist with losing more meaningful bars. These are fixed-subcloud diagnostics, not population-wide topology guarantees. The graph presets are therefore opt-in; the stress default is unchanged.
+
+### Conditional-neighbor development study
+
+A new label-free Fashion TRAIN split uses **50,000 fit / 10,000 validation images**. PCA64 is refit only on the fitting fold; no official TEST images or class labels are read. At 2,400 steps, validation overlap is **0.0458 (previous graph)** versus **0.0557 (neighbor NCE)**. At 7,200 steps it is **0.0565 versus 0.0677**. Hard-negative mining and temperature 0.5 performed worse; every candidate is retained in [`neighbor_nce_pilot.json`](benchmarks/results/neighbor_nce_pilot.json).
+
+Positive-edge coverage is now reported separately from sample coverage: seeing every training row covered only about **66.6% of graph edges at 2,400 steps**, versus **96.3% at 7,200 steps** in this study. NCE also evaluates more negatives and costs more per step, so this is not a compute-matched speed claim.
+
+Reproduce the registered search with [`optimize_neighbor_nce.py`](benchmarks/optimize_neighbor_nce.py); full-data confirmation is handled by [`confirm_neighbor_nce.py`](benchmarks/confirm_neighbor_nce.py). Both require `--preregister` before `--run` and use local ignored data/output directories. Models, raw arrays and private `docs/` are not published.
+
+#### Fixed full-data NCE confirmation
+
+<p align="center">
+  <img src="assets/fashion-neighbor-nce.png" alt="Full Fashion-MNIST TEST: previous graph versus conditional neighbor NCE, fixed seed zero" width="1000">
+</p>
+
+**Fashion-MNIST, three fixed seeds:** the previous graph's test 15-NN accuracy **64.67% → 68.55%**, overlap **0.0431 → 0.0565**, KMeans ARI **0.366 → 0.404**, and NMI **0.529 → 0.556**. Every run fits all 60,000 training rows and transforms all 10,000 test rows. The image uses seed 0; these numbers are three-seed means. This is a further improvement, but still below the earlier UMAP probe result, not SOTA.
+
+The selected NCE configuration uses 7,200 steps versus the prior 2,400; mean fitting time in this run was about 188 versus 58 seconds. Both outputs use the same TRAIN-only calibration rule. Calibration does not earn credit for the neighborhood/classification gains. Uncalibrated H₁ cost worsens **0.002009 → 0.046404**; calibrated cost is approximately **0.00208 → 0.00205**, but **92.8% of long source H₁ bars remain unmatched** in the selected model's fixed subcloud diagnostics. Topology preservation is still not solved.
+
+Preset: [`configs/fashion-pca64-nce.json`](configs/fashion-pca64-nce.json), for the benchmark's train-fitted PCA64 inputs. All per-seed metrics and calibrated/uncalibrated PH: [`neighbor_nce_fashion.json`](benchmarks/results/neighbor_nce_fashion.json). No TEST-based reselection; this is reused benchmark data, not independent fresh generalization evidence.
+
+#### HAR transfer did not improve clustering
+
+<p align="center">
+  <img src="assets/har-neighbor-nce.png" alt="HAR transfer control, seed zero; three-seed clustering performance regresses" width="1000">
+</p>
+
+Transferring the frozen Fashion-selected configuration to HAR gives three-seed accuracy **82.55% → 82.46%**, overlap **0.0775 → 0.0797**, but KMeans ARI **0.685 → 0.614** and NMI **0.757 → 0.706**. Trustworthiness also decreases. The seed-0 image is not a substitute for these all-seed results. **This is not a recommended HAR upgrade**; keep the previous HAR preset rather than assuming the new objective is universally better.
+
+Calibrated H₁ cost also increases **0.000249 → 0.000399**, with 100% long source H₁ bars unmatched in both arms' fixed diagnostic subclouds. No alternative was selected using HAR TEST. Full negative results: [`neighbor_nce_har.json`](benchmarks/results/neighbor_nce_har.json); the explicitly named [`har-nce-transfer-control.json`](configs/har-nce-transfer-control.json) exists for reproduction, not as a new default.
 
 ### Measured v0.3 engineering changes
 

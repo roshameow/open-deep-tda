@@ -29,6 +29,8 @@
 > [!NOTE]
 > PH 只对选中的小子云精确计算，不是大规模总体上的全局拓扑保证。持久图相似也不保证语义对应或物理循环顺序正确。
 
+真实数据实测配置可直接使用 [Fashion-MNIST PCA64 NCE](configs/fashion-pca64-nce.json) 或 [HAR 图目标](configs/har-neighborhood.json)。它们是数据集专用实验配置，不是通用默认；HAR 的 NCE 迁移没有成功改善聚类。
+
 ## 可视化示例
 
 <p align="center">
@@ -144,6 +146,12 @@ model = DeepTDA(
 
 `residual_input_scale` 只调整神经网络残差分支的输入尺度，默认 `1.0`；**不改变参考空间距离、PCA 跳连或 PH 目标**。下面测试的按维数缩放只是特定数据上的实验，并非通用推荐。原默认配置及旧检查点行为不变。
 
+### 条件邻居目标
+
+`geometry_objective="neighbor_nce"` 使用 Cauchy 核分数和条件 softmax，把每个采样邻居与**同一锚点的多个非邻居**比较。排除自身、源图邻居及输入重复的负样本。训练集内部选定的是 16 个随机候选、温度 1、**不启用困难负样本挖掘**；困难挖掘没有胜出。这是独立实现的采样目标，不是精确 t-SNE、UMAP 或专有 Deep TDA。
+
+`output_calibration="train_pairs"` 可在优化完成后，使用至多 20,000 对**仅来自 TRAIN**的样本拟合一个正输出尺度。它只改变单位，不改善邻居排名或聚类能力；尺度会保存在检查点中。结果同时保留校准前后的 PH，不能把单位校准当成拓扑形状改善的证据。
+
 ## 基准结果
 
 审查后的聚合结果位于 [`benchmarks/results/`](benchmarks/results/)；数据、训练模型、嵌入和原始本机日志不上传。
@@ -194,6 +202,36 @@ model = DeepTDA(
 
 > [!WARNING]
 > 聚类改善**不等于拓扑全面改善**。原始归一化 H₀ 误差上升：HAR **0.0594 → 0.1144**，Fashion **0.0265 → 0.0770**；较长源 H₁ 条带的未匹配比例分别从 **61.1% → 83.9%**、**27.8% → 51.7%**。图间距离更小，仍可能丢失更多长条带。这些只是固定子集诊断，不是总体拓扑保证。因此新图配置保持可选，默认 stress 不变。
+
+### 条件邻居开发实验
+
+新的无标签 Fashion TRAIN 内部划分为 **50,000 拟合 / 10,000 验证图像**，PCA64 仅在拟合折重新训练；不读取官方 TEST 图像或类别标签。2,400 步的验证邻域重叠为 **0.0458（上一轮图目标）→ 0.0557（邻居 NCE）**，7,200 步为 **0.0565 → 0.0677**。困难负样本挖掘与温度 0.5 均更差；全部候选保留在 [`neighbor_nce_pilot.json`](benchmarks/results/neighbor_nce_pilot.json)。
+
+现在单独报告正边覆盖率：即使见过全部训练样本，2,400 步也只覆盖约 **66.6% 图边**；7,200 步约 **96.3%**。NCE 每步还比较更多负样本，计算更贵，不能称为等计算量的速度优势。
+
+搜索脚本为 [`optimize_neighbor_nce.py`](benchmarks/optimize_neighbor_nce.py)，完整数据确认脚本为 [`confirm_neighbor_nce.py`](benchmarks/confirm_neighbor_nce.py)。均先 `--preregister` 再 `--run`，读取本地被忽略的数据/输出目录。模型、原始数组及私有 `docs/` 不发布。
+
+#### NCE 固定配置完整数据确认
+
+<p align="center">
+  <img src="assets/fashion-neighbor-nce.png" alt="Fashion-MNIST 全部 TEST：上一轮图目标与条件邻居 NCE，固定 seed 0" width="1000">
+</p>
+
+**Fashion-MNIST，固定三个种子：**相对上一轮图目标，测试 15-NN 准确率 **64.67% → 68.55%**，邻域重叠 **0.0431 → 0.0565**，KMeans ARI **0.366 → 0.404**，NMI **0.529 → 0.556**。每次拟合完整 60,000 个训练样本、映射完整 10,000 个测试样本。图片固定 seed 0，段落数字为三种子均值。这是进一步改善，但仍低于此前 UMAP 的 probe 结果，不是 SOTA。
+
+新配置使用 7,200 步，对照为 2,400 步；本轮平均拟合约 188 秒与 58 秒。两组都采用相同的 TRAIN-only 尺度校准，不能把尺度校准算作邻域/分类能力提升。未校准 H₁ 误差恶化 **0.002009 → 0.046404**；校准后约 **0.00208 → 0.00205**，但选定模型的固定子集诊断中，仍有 **92.8% 的长源 H₁ 条带未匹配**。拓扑保持问题尚未解决。
+
+配置：[`configs/fashion-pca64-nce.json`](configs/fashion-pca64-nce.json)，输入必须是基准中仅拟合训练集的 PCA64 特征。每个种子的指标及校准前后 PH 见 [`neighbor_nce_fashion.json`](benchmarks/results/neighbor_nce_fashion.json)。不根据 TEST 重新选择；这些是重复使用的基准数据，并非全新独立泛化证据。
+
+#### HAR 迁移没有改善聚类
+
+<p align="center">
+  <img src="assets/har-neighbor-nce.png" alt="HAR 迁移对照，固定 seed 0；三个种子的聚类效果实际退化" width="1000">
+</p>
+
+把 Fashion 选定配置锁定后迁移到 HAR，三种子准确率 **82.55% → 82.46%**，邻域重叠 **0.0775 → 0.0797**，但 KMeans ARI **0.685 → 0.614**、NMI **0.757 → 0.706**；trustworthiness 也下降。不能用 seed 0 的图片代替全部种子结论。**这不是推荐的 HAR 升级**：保留原 HAR 配置，不能假设新目标普遍更好。
+
+校准后 H₁ 误差也从 **0.000249 → 0.000399**，两组固定诊断子集的长源 H₁ 条带均为 100% 未匹配。没有利用 HAR TEST 重新挑选其他配置。完整负面结果见 [`neighbor_nce_har.json`](benchmarks/results/neighbor_nce_har.json)；明确命名的 [`har-nce-transfer-control.json`](configs/har-nce-transfer-control.json) 仅用于复现，不作为新默认。
 
 ### v0.3 工程实测
 

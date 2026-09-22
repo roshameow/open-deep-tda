@@ -39,6 +39,10 @@ class TDAConfig:
     geometry_objective: str = "stress"
     fuzzy_repulsion: float = 0.1
     fuzzy_scale: Optional[float] = None
+    # Anchor-wise conditional neighbor objective; 0 means use every candidate.
+    contrastive_candidates: int = 16
+    contrastive_hard_negatives: int = 0
+    contrastive_temperature: float = 1.0
     lambda_near: float = 1.0
     lambda_sep: float = 0.1
     lambda_h0: float = 1.0
@@ -59,6 +63,8 @@ class TDAConfig:
     num_threads: int = 1
     # Only the neural residual sees scaled inputs; PCA and reference metrics do not.
     residual_input_scale: float = 1.0
+    # Post-training distance-scale fit on TRAIN pairs only; no change to the loss.
+    output_calibration: str = "none"
 
     def validate(self):
         if self.n_components not in (2, 3):
@@ -67,21 +73,23 @@ class TDAConfig:
             raise ValueError("mode must be geometry or semantic")
         if self.optimizer_mode not in ("parametric", "coordinates"):
             raise ValueError("optimizer_mode must be parametric or coordinates")
+        if self.output_calibration not in ("none", "train_pairs"):
+            raise ValueError("output_calibration must be none or train_pairs")
         if self.topology_sampling not in ("mixed", "local", "cover", "random"):
             raise ValueError("invalid topology_sampling")
-        if self.geometry_objective not in ("stress", "fuzzy", "fuzzy_graph"):
-            raise ValueError("geometry_objective must be stress, fuzzy or fuzzy_graph")
+        if self.geometry_objective not in ("stress", "fuzzy", "fuzzy_graph", "neighbor_nce"):
+            raise ValueError("geometry_objective must be stress, fuzzy, fuzzy_graph or neighbor_nce")
         if self.neighbor_backend not in ("exact", "pynndescent"):
             raise ValueError("neighbor_backend must be exact or pynndescent")
         if self.device not in ("cpu", "cuda", "mps"):
             raise ValueError("device must be cpu, cuda or mps")
-        nonnegative_ints = ("steps", "warmup_steps", "seed", "semantic_steps", "h0_refresh_every", "h1_refresh_every")
+        nonnegative_ints = ("steps", "warmup_steps", "seed", "semantic_steps", "h0_refresh_every", "h1_refresh_every", "contrastive_hard_negatives")
         positive_ints = ("n_components", "batch_size", "inference_batch_size", "n_neighbors", "h0_size", "h1_size",
                         "topology_interval", "subset_bank_size", "landmark_size",
                         "log_interval", "validation_interval", "evaluation_size",
                         "max_simplices", "max_reduction_entries", "max_reduction_operations",
                         "max_matching_size", "semantic_dim", "num_threads",
-                        "neighbor_working_memory_mb", "neighbor_audit_queries", "neighbor_timeout_seconds")
+                        "neighbor_working_memory_mb", "neighbor_audit_queries", "neighbor_timeout_seconds", "contrastive_candidates")
         for name in nonnegative_ints + positive_ints:
             value = getattr(self, name)
             if isinstance(value, bool) or not isinstance(value, Integral):
@@ -102,6 +110,12 @@ class TDAConfig:
             if isinstance(self.fuzzy_scale, bool) or not isinstance(self.fuzzy_scale, Real) or not math.isfinite(self.fuzzy_scale) or self.fuzzy_scale <= 0:
                 raise ValueError("fuzzy_scale must be None or finite positive")
             self.fuzzy_scale = float(self.fuzzy_scale)
+        if self.contrastive_hard_negatives > self.contrastive_candidates:
+            raise ValueError("contrastive_hard_negatives must not exceed contrastive_candidates")
+        value = self.contrastive_temperature
+        if isinstance(value, bool) or not isinstance(value, Real) or not math.isfinite(value) or value <= 0:
+            raise ValueError("contrastive_temperature must be finite and positive")
+        self.contrastive_temperature = float(value)
         value = self.residual_input_scale
         if isinstance(value, bool) or not isinstance(value, Real) or not math.isfinite(value) or value <= 0:
             raise ValueError("residual_input_scale must be finite and positive")
