@@ -44,6 +44,17 @@ python examples/repair_structural_layout.py
 
 The analytic cases now actually repair missing cycles, external fillings, merged classes and wrong connectivity, not merely detect them. This is a **maximum-64-vertex, explicit-contract, direct-coordinate prototype**: no learned `transform`, large-data claim, semantic guarantee, or performance upgrade is implied. Its objective is minimal displacement from a supplied layout, not a complete neighborhood-visualization objective. The older single-filling [`repair_layout`](python/open_deep_tda/structural_layout.py) remains an experimental reference, not the recommended core path.
 
+#### Small real-data repair diagnostics — joint preservation still fails
+
+Fixed TRAIN-only checks use 48 COIL-20 training views of the first object and 48 label-blind Fashion training rows. Source intervals/classes are derived from the reference alone. These are **small supplied-domain diagnostics, not full-dataset or classification benchmarks**.
+
+| Case | One-filling-at-a-time H₁ repair | Dual-batch H₁-only repair | Dual H₀+H₁ (H₀ tolerance 0.05) |
+|---|---|---|---|
+| COIL-20, 48 rows | Unresolved after 48 rounds | Certified in 1 round | **Unresolved** |
+| Fashion, 48 rows | Unresolved after 48 rounds | Certified in 1 round | **Unresolved** |
+
+The joint failed candidates have H₀ errors about **4.94 / 659.55**, and do not preserve the required H₁ class. No certified embedding is returned for them. This is a solver failure, **not a proof that the requested planar structure is impossible**. The new core therefore remains incomplete and is not integrated into the estimator or advertised as better DR. [All eight outcomes and source hashes](benchmarks/results/structural_repair_diagnostic.json) are retained; raw coordinates/logs stay local. Reproduce with [`validate_structural_repair.py`](benchmarks/validate_structural_repair.py), separate `--output` directories, and `--solver sequential` / `--solver dual`; register before running. The original sequential snapshot is commit `62b4aeb`, and the measured public dual snapshot is `4c643dd`.
+
 ## Features
 
 - C++17 Vietoris–Rips **H₀/H₁ over F₂**, deterministic MST and critical-edge output.

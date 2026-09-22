@@ -142,8 +142,13 @@ def test_small_adversarial_repairs_checked_independently(name, tolerance):
         assert all(w.survives for w in failed.witnesses)
         assert failed.surviving_rank == 1
     D.flags.writeable = initial.flags.writeable = False
-    result = repair(D, initial, cycles, tolerance)
-    verify_result(result, D, cycles, tolerance)
+    # Coincident rings with a large required separation need the public default
+    # budget on newer SLSQP versions; the shortened smoke budget is not a
+    # cross-version convergence guarantee. Do not change the actual certificate.
+    search = (dict(max_rounds=16, max_iterations=300, restarts=2, seed=0)
+              if name == 'duplicate_rings' and tolerance is not None else {})
+    result = repair(D, initial, cycles, tolerance, **search)
+    verify_result(result, D, cycles, tolerance, **search)
     # Regression expectations for these tiny fixtures, not a general guarantee.
     assert result["status"] == "certified"
     assert result["history"]
@@ -758,3 +763,21 @@ def test_sufficient_dual_is_not_required_to_accept_independently_valid_h1(monkey
     assert result['status'] == 'certified' and source_calls == [1]
     assert result['history'] == [] and result['verification_calls'] == 1
     np.testing.assert_array_equal(result['embedding'], initial)
+
+
+def test_negative_underflowing_real_is_not_silently_zero():
+    from fractions import Fraction
+    from open_deep_tda.structural_dual_layout import solve_structural_layout
+    D = np.array([[0., 1.], [1., 0.]])
+    initial = np.array([[0., 0.], [1., 0.]])
+    with pytest.raises(ValueError):
+        solve_structural_layout(D, initial, h0_tolerance=Fraction(-1, 10**500))
+
+
+def test_short_budget_never_promises_convergence_even_on_feasible_rings():
+    D, initial, cycles = fixture('duplicate_rings')
+    result = repair(D, initial, cycles, .05)
+    # SciPy 1.10 and newer SLSQP versions may take different trajectories.
+    # The portable requirement is truthful independent certification, not a
+    # universal optimizer convergence promise within an arbitrary short budget.
+    verify_result(result, D, cycles, .05)

@@ -44,6 +44,17 @@ python examples/repair_structural_layout.py
 
 解析案例现在可以真正修复缺环、外部填充、独立类合并及错误连接，而不只是检测。这仍是**最多 64 点、显式结构要求、直接坐标修复原型**：没有学习型 `transform`，不承诺大数据、语义质量或降维效果提升。当前优化的是相对初始布局的最小位移，不是完整的邻域可视化目标。旧的逐填充 [`repair_layout`](python/open_deep_tda/structural_layout.py) 保留作实验对照，不作为推荐 core 路线。
 
+#### 小规模真实数据诊断：联合保持仍失败
+
+固定 TRAIN-only 检查使用 COIL-20 第一个物体的 48 个训练视角，以及无标签抽取的 48 个 Fashion 训练样本；尺度区间和源类均只从参考数据确定。这是**有限传入域的结构诊断，不是完整数据集或分类效果基准**。
+
+| 案例 | 逐填充 H₁ 修复 | 对偶批量 H₁-only 修复 | 联合 H₀+H₁（H₀ 容差 0.05） |
+|---|---|---|---|
+| COIL-20，48 点 | 48 轮后未解决 | 1 轮后通过验证 | **未解决** |
+| Fashion，48 点 | 48 轮后未解决 | 1 轮后通过验证 | **未解决** |
+
+联合失败候选的 H₀ 误差约 **4.94 / 659.55**，所需 H₁ 类也未保留，因此不会返回认证 embedding。这是求解失败，**不是所要求平面结构不可行的证明**。新 core 尚未完成，不接入估计器，也不宣传降维效果改善。[全部八项结果及源代码哈希](benchmarks/results/structural_repair_diagnostic.json) 均保留，原始坐标和日志留在本地。复现使用 [`validate_structural_repair.py`](benchmarks/validate_structural_repair.py)，不同 `--output` 目录分别运行 `--solver sequential` / `--solver dual`，先注册再运行。原始逐填充快照为提交 `62b4aeb`，本轮实测公共对偶版本为 `4c643dd`。
+
 ## 功能
 
 - C++17 Vietoris–Rips **H₀/H₁（F₂）**、确定性 MST 与关键边。

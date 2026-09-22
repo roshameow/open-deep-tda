@@ -1,6 +1,6 @@
 """Oracle-checked small planar repair using source-dual batch triangle cuts.
 
-This is not a reducer, learned mapping or performance claim. The source dual
+This is not a validated end-to-end reducer, learned mapping or performance claim. The source dual
 cochains are explicit sufficient witnesses; constraining them can be stronger
 than the required classes. Independent H0/H1 verification alone accepts output.
 """

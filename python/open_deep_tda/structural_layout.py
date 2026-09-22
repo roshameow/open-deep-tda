@@ -20,8 +20,8 @@ from .structural_obstructions import find_h1_obstructions
 
 
 def _nonnegative(value, name, positive=False):
-    if isinstance(value, (bool, np.bool_)) or not isinstance(value, numbers.Real):
-        raise ValueError(f'{name} must be a finite real scalar')
+    if isinstance(value, (bool, np.bool_)) or not isinstance(value, numbers.Real) or value < 0:
+        raise ValueError(f'{name} must be a finite nonnegative real scalar')
     try:
         value = float(value)
     except (OverflowError, ValueError) as exc:
