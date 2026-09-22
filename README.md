@@ -15,6 +15,22 @@
   <img src="assets/pipeline.svg" alt="Open Deep-TDA processing pipeline" width="920">
 </p>
 
+## Structural-core rewrite: verification foundation
+
+The first part of the core rewrite is now executable: **checking structural obligations rather than assuming a small loss means success**. It does not yet replace the `DeepTDA` training objective or provide a new layout optimizer.
+
+- [`compare_h0`](python/open_deep_tda/structural_h0.py) computes global MSTs on **all supplied rows** and checks the exact maximum error of same-ID component merge distances. It distinguishes the actual hierarchy error from the more conservative MST-edge error bound.
+- [`check_h1_witnesses`](python/open_deep_tda/structural_h1.py) checks explicitly supplied source cycle representatives over a declared radius interval. Target cycles must retain their edges, remain nonboundaries, and remain independent. Triangles involving *other supplied vertices* count as possible fillings.
+- Budget exhaustion raises an error, never a passing partial certificate. H₀ accepts bounded dense matrices (default limit 2,048 vertices); the exact H₁ prototype has a hard limit of 128 vertices. Neither silently subsamples nor certifies an omitted population. The H₁ checker is not a full-complex chain-map/isomorphism certificate or an automatic source-cycle selector.
+
+Run the analytic acceptance cases:
+
+```bash
+python examples/check_structural_contracts.py
+```
+
+The intact square passes; missing cycles, identical barcodes with wrong row correspondence, filling by an extra vertex, merging two independent classes, and an incorrect global bridge are rejected. These are **correctness gates, not real-data quality benchmarks**. A future layout solver and learned mapping must pass them *and* demonstrate competitive neighborhood/generalization results before being presented as an algorithmic improvement.
+
 ## Features
 
 - C++17 Vietoris–Rips **H₀/H₁ over F₂**, deterministic MST and critical-edge output.
