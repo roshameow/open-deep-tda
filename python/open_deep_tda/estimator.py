@@ -1,5 +1,6 @@
 """End-to-end frozen-reference topology-regularized dimensionality reduction."""
 from contextlib import contextmanager
+from itertools import islice
 from pathlib import Path
 import copy
 import json
@@ -191,7 +192,7 @@ class DeepTDA:
         from .structural_sparse_h1 import (H1Limits, ResourceLimitError,
                                            _check_limits as _check_h1_limits)
         from .evaluation import evaluate_embedding
-        if strategy not in ('single', 'subdivided_k4'):
+        if strategy not in ('single', 'single_beam', 'subdivided_k4'):
             raise ValueError('unsupported source topology strategy')
         plan = GuidedLimits() if limits is None else limits
         source_limits = TeacherLimits() if teacher_limits is None else teacher_limits
@@ -208,9 +209,15 @@ class DeepTDA:
         if type(X) is not np.ndarray or X.ndim != 2 or X.dtype.kind not in 'iuf':
             raise ValueError('guided X must be an ordinary real numeric ndarray')
         n,d = X.shape
-        if n > plan.max_vertices or 3*n*n*d*8 > plan.max_feature_workspace_bytes or n > source_limits.max_vertices or n > obstruction_limits.max_vertices or n > topological_limits.max_vertices:
-            raise ResourceLimitError('guided source vertex/feature-workspace budget exceeded before fit')
-        expected = 1 if strategy == 'single' else 3
+        if n < 4 or not 2 <= d <= 4096:
+            raise ValueError('guided source requires at least four rows and 2..4096 features')
+        if (n > plan.max_vertices or n > source_limits.max_vertices or
+                n > obstruction_limits.max_vertices or n > topological_limits.max_vertices or
+                n*(n-1)//2 > source_limits.max_pairs or
+                3*n*n*d*8 > min(plan.max_feature_workspace_bytes,
+                                 source_limits.max_distance_workspace_bytes)):
+            raise ResourceLimitError('guided source vertex/pair/feature-workspace budget exceeded before fit')
+        expected = 3 if strategy == 'subdivided_k4' else 1
         family = []
         try:
             for index, chain in enumerate(cycles):
@@ -220,7 +227,12 @@ class DeepTDA:
                 for j, edge in enumerate(chain):
                     if j >= n:
                         raise ResourceLimitError('guided source cycle exceeds vertex/edge budget')
-                    edges.append(tuple(edge))
+                    # An individual edge may itself be an unbounded iterator.
+                    # Read at most three items before rejecting non-pair input.
+                    pair = tuple(islice(edge, 3))
+                    if len(pair) != 2:
+                        raise ValueError('guided source edge must contain exactly two vertex IDs')
+                    edges.append(pair)
                 family.append(tuple(edges))
         except ResourceLimitError:
             raise
@@ -234,6 +246,7 @@ class DeepTDA:
         start = time.perf_counter()
         candidate = type(self)(self.config.to_dict())
         candidate.fit(X)
+        guided_started = time.monotonic()
         with _torch_context(candidate.config.seed, candidate.config.num_threads, candidate.config.device):
             guide_existing_model(candidate, cycles=family, birth_radius=birth_radius,
                                  survival_radius=survival_radius, source_scale=source_scale,
@@ -264,6 +277,8 @@ class DeepTDA:
         candidate.report_['fit_seconds'] = candidate.fit_seconds_
         candidate.report_['guided_training'] = _primitive(candidate.report_['guided_training'])
         json.dumps(candidate.report_, allow_nan=False)
+        if time.monotonic() - guided_started > plan.max_seconds:
+            raise TimeoutError('guided fit/report wall limit exceeded before publication')
         self.__dict__.clear()
         self.__dict__.update(candidate.__dict__)
         return self

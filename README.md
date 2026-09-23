@@ -46,7 +46,7 @@ Official subject-disjoint 7,352 fit / 2,947 test; same training-defined numeric 
 
 ![All COIL-20 test views: PH-regularized DeepTDA on left, external UMAP center, external TopoAE++ author-core adapter right](assets/phre-vs-external-coil.png)
 
-KMeans is fit on each method's TRAIN embedding and evaluated on **all TEST rows** (class count follows each dataset). Three predeclared seeds, same inputs within each dataset:
+KMeans is fit on each method's TRAIN embedding and evaluated on **all TEST rows** (class count follows each dataset). These TEST datasets were inspected during project development, so these are **descriptive fixed comparisons, not untouched prospective holdouts**. Three predeclared seeds, same inputs within each dataset:
 
 | Dataset | PH-Regularized Embedding (`DeepTDA`) TEST ARI | External UMAP TEST ARI |
 |---|---:|---:|
@@ -89,13 +89,13 @@ model = DeepTDA(steps=200, h1_size=64, standardize=False,
 model.fit_with_topology_guidance(
     X_train, cycles=source_cycles, birth_radius=a, survival_radius=b,
     source_scale="median_all_pairs", h0_tolerance=0.05,
-    strategy="single",  # or "subdivided_k4" for three prevalidated source cycles
+    strategy="single",  # "single_beam" for one cycle; "subdivided_k4" for three
 )
 Z_train = model.embedding_   # independently checked on every supplied TRAIN ID
 Z_new = model.transform(X_new)  # requires separate new-population verification
 ```
 
-`source_cycles`, `a` and `b` must be chosen **without labels or target coordinates**, in the declared TRAIN reference units; optionally use [`auto_global_witnesses`](python/open_deep_tda/structural_auto_witness.py) for one source class or [`auto_source_h1_family`](python/open_deep_tda/structural_auto_family.py) for three, with explicit `allow_external=True` and **Ripser in an isolated process**. This optional external solver has separate resource limitations. Unsupported source graph, exhausted budget or unresolved joint requirements are explicit errors: no unchecked embedding is returned. Input, model and witness files may be sensitive; do not publish them. The ordinary default uses a training-fitted reference, geometry stress and nonzero sampled H₀/H₁/critical-edge losses; sampling is **not** full-population PH. Training settings behind the figures are stated in their [structural](benchmarks/results/ph_guided_selected_cycles.json) and [clustering](benchmarks/results/phre_external_comparison.json) records. Saving a model does not anonymize it. A self-contained *analytic API check* (not a real-data benchmark) is available with `python examples/run_ph_guided.py`.
+For one simple cycle, `strategy="single_beam"` is an **explicit, bounded source-only candidate search** instead of the default greedy source teacher. It keeps the same independent all-TRAIN H₀/H₁ acceptance gate; exhausted work is an error, and neither strategy certifies new rows. `source_cycles`, `a` and `b` must be chosen **without labels or target coordinates**, in the declared TRAIN reference units; optionally use [`auto_global_witnesses`](python/open_deep_tda/structural_auto_witness.py) for one source class or [`auto_source_h1_family`](python/open_deep_tda/structural_auto_family.py) for three, with explicit `allow_external=True` and **Ripser in an isolated process**. This optional external solver has separate resource limitations. Unsupported source graph, exhausted budget or unresolved joint requirements are explicit errors: no unchecked embedding is returned. Input, model and witness files may be sensitive; do not publish them. The ordinary default uses a training-fitted reference, geometry stress and nonzero sampled H₀/H₁/critical-edge losses; sampling is **not** full-population PH. Training settings behind the figures are stated in their [structural](benchmarks/results/ph_guided_selected_cycles.json) and [clustering](benchmarks/results/phre_external_comparison.json) records. Saving a model does not anonymize it. A self-contained *analytic API check* (not a real-data benchmark) is available with `python examples/run_ph_guided.py`.
 
 ## Attribution and license
 

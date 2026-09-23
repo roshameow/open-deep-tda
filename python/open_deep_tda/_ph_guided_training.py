@@ -155,9 +155,13 @@ def guide_existing_model(model, *, cycles, birth_radius, survival_radius,
             encoded=net(source).detach().cpu().numpy().astype(np.float64)
         return encoded*float(factor)
     def certificate(Z):
+        # An exact all-row check can itself cross the wall limit. Never accept
+        # a certificate produced after expiry, even when its topology passes.
+        deadline()
         T=pairwise_planar(Z)
         h0=compare_h0(D,T,tolerance=h0_tolerance,max_vertices=limits.max_vertices)
         h1=analyze_sparse_h1(T,cycles,birth_radius,survival_radius,limits=h1_limits)
+        deadline()
         return {'h0_error':float(h0['max_merge_error']), 'selected_rank':int(h1.rank),
                 'h1_certified':bool(h1.certified),
                 'accepted':bool(h0['max_merge_error']<=h0_tolerance and h1.certified)}
@@ -246,8 +250,12 @@ def guide_existing_model(model, *, cycles, birth_radius, survival_radius,
         'effective_native_ph_subcloud_size':min(cfg.h1_size,n),
         'certificate':current,'source_teacher':teacher.diagnostics,
         'optimization_history':trace,
-        'phase_scopes':'original native PH fit; source-certified teacher; full-source H0 contacts; adaptive source-ID F2 cuts',
+        'phase_scopes':('original native PH fit; independently source-certified bounded single-cycle beam '
+                        '(first passing complete state); full-source H0 contacts; adaptive source-ID F2 cuts'
+                        if strategy == 'single_beam' else
+                        'original native PH fit; source-certified teacher; full-source H0 contacts; adaptive source-ID F2 cuts'),
         'timings':{'guided_seconds':time.monotonic()-started},
         'query_claim':'transform remains inductive, but adding even one query changes PH/H0; no inherited certificate'})
     json.dumps(model.report_, allow_nan=False)
+    deadline()
     return model

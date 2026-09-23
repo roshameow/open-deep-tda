@@ -46,7 +46,7 @@ UMAP 在 K4 和 COIL20-1 上的 overlap@15 分别为 **.868／.848**，高于本
 
 ![COIL-20 全部测试视角：左为 PH 正则化 DeepTDA，中为外部 UMAP，右为 TopoAE++ 作者核心适配运行](assets/phre-vs-external-coil.png)
 
-每种方法只在自身 TRAIN 布局上拟合 KMeans，再在**全部 TEST 行**评价；簇数对应数据集的类别数。同一数据集各方法输入一致，预先固定三个种子：
+每种方法只在自身 TRAIN 布局上拟合 KMeans，再在**全部 TEST 行**评价；簇数对应数据集的类别数。这些 TEST 数据在项目开发过程中已经被查看，因此这里是**固定方法的描述性对照，而非完全未触碰的前瞻留出集**。同一数据集各方法输入一致，预先固定三个种子：
 
 | 数据集 | PH 正则化降维（`DeepTDA`）TEST ARI | 外部 UMAP TEST ARI |
 |---|---:|---:|
@@ -89,13 +89,13 @@ model = DeepTDA(steps=200, h1_size=64, standardize=False,
 model.fit_with_topology_guidance(
     X_train, cycles=source_cycles, birth_radius=a, survival_radius=b,
     source_scale="median_all_pairs", h0_tolerance=0.05,
-    strategy="single",  # 三个事先核验的源环可选 "subdivided_k4"
+    strategy="single",  # 单环另可选 "single_beam"；三环可选 "subdivided_k4"
 )
 Z_train = model.embedding_   # 所有传入 TRAIN 点均已独立结构核验
 Z_new = model.transform(X_new)  # 新总体需另行验证
 ```
 
-`source_cycles`、`a`、`b` 必须**只从源训练数据**在同一参考单位下选取，不得从标签或输出反选；一个源类可使用 [`auto_global_witnesses`](python/open_deep_tda/structural_auto_witness.py)，三类可使用 [`auto_source_h1_family`](python/open_deep_tda/structural_auto_family.py)，显式设 `allow_external=True`，并让可选的 Ripser 在**独立进程**运行。外部求解器有自己的资源限制。源结构不支持、预算耗尽或联合结构未通过时会明确失败，**不会返回未经核验的 embedding**。输入、源环和模型可能携带敏感信息，不要直接公开。普通默认几何 stress＋H₀/H₁/关键边是在有限**子云**上训练，并不等于全体数据的 PH。图片实际设置见[结构结果](benchmarks/results/ph_guided_selected_cycles.json)与[聚类结果](benchmarks/results/phre_external_comparison.json)；保存模型不等于匿名化。可运行 `python examples/run_ph_guided.py` 做**解析正确性示例**，它不是实数据效果基准。
+对一个简单环，`strategy="single_beam"` 是**显式启用、有资源上限的源端候选搜索**，替代默认的贪心源布局；仍须通过相同的全部 TRAIN 点 H₀/H₁ 独立验收。预算耗尽会报错，两种策略都不自动核验新点。`source_cycles`、`a`、`b` 必须**只从源训练数据**在同一参考单位下选取，不得从标签或输出反选；一个源类可使用 [`auto_global_witnesses`](python/open_deep_tda/structural_auto_witness.py)，三类可使用 [`auto_source_h1_family`](python/open_deep_tda/structural_auto_family.py)，显式设 `allow_external=True`，并让可选的 Ripser 在**独立进程**运行。外部求解器有自己的资源限制。源结构不支持、预算耗尽或联合结构未通过时会明确失败，**不会返回未经核验的 embedding**。输入、源环和模型可能携带敏感信息，不要直接公开。普通默认几何 stress＋H₀/H₁/关键边是在有限**子云**上训练，并不等于全体数据的 PH。图片实际设置见[结构结果](benchmarks/results/ph_guided_selected_cycles.json)与[聚类结果](benchmarks/results/phre_external_comparison.json)；保存模型不等于匿名化。可运行 `python examples/run_ph_guided.py` 做**解析正确性示例**，它不是实数据效果基准。
 
 ## 署名与许可
 

@@ -31,6 +31,10 @@ class TeacherLimits:
     max_iterations: int = 400
     max_distance_workspace_bytes: int = 268_435_456
     max_seconds: float = 60.
+    max_beam_expansions: int = 4096
+    max_beam_parent_tests: int = 100_000
+    max_beam_candidate_points: int = 2_000_000
+    max_beam_contact_pairs: int = 200_000_000
 
 
 @dataclass(frozen=True)
@@ -53,7 +57,11 @@ def _check_limits(limits):
         raise ValueError('limits must be TeacherLimits')
     for name, maximum in [('max_vertices', 300), ('max_pairs', 44_850),
                           ('max_iterations', 400),
-                          ('max_distance_workspace_bytes', 268_435_456)]:
+                          ('max_distance_workspace_bytes', 268_435_456),
+                          ('max_beam_expansions', 4096),
+                          ('max_beam_parent_tests', 100_000),
+                          ('max_beam_candidate_points', 2_000_000),
+                          ('max_beam_contact_pairs', 200_000_000)]:
         value = getattr(limits, name)
         if isinstance(value, (bool, np.bool_)) or not isinstance(value, Integral) or not 0 <= value <= maximum:
             raise ValueError('%s must be an integer in [0, %d]' % (name, maximum))
@@ -87,7 +95,7 @@ def _source(D, X, limits):
     scale = max(float(metric.max(initial=0.)), np.finfo(float).tiny)
     if not np.isfinite(metric).all() or not np.allclose(D, metric, rtol=1e-12, atol=1e-12*scale):
         raise ValueError('D must equal Euclidean distances of X in source units (roundoff only)')
-    return D.copy(), X.copy()
+    return D.copy(), X.copy(), metric
 
 
 def _paths(chains):
@@ -203,6 +211,11 @@ def construct_source_teacher(D, X, cycles, a, b, h0_tol, *, strategy='single',
 
     D is owned float64 Euclidean distances of the original float64 X. `single`
     feeds an untrained centered PCA2 source guide to construct_global_layout.
+    `single_beam` reuses the same PCA guide and minor-arc seed, then explores
+    bounded source-only contacts in fixed score/path order. Only the first
+    complete state passing fresh full-row H0, sparse GF2 H1 and planar checks
+    is returned. Logical beam work caps are caller-lowerable via TeacherLimits;
+    exhaustion raises instead of becoming an unsupported result.
     `subdivided_k4` uses four sorted branch-ID outer-face choices, side length
     2.5 times the median positive source pair distance (NOT historical raw 2.5),
     uniform graph-geodesic spacing along each source witness path, and a
@@ -218,15 +231,23 @@ def construct_source_teacher(D, X, cycles, a, b, h0_tol, *, strategy='single',
         if time.monotonic() >= deadline:
             raise ResourceLimitError('source teacher max_seconds exceeded')
     check_deadline()
-    if strategy not in ('single', 'subdivided_k4'):
+    if strategy not in ('single', 'single_beam', 'subdivided_k4'):
         raise ValueError('unknown strategy')
     if not isinstance(h1_limits, H1Limits):
         raise ValueError('h1_limits must be H1Limits')
-    D, X = _source(D, X, limits)
+    D, X, recomputed_metric = _source(D, X, limits)
     check_deadline()
     a, b, tolerance = _radius(a, 'a'), _radius(b, 'b'), _radius(h0_tol, 'h0_tol')
     if a > b:
         raise ValueError('a must not exceed b')
+    # D (often pdist) and the independently recomputed Euclidean matrix can
+    # differ by benign rounding. At CLOSED birth/survival thresholds, however,
+    # even one ULP crossing changes the supplied source contract. Refuse that
+    # discrepancy rather than certifying a chain absent from the actual X.
+    if (not np.array_equal(D <= a, recomputed_metric <= a) or
+            not np.array_equal(D <= b, recomputed_metric <= b)):
+        raise ValueError('source Euclidean distances disagree across a birth/survival threshold')
+    del recomputed_metric
     chains = validate_cycles(cycles, len(D), limits=h1_limits)
     source = analyze_sparse_h1(D, chains, a, b, limits=h1_limits)
     check_deadline()
@@ -236,6 +257,27 @@ def construct_source_teacher(D, X, cycles, a, b, h0_tol, *, strategy='single',
         return TeacherResult(False, None, reason, info, source)
     if not chains or not source.certified:
         return fail('source selected H1 family not certified')
+    if strategy == 'single_beam' and len(chains) != 1:
+        return fail('unsupported family: exactly one source cycle required')
+    if strategy == 'single_beam':
+        from ._ph_guided_beam import search
+        try:
+            centered = X-X.mean(axis=0)
+            _, _, vt = np.linalg.svd(centered, full_matrices=False)
+            guide = np.asarray(centered @ vt[:2].T, dtype=np.float64)
+            check_deadline()
+        except (FloatingPointError, OverflowError, np.linalg.LinAlgError) as exc:
+            return fail('single_beam numerical failure: '+str(exc))
+        result = search(D, guide, chains, a, b, tolerance, limits=limits,
+                        h1_limits=h1_limits, deadline=deadline)
+        check_deadline()  # exact terminal H0/F2/planar checks may cross the beam cap
+        info.update(scope='all original source rows; one selected H1 cycle; first passing complete beam state',
+                    beam_work=result.diagnostics, beam_events=result.events,
+                    beam_width=16, beam_fan=4)
+        if not result.certified:
+            return fail(result.reason)
+        return TeacherResult(True, result.embedding, result.reason, info, source,
+                             result.target, result.h0_error)
     if strategy == 'single':
         try:
             centered = X-X.mean(axis=0)
