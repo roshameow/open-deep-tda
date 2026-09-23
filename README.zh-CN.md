@@ -6,7 +6,15 @@
 
 [English](README.md) · [安装](#安装) · [示例](#示例) · [结果](#结果)
 
-受公开 Deep-TDA 思路启发的独立、可检查降维项目。**不是 DataRefiner 官方实现，也不是数值等价复现。** 当前图降维器不保证类别分离或源环保持。旧版 `DeepTDA` 神经估计器及有预算限制的结构验证工具仍可使用。
+受公开 Deep-TDA 思路启发的独立、可检查降维项目。**不是 DataRefiner 官方实现，也不是数值等价复现。**
+
+## 我现在看到的是哪个版本？
+
+**本页展示 GitHub 当前的 `main` 分支。主要降维器是本项目的 `GraphEmbedding`：下方图中标为“GraphEmbedding”或“Direct graph + A”的就是它。** 旧的 `DeepTDA` 神经估计器仍保留，但那是另一条更早的算法路线。`PrecomputedGraphEmbedding` 只用于显式提供差异度矩阵的可选实验，不是普通数值数据的默认算法。
+
+**Git 标签/发行包 `v0.3.0` 是较早的快照**，不包含 `GraphEmbedding` 或图像差异度接口。现在的 `main` 包内版本字符串仍显示 `0.3.0`，但**字符串尚未升级，不代表与旧标签代码相同**。要运行本页图算法，请从 `main` 安装；`git rev-parse --short HEAD` 可核对你本机拿到的具体提交。目前没有给这些新功能另打 release 标签。
+
+当前图降维器不保证类别分离或源环保持。
 
 ## 结果
 
@@ -15,6 +23,30 @@
 ![K4：左侧 TopoAE++ 适配器，中间本项目 GraphEmbedding，右侧 UMAP](assets/visual-contracts-K4.png)
 
 当前图布局在 K4 上的显著 H₁ 条带少于本次 TopoAE++ 适配运行（三条对一条）。这是当前结果的局限，不能称为拓扑保持成功。
+
+**同样的作者数据视觉对照，顺序仍为左 TopoAE++ 作者适配器、中间本项目当前的 `GraphEmbedding`、右 UMAP：**Twist 全部 100 点；COIL20-1 是**单个物体**的全部 72 个视角，考察视角轨迹，不是 20 类聚类。颜色表示源行序而非类别；每张图各自完整显示全部坐标，坐标轴尺度不强制相同。
+
+![Twist：TopoAE++ 适配器｜本项目当前 GraphEmbedding｜UMAP](assets/visual-contracts-Twist.png)
+
+![COIL20-1：TopoAE++ 适配器｜本项目当前 GraphEmbedding｜UMAP](assets/visual-contracts-COIL20-1.png)
+
+### 当前图算法：Fashion-MNIST、HAR、COIL-20
+
+**以下每张图的*第三格*“Direct graph + A (TRAIN hull)”是本项目当前 `GraphEmbedding` 加条件查询映射。** 从左到右依次是 PCA、早期 `DeepTDA` 强配置、**当前图算法**、外部 UMAP。第二格也是本项目的历史代码，但**不是目前图主干**。每张图都画出了完整 TEST 集、保留各格的完整坐标范围；颜色在拟合之后按类别标记。格子上方数字属于 seed 0，不是三种子的平均；各对照的训练预算不同。
+
+![Fashion-MNIST：PCA｜早期 DeepTDA｜本项目当前图算法｜UMAP；全部 10,000 测试点](assets/graph-core-fashion.png)
+
+![HAR：PCA｜早期 DeepTDA｜本项目当前图算法｜UMAP；全部 2,947 测试点](assets/graph-core-har.png)
+
+![COIL-20：PCA｜早期 DeepTDA｜本项目当前图算法｜UMAP；全部 480 测试点](assets/graph-core-coil.png)
+
+固定 Fashion-MNIST 图算法对照（三种子，60,000 TRAIN / 10,000 TEST）中，当前算法拟合后 KMeans ARI **.421**，低于 UMAP **.471**；拟合后 15-NN 准确率 **78.49%**，UMAP **77.88%**。分类准确率不能替代聚类布局验收。COIL-20 的旧模型对照是记录过的 600-step stress 配置，不是特别优化出的最强竞争者。[固定实验聚合结果](benchmarks/results/graph_core_compact_confirmation.json)。
+
+### Digits：原始像素图算法对照与可选图像参考
+
+下方**原始像素**对照的左列是本项目当前 `GraphEmbedding`，右列是 UMAP。上排为固定 1,400/397 划分中的 1,400 行拟合布局；下排是全部 1,797 行**单独重做**的传导式拟合，不是留出集。两者都可能将同一个数字拆成几块；类别仅在拟合之后标记。
+
+![Digits 原始像素对照：左列本项目当前图算法，右列 UMAP；上排固定划分，下排单独全量拟合](assets/visual-contracts-Digits.png)
 
 ### Digits：两种输入表示、两种降维器
 
@@ -29,8 +61,6 @@
 
 此图像差异度使**两种方法**在本例中获益，并不证明我们的优化器优于 UMAP。它不是严格度量或精确平移不变性；它改变了输入拓扑，**不是**一般数值向量的默认参考。固定训练／留出 Digits 划分上的结果有升有降，部分数字仍被拆成多个簇。
 
-另一个固定的 Fashion-MNIST 图方法对照（三种子，60,000 TRAIN / 10,000 TEST）中，本项目拟合后 KMeans ARI **.421**，低于 UMAP 的 **.471**；拟合后 15-NN 准确率则是 **78.49%** 对 **77.88%**。分类准确率不能替代聚类布局验收。[基准聚合结果](benchmarks/results/graph_core_compact_confirmation.json)。
-
 ## 安装
 
 要求 Python 3.9+ 与 C++17 编译器。神经基线另需 PyTorch；图与图像示例依赖以下可选包。
@@ -44,7 +74,7 @@ python -m pip install --upgrade pip
 python -m pip install -e '.[graph,plot,images]'
 ```
 
-此处的图／图像功能位于**尚未发布的 main**，不在旧 v0.3.0 发布包中。安装不会自动下载基准数据。
+以上命令安装本机 **main** 源码。旧 `v0.3.0` 标签发行包没有上述图／图像 API。安装不会自动下载基准数据。
 
 ## 示例
 
