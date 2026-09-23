@@ -202,7 +202,11 @@ def plot_layouts(layouts, labels, path):
             # margins for every point. Equal aspect, no quantile/axis clipping.
             ax.margins(0.05)
             ax.set_aspect("equal", adjustable="box")
-            ax.set(title=key.replace("_", " / "), xlabel="Embedding 1", ylabel="Embedding 2")
+            reference, method = key.split("_", 1)
+            method_name = "Open Deep-TDA (precomputed graph)" if method == "graph" else "UMAP"
+            reference_name = "raw pixels" if reference == "raw" else "translation-tangent"
+            ax.set(title=f"{method_name} | {reference_name}",
+                   xlabel="Embedding 1", ylabel="Embedding 2")
         legend = [Line2D([], [], marker="o", linestyle="", color=colors(i), label=str(i))
                   for i in range(10)]
         fig.legend(handles=legend, title="Post-fit digit label", loc="lower center", ncol=10)
