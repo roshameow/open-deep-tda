@@ -1,0 +1,166 @@
+{
+  "coil_fixed_seed0": {
+    "method_ari": {
+      "PH-Regularized Embedding (DeepTDA)": 0.42169384406527866,
+      "TopoAE++ author core CPU adapter": 0.5266412890422586,
+      "UMAP": 0.7350596402626008
+    },
+    "scope": "TRAIN-fitted KMeans20 n_init10 random_state0, score all 480 TEST rows; DeepTDA+UMAP values previously reported, TopoAE++ scored now from frozen native seed0 TRAIN/TEST embeddings with identical ordered PCA64 inputs.",
+    "topoaepp_author_loss_model": "official external unchanged model/loss, independent CPU/no-CGAL driver, not an untouched manuscript launcher or best-of-ten run",
+    "topoaepp_existing_record": "benchmarks/results/topoaepp_coil_native_summary.json",
+    "topoaepp_seed": 0,
+    "topoaepp_training_updates": 1000
+  },
+  "entrypoint": "open_deep_tda.DeepTDA",
+  "inputs": {
+    "coil": "960 TRAIN / 480 TEST, identical ordered PCA64 vectors",
+    "fashion": "60000 TRAIN / 10000 TEST, train-fitted PCA64",
+    "har": "7352 TRAIN / 2947 TEST, official subject split and train-fitted scaling"
+  },
+  "limitation": [
+    "These images only illustrate one fixed seed; three-seed means are separate.",
+    "The same feature rows are provided within each dataset, not matched architecture/compute.",
+    "Topology PH is computed on bounded training subclouds; no full-domain same-source-cycle acceptance claim.",
+    "No currently available matched PH-trained DeepTDA versus TopoAE++ K4 fit exists; graph-only K4 plots must not be substituted.",
+    "COIL TopoAE++ is a one-seed external adapted execution, not the ten-trial selected paper result.",
+    "Input feature semantics differ across datasets; results not cross-dataset interchangeable.",
+    "Labels are used only after unsupervised fits for figures and TRAIN-fitted KMeans scoring; K equals dataset-informed class count.",
+    "Official TEST has been seen in historical research; not virgin evaluation."
+  ],
+  "ph_config_weights": {
+    "coil": {
+      "geometry_objective": "stress",
+      "lambda_critical": 0.1,
+      "lambda_h0": 1.0,
+      "lambda_h1": 0.1,
+      "steps": 600
+    },
+    "fashion": {
+      "geometry_objective": "neighbor_nce",
+      "lambda_critical": 0.1,
+      "lambda_h0": 0.1,
+      "lambda_h1": 0.01,
+      "steps": 7200
+    },
+    "har": {
+      "geometry_objective": "fuzzy_graph",
+      "lambda_critical": 0.1,
+      "lambda_h0": 0.1,
+      "lambda_h1": 0.01,
+      "steps": 2400
+    }
+  },
+  "privacy": "No input coordinates, models, labels, or local paths published.",
+  "render_script": "benchmarks/render_phre_comparison.py (requires private frozen coordinate/annotation inputs; not distributed)",
+  "schema": "phre-external-comparison-v1",
+  "scope": "Presentation-only regrouping of existing frozen PH-trained DeepTDA and genuine UMAP results; new reviewed single-seed TopoAE++ COIL TRAIN-fitted KMeans diagnostic, no reducer refit or retuning.",
+  "source_record": "benchmarks/results/graph_core_confirmation.json:summary rows method=strong and method=umap; published aggregate includes separately labeled graph-only arms, which do not count as PHRE.",
+  "three_seed_test_kmeans": [
+    {
+      "dataset": "fashion",
+      "method": "PH-Regularized Embedding (DeepTDA)",
+      "seeds": [
+        0,
+        1,
+        2
+      ],
+      "test_kmeans_train_fitted_ari_mean": 0.39667668166616715,
+      "test_kmeans_train_fitted_ari_sample_std": 0.014584623955327272
+    },
+    {
+      "dataset": "fashion",
+      "method": "external UMAP",
+      "seeds": [
+        0,
+        1,
+        2
+      ],
+      "test_kmeans_train_fitted_ari_mean": 0.47106557529580306,
+      "test_kmeans_train_fitted_ari_sample_std": 0.001904063155748019
+    },
+    {
+      "dataset": "har",
+      "method": "PH-Regularized Embedding (DeepTDA)",
+      "seeds": [
+        0,
+        1,
+        2
+      ],
+      "test_kmeans_train_fitted_ari_mean": 0.6525658097558663,
+      "test_kmeans_train_fitted_ari_sample_std": 0.03555426243882286
+    },
+    {
+      "dataset": "har",
+      "method": "external UMAP",
+      "seeds": [
+        0,
+        1,
+        2
+      ],
+      "test_kmeans_train_fitted_ari_mean": 0.521773803503314,
+      "test_kmeans_train_fitted_ari_sample_std": 0.015070978961524496
+    },
+    {
+      "dataset": "coil",
+      "method": "PH-Regularized Embedding (DeepTDA)",
+      "seeds": [
+        0,
+        1,
+        2
+      ],
+      "test_kmeans_train_fitted_ari_mean": 0.39048047082894083,
+      "test_kmeans_train_fitted_ari_sample_std": 0.03208353312697376
+    },
+    {
+      "dataset": "coil",
+      "method": "external UMAP",
+      "seeds": [
+        0,
+        1,
+        2
+      ],
+      "test_kmeans_train_fitted_ari_mean": 0.733999740840502,
+      "test_kmeans_train_fitted_ari_sample_std": 0.007439253692841402
+    }
+  ],
+  "visuals": [
+    {
+      "file": "assets/phre-vs-external-fashion.png",
+      "full_test_extent": true,
+      "no_point_removal": true,
+      "panels": [
+        "PH-Regularized Embedding (DeepTDA)",
+        "UMAP (external)"
+      ],
+      "rows": 10000,
+      "seed": 0,
+      "sha256": "31674d366dd1e7be96b7777696d7b2143556281a2e3075a19c8822b6de47884b"
+    },
+    {
+      "file": "assets/phre-vs-external-har.png",
+      "full_test_extent": true,
+      "no_point_removal": true,
+      "panels": [
+        "PH-Regularized Embedding (DeepTDA)",
+        "UMAP (external)"
+      ],
+      "rows": 2947,
+      "seed": 0,
+      "sha256": "6e743e69013a1852100f3594b6736a227870714220f5bbc8a9af93269c3ef5e4"
+    },
+    {
+      "file": "assets/phre-vs-external-coil.png",
+      "full_test_extent": true,
+      "no_point_removal": true,
+      "panels": [
+        "PH-Regularized Embedding (DeepTDA)",
+        "UMAP (external)",
+        "TopoAE++ (author core adapter)"
+      ],
+      "rows": 480,
+      "seed": 0,
+      "sha256": "ba3f65a6d559cb03312efba73ba119534b361eae0b8185ceff7b77abb6f4ffce"
+    }
+  ],
+  "working_name": "PH-Regularized Embedding"
+}

@@ -108,3 +108,14 @@ adapters, not the selected manuscript pictures or an untouched ParaView run.
 No external datasets, author implementation trees, trained models or point
 coordinates are included. The TTK acknowledgment and dataset cautions above
 continue to apply to these generated materials.
+
+## PH-Regularized Embedding versus author baselines
+
+`assets/phre-vs-external-{fashion,har,coil}.png` are derived full-TEST plots
+from separately fitted project `DeepTDA` (nonzero sampled PH training weights)
+and external UMAP; the COIL panel additionally uses the original upstream
+TopoAE++ model/loss through a separately written CPU/no-CGAL driver. That
+adapter is not the author's untouched launcher or best-of-ten publication
+figure. Upstream TopoAE++/TTK code and all original dataset rows, labels,
+coordinate arrays, checkpoints and trained models stay outside this repository.
+The upstream TTK attribution and independent data licenses stated above apply.
