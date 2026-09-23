@@ -165,6 +165,109 @@ class DeepTDA:
         self.report_["timings"] = getattr(self, "timings_", {})
         return self
 
+    def fit_with_topology_guidance(self, X, *, cycles, birth_radius, survival_radius,
+                                   source_scale=1.0, h0_tolerance=0.05,
+                                   strategy='single', limits=None,
+                                   teacher_limits=None, filling_limits=None,
+                                   h1_limits=None):
+        """Opt-in, fail-closed source-witness-guided fit of THIS PH-trained MLP.
+
+        ``cycles`` and radii must be selected from the source without labels or
+        target access. Source PH proposal with external Ripser, if required,
+        must be performed separately with explicit user consent. Supported
+        topology is one simple source cycle or a subdivided-K4 family; this is
+        not generic topology preservation. An accepted TRAIN certificate
+        NEVER applies automatically to transform/new vertices.
+
+        On failure this estimator remains unchanged (including if it was
+        previously fitted), and no partial embedding is returned. Resource
+        exhaustion is an error, not a partial certificate. The original
+        ordinary ``fit`` and legacy checkpoints retain their behavior.
+        """
+        from ._ph_guided_training import (GuidedLimits, GuidedTrainingUnresolved,
+                                          guide_existing_model, _limits, _primitive)
+        from ._ph_guided_source import TeacherLimits, _check_limits as _check_teacher_limits
+        from ._ph_guided_filling import FillingLimits, _limits as _check_filling_limits
+        from .structural_sparse_h1 import (H1Limits, ResourceLimitError,
+                                           _check_limits as _check_h1_limits)
+        from .evaluation import evaluate_embedding
+        if strategy not in ('single', 'subdivided_k4'):
+            raise ValueError('unsupported source topology strategy')
+        plan = GuidedLimits() if limits is None else limits
+        source_limits = TeacherLimits() if teacher_limits is None else teacher_limits
+        obstruction_limits = FillingLimits() if filling_limits is None else filling_limits
+        topological_limits = H1Limits() if h1_limits is None else h1_limits
+        _limits(plan)
+        _check_teacher_limits(source_limits)
+        _check_filling_limits(obstruction_limits)
+        _check_h1_limits(topological_limits)
+        # Fail BEFORE native PH fit or materializing an unbounded generator.
+        # This opt-in mode requires ordinary ndarray metadata for hard shape
+        # and temporary distance-workspace preflight; ordinary fit remains
+        # permissive and unchanged.
+        if type(X) is not np.ndarray or X.ndim != 2 or X.dtype.kind not in 'iuf':
+            raise ValueError('guided X must be an ordinary real numeric ndarray')
+        n,d = X.shape
+        if n > plan.max_vertices or 3*n*n*d*8 > plan.max_feature_workspace_bytes or n > source_limits.max_vertices or n > obstruction_limits.max_vertices or n > topological_limits.max_vertices:
+            raise ResourceLimitError('guided source vertex/feature-workspace budget exceeded before fit')
+        expected = 1 if strategy == 'single' else 3
+        family = []
+        try:
+            for index, chain in enumerate(cycles):
+                if index >= expected:
+                    raise ResourceLimitError('guided source witness family exceeds supported size')
+                edges = []
+                for j, edge in enumerate(chain):
+                    if j >= n:
+                        raise ResourceLimitError('guided source cycle exceeds vertex/edge budget')
+                    edges.append(tuple(edge))
+                family.append(tuple(edges))
+        except ResourceLimitError:
+            raise
+        except (TypeError, ValueError) as exc:
+            raise ValueError('cycles must be a finite family of edge lists') from exc
+        if len(family) != expected:
+            raise ValueError('guided strategy requires exactly %d source cycle(s)' % expected)
+        family = tuple(family)
+        # A candidate owns every temporary parameter/tensor and report.
+        # Publishing its state is the final atomic act, AFTER verification.
+        start = time.perf_counter()
+        candidate = type(self)(self.config.to_dict())
+        candidate.fit(X)
+        with _torch_context(candidate.config.seed, candidate.config.num_threads, candidate.config.device):
+            guide_existing_model(candidate, cycles=family, birth_radius=birth_radius,
+                                 survival_radius=survival_radius, source_scale=source_scale,
+                                 h0_tolerance=h0_tolerance, strategy=strategy, limits=plan,
+                                 teacher_limits=source_limits, filling_limits=obstruction_limits,
+                                 h1_limits=topological_limits)
+        # The stored float32 output must be EXACTLY what public transform
+        # returns for the same training rows. It is the representation whose
+        # float64 source-unit conversion received the independent certificate.
+        query = candidate.transform(X)
+        if not np.array_equal(query, candidate.embedding_):
+            error = float(np.max(np.abs(query.astype(np.float64)-candidate.embedding_)))
+            raise GuidedTrainingUnresolved('stored TRAIN layout differs from transform',
+                                            {'stage':'transform_parity','maximum_absolute_error':error})
+        # The initial fit's sampled geometry/PH report describes OLD coordinates.
+        # Recompute its ordinary diagnostics after guided training; the separate
+        # all-TRAIN selected-family certificate is in guided_training.
+        candidate.report_.update(evaluate_embedding(candidate.reference_, candidate.embedding_,
+            topology_size=min(candidate.config.evaluation_size, len(candidate.reference_)),
+            seed=candidate.config.seed + 991, k=candidate.config.n_neighbors,
+            budgets=candidate.config.evaluation_budgets()))
+        candidate.report_['status'] = 'guided_certified_train'
+        candidate.report_['claims'] = ('Independent selected same-ID H0/H1 certificate on all supplied TRAIN rows; '
+                                      'not all H1, generic clustering, or new-query topology.')
+        candidate.report_['history_scope'] = ('native PH training history precedes source-only teacher, '
+                                              'full-domain contact and F2 guidance phases')
+        candidate.fit_seconds_ = time.perf_counter() - start
+        candidate.report_['fit_seconds'] = candidate.fit_seconds_
+        candidate.report_['guided_training'] = _primitive(candidate.report_['guided_training'])
+        json.dumps(candidate.report_, allow_nan=False)
+        self.__dict__.clear()
+        self.__dict__.update(candidate.__dict__)
+        return self
+
     def _fit(self, original, validation):
         from . import topology, losses
         from .evaluation import evaluate_embedding

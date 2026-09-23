@@ -1,0 +1,181 @@
+{
+  "author_baseline": "Unchanged original TopoAE++ model/loss via independent CPU/no-CGAL LibTorch adapter; fixed seed0 1000 updates, not author best-of-ten",
+  "data_scope": "Original pinned author K4 and COIL20-1 source clouds; no raw data or embedding rows distributed",
+  "dataset_identity_note": "K4 = synthetic author source 300x3, not cows; COIL20-1 = original real grayscale views of ONE rotating object 72x1024, no 20-class clustering or unseen query result.",
+  "figures_note": "all supplied TRAIN points, source-\u0393 sample-ID edges overlaid unsmoothed, colors original row index not labels or verified physical angle",
+  "known_limits": [
+    "K4 automatic source-family on one additional fixed .01-Gaussian nearby cohort certified rank3/H0 .04898; second preregistered cohort had source family but source teacher unsupported, no model fit; not a general robustness guarantee.",
+    "No cattle activity/semantic clustering, PH-on/off causal attribution or OOS structural validation.",
+    "Construction returns no embedding on unsupported source graph or resource exhaustion. This is a bounded conditional training path, not an exact DataRefiner implementation."
+  ],
+  "method": "the PH-trained DeepTDA estimator fit_with_topology_guidance; not the graph-only auxiliary",
+  "privacy": "Only reviewed scalar aggregates, original code and rendered figures; no training features, models, row IDs/cycles or raw logs.",
+  "protocol_note": "Bounded source-only external Ripser proposal separately from Torch, full-domain source/teacher and final target H0/selected H1 verification; model output frozen before external comparison metrics.",
+  "renderer": "benchmarks/render_ph_guided.py; takes external input matrices/checkpoints/witnesses and never downloads upstream data",
+  "results": [
+    {
+      "caveats": [
+        "all rows fitted; no unseen population topology guarantee",
+        "UMAP/TopoAE++ output units differ; target bar counts do not certify original-ID cycle survival",
+        "neighbor/trust differences are not classification or proof of universal optimizer superiority"
+      ],
+      "dataset": "K4",
+      "figure": {
+        "all_rows": true,
+        "file": "assets/ph-guided-k4.png",
+        "full_extent": true,
+        "method_order": [
+          "PH-Regularized Embedding (DeepTDA)",
+          "UMAP genuine",
+          "TopoAE++ adapted author core"
+        ],
+        "seed": 0,
+        "sha256": "093f0fb872c0b6d5917c39a5faf3e4b94e2850a4bd77b00b0f4f3f8ba58e67f6"
+      },
+      "guided_training_final_stage": {
+        "accepted": true,
+        "h0_error": 0.046039490315523526,
+        "h1_certified": true,
+        "selected_rank": 3,
+        "stage": "h0_contacts",
+        "step": 2000
+      },
+      "h0_tolerance": 0.05,
+      "methods": {
+        "PHRE source-guided (same MLP)": {
+          "neighbor_overlap15": 0.8213333333333335,
+          "normalized_H1_lifetimes_top3": [
+            0.3840960917699176,
+            0.3564055990631522,
+            0.3025125353736761
+          ],
+          "trustworthiness15": 0.9855282791817088
+        },
+        "TopoAE++ author CPU": {
+          "neighbor_overlap15": 0.8557777777777779,
+          "normalized_H1_lifetimes_top3": [
+            0.5374420605034996,
+            0.4383517852080101,
+            0.2672029454825293
+          ],
+          "trustworthiness15": 0.9863706377858003
+        },
+        "UMAP": {
+          "neighbor_overlap15": 0.8677777777777778,
+          "normalized_H1_lifetimes_top3": [
+            0.007920816210588672,
+            0.005913630213305922,
+            0.0006168697059266184
+          ],
+          "trustworthiness15": 0.9957817890092259
+        }
+      },
+      "same_source_identity": true,
+      "source_cycle_edge_counts": [
+        98,
+        97,
+        129
+      ],
+      "source_cycles": 3,
+      "source_features": 3,
+      "source_file_sha256": "81538f7c6a3365d7a7de337d366ac9de47cb095394b066ff09935df4e25c84cf",
+      "source_interval": [
+        0.23680398464202881,
+        0.5310013934969902
+      ],
+      "source_rows": 300,
+      "source_witness_proposal": "three longest external Ripser bars; original-ID source-independent F2",
+      "topology_strategy": "subdivided_k4",
+      "trained_h0_max_merge_error": 0.046039532844581316,
+      "trained_phre_fit_seconds": 91.609119875,
+      "trained_selected_rank": 3
+    },
+    {
+      "caveats": [
+        "all rows fitted; no unseen population topology guarantee",
+        "UMAP/TopoAE++ output units differ; target bar counts do not certify original-ID cycle survival",
+        "neighbor/trust differences are not classification or proof of universal optimizer superiority"
+      ],
+      "dataset": "COIL20-1",
+      "figure": {
+        "all_rows": true,
+        "file": "assets/ph-guided-coil72.png",
+        "full_extent": true,
+        "method_order": [
+          "PH-Regularized Embedding (DeepTDA)",
+          "UMAP genuine",
+          "TopoAE++ adapted author core"
+        ],
+        "seed": 0,
+        "sha256": "4fa1f34a6c8aa405d78d3d71c6722bbc0fd353c84a1341aa026ace4ac0d2f681"
+      },
+      "guided_training_final_stage": {
+        "accepted": true,
+        "h0_error": 0.045878292867392645,
+        "h1_certified": true,
+        "selected_rank": 1,
+        "stage": "h0_contacts",
+        "step": 50
+      },
+      "h0_tolerance": 0.05,
+      "methods": {
+        "PHRE source-guided (same MLP)": {
+          "neighbor_overlap15": 0.8157407407407408,
+          "normalized_H1_lifetimes_top3": [
+            1.1250187993650989
+          ],
+          "source_row_order_neighbor2_recall": 1.0,
+          "trustworthiness15": 0.9737528344671201
+        },
+        "TopoAE++ author CPU": {
+          "neighbor_overlap15": 0.8398148148148148,
+          "normalized_H1_lifetimes_top3": [
+            0.2872650886658335,
+            0.27729435280224224,
+            0.016996199640054884
+          ],
+          "source_row_order_neighbor2_recall": 0.9722222222222222,
+          "trustworthiness15": 0.9687263794406652
+        },
+        "UMAP": {
+          "neighbor_overlap15": 0.8481481481481483,
+          "normalized_H1_lifetimes_top3": [
+            0.4727132012270455,
+            0.02771780195933805,
+            0.014396027218493533
+          ],
+          "source_row_order_neighbor2_recall": 0.8611111111111112,
+          "trustworthiness15": 0.9813303099017385
+        }
+      },
+      "same_source_identity": true,
+      "source_cycle_edge_counts": [
+        72
+      ],
+      "source_cycles": 1,
+      "source_features": 1024,
+      "source_file_sha256": "95007ea34028e71c9651389b55b4f89575796ab6200eab9d2c63d1e9484d2281",
+      "source_interval": [
+        0.37960476875305177,
+        0.6544944822788239
+      ],
+      "source_rows": 72,
+      "source_witness_proposal": "single longest external Ripser bar; original-ID source F2",
+      "topology_strategy": "single",
+      "trained_h0_max_merge_error": 0.04587829811593083,
+      "trained_phre_fit_seconds": 9.050547,
+      "trained_selected_rank": 1
+    }
+  ],
+  "schema": "ph-guided-selected-TRAIN-cycles-v1",
+  "source_proposal_caveat": "External Ripser/Ripser.py source-only bar ordering and endpoint proposal is trusted, not independently verified as the global three longest; the selected source chains and same-ID target obligations ARE independently checked. Explicit consent and separate OS process advised; external solver internal resources exceed local logical budgets.",
+  "status": "completed_conditional_opt_in",
+  "training_contract": {
+    "authentication": "saved actual DeepTDA MLP, safe weights-only checkpoint loading on local Python3.9/Torch2.7 and Python3.13/Torch2.14; model/data files not distributed",
+    "baseline": "DeepTDA 2D parametric, mode=geometry, standardize=False, missing_indicators=False, seed0, native sampled H0/H1 nonzero weights, 200 Adam updates, h1_size64; K4 h0_size128, COIL20-1 h0_size72",
+    "continuation": "up to 5000 fullbatch teacher-fit Adam updates at baseline learning_rate, then up to 2000 source all-pair H0 contact updates; if needed, at most 300 further updates using monotone full-domain F2 filling cuts and source \u0393 birth constraints; stop at first independently certified TRAIN iterate",
+    "no_target_test_labels_or_selection": true,
+    "source_teacher": "separately label-free Ripser source class proposal, exact complete-source F2 certificate, supported planar K4-subdivision or one simple cycle, source H0 contact repair; no generator-specific blocks"
+  },
+  "umap_baseline": "genuine umap-learn seed0 on same source input, not matched training compute or output distance scale"
+}

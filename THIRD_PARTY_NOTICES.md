@@ -119,3 +119,34 @@ adapter is not the author's untouched launcher or best-of-ten publication
 figure. Upstream TopoAE++/TTK code and all original dataset rows, labels,
 coordinate arrays, checkpoints and trained models stay outside this repository.
 The upstream TTK attribution and independent data licenses stated above apply.
+
+## Bounded PH-guided source-cycle illustrations
+
+`assets/ph-guided-k4.png` and `assets/ph-guided-coil72.png` are original
+all-row renderings derived from separately obtained K4 and COIL20-1 source
+clouds in the Topological Autoencoders++ author repository. The left panel is
+this project's actual PH-trained `DeepTDA` with an explicitly selected SOURCE
+cycle-family contract and independent complete supplied-TRAIN H0/H1 checks;
+it is not a DataRefiner run or a full/new-query topology theorem. UMAP panels
+use the genuine external library; the TopoAE++ panels come from the unchanged
+external author's model/loss through an independent fixed-seed CPU adapter, not
+an untouched paper launcher or a best-of-ten selected result. All externally
+provided source arrays, point coordinates, model weights, and upstream code
+remain excluded from this repository. Cite the TopoAE++ authors and TTK;
+source data and author code retain their own rights. The TTK acknowledgment
+above applies to these author-core-derived comparison figures.
+
+## Optional source-witness-guided PH training
+
+The optional `DeepTDA.fit_with_topology_guidance` pathway uses original source
+witnesses, independently checked all-supplied-row H0 and F2 H1, and classical
+minimum spanning trees, planar graph embeddings, and constrained optimization.
+Its implementation is independent and conditional; a passed TRAIN certificate
+is not a guarantee for added vertices or all persistent classes. Optional
+source witness proposals use Ulrich Bauer's Ripser via Ripser.py (Christopher
+Tralie, Nathaniel Saul and Rann Bar-On, JOSS 2018) only on explicit request;
+this third-party solver is not bundled and its internal resource use is not
+covered by our bounded reduction checks. Run the external source proposal in
+a separate process from PyTorch training when optional JIT dependencies are
+installed. The K4/COIL20-1 derived figures retain TTK/TopoAE++ and source-data
+rights as described in the preceding notice.

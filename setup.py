@@ -4,7 +4,7 @@ from pybind11.setup_helpers import Pybind11Extension, build_ext
 setup(
     name="open-deep-tda",
     version="0.3.0",
-    description="Graph and parametric dimensionality reduction with explicit structural certificates",
+    description="Independent PH-regularized dimensionality reduction with bounded structural checks",
     long_description=open("README.md", encoding="utf-8").read(),
     long_description_content_type="text/markdown",
     license="MIT",
