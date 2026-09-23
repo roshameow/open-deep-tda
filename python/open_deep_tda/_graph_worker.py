@@ -23,6 +23,14 @@ from scipy import sparse
 from scipy.spatial.distance import cdist
 from scipy.sparse.csgraph import connected_components
 from scipy.sparse.linalg import eigsh
+import importlib.util
+
+# This module is also loaded by file in Torch-free benchmark processes. Load
+# its pure-NumPy sibling explicitly rather than importing a package initializer.
+_affinity_spec = importlib.util.spec_from_file_location(
+    '_open_deep_tda_graph_affinity', Path(__file__).with_name('_graph_affinity.py'))
+_affinity_module = importlib.util.module_from_spec(_affinity_spec)
+_affinity_spec.loader.exec_module(_affinity_module)
 
 def knn(Q,X,k,self_ids=None):
     ids=np.empty((len(Q),k),dtype=np.int64); dist=np.empty((len(Q),k))
@@ -36,14 +44,7 @@ def knn(Q,X,k,self_ids=None):
     return ids,dist
 
 def weights(d):
-    target=np.log2(d.shape[1]); rho=np.min(np.where(d>0,d,np.inf),axis=1);rho[~np.isfinite(rho)]=0
-    gap=np.maximum(d-rho[:,None],0); lo=np.zeros(len(d)); hi=np.maximum(d.max(axis=1),1e-12)
-    saturated=(gap==0).sum(axis=1)>=target
-    for _ in range(64):
-        mid=(lo+hi)/2; mass=np.exp(-gap/mid[:,None]).sum(axis=1)
-        lo=np.where(mass<target,mid,lo);hi=np.where(mass>=target,mid,hi)
-    w=np.exp(-gap/hi[:,None]);w[saturated]=(gap[saturated]==0)
-    return w
+    return _affinity_module.weights(d)
 
 def graph(X):
     ids,d=knn(X,X,15,np.arange(len(X)));w=weights(d)

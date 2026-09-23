@@ -10,6 +10,8 @@ from pathlib import Path
 import numpy as np
 from sklearn.datasets import load_digits
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.cluster import KMeans
+from sklearn.metrics import adjusted_rand_score, normalized_mutual_info_score
 
 from open_deep_tda import GraphEmbedding
 
@@ -32,10 +34,22 @@ def main():
     Y = model.transform(data.data[test])
     # Post-fit labels only; never passed to the reducer or query objective.
     predicted = KNeighborsClassifier(n_neighbors=15).fit(Z, data.target[train]).predict(Y)
+    # Classification can remain high when a class is split across distant
+    # islands. Keep a separate, label-informed-K post-fit clustering diagnostic;
+    # neither is a substitute for inspecting the complete scatter/contingency.
+    clusters = KMeans(n_clusters=10, n_init=20, random_state=0).fit(Z)
+    query_clusters = clusters.predict(Y)
+    contingency = np.zeros((10, 10), dtype=int)
+    np.add.at(contingency, (data.target[train], clusters.labels_), 1)
     report = dict(dataset='real sklearn Digits',train_rows=len(train),test_rows=len(test),
-        accuracy=float(np.mean(predicted == data.target[test])),
+        postfit_15nn_accuracy=float(np.mean(predicted == data.target[test])),
+        postfit_train_kmeans10_ari=float(adjusted_rand_score(data.target[train], clusters.labels_)),
+        postfit_query_kmeans10_ari=float(adjusted_rand_score(data.target[test], query_clusters)),
+        postfit_query_kmeans10_nmi=float(normalized_mutual_info_score(data.target[test], query_clusters)),
+        train_class_by_cluster=contingency.tolist(),
         nonconverged_queries=model.transform_diagnostics_['nonconverged'],
-        scope='one fixed illustrative split/seed; no topology or superiority claim')
+        scope='fixed illustrative split/seed; classification is NOT clustering acceptance; '
+              'K=10 is dataset-informed evaluation only; no topology/superiority claim')
     (args.output / 'summary.json').write_text(json.dumps(report, indent=2)+'\n')
     if args.save_model:
         model.save(args.output / 'predictor.npz')

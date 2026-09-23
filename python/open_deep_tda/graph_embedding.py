@@ -25,6 +25,7 @@ from scipy.optimize import minimize
 from scipy.spatial.distance import cdist
 
 from .neighbors import build_neighbor_graph
+from ._graph_affinity import weights as _stable_graph_weights
 from ._graph_mapping import CompactMap
 
 OPTIONS = dict(maxiter=100, maxls=30, ftol=1e-12, gtol=1e-8)
@@ -72,16 +73,8 @@ def _matrix(value, name, *, width=None, max_rows=None, max_entries=None, empty=F
 
 
 def _weights(d):
-    target = np.log2(d.shape[1])
-    rho = np.min(np.where(d>0,d,np.inf),axis=1); rho[~np.isfinite(rho)] = 0
-    gap = np.maximum(d-rho[:,None],0)
-    lo = np.zeros(len(d)); hi = np.maximum(d.max(axis=1),1e-12)
-    saturated = (gap==0).sum(axis=1)>=target
-    for _ in range(64):
-        mid = (lo+hi)/2; mass = np.exp(-gap/mid[:,None]).sum(axis=1)
-        lo = np.where(mass<target,mid,lo); hi = np.where(mass>=target,mid,hi)
-    w = np.exp(-gap/hi[:,None]); w[saturated] = (gap[saturated]==0)
-    return w
+    """Shared affinity solver; numerical range repair is not a cluster-quality fix."""
+    return _stable_graph_weights(d)
 
 
 def _exact_knn(Q, X, k=15):

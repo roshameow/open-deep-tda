@@ -1,7 +1,8 @@
 """Independent graph/parametric reduction and explicit structural certificates."""
 from .config import TDAConfig
 
-__all__ = ["DeepTDA", "TDAConfig", "GraphEmbedding"]
+__all__ = ["DeepTDA", "TDAConfig", "GraphEmbedding", "PrecomputedGraphEmbedding",
+           "TranslationTangentDissimilarity"]
 __version__ = "0.3.0"
 
 
@@ -16,4 +17,12 @@ def __getattr__(name):
         from .graph_embedding import GraphEmbedding
         globals()[name] = GraphEmbedding
         return GraphEmbedding
+    if name == "PrecomputedGraphEmbedding":
+        from .precomputed_graph import PrecomputedGraphEmbedding
+        globals()[name] = PrecomputedGraphEmbedding
+        return PrecomputedGraphEmbedding
+    if name == "TranslationTangentDissimilarity":
+        from .image_dissimilarity import TranslationTangentDissimilarity
+        globals()[name] = TranslationTangentDissimilarity
+        return TranslationTangentDissimilarity
     raise AttributeError("module {!r} has no attribute {!r}".format(__name__, name))

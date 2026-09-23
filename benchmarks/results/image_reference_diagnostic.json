@@ -1,0 +1,277 @@
+{
+  "schema": "experimental-image-reference-diagnostic-v1",
+  "scope": "All1797 transductive and fixed1400/397 reusedDigits research. Not generic/OOS acceptance or a claimed optimizer win.",
+  "original_prototype_confirmations": [
+    {
+      "arm": "split_raw_graph_seed1",
+      "cohort": "fit",
+      "ari": 0.8219934774619344,
+      "nmi": 0.8837154487669611,
+      "silhouette": 0.5770674468689676
+    },
+    {
+      "arm": "split_raw_graph_seed1",
+      "cohort": "heldout397",
+      "ari": 0.8286971343232886,
+      "nmi": 0.8901450812219907,
+      "silhouette": 0.5776328116480913
+    },
+    {
+      "arm": "split_raw_graph_seed1",
+      "cohort": "combined1797_inductive",
+      "ari": 0.8234793868224848,
+      "nmi": 0.8833245348421083,
+      "silhouette": 0.5778712176492723
+    },
+    {
+      "arm": "split_raw_umap_seed1",
+      "cohort": "fit",
+      "ari": 0.7612761347913326,
+      "nmi": 0.8624559145921313,
+      "silhouette": 0.5972684621810913
+    },
+    {
+      "arm": "split_raw_umap_seed1",
+      "cohort": "heldout397",
+      "ari": 0.7661281057795716,
+      "nmi": 0.8617046245045302,
+      "silhouette": 0.5850306153297424
+    },
+    {
+      "arm": "split_raw_umap_seed1",
+      "cohort": "combined1797_inductive",
+      "ari": 0.762034122039725,
+      "nmi": 0.8601358288859045,
+      "silhouette": 0.5951311588287354
+    },
+    {
+      "arm": "split_tangent_graph_seed1",
+      "cohort": "fit",
+      "ari": 0.7943617049080779,
+      "nmi": 0.8944908144989053,
+      "silhouette": 0.6053361958552594
+    },
+    {
+      "arm": "split_tangent_graph_seed1",
+      "cohort": "heldout397",
+      "ari": 0.8008040198651266,
+      "nmi": 0.8879355318253077,
+      "silhouette": 0.6024746358316498
+    },
+    {
+      "arm": "split_tangent_graph_seed1",
+      "cohort": "combined1797_inductive",
+      "ari": 0.7960749948087689,
+      "nmi": 0.892203547391408,
+      "silhouette": 0.6051066470088496
+    },
+    {
+      "arm": "split_tangent_umap_seed1",
+      "cohort": "fit",
+      "ari": 0.8335017802738155,
+      "nmi": 0.8926122977880668,
+      "silhouette": 0.6329476237297058
+    },
+    {
+      "arm": "split_tangent_umap_seed1",
+      "cohort": "heldout397",
+      "ari": 0.8315596615750744,
+      "nmi": 0.8891345956524908,
+      "silhouette": 0.6105499863624573
+    },
+    {
+      "arm": "split_tangent_umap_seed1",
+      "cohort": "combined1797_inductive",
+      "ari": 0.8393156865331649,
+      "nmi": 0.8949919641959112,
+      "silhouette": 0.628287136554718
+    },
+    {
+      "arm": "split_raw_graph_seed2",
+      "cohort": "fit",
+      "ari": 0.8199421548494521,
+      "nmi": 0.8822131258245804,
+      "silhouette": 0.5832456271621204
+    },
+    {
+      "arm": "split_raw_graph_seed2",
+      "cohort": "heldout397",
+      "ari": 0.8170375027549245,
+      "nmi": 0.8764902652034732,
+      "silhouette": 0.5822383112828844
+    },
+    {
+      "arm": "split_raw_graph_seed2",
+      "cohort": "combined1797_inductive",
+      "ari": 0.8188645066629999,
+      "nmi": 0.8790697687848607,
+      "silhouette": 0.5834635431295225
+    },
+    {
+      "arm": "split_raw_umap_seed2",
+      "cohort": "fit",
+      "ari": 0.835874097298052,
+      "nmi": 0.8926474297024766,
+      "silhouette": 0.6106998920440674
+    },
+    {
+      "arm": "split_raw_umap_seed2",
+      "cohort": "heldout397",
+      "ari": 0.8254037197224806,
+      "nmi": 0.8877824535528467,
+      "silhouette": 0.5962120294570923
+    },
+    {
+      "arm": "split_raw_umap_seed2",
+      "cohort": "combined1797_inductive",
+      "ari": 0.8333266583581498,
+      "nmi": 0.8896710944896198,
+      "silhouette": 0.60800701379776
+    },
+    {
+      "arm": "split_tangent_graph_seed2",
+      "cohort": "fit",
+      "ari": 0.8295142332226384,
+      "nmi": 0.8892051541906133,
+      "silhouette": 0.6009998241982991
+    },
+    {
+      "arm": "split_tangent_graph_seed2",
+      "cohort": "heldout397",
+      "ari": 0.8634005406453567,
+      "nmi": 0.9027284596038382,
+      "silhouette": 0.6025462093301373
+    },
+    {
+      "arm": "split_tangent_graph_seed2",
+      "cohort": "combined1797_inductive",
+      "ari": 0.8303078349993137,
+      "nmi": 0.8884541004802309,
+      "silhouette": 0.6015796322340774
+    },
+    {
+      "arm": "split_tangent_umap_seed2",
+      "cohort": "fit",
+      "ari": 0.7980097865307162,
+      "nmi": 0.8986582208687195,
+      "silhouette": 0.6340026259422302
+    },
+    {
+      "arm": "split_tangent_umap_seed2",
+      "cohort": "heldout397",
+      "ari": 0.8192799748580981,
+      "nmi": 0.8773139776261099,
+      "silhouette": 0.6122580766677856
+    },
+    {
+      "arm": "split_tangent_umap_seed2",
+      "cohort": "combined1797_inductive",
+      "ari": 0.797717380276438,
+      "nmi": 0.895944278405263,
+      "silhouette": 0.6295631527900696
+    },
+    {
+      "arm": "transductive_raw_graph_seed1",
+      "cohort": "fit",
+      "ari": 0.7719314317886182,
+      "nmi": 0.868940055424076,
+      "silhouette": 0.5863577402334108
+    },
+    {
+      "arm": "transductive_raw_umap_seed1",
+      "cohort": "fit",
+      "ari": 0.8235013811489694,
+      "nmi": 0.9061905126192514,
+      "silhouette": 0.6384108662605286
+    },
+    {
+      "arm": "transductive_tangent_graph_seed1",
+      "cohort": "fit",
+      "ari": 0.911341269168825,
+      "nmi": 0.930725319931818,
+      "silhouette": 0.6480330186398625
+    },
+    {
+      "arm": "transductive_tangent_umap_seed1",
+      "cohort": "fit",
+      "ari": 0.9147767402943927,
+      "nmi": 0.936714032357965,
+      "silhouette": 0.6677072048187256
+    },
+    {
+      "arm": "transductive_raw_graph_seed2",
+      "cohort": "fit",
+      "ari": 0.8149299148376834,
+      "nmi": 0.8872401862166255,
+      "silhouette": 0.589866864333841
+    },
+    {
+      "arm": "transductive_raw_umap_seed2",
+      "cohort": "fit",
+      "ari": 0.822006629565743,
+      "nmi": 0.9045160973652843,
+      "silhouette": 0.6286379098892212
+    },
+    {
+      "arm": "transductive_tangent_graph_seed2",
+      "cohort": "fit",
+      "ari": 0.8330407894596437,
+      "nmi": 0.919516116946153,
+      "silhouette": 0.6245578924718432
+    },
+    {
+      "arm": "transductive_tangent_umap_seed2",
+      "cohort": "fit",
+      "ari": 0.9013802548849212,
+      "nmi": 0.9285565802559447,
+      "silhouette": 0.647510826587677
+    }
+  ],
+  "prototype_scope": "Frozen original approximate-QP implementation, seeds1/2 after seed0 development. Ordinary distances independently checked but later numerical guards/direct-residual implementation can change nonlinear trajectories. Do not carry these as new public API quality scores.",
+  "public_api_seed0": {
+    "rows": 1797,
+    "cohort": "transductive all rows",
+    "raw_pixels": true,
+    "seed": 0,
+    "methods": {
+      "raw_graph": {
+        "ari": 0.8218548877593791,
+        "nmi": 0.904567194543543,
+        "silhouette": 0.6130173983425579,
+        "fit_seconds": 2.2209237920000007
+      },
+      "raw_umap": {
+        "ari": 0.8218941943687731,
+        "nmi": 0.9057295226443567,
+        "silhouette": 0.6149242520332336,
+        "fit_seconds": 3.770794792000004
+      },
+      "tangent_graph": {
+        "ari": 0.8477803378427367,
+        "nmi": 0.9181011498986436,
+        "silhouette": 0.6728381254983188,
+        "fit_seconds": 2.2135247080000013
+      },
+      "tangent_umap": {
+        "ari": 0.9043167281490886,
+        "nmi": 0.9292077681881477,
+        "silhouette": 0.6470625996589661,
+        "fit_seconds": 1.753183583000002
+      }
+    }
+  },
+  "limitations": [
+    "Both Graph and authorUMAP receive identical reference values within each arm; graph kernels differ.",
+    "Changing to tangent changes source neighbor identities and PH; no raw-PH preservation claim.",
+    "Fixed-split ARI/held-out outcomes mixed; same-label fragmentation remains.",
+    "Symmetric tangent dissimilarity can violate triangle inequality and is only a local first-order translation prior.",
+    "No classification probe used as clustering acceptance; labels only score/plot completed fits.",
+    "Public seed0 is an illustrative integration run, not independent confirmation or best-seed selection."
+  ],
+  "numerical_repair": {
+    "independent_qps": 1536,
+    "max_squared_cost_discrepancy": 1.82e-12,
+    "full1797_distance_max_difference": 2.842170943040401e-14,
+    "scope": "Numerical agreement at Digits scale; not a cluster-quality certificate. Stable direct-J residual solver replaces cancellation-prone normal-equation cost."
+  }
+}

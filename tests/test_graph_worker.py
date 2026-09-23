@@ -18,7 +18,7 @@ from scipy.sparse.csgraph import connected_components
 from scipy.sparse.linalg import eigsh
 from scipy.spatial.distance import cdist
 
-from open_deep_tda import graph_embedding
+from open_deep_tda import graph_embedding, _graph_affinity
 from open_deep_tda.graph_embedding import GraphEmbedding
 
 
@@ -37,6 +37,7 @@ def extract_function(name):
         connected_components=connected_components,
         eigsh=eigsh,
         cdist=cdist,
+        _affinity_module=_graph_affinity,
     )
     exec(
         compile(ast.Module(body=[node], type_ignores=[]), str(WORKER), "exec"),

@@ -90,3 +90,21 @@ The bounded structural verification and repair prototypes use standard F₂ homo
 - `assets/graph-core-*.png` and `assets/global-coil-structure.png` are derived
   embedding visualizations, not raw datasets or trained models. The dataset
   attributions and redistribution cautions above remain applicable.
+
+## Experimental image references and direct visual controls
+
+The bounded translation-tangent dissimilarity uses the classical tangent-distance
+idea (Simard, LeCun and Denker, *Efficient Pattern Recognition Using a New
+Transformation Distance*, 1993). The guarded symmetric first-order construction
+here is independent code, not their implementation or an exact transformation
+invariance claim. Its two-direction residual average need not satisfy triangle
+inequality. The precomputed graph adapter uses this project's existing graph and
+query kernels, not copied UMAP source.
+
+`assets/digits-image-geometry.png` is a derived visualization of sklearn's bundled
+Digits. `assets/visual-contracts-*.png` are generated comparisons on full external
+research inputs. The TopoAE++ columns are explicitly labeled standalone author
+adapters, not the selected manuscript pictures or an untouched ParaView run.
+No external datasets, author implementation trees, trained models or point
+coordinates are included. The TTK acknowledgment and dataset cautions above
+continue to apply to these generated materials.

@@ -11,7 +11,15 @@
 > [!IMPORTANT]
 > 这是受公开 Deep-TDA 思路启发的独立实验实现，**不是** DataRefiner 官方或数值等价复现，也不宣称达到 SOTA。TopoAE 与 TopoAE++ 是各自论文作者的独立项目，只作为外部参考/基线。
 
-## 新主干：真实数据确认（main 未发布开发版）
+## 当前验收状态：尚未证明聚类布局可用
+
+15-NN 分类或局部邻居指标很高，**不能证明聚类图达标**。查询映射还使用原始特征空间的邻居检索；分类探针测的是整条检索／映射／分类链路，不是二维空间自行发现簇。下方历史准确率不能当作聚类验收结论。
+
+现在补齐了[同数据的作者视觉对照](benchmarks/visual_contracts/README.md)，包含原始散点、失败和同源环检查。K4 上，固定运行的作者 TopoAE++ 适配器保留三个显著条带，我们当前只有一个，尽管局部邻居分数更高。这是实际结构缺陷。匹配的 Digits 对照中，双方都会把同一数字拆成岛，但不能因此为我们的额外混叠与不稳定辩护。新试验中的全局距离、长边吸引修正未获得稳定成功，**没有冒充新默认升级**。
+
+<p align="center"><img src="assets/visual-contracts-K4.png" alt="相同K4数据的作者适配器、我们的图方法及UMAP实际结果" width="1100"></p>
+
+## 局部邻域与分类实验（main 未发布开发版）
 
 新增 `GraphEmbedding`：**按连通分量做谱初始化 → 直接优化稀疏图的二维坐标 → 在固定 TRAIN 凸包内求解条件分布匹配，映射新样本**。不是再给旧 MLP 换一组 loss 权重。实现借鉴标准图嵌入、UMAP 和条件嵌入思想，不宣称数学创新或原厂一比一复现；旧 `DeepTDA` 保留作可复现基线。
 
@@ -36,6 +44,28 @@
 <p align="center"><img src="assets/graph-core-coil.png" alt="真实 COIL-20 对照" width="1100"></p>
 
 图主干本身**不保证 H₀/H₁ 保持**。下面的结构构造是独立、显式请求的路径，不会偷偷替换上表中的算法。
+
+## 实验性的图像参考距离选项
+
+对小型灰度图像集，可以显式使用平移切空间**差异度**，折减有限像素平移造成的差异，不使用标签，也不直接扭曲图像。它不满足一般度量的三角不等式，不是精确图像配准，更不是通用数值数据的默认设置。完整 Digits 原型中，图方法和作者 UMAP 都受益；固定训练／留出划分仍有退步。改变的是输入参考，不能把它说成优化器独有收益或原始像素 PH 得到保持。
+
+```python
+from open_deep_tda import TranslationTangentDissimilarity, PrecomputedGraphEmbedding
+
+reference = TranslationTangentDissimilarity()
+D = reference.fit_transform(images)  # 灰度 (N,H,W)，显式稠密计算预算
+reducer = PrecomputedGraphEmbedding()
+Z = reducer.fit_transform(D)
+Y = reducer.transform(reference.transform(new_images))
+```
+
+```bash
+python examples/digits_image_geometry.py --umap
+```
+
+当前公开 API 的 seed-0 全部 1,797 行集成运行，KMeans10 ARI 为：我们的图方法 **.822→.848**，作者 UMAP **.822→.904**。这是传导式示例，**不是“聚类修好了”、留出集结果，或我们优化器胜过 UMAP**。不能拿早期原型的更高数字替代当前 API；[全部混合结果与数值修复单独记录](benchmarks/results/image_reference_diagnostic.json)。默认最多 2,000 个参考图像，不承诺大数据速度或泛化。预计算图适配器要求查询距离矩阵的列与 TRAIN 身份一致，不会偷偷改算距离剖面之间的欧氏近邻，目前没有检查点持久化 API。
+
+<p align="center"><img src="assets/digits-image-geometry.png" alt="固定seed0完整Digits：两种方法在相同原始/平移切空间参考下的比较" width="1100"></p>
 
 ## 结构契约与构造式布局
 

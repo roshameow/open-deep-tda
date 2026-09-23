@@ -11,7 +11,15 @@
 > [!IMPORTANT]
 > This is an independent experimental implementation inspired by public Deep-TDA ideas. It is **not** DataRefiner's official implementation, an exact reproduction, or a state-of-the-art claim. TopoAE and TopoAE++ are separate research projects and are used only as external references/baselines.
 
-## New core: real-data confirmation (unreleased main)
+## Current acceptance status: clustering is not established
+
+High 15-NN classification or local-neighbor scores **do not establish a usable cluster layout**. The query mapper also retrieves neighbors in the original feature space; its classification probe evaluates that whole system, not autonomous 2D cluster discovery. The historical accuracy headlines below are not a clustering acceptance result.
+
+We now provide [matched author-data visual comparisons](benchmarks/visual_contracts/README.md), with raw scatters, failures and source-cycle checks. On K4, the fixed author TopoAE++ adapter retains three substantial bars while our current graph result retains one, despite our higher local-neighbor scores. This is a structural deficit. On matched Digits, both methods can split the same digit into islands; our additional merging/instability is not excused by that fact. The tested global-distance and long-edge-force alterations were not consistently successful and were **not promoted as new defaults**.
+
+<p align="center"><img src="assets/visual-contracts-K4.png" alt="Same K4 data: actual author adapter versus graph embedding and UMAP, not a classification score" width="1100"></p>
+
+## Local-neighbor and classification experiments (unreleased main)
 
 `GraphEmbedding` replaces the PCA-residual training route with **component-aware spectral initialization → direct sparse-graph coordinate SGD → fixed-layout conditional query optimization within the TRAIN convex hull**. This is an independent implementation using standard graph/UMAP and conditional-embedding ideas, **not a new weighted-loss preset or a claim of mathematical novelty**. The legacy `DeepTDA` API remains unchanged for reproducibility.
 
@@ -36,6 +44,28 @@ The table uses the default **TRAIN-hull bounded mapper** follow-up, with all ori
 <p align="center"><img src="assets/graph-core-coil.png" alt="Fixed-seed real COIL-20 comparison" width="1100"></p>
 
 The graph core itself **does not certify H₀/H₁ preservation**. A separate, explicitly requested structural construction is described below; it is not silently substituted into these benchmark results.
+
+## Experimental image-reference option
+
+For small grayscale-image sets, an explicit translation-tangent **dissimilarity** can discount limited pixel shifts without warping images or using labels. It is not a metric, exact image registration, or a generic vector-data default. Both our graph method and author UMAP benefit in the full-Digits prototype; fixed-split/held-out clustering remains mixed. This changes the input reference—not just the optimizer—and does not preserve the original pixel-space PH by implication.
+
+```python
+from open_deep_tda import TranslationTangentDissimilarity, PrecomputedGraphEmbedding
+
+reference = TranslationTangentDissimilarity()
+D = reference.fit_transform(images)  # grayscale (N,H,W), explicit dense budgets
+reducer = PrecomputedGraphEmbedding()
+Z = reducer.fit_transform(D)
+Y = reducer.transform(reference.transform(new_images))
+```
+
+```bash
+python examples/digits_image_geometry.py --umap
+```
+
+The current public seed-0 all-1,797 integration run has KMeans10 ARI **.822→.848** for our graph and **.822→.904** for author UMAP. This is an illustrative transductive result, **not “clustering fixed,” a held-out result, or our optimizer beating UMAP**. Earlier prototype seed gains must not be substituted for current API scores; all mixed results and numerical changes are [recorded separately](benchmarks/results/image_reference_diagnostic.json). The default dense domain is at most 2,000 reference images; no large-image-population speed or generalization claim is made. The graph adapter expects exact TRAIN-column identity in query distance matrices and does not silently use Euclidean distances between distance profiles. It provides no checkpoint persistence API.
+
+<p align="center"><img src="assets/digits-image-geometry.png" alt="All Digits points, fixed seed0: raw versus image-tangent references for both graph and genuine UMAP" width="1100"></p>
 
 ## Structural contracts and constructive layouts
 

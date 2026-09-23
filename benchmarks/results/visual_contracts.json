@@ -1,0 +1,4299 @@
+{
+ "schema_version": 1,
+ "scope": {
+  "kind": "bounded_public_frozen_evidence_summary",
+  "core_unchanged": true,
+  "production_defaults_changed": false,
+  "candidates_are_defaults": false,
+  "new_fits_for_publication": 0,
+  "selection": "all registered candidate outcomes in the declared diagnostic lanes; not a repository-wide benchmark census",
+  "paper_reproduction": false,
+  "privacy": "Reviewed aggregate metrics and authorized raster summaries only; no raw datasets, coordinates, models, logs, local paths or author source redistributed."
+ },
+ "sources": [
+  {
+   "id": "topoaepp",
+   "role": "Actual external author model, loss and PH; not an independent reimplementation",
+   "url": "https://github.com/MClemot/TopologicalAutoencodersPlusPlus",
+   "commit": "03f941d97305dbc045af7f595b6c5a3388808af2",
+   "paper_url": "https://arxiv.org/abs/2502.20215"
+  },
+  {
+   "id": "ttk",
+   "role": "Author dependency and acknowledgment",
+   "url": "https://topology-tool-kit.github.io/publications.html",
+   "acknowledgment": "This document includes materials generated with TTK (the Topology ToolKit) which is developed by the CNRS & Sorbonne Universite and its contributors."
+  },
+  {
+   "id": "umap",
+   "role": "Genuine umap-learn reference; distinct from TopoAE++",
+   "url": "https://github.com/lmcinnes/umap/tree/0.5.3",
+   "version": "0.5.3",
+   "paper_url": "https://arxiv.org/abs/1802.03426"
+  },
+  {
+   "id": "digits",
+   "role": "Bundled generic diagnostic dataset; not an author-paper dataset",
+   "url": "https://scikit-learn.org/1.0/modules/generated/sklearn.datasets.load_digits.html",
+   "version": "1.0.2"
+  },
+  {
+   "id": "fashion",
+   "role": "Separate TRAIN-only transfer dataset",
+   "url": "https://github.com/zalandoresearch/fashion-mnist"
+  },
+  {
+   "id": "author-compute-settings",
+   "role": "author compute settings",
+   "sha256": "333538490753ba310b6b43eb33f35df2b490f02b5ac8362baca8c14795677d8c",
+   "url": "https://github.com/MClemot/TopologicalAutoencodersPlusPlus/blob/03f941d97305dbc045af7f595b6c5a3388808af2/scripts/Compute.py"
+  },
+  {
+   "id": "author-figure-convention",
+   "role": "author figure convention",
+   "sha256": "d2e5784d3de53855df7b4bd0bc577fd2fd2063406e3b8a3a05bbad225866cd3b",
+   "url": "https://github.com/MClemot/TopologicalAutoencodersPlusPlus/blob/03f941d97305dbc045af7f595b6c5a3388808af2/scripts/Figure.py"
+  },
+  {
+   "id": "author-default-settings",
+   "role": "author default settings",
+   "sha256": "1cbeb7d28cb200cb1ec777ae6d16e4baf863b592ca292600c086cf2bf87a4002",
+   "url": "https://github.com/MClemot/TopologicalAutoencodersPlusPlus/blob/03f941d97305dbc045af7f595b6c5a3388808af2/ttk-tcdr/paraview/xmls/DimensionReduction.xml"
+  },
+  {
+   "id": "author-network",
+   "role": "author network",
+   "sha256": "fea4dcc176caa7f6b11cbec147b9664d1906928ff75dea8a28ab1076039179e6",
+   "url": "https://github.com/MClemot/TopologicalAutoencodersPlusPlus/blob/03f941d97305dbc045af7f595b6c5a3388808af2/ttk-tcdr/core/base/topologicallyConstrainedDimensionReduction/DimensionReductionModel.cpp"
+  },
+  {
+   "id": "author-loss",
+   "role": "author loss",
+   "sha256": "3713193bb142a38bad4e93687b141ecc5dcab661623ff7fe6b3a418d5f13c5d5",
+   "url": "https://github.com/MClemot/TopologicalAutoencodersPlusPlus/blob/03f941d97305dbc045af7f595b6c5a3388808af2/ttk-tcdr/core/base/topologicallyConstrainedDimensionReduction/TopologicalLoss.cpp"
+  },
+  {
+   "id": "author-training",
+   "role": "author training",
+   "sha256": "7c30f98f84582b099f9c77988f3c47a21c71972e8688b6ac94f20b415977ba92",
+   "url": "https://github.com/MClemot/TopologicalAutoencodersPlusPlus/blob/03f941d97305dbc045af7f595b6c5a3388808af2/ttk-tcdr/core/base/topologicallyConstrainedDimensionReduction/TopologicallyConstrainedDimensionReduction.cpp"
+  },
+  {
+   "id": "umap-fitting",
+   "role": "umap fitting",
+   "sha256": "bf55118ff27497c7df8bc1c6549738077ef8dba79fe40e3d87d67dd71f7c67a6",
+   "url": "https://github.com/lmcinnes/umap/blob/0.5.3/umap/umap_.py"
+  },
+  {
+   "id": "umap-optimizer",
+   "role": "umap optimizer",
+   "sha256": "6358f0830b7e31f6e537a268e7bc1b0ed334453f934f39cd624aa1e276a706fc",
+   "url": "https://github.com/lmcinnes/umap/blob/0.5.3/umap/layouts.py"
+  },
+  {
+   "id": "umap-initialization",
+   "role": "umap initialization",
+   "sha256": "d5c39e8de9c764378754f0a6d7c1c7bc0fb03e2737aafd00a898a82e0cc82a07",
+   "url": "https://github.com/lmcinnes/umap/blob/0.5.3/umap/spectral.py"
+  },
+  {
+   "id": "libtorch-adam-header",
+   "role": "Audited dependency default options",
+   "sha256": "70a806ed43b3f5244a7bf677081df48fdf6e80d02043055ada1269efbb1afcc9",
+   "version": "2.7.1"
+  },
+  {
+   "id": "libtorch-batchnorm-header",
+   "role": "Audited dependency default options",
+   "sha256": "956232fdf2f5972830d1c22df438a385b31e96383bb776740c0a21df05e86399",
+   "version": "2.7.1"
+  },
+  {
+   "id": "adapter-callsite",
+   "role": "Original adapter provenance; implementation or binary not distributed",
+   "sha256": "daed264dcdce463849b1755ac98f2aa48a42740d82f867c29bd1cbe60d852bdf"
+  },
+  {
+   "id": "adapter-wrapper",
+   "role": "Original adapter provenance; implementation or binary not distributed",
+   "sha256": "39a1a12f3d93037241502bc868b91e69dbe3865d3366fd80ce58588cd82f2c26"
+  },
+  {
+   "id": "adapter-build-recipe",
+   "role": "Original adapter provenance; implementation or binary not distributed",
+   "sha256": "05eb862ed71e95153e39b17f4e020543735c39b6c342e77a30e0076b72e1fbb2"
+  },
+  {
+   "id": "adapter-executable",
+   "role": "Original adapter provenance; implementation or binary not distributed",
+   "sha256": "9e333bb12eefae1adb5f2617f9c9e2e14ee144596592f3aabe491d1662683dc3"
+  },
+  {
+   "id": "production-graph",
+   "role": "Unchanged production baseline dependency",
+   "sha256": "ad1ce527b3838c02df303432a88589cf91fdc7ffb6a7f09016746432f7637c78"
+  },
+  {
+   "id": "production-optimizer",
+   "role": "Unchanged production baseline dependency",
+   "sha256": "d54cfb13dcdadc8320d3669a1e93e705b3fa44b2f34e9d6f8eb4eaec541f29f8"
+  },
+  {
+   "id": "production-mapper",
+   "role": "Unchanged production baseline dependency",
+   "sha256": "f376d9d58752ce77f82f5fdcfad277847062e50a5337375fb8204f6c0419c273"
+  },
+  {
+   "id": "production-neighbors",
+   "role": "Unchanged production baseline dependency",
+   "sha256": "ab86069b93a14939d8de7392c10d35e5bd62da3bb5530dd3b9cfe0a12ec3a0cd"
+  },
+  {
+   "id": "baseline-registration",
+   "role": "Frozen evidence digest; identifier only, underlying research artifact not distributed",
+   "sha256": "c37c17515c7c779b9b2e0890f50259f1067be7843dd139f2c6fffcfcb61ee840"
+  },
+  {
+   "id": "baseline-results",
+   "role": "Frozen evidence digest; identifier only, underlying research artifact not distributed",
+   "sha256": "74c8287af1bceb834180c67416273b044504db4807d9527d8e56aee125ca74fb"
+  },
+  {
+   "id": "digits-registration",
+   "role": "Frozen evidence digest; identifier only, underlying research artifact not distributed",
+   "sha256": "db32d2eb8c3dc78d44b387cd47ef363f89d0ade90b24d68f2bbcbf782325bd30"
+  },
+  {
+   "id": "digits-results",
+   "role": "Frozen evidence digest; identifier only, underlying research artifact not distributed",
+   "sha256": "b5f833eccb9a95f3fdc39f842878b5cc3b3744883f867342102cb0b437bb5bdd"
+  },
+  {
+   "id": "log-distance-registration",
+   "role": "Frozen evidence digest; identifier only, underlying research artifact not distributed",
+   "sha256": "c02fa28a1198f219f7e28c43c6ed4c7d5a5bc090e955da0ad2c147986df39c17"
+  },
+  {
+   "id": "tail-registration",
+   "role": "Frozen evidence digest; identifier only, underlying research artifact not distributed",
+   "sha256": "cbb2c6cd3f717ead8c55bb6e28a11fb1ad29e1c3a79e3410a5390355de2bd6e2"
+  },
+  {
+   "id": "tail-results",
+   "role": "Frozen evidence digest; identifier only, underlying research artifact not distributed",
+   "sha256": "480cd7c98173c81019bd3e7f6e1c15eb5f7190ea5cd03c4eaf10841ad0183717"
+  },
+  {
+   "id": "tail-h1-results",
+   "role": "Frozen evidence digest; identifier only, underlying research artifact not distributed",
+   "sha256": "99354fbdd0b536b390e4eafdcf720aac54127d97a6b4ef3a83c039cf67371016"
+  },
+  {
+   "id": "critical-edge-registration",
+   "role": "Frozen evidence digest; identifier only, underlying research artifact not distributed",
+   "sha256": "5d812d38eab7e25e75a4f699e666048671b6337996f7d4529660adea6bb24cd5"
+  },
+  {
+   "id": "critical-edge-results",
+   "role": "Frozen evidence digest; identifier only, underlying research artifact not distributed",
+   "sha256": "cc30e23b8551518ca49c36a3065661333325a199bcbfa299b718afe7ea00a15b"
+  },
+  {
+   "id": "same-cycle-contract",
+   "role": "Frozen evidence digest; identifier only, underlying research artifact not distributed",
+   "sha256": "2800110efa929c156b4a074f6756d9381f935fbf09dc404ddcd9046fec87c7a5"
+  },
+  {
+   "id": "same-cycle-results",
+   "role": "Frozen evidence digest; identifier only, underlying research artifact not distributed",
+   "sha256": "64ed3579370fb5c120893eebec947764269a6e287de3b7b90584b214978d12b4"
+  },
+  {
+   "id": "fashion-transfer-registration",
+   "role": "Frozen evidence digest; identifier only, underlying research artifact not distributed",
+   "sha256": "ed0fd19e05949a05063e7c189021b53f1a27e149617f17fcb73f63945083f4e1"
+  },
+  {
+   "id": "fashion-transfer-results",
+   "role": "Frozen evidence digest; identifier only, underlying research artifact not distributed",
+   "sha256": "195f39eca93f8c64d71c2fc4fa24324a3f554893b222adad4af8dd22cd84a62b"
+  }
+ ],
+ "datasets": [
+  {
+   "id": "3Clusters",
+   "shape": [
+    800,
+    3
+   ],
+   "source_shape": [
+    800,
+    4
+   ],
+   "source_sha256": "0763e181ec10f1c0188156efecda7a14912e2906f19f17890ea2ab5c8828c4a5",
+   "feature_array_sha256": "69157d6d748444bb21ffc3ee572cded325c5697fad7d685d2a75bb6c116d53b9",
+   "row_order_sha256": "a5c12ea608c160e7cac7f21b04d10a28f1e1c6b3448daa018f2410b69b9901b3",
+   "all_rows": true,
+   "preprocessing": "none; raw selected features",
+   "labels_used_for_fit": false,
+   "label_column": "ClusterId",
+   "excluded_columns": [
+    "ClusterId"
+   ],
+   "source_id": "topoaepp",
+   "url": "https://github.com/MClemot/TopologicalAutoencodersPlusPlus/blob/03f941d97305dbc045af7f595b6c5a3388808af2/data/3Clusters.csv",
+   "header": true,
+   "selected_columns": {
+    "names": [
+     "x",
+     "y",
+     "z"
+    ],
+    "zero_based_indices": [
+     1,
+     2,
+     3
+    ]
+   },
+   "source_h1_own_median_normalized": {
+    "status": "completed",
+    "H1_bars": 291,
+    "counts": {
+     "0.1": 0,
+     "0.25": 0,
+     "0.5": 0
+    },
+    "total_finite_lifetime": 2.5184321759734303
+   }
+  },
+  {
+   "id": "Twist",
+   "shape": [
+    100,
+    3
+   ],
+   "source_shape": [
+    100,
+    3
+   ],
+   "source_sha256": "7bdc03989481bc942496072bfaf06a867f42e5e2844e0346057c65e4c31c1801",
+   "feature_array_sha256": "5e4a0bb37be8ab1284740073cbea3aa69ca8b16eb12ecd9f33a36068bc77060d",
+   "row_order_sha256": "96bdba67cd0b5e6dc0f9e399f66b17eae627eac812d0620119e87687d789546a",
+   "all_rows": true,
+   "preprocessing": "none; raw selected features",
+   "labels_used_for_fit": false,
+   "label_column": null,
+   "excluded_columns": [],
+   "source_id": "topoaepp",
+   "url": "https://github.com/MClemot/TopologicalAutoencodersPlusPlus/blob/03f941d97305dbc045af7f595b6c5a3388808af2/data/Twist.csv",
+   "header": false,
+   "selected_columns": {
+    "names": [
+     "Field 0",
+     "Field 1",
+     "Field 2"
+    ],
+    "zero_based_indices": [
+     0,
+     1,
+     2
+    ]
+   },
+   "parsing_note": "Field names are generated by the reader; first numeric row is data, not a header.",
+   "source_h1_own_median_normalized": {
+    "status": "completed",
+    "H1_bars": 1,
+    "counts": {
+     "0.1": 1,
+     "0.25": 1,
+     "0.5": 1
+    },
+    "total_finite_lifetime": 0.7001975923776627
+   }
+  },
+  {
+   "id": "K4",
+   "shape": [
+    300,
+    3
+   ],
+   "source_shape": [
+    300,
+    3
+   ],
+   "source_sha256": "7ec67006e8077dfcf9ba0d3188aaf942693d1e623ecc96477f6f8d4b5ecbc27f",
+   "feature_array_sha256": "622ca9abd94a2362ae1cc5f3b203449848aef57c97bcf8d47205a0090d5b7e81",
+   "row_order_sha256": "98e038d3a30a991777ce2f66d2e9b9f377e44b6444635d2b5dd70d38ae78f241",
+   "all_rows": true,
+   "preprocessing": "none; raw selected features",
+   "labels_used_for_fit": false,
+   "label_column": null,
+   "excluded_columns": [],
+   "source_id": "topoaepp",
+   "url": "https://github.com/MClemot/TopologicalAutoencodersPlusPlus/blob/03f941d97305dbc045af7f595b6c5a3388808af2/data/K4.csv",
+   "header": false,
+   "selected_columns": {
+    "names": [
+     "Field 0",
+     "Field 1",
+     "Field 2"
+    ],
+    "zero_based_indices": [
+     0,
+     1,
+     2
+    ]
+   },
+   "parsing_note": "Field names are generated by the reader; first numeric row is data, not a header.",
+   "source_h1_own_median_normalized": {
+    "status": "completed",
+    "H1_bars": 34,
+    "counts": {
+     "0.1": 3,
+     "0.25": 3,
+     "0.5": 3
+    },
+    "total_finite_lifetime": 1.8803396560251713
+   }
+  },
+  {
+   "id": "COIL20-1",
+   "shape": [
+    72,
+    1024
+   ],
+   "source_shape": [
+    72,
+    1025
+   ],
+   "source_sha256": "b8232ff169ec39d6f0d816dc9ab04bda576f556fbd54ebc06a6765be40545234",
+   "feature_array_sha256": "20e4ff9d34ef825893d6ed212fc213a31a0bc9f5930d09bd041cdc16142ad5e2",
+   "row_order_sha256": "036c0836cd86cc6ae126f3bcf5c78983cf0cde99e8959b68433aad2b6fdc8763",
+   "all_rows": true,
+   "preprocessing": "none; raw selected features",
+   "labels_used_for_fit": false,
+   "label_column": null,
+   "excluded_columns": [
+    "1025"
+   ],
+   "source_id": "topoaepp",
+   "url": "https://github.com/MClemot/TopologicalAutoencodersPlusPlus/blob/03f941d97305dbc045af7f595b6c5a3388808af2/data/COIL20-1.csv",
+   "header": true,
+   "selected_columns": {
+    "names_inclusive_range": [
+     "1",
+     "1024"
+    ],
+    "zero_based_indices_inclusive_range": [
+     0,
+     1023
+    ]
+   },
+   "parsing_note": "TTK selects columns 1..1024. Upstream sklearn branch includes extra constant column 1025; all methods here deliberately use the same 1024 TTK-selected features. Column 1025 is not treated as a class.",
+   "source_h1_own_median_normalized": {
+    "status": "completed",
+    "H1_bars": 11,
+    "counts": {
+     "0.1": 1,
+     "0.25": 1,
+     "0.5": 0
+    },
+    "total_finite_lifetime": 0.5611240565776825
+   }
+  },
+  {
+   "id": "Digits",
+   "shape": [
+    1797,
+    64
+   ],
+   "source_shape": [
+    1797,
+    65
+   ],
+   "source_sha256": "09f66e6debdee2cd2b5ae59e0d6abbb73fc2b0e0185d2e1957e9ebb51e23aa22",
+   "feature_array_sha256": "20def7f70a702f0af9732fbba4375e147a7d54fe70d8c45569b8e7c1c7010c10",
+   "row_order_sha256": "67a20cc9a4089e17305c2563b9f49897c4fbe4cee8eaac614bccebe6aa3704b9",
+   "all_rows": true,
+   "preprocessing": "none; raw selected features",
+   "labels_used_for_fit": false,
+   "label_column": "target",
+   "excluded_columns": [
+    "target"
+   ],
+   "source_id": "digits",
+   "header": false,
+   "header_note": "Bundled compressed numeric table; sklearn supplies semantic feature names.",
+   "selected_columns": {
+    "count": 64,
+    "zero_based_indices_inclusive_range": [
+     0,
+     63
+    ],
+    "meaning": "8x8 pixels, row-major, intensity 0..16"
+   },
+   "source_h1_own_median_normalized": {
+    "status": "completed",
+    "H1_bars": 1440,
+    "counts": {
+     "0.1": 23,
+     "0.25": 0,
+     "0.5": 0
+    },
+    "total_finite_lifetime": 41.23857918381691
+   }
+  }
+ ],
+ "protocols": {
+  "author_raw": {
+   "seed": 0,
+   "selection": "one fixed run; not upstream ten runs with minimum-W1 selection",
+   "input": "identical full raw feature rows across methods; no scaling, PCA preprocessing or subset",
+   "topoaepp": {
+    "seed": 0,
+    "updates": 1000,
+    "batch": "full",
+    "architecture": "d-128-32-2-32-128-d",
+    "activation": "ReLU",
+    "batchnorm": true,
+    "optimizer": "Adam",
+    "learning_rate": 0.01,
+    "reg": 0.01,
+    "loss": "ASYMMETRIC_CASCADE",
+    "normalization": "none",
+    "dtype": "float64 source PH / float32 tensors",
+    "output_mode": "train (matches upstream TCDR)",
+    "threads": 1,
+    "no_cgal": true
+   },
+   "adam_defaults": {
+    "betas": [
+     0.9,
+     0.999
+    ],
+    "eps": 1e-08,
+    "weight_decay": 0,
+    "amsgrad": false
+   },
+   "batchnorm_defaults": {
+    "eps": 1e-05,
+    "momentum": 0.1,
+    "affine": true,
+    "track_running_stats": true
+   },
+   "author_case_timeout_seconds": 150,
+   "author_total_timeout_seconds": 900,
+   "real_fit_retries": 0,
+   "graph": {
+    "seed": 0,
+    "source_neighbors": 15,
+    "neighbor_backend": "exact",
+    "epochs": 300,
+    "negative_rate": 5,
+    "dimensions": 2,
+    "mapper": "train_hull"
+   },
+   "umap": {
+    "version": "0.5.3",
+    "n_neighbors": 15,
+    "n_epochs": null,
+    "epoch_policy": "library automatic, not 300 matched epochs",
+    "min_dist": 0.1,
+    "spread": 1.0,
+    "negative_sample_rate": 5,
+    "random_state": 0,
+    "transform_seed": 42,
+    "init": "spectral",
+    "precomputed_knn": false
+   },
+   "pca": {
+    "copy": true,
+    "iterated_power": "auto",
+    "n_components": 2,
+    "random_state": 0,
+    "svd_solver": "auto",
+    "tol": 0.0,
+    "whiten": false
+   },
+   "evaluation_kmeans": {
+    "n_init": 10,
+    "seed": 0,
+    "clusters": "number of actual classes, post-fit only"
+   },
+   "adaptations": [
+    "Standalone original call-site adapter invokes unchanged author model/loss/PH, CPU single thread; no ParaView, CGAL or OpenMP.",
+    "Compatibility includes, old Boost feature macro and stale no-CGAL type alias; author implementation not replaced.",
+    "Final full-cloud encode remains train mode with batch statistics.",
+    "One authorized import-only synthetic UMAP preflight repair blocks optional TensorFlow after protobuf incompatibility; no real fit retried."
+   ],
+   "versions": {
+    "numpy": "1.21.6",
+    "scipy": "1.10.1",
+    "scikit-learn": "1.0.2",
+    "umap-learn": "0.5.3",
+    "numba": "0.55.0",
+    "llvmlite": "0.38.0",
+    "pynndescent": "0.5.13"
+   },
+   "dependency_versions": {
+    "libtorch": "2.7.1",
+    "boost": "1.74.0",
+    "python": "3.9.16"
+   }
+  },
+  "digits_matched": {
+   "seed": 0,
+   "split_seed": 0,
+   "fit_rows": 1400,
+   "heldout_rows": 397,
+   "total_rows": 1797,
+   "split": "default_rng(0).permutation(1797), first 1400 fit, remainder held out",
+   "separate_transductive_fit": true,
+   "preprocessing": "raw64 pixels; no standardization or fit-to-heldout preprocessing",
+   "graph": {
+    "source_neighbors": 15,
+    "neighbor_backend": "exact",
+    "epochs": 300,
+    "negative_rate": 5,
+    "seed": 0,
+    "mapper": "unchanged production train_hull"
+   },
+   "umap": {
+    "n_neighbors": 16,
+    "n_components": 2,
+    "metric": "euclidean",
+    "min_dist": 0.1,
+    "spread": 1.0,
+    "n_epochs": 300,
+    "negative_sample_rate": 5,
+    "learning_rate": 1.0,
+    "init": "spectral",
+    "random_state": 0,
+    "transform_seed": 0,
+    "n_jobs": 1,
+    "force_approximation_algorithm": true
+   },
+   "neighbor_support": "Identical 15 nonself fit neighbors plus UMAP self column; genuine prepared NNDescent31 query index. Retained fit IDs verified.",
+   "not_matched": "Native fuzzy weights, kernel, edge scheduling and query transform remain method-specific. Equal epochs do not imply equal exposures.",
+   "pca": "full-SVD2 fitted on fit features only",
+   "query_tie_aware_recall15": 0.9958018471872377,
+   "labels": "Only post-fit scores and plot colors; not reducer objectives, graphs, stopping or selection. Loader may return label metadata earlier.",
+   "evaluation_kmeans": {
+    "clusters": 10,
+    "seed": 0,
+    "n_init": 20
+   },
+   "class_components": "Restrict the full-cohort symmetrized Euclidean k15 graph to each actual class; never recompute neighbors within class.",
+   "query_scope": "Heldout397 clusters use query-only geometry; combined1797 is inductive, not an all1797 fit."
+  },
+  "metrics": {
+   "neighbors": "Exact full-cohort Euclidean kNN overlap, trustworthiness and continuity; k15 unless otherwise stated.",
+   "distance_stress": "Least-squares global all-pair source-distance scaling for stress only; no figure rescaling.",
+   "ari": "Post-fit KMeans partition versus actual class labels; not a training objective, classifier or proof of natural clusters.",
+   "critical_edge_h1": "Complete Euclidean VR H1 over F2; normalized counts divide each cloud by its own median pair distance. Not author W1 or generator identity.",
+   "tail_h1": "Complete raw Euclidean VR H1; target uses one least-squares all-pair source-distance scalar, not target median or diagram-fitted scale.",
+   "author_raw_h1": "Complete Euclidean VR H1/F2; each source/target divided by its own median positive pair distance. Counts at lifetime thresholds0.1/0.25/0.5 describe normalized shape, not raw scale or source-generator correspondence."
+  }
+ },
+ "baseline_results": [
+  {
+   "id": "raw-3Clusters-TopoAE++-adapter",
+   "dataset": "3Clusters",
+   "protocol": "author_raw",
+   "method": "TopoAE++-adapter",
+   "seed": 0,
+   "cohort": "full_input",
+   "status": "timeout",
+   "completed_updates": 427,
+   "wall_seconds": 150.010510166,
+   "timeout_seconds": 150,
+   "failure": "Registered 150-second resource timeout after 427 completed updates; no completed coordinates or substitute partial fit.",
+   "h1_own_median_normalized": {
+    "status": "unavailable"
+   }
+  },
+  {
+   "id": "raw-3Clusters-PCA",
+   "dataset": "3Clusters",
+   "protocol": "author_raw",
+   "method": "PCA",
+   "seed": 0,
+   "cohort": "full_input",
+   "status": "completed",
+   "process_wall_seconds": 0.6676045,
+   "metrics": {
+    "neighbors": {
+     "5": {
+      "overlap": 0.373,
+      "trustworthiness": 0.931147095959596,
+      "continuity": 0.9888065025252525
+     },
+     "15": {
+      "overlap": 0.4935,
+      "trustworthiness": 0.9357187902187902,
+      "continuity": 0.9847580437580438
+     },
+     "50": {
+      "overlap": 0.6583,
+      "trustworthiness": 0.9494138371290545,
+      "continuity": 0.9818294340924776
+     }
+    },
+    "all_pair_spearman": 0.9874293819731673,
+    "scale_aligned_distance_stress": 0.05483210795417815,
+    "kmeans_ari": 1.0,
+    "kmeans_nmi": 1.0
+   },
+   "h1_own_median_normalized": {
+    "status": "completed",
+    "H1_bars": 186,
+    "counts": {
+     "0.1": 0,
+     "0.25": 0,
+     "0.5": 0
+    },
+    "total_finite_lifetime": 1.239087754045613
+   }
+  },
+  {
+   "id": "raw-3Clusters-UMAP",
+   "dataset": "3Clusters",
+   "protocol": "author_raw",
+   "method": "UMAP",
+   "seed": 0,
+   "cohort": "full_input",
+   "status": "completed",
+   "process_wall_seconds": 6.544682583,
+   "metrics": {
+    "neighbors": {
+     "5": {
+      "overlap": 0.57375,
+      "trustworthiness": 0.9842777777777778,
+      "continuity": 0.9859510732323232
+     },
+     "15": {
+      "overlap": 0.6170833333333333,
+      "trustworthiness": 0.974539039039039,
+      "continuity": 0.9709313599313599
+     },
+     "50": {
+      "overlap": 0.6187,
+      "trustworthiness": 0.9470822636300897,
+      "continuity": 0.9460902691511387
+     }
+    },
+    "all_pair_spearman": 0.8042782408190337,
+    "scale_aligned_distance_stress": 0.2835852124774264,
+    "kmeans_ari": 1.0,
+    "kmeans_nmi": 1.0
+   },
+   "h1_own_median_normalized": {
+    "status": "completed",
+    "H1_bars": 100,
+    "counts": {
+     "0.1": 0,
+     "0.25": 0,
+     "0.5": 0
+    },
+    "total_finite_lifetime": 0.743698988109827
+   }
+  },
+  {
+   "id": "raw-3Clusters-GraphEmbedding",
+   "dataset": "3Clusters",
+   "protocol": "author_raw",
+   "method": "GraphEmbedding",
+   "seed": 0,
+   "cohort": "full_input",
+   "status": "completed",
+   "process_wall_seconds": 1.842341499999999,
+   "metrics": {
+    "neighbors": {
+     "5": {
+      "overlap": 0.5525,
+      "trustworthiness": 0.9786881313131313,
+      "continuity": 0.9874138257575757
+     },
+     "15": {
+      "overlap": 0.5840833333333333,
+      "trustworthiness": 0.9664094809094809,
+      "continuity": 0.9735033247533248
+     },
+     "50": {
+      "overlap": 0.604525,
+      "trustworthiness": 0.9446229123533472,
+      "continuity": 0.9513277777777778
+     }
+    },
+    "all_pair_spearman": 0.784586667048183,
+    "scale_aligned_distance_stress": 0.2368053703238098,
+    "kmeans_ari": 1.0,
+    "kmeans_nmi": 1.0
+   },
+   "h1_own_median_normalized": {
+    "status": "completed",
+    "H1_bars": 140,
+    "counts": {
+     "0.1": 0,
+     "0.25": 0,
+     "0.5": 0
+    },
+    "total_finite_lifetime": 0.9737493889406323
+   }
+  },
+  {
+   "id": "raw-Twist-TopoAE++-adapter",
+   "dataset": "Twist",
+   "protocol": "author_raw",
+   "method": "TopoAE++-adapter",
+   "seed": 0,
+   "cohort": "full_input",
+   "status": "success",
+   "completed_updates": 1000,
+   "wall_seconds": 4.597363625000014,
+   "timeout_seconds": 150,
+   "metrics": {
+    "neighbors": {
+     "5": {
+      "overlap": 0.944,
+      "trustworthiness": 0.9986956521739131,
+      "continuity": 0.9949782608695652
+     },
+     "15": {
+      "overlap": 0.9226666666666666,
+      "trustworthiness": 0.9921125541125542,
+      "continuity": 0.987982683982684
+     },
+     "50": {
+      "overlap": 0.9404,
+      "trustworthiness": 0.9858775510204082,
+      "continuity": 0.9860326530612245
+     }
+    },
+    "all_pair_spearman": 0.9832019468190847,
+    "scale_aligned_distance_stress": 0.09114895042796346
+   },
+   "h1_own_median_normalized": {
+    "status": "completed",
+    "H1_bars": 5,
+    "counts": {
+     "0.1": 1,
+     "0.25": 1,
+     "0.5": 0
+    },
+    "total_finite_lifetime": 0.34606580436229706
+   }
+  },
+  {
+   "id": "raw-Twist-PCA",
+   "dataset": "Twist",
+   "protocol": "author_raw",
+   "method": "PCA",
+   "seed": 0,
+   "cohort": "full_input",
+   "status": "completed",
+   "process_wall_seconds": 0.6643907079999991,
+   "metrics": {
+    "neighbors": {
+     "5": {
+      "overlap": 0.92,
+      "trustworthiness": 0.9864347826086957,
+      "continuity": 0.997195652173913
+     },
+     "15": {
+      "overlap": 0.8193333333333334,
+      "trustworthiness": 0.9783463203463203,
+      "continuity": 0.9865021645021645
+     },
+     "50": {
+      "overlap": 0.975,
+      "trustworthiness": 0.9969469387755102,
+      "continuity": 0.9978367346938776
+     }
+    },
+    "all_pair_spearman": 0.9899036860148436,
+    "scale_aligned_distance_stress": 0.06664792135755923
+   },
+   "h1_own_median_normalized": {
+    "status": "completed",
+    "H1_bars": 2,
+    "counts": {
+     "0.1": 2,
+     "0.25": 2,
+     "0.5": 2
+    },
+    "total_finite_lifetime": 1.1979258209466934
+   }
+  },
+  {
+   "id": "raw-Twist-UMAP",
+   "dataset": "Twist",
+   "protocol": "author_raw",
+   "method": "UMAP",
+   "seed": 0,
+   "cohort": "full_input",
+   "status": "completed",
+   "process_wall_seconds": 5.633399665999999,
+   "metrics": {
+    "neighbors": {
+     "5": {
+      "overlap": 0.904,
+      "trustworthiness": 0.9986086956521739,
+      "continuity": 0.998804347826087
+     },
+     "15": {
+      "overlap": 0.9006666666666666,
+      "trustworthiness": 0.9871601731601731,
+      "continuity": 0.9970649350649351
+     },
+     "50": {
+      "overlap": 0.727,
+      "trustworthiness": 0.798269387755102,
+      "continuity": 0.7351755102040816
+     }
+    },
+    "all_pair_spearman": 0.6940800905576238,
+    "scale_aligned_distance_stress": 0.3623721807448632
+   },
+   "h1_own_median_normalized": {
+    "status": "completed",
+    "H1_bars": 1,
+    "counts": {
+     "0.1": 1,
+     "0.25": 1,
+     "0.5": 1
+    },
+    "total_finite_lifetime": 1.0485040321946144
+   }
+  },
+  {
+   "id": "raw-Twist-GraphEmbedding",
+   "dataset": "Twist",
+   "protocol": "author_raw",
+   "method": "GraphEmbedding",
+   "seed": 0,
+   "cohort": "full_input",
+   "status": "completed",
+   "process_wall_seconds": 1.5611376670000006,
+   "metrics": {
+    "neighbors": {
+     "5": {
+      "overlap": 0.908,
+      "trustworthiness": 0.9986521739130435,
+      "continuity": 0.9987608695652174
+     },
+     "15": {
+      "overlap": 0.912,
+      "trustworthiness": 0.9893939393939394,
+      "continuity": 0.9976450216450217
+     },
+     "50": {
+      "overlap": 0.7656,
+      "trustworthiness": 0.8392163265306123,
+      "continuity": 0.8175673469387755
+     }
+    },
+    "all_pair_spearman": 0.8455126444950718,
+    "scale_aligned_distance_stress": 0.27340971407861
+   },
+   "h1_own_median_normalized": {
+    "status": "completed",
+    "H1_bars": 2,
+    "counts": {
+     "0.1": 1,
+     "0.25": 1,
+     "0.5": 1
+    },
+    "total_finite_lifetime": 1.0566783659160137
+   }
+  },
+  {
+   "id": "raw-K4-TopoAE++-adapter",
+   "dataset": "K4",
+   "protocol": "author_raw",
+   "method": "TopoAE++-adapter",
+   "seed": 0,
+   "cohort": "full_input",
+   "status": "success",
+   "completed_updates": 1000,
+   "wall_seconds": 39.50878379100001,
+   "timeout_seconds": 150,
+   "metrics": {
+    "neighbors": {
+     "5": {
+      "overlap": 0.8126666666666666,
+      "trustworthiness": 0.9946506849315069,
+      "continuity": 0.9972808219178082
+     },
+     "15": {
+      "overlap": 0.8557777777777777,
+      "trustworthiness": 0.9863706377858003,
+      "continuity": 0.9911183313277176
+     },
+     "50": {
+      "overlap": 0.8085333333333333,
+      "trustworthiness": 0.9609122494432071,
+      "continuity": 0.9697167037861916
+     }
+    },
+    "all_pair_spearman": 0.7292510404621443,
+    "scale_aligned_distance_stress": 0.2955903772170993
+   },
+   "h1_own_median_normalized": {
+    "status": "completed",
+    "H1_bars": 27,
+    "counts": {
+     "0.1": 4,
+     "0.25": 3,
+     "0.5": 1
+    },
+    "total_finite_lifetime": 1.5462895408272743
+   }
+  },
+  {
+   "id": "raw-K4-PCA",
+   "dataset": "K4",
+   "protocol": "author_raw",
+   "method": "PCA",
+   "seed": 0,
+   "cohort": "full_input",
+   "status": "completed",
+   "process_wall_seconds": 0.6159123750000006,
+   "metrics": {
+    "neighbors": {
+     "5": {
+      "overlap": 0.7153333333333334,
+      "trustworthiness": 0.9723013698630137,
+      "continuity": 0.9968127853881279
+     },
+     "15": {
+      "overlap": 0.7866666666666666,
+      "trustworthiness": 0.9569707180104292,
+      "continuity": 0.9946979542719615
+     },
+     "50": {
+      "overlap": 0.7788666666666667,
+      "trustworthiness": 0.9297018559762436,
+      "continuity": 0.974
+     }
+    },
+    "all_pair_spearman": 0.80587995897538,
+    "scale_aligned_distance_stress": 0.248244782222394
+   },
+   "h1_own_median_normalized": {
+    "status": "completed",
+    "H1_bars": 37,
+    "counts": {
+     "0.1": 4,
+     "0.25": 2,
+     "0.5": 0
+    },
+    "total_finite_lifetime": 1.652157336473465
+   }
+  },
+  {
+   "id": "raw-K4-UMAP",
+   "dataset": "K4",
+   "protocol": "author_raw",
+   "method": "UMAP",
+   "seed": 0,
+   "cohort": "full_input",
+   "status": "completed",
+   "process_wall_seconds": 5.716875916999999,
+   "metrics": {
+    "neighbors": {
+     "5": {
+      "overlap": 0.8086666666666666,
+      "trustworthiness": 0.9982077625570777,
+      "continuity": 0.992568493150685
+     },
+     "15": {
+      "overlap": 0.8677777777777778,
+      "trustworthiness": 0.9957817890092259,
+      "continuity": 0.9711929402326515
+     },
+     "50": {
+      "overlap": 0.6835333333333333,
+      "trustworthiness": 0.9214138084632517,
+      "continuity": 0.8536703786191537
+     }
+    },
+    "all_pair_spearman": 0.5031913643977733,
+    "scale_aligned_distance_stress": 0.4580679982332634
+   },
+   "h1_own_median_normalized": {
+    "status": "completed",
+    "H1_bars": 5,
+    "counts": {
+     "0.1": 0,
+     "0.25": 0,
+     "0.5": 0
+    },
+    "total_finite_lifetime": 0.01493130438029766
+   }
+  },
+  {
+   "id": "raw-K4-GraphEmbedding",
+   "dataset": "K4",
+   "protocol": "author_raw",
+   "method": "GraphEmbedding",
+   "seed": 0,
+   "cohort": "full_input",
+   "status": "completed",
+   "process_wall_seconds": 1.6443819580000003,
+   "metrics": {
+    "neighbors": {
+     "5": {
+      "overlap": 0.7986666666666666,
+      "trustworthiness": 0.9978881278538813,
+      "continuity": 0.9941278538812786
+     },
+     "15": {
+      "overlap": 0.8686666666666667,
+      "trustworthiness": 0.9958563979141597,
+      "continuity": 0.9812611311672683
+     },
+     "50": {
+      "overlap": 0.7446,
+      "trustworthiness": 0.9611637713437268,
+      "continuity": 0.8785841128433556
+     }
+    },
+    "all_pair_spearman": 0.5767359803251312,
+    "scale_aligned_distance_stress": 0.41771642034111417
+   },
+   "h1_own_median_normalized": {
+    "status": "completed",
+    "H1_bars": 7,
+    "counts": {
+     "0.1": 1,
+     "0.25": 1,
+     "0.5": 1
+    },
+    "total_finite_lifetime": 0.6842372640967369
+   }
+  },
+  {
+   "id": "raw-COIL20-1-TopoAE++-adapter",
+   "dataset": "COIL20-1",
+   "protocol": "author_raw",
+   "method": "TopoAE++-adapter",
+   "seed": 0,
+   "cohort": "full_input",
+   "status": "success",
+   "completed_updates": 1000,
+   "wall_seconds": 4.667713582999994,
+   "timeout_seconds": 150,
+   "metrics": {
+    "neighbors": {
+     "5": {
+      "overlap": 0.875,
+      "trustworthiness": 0.9763888888888889,
+      "continuity": 0.9931423611111111
+     },
+     "15": {
+      "overlap": 0.8398148148148148,
+      "trustworthiness": 0.9687263794406652,
+      "continuity": 0.9833144368858655
+     }
+    },
+    "all_pair_spearman": 0.8804786481894887,
+    "scale_aligned_distance_stress": 0.2612752145153793
+   },
+   "h1_own_median_normalized": {
+    "status": "completed",
+    "H1_bars": 6,
+    "counts": {
+     "0.1": 2,
+     "0.25": 2,
+     "0.5": 0
+    },
+    "total_finite_lifetime": 0.5883450210094452
+   }
+  },
+  {
+   "id": "raw-COIL20-1-PCA",
+   "dataset": "COIL20-1",
+   "protocol": "author_raw",
+   "method": "PCA",
+   "seed": 0,
+   "cohort": "full_input",
+   "status": "completed",
+   "process_wall_seconds": 0.6535711660000025,
+   "metrics": {
+    "neighbors": {
+     "5": {
+      "overlap": 0.6027777777777777,
+      "trustworthiness": 0.9461371527777778,
+      "continuity": 0.9746527777777778
+     },
+     "15": {
+      "overlap": 0.812037037037037,
+      "trustworthiness": 0.980650037792895,
+      "continuity": 0.9802532123960696
+     }
+    },
+    "all_pair_spearman": 0.97424546636945,
+    "scale_aligned_distance_stress": 0.22899798060956983
+   },
+   "h1_own_median_normalized": {
+    "status": "completed",
+    "H1_bars": 8,
+    "counts": {
+     "0.1": 1,
+     "0.25": 0,
+     "0.5": 0
+    },
+    "total_finite_lifetime": 0.2239640299230814
+   }
+  },
+  {
+   "id": "raw-COIL20-1-UMAP",
+   "dataset": "COIL20-1",
+   "protocol": "author_raw",
+   "method": "UMAP",
+   "seed": 0,
+   "cohort": "full_input",
+   "status": "completed",
+   "process_wall_seconds": 5.514117374999998,
+   "metrics": {
+    "neighbors": {
+     "5": {
+      "overlap": 0.9,
+      "trustworthiness": 0.9978732638888889,
+      "continuity": 0.9970486111111111
+     },
+     "15": {
+      "overlap": 0.8481481481481481,
+      "trustworthiness": 0.9813303099017385,
+      "continuity": 0.9694066515495087
+     }
+    },
+    "all_pair_spearman": 0.9273111944965589,
+    "scale_aligned_distance_stress": 0.3090386169894402
+   },
+   "h1_own_median_normalized": {
+    "status": "completed",
+    "H1_bars": 5,
+    "counts": {
+     "0.1": 1,
+     "0.25": 1,
+     "0.5": 0
+    },
+    "total_finite_lifetime": 0.5247092768549919
+   }
+  },
+  {
+   "id": "raw-COIL20-1-GraphEmbedding",
+   "dataset": "COIL20-1",
+   "protocol": "author_raw",
+   "method": "GraphEmbedding",
+   "seed": 0,
+   "cohort": "full_input",
+   "status": "completed",
+   "process_wall_seconds": 1.5178379579999977,
+   "metrics": {
+    "neighbors": {
+     "5": {
+      "overlap": 0.8888888888888888,
+      "trustworthiness": 0.9974392361111111,
+      "continuity": 0.9974392361111111
+     },
+     "15": {
+      "overlap": 0.8888888888888888,
+      "trustworthiness": 0.9892290249433107,
+      "continuity": 0.9917044595616025
+     }
+    },
+    "all_pair_spearman": 0.940490058208184,
+    "scale_aligned_distance_stress": 0.3129788313442151
+   },
+   "h1_own_median_normalized": {
+    "status": "completed",
+    "H1_bars": 9,
+    "counts": {
+     "0.1": 2,
+     "0.25": 1,
+     "0.5": 0
+    },
+    "total_finite_lifetime": 0.6228709071874619
+   }
+  },
+  {
+   "id": "raw-Digits-TopoAE++-adapter",
+   "dataset": "Digits",
+   "protocol": "author_raw",
+   "method": "TopoAE++-adapter",
+   "seed": 0,
+   "cohort": "full_input",
+   "status": "timeout",
+   "completed_updates": 0,
+   "wall_seconds": 150.029888458,
+   "timeout_seconds": 150,
+   "failure": "Registered 150-second resource timeout during source persistence initialization, before any optimizer update; no completed coordinates or substitute partial fit.",
+   "h1_own_median_normalized": {
+    "status": "unavailable"
+   }
+  },
+  {
+   "id": "raw-Digits-PCA",
+   "dataset": "Digits",
+   "protocol": "author_raw",
+   "method": "PCA",
+   "seed": 0,
+   "cohort": "full_input",
+   "status": "completed",
+   "process_wall_seconds": 0.6515977079999971,
+   "metrics": {
+    "neighbors": {
+     "5": {
+      "overlap": 0.07824151363383416,
+      "trustworthiness": 0.8304283923923886,
+      "continuity": 0.9569478725644536
+     },
+     "15": {
+      "overlap": 0.15121498794286775,
+      "trustworthiness": 0.8288132105431889,
+      "continuity": 0.9455097089662778
+     },
+     "50": {
+      "overlap": 0.29421257651641625,
+      "trustworthiness": 0.8329630094757277,
+      "continuity": 0.9287765470931237
+     }
+    },
+    "all_pair_spearman": 0.582371383426975,
+    "scale_aligned_distance_stress": 0.36806919490705153,
+    "kmeans_ari": 0.38907063599547914,
+    "kmeans_nmi": 0.5264753548222227
+   },
+   "h1_own_median_normalized": {
+    "status": "completed",
+    "H1_bars": 484,
+    "counts": {
+     "0.1": 1,
+     "0.25": 0,
+     "0.5": 0
+    },
+    "total_finite_lifetime": 6.9595005214214325
+   }
+  },
+  {
+   "id": "raw-Digits-UMAP",
+   "dataset": "Digits",
+   "protocol": "author_raw",
+   "method": "UMAP",
+   "seed": 0,
+   "cohort": "full_input",
+   "status": "completed",
+   "process_wall_seconds": 8.189606708,
+   "metrics": {
+    "neighbors": {
+     "5": {
+      "overlap": 0.41457985531441294,
+      "trustworthiness": 0.9898667831268374,
+      "continuity": 0.9909768874464085
+     },
+     "15": {
+      "overlap": 0.5339269152290855,
+      "trustworthiness": 0.9875701851409203,
+      "continuity": 0.9815372273761208
+     },
+     "50": {
+      "overlap": 0.6239844184752366,
+      "trustworthiness": 0.9784050966927647,
+      "continuity": 0.956047628999247
+     }
+    },
+    "all_pair_spearman": 0.3561057270467668,
+    "scale_aligned_distance_stress": 0.4357396674241671,
+    "kmeans_ari": 0.8376204786343027,
+    "kmeans_nmi": 0.9141851829685046
+   },
+   "h1_own_median_normalized": {
+    "status": "completed",
+    "H1_bars": 262,
+    "counts": {
+     "0.1": 0,
+     "0.25": 0,
+     "0.5": 0
+    },
+    "total_finite_lifetime": 0.9555497700348496
+   }
+  },
+  {
+   "id": "raw-Digits-GraphEmbedding",
+   "dataset": "Digits",
+   "protocol": "author_raw",
+   "method": "GraphEmbedding",
+   "seed": 0,
+   "cohort": "full_input",
+   "status": "completed",
+   "process_wall_seconds": 2.2923882919999983,
+   "metrics": {
+    "neighbors": {
+     "5": {
+      "overlap": 0.3992209237618253,
+      "trustworthiness": 0.988201377800962,
+      "continuity": 0.9909363254638732
+     },
+     "15": {
+      "overlap": 0.5332220367278798,
+      "trustworthiness": 0.9867825347561398,
+      "continuity": 0.9823120792786508
+     },
+     "50": {
+      "overlap": 0.6279020589872009,
+      "trustworthiness": 0.9767874912054508,
+      "continuity": 0.9552879480452059
+     }
+    },
+    "all_pair_spearman": 0.35834795433624494,
+    "scale_aligned_distance_stress": 0.41235064675040256,
+    "kmeans_ari": 0.8218548877593791,
+    "kmeans_nmi": 0.904567194543543
+   },
+   "h1_own_median_normalized": {
+    "status": "completed",
+    "H1_bars": 314,
+    "counts": {
+     "0.1": 2,
+     "0.25": 0,
+     "0.5": 0
+    },
+    "total_finite_lifetime": 1.6135449057910591
+   }
+  },
+  {
+   "id": "digits-split-fit-pca",
+   "dataset": "Digits",
+   "protocol": "digits_matched",
+   "method": "pca",
+   "seed": 0,
+   "fit_scope": "split",
+   "cohort": "fit",
+   "status": "completed",
+   "metrics": {
+    "n": 1400,
+    "ari": 0.3852794431352859,
+    "knn_overlap15": 0.17347619047619048,
+    "trust15": 0.8250066396929142,
+    "continuity15": 0.9403838226648684,
+    "pair_distance_spearman": 0.5828887706285811,
+    "scale_aligned_stress": 0.3707017251381403,
+    "cluster_purity": 0.6014285714285714,
+    "class_completeness": 0.5935714285714285
+   },
+   "class1_components": {
+    "source": [
+     143
+    ],
+    "target": [
+     110,
+     12,
+     4,
+     3,
+     3,
+     2,
+     2,
+     2,
+     1,
+     1,
+     1,
+     1,
+     1
+    ]
+   }
+  },
+  {
+   "id": "digits-split-heldout397-pca",
+   "dataset": "Digits",
+   "protocol": "digits_matched",
+   "method": "pca",
+   "seed": 0,
+   "fit_scope": "split",
+   "cohort": "heldout397",
+   "status": "completed",
+   "metrics": {
+    "n": 397,
+    "ari": 0.38127167096685843,
+    "knn_overlap15": 0.3326616288832913,
+    "trust15": 0.8291257515142535,
+    "continuity15": 0.9227894592689377,
+    "pair_distance_spearman": 0.5819355986399105,
+    "scale_aligned_stress": 0.3630584215462489,
+    "cluster_purity": 0.6020151133501259,
+    "class_completeness": 0.5869017632241813
+   },
+   "class1_components": {
+    "source": [
+     39
+    ],
+    "target": [
+     27,
+     5,
+     2,
+     2,
+     2,
+     1
+    ]
+   }
+  },
+  {
+   "id": "digits-split-combined1797_inductive-pca",
+   "dataset": "Digits",
+   "protocol": "digits_matched",
+   "method": "pca",
+   "seed": 0,
+   "fit_scope": "split",
+   "cohort": "combined1797_inductive",
+   "status": "completed",
+   "metrics": {
+    "n": 1797,
+    "ari": 0.3896608164103017,
+    "knn_overlap15": 0.15125208681135227,
+    "trust15": 0.8254145443039749,
+    "continuity15": 0.9452271594667885,
+    "pair_distance_spearman": 0.5824735104324363,
+    "scale_aligned_stress": 0.3689887024434096,
+    "cluster_purity": 0.5971062882582081,
+    "class_completeness": 0.5898720089037285
+   },
+   "class1_components": {
+    "source": [
+     182
+    ],
+    "target": [
+     123,
+     14,
+     12,
+     9,
+     4,
+     3,
+     3,
+     2,
+     2,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ]
+   }
+  },
+  {
+   "id": "digits-split-fit-graph",
+   "dataset": "Digits",
+   "protocol": "digits_matched",
+   "method": "graph",
+   "seed": 0,
+   "fit_scope": "split",
+   "cohort": "fit",
+   "status": "completed",
+   "metrics": {
+    "n": 1400,
+    "ari": 0.7520994546995883,
+    "knn_overlap15": 0.5534285714285714,
+    "trust15": 0.984867655704257,
+    "continuity15": 0.9794269460870768,
+    "pair_distance_spearman": 0.3563668833835563,
+    "scale_aligned_stress": 0.4494625493597306,
+    "cluster_purity": 0.8185714285714286,
+    "class_completeness": 0.9021428571428571
+   },
+   "class1_components": {
+    "source": [
+     143
+    ],
+    "target": [
+     75,
+     46,
+     22
+    ]
+   }
+  },
+  {
+   "id": "digits-split-heldout397-graph",
+   "dataset": "Digits",
+   "protocol": "digits_matched",
+   "method": "graph",
+   "seed": 0,
+   "fit_scope": "split",
+   "cohort": "heldout397",
+   "status": "completed",
+   "metrics": {
+    "n": 397,
+    "ari": 0.7636847599627562,
+    "knn_overlap15": 0.6196473551637279,
+    "trust15": 0.9672804500779015,
+    "continuity15": 0.9408127803445628,
+    "pair_distance_spearman": 0.29810304131601684,
+    "scale_aligned_stress": 0.441979002959335,
+    "cluster_purity": 0.8136020151133502,
+    "class_completeness": 0.9093198992443325
+   },
+   "class1_components": {
+    "source": [
+     39
+    ],
+    "target": [
+     23,
+     11,
+     5
+    ]
+   }
+  },
+  {
+   "id": "digits-split-combined1797_inductive-graph",
+   "dataset": "Digits",
+   "protocol": "digits_matched",
+   "method": "graph",
+   "seed": 0,
+   "fit_scope": "split",
+   "cohort": "combined1797_inductive",
+   "status": "completed",
+   "metrics": {
+    "n": 1797,
+    "ari": 0.7531699032394984,
+    "knn_overlap15": 0.5160823594880356,
+    "trust15": 0.9857547664412921,
+    "continuity15": 0.9823012047512483,
+    "pair_distance_spearman": 0.3430855408096009,
+    "scale_aligned_stress": 0.4477321531988916,
+    "cluster_purity": 0.8130217028380634,
+    "class_completeness": 0.900946021146355
+   },
+   "class1_components": {
+    "source": [
+     182
+    ],
+    "target": [
+     98,
+     57,
+     27
+    ]
+   }
+  },
+  {
+   "id": "digits-split-fit-umap",
+   "dataset": "Digits",
+   "protocol": "digits_matched",
+   "method": "umap",
+   "seed": 0,
+   "fit_scope": "split",
+   "cohort": "fit",
+   "status": "completed",
+   "metrics": {
+    "n": 1400,
+    "ari": 0.8102506819392427,
+    "knn_overlap15": 0.5494761904761905,
+    "trust15": 0.9860658436213992,
+    "continuity15": 0.9791595947020784,
+    "pair_distance_spearman": 0.41052685693081625,
+    "scale_aligned_stress": 0.4131893274316697,
+    "cluster_purity": 0.8828571428571429,
+    "class_completeness": 0.9035714285714286
+   },
+   "class1_components": {
+    "source": [
+     143
+    ],
+    "target": [
+     75,
+     46,
+     22
+    ]
+   }
+  },
+  {
+   "id": "digits-split-heldout397-umap",
+   "dataset": "Digits",
+   "protocol": "digits_matched",
+   "method": "umap",
+   "seed": 0,
+   "fit_scope": "split",
+   "cohort": "heldout397",
+   "status": "completed",
+   "metrics": {
+    "n": 397,
+    "ari": 0.8178769359360286,
+    "knn_overlap15": 0.6151133501259446,
+    "trust15": 0.9702227490492419,
+    "continuity15": 0.9419662621173956,
+    "pair_distance_spearman": 0.3786850693254909,
+    "scale_aligned_stress": 0.40631324042590755,
+    "cluster_purity": 0.8841309823677582,
+    "class_completeness": 0.9143576826196473
+   },
+   "class1_components": {
+    "source": [
+     39
+    ],
+    "target": [
+     23,
+     11,
+     5
+    ]
+   }
+  },
+  {
+   "id": "digits-split-combined1797_inductive-umap",
+   "dataset": "Digits",
+   "protocol": "digits_matched",
+   "method": "umap",
+   "seed": 0,
+   "fit_scope": "split",
+   "cohort": "combined1797_inductive",
+   "status": "completed",
+   "metrics": {
+    "n": 1797,
+    "ari": 0.8117892840109786,
+    "knn_overlap15": 0.49593767390094606,
+    "trust15": 0.9859113805484401,
+    "continuity15": 0.9816535429942217,
+    "pair_distance_spearman": 0.40304325947913117,
+    "scale_aligned_stress": 0.4115707599019122,
+    "cluster_purity": 0.8825820812465219,
+    "class_completeness": 0.9053978853644964
+   },
+   "class1_components": {
+    "source": [
+     182
+    ],
+    "target": [
+     98,
+     57,
+     27
+    ]
+   }
+  },
+  {
+   "id": "digits-transductive-fit-pca",
+   "dataset": "Digits",
+   "protocol": "digits_matched",
+   "method": "pca",
+   "seed": 0,
+   "fit_scope": "transductive",
+   "cohort": "fit",
+   "status": "completed",
+   "metrics": {
+    "n": 1797,
+    "ari": 0.39249735690506926,
+    "knn_overlap15": 0.15121498794286775,
+    "trust15": 0.8288074595911973,
+    "continuity15": 0.9455128458491824,
+    "pair_distance_spearman": 0.5823713896139951,
+    "scale_aligned_stress": 0.36806919317250614,
+    "cluster_purity": 0.6071229827490262,
+    "class_completeness": 0.5987757373400111
+   },
+   "class1_components": {
+    "source": [
+     182
+    ],
+    "target": [
+     110,
+     50,
+     8,
+     4,
+     2,
+     2,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ]
+   }
+  },
+  {
+   "id": "digits-transductive-fit-graph",
+   "dataset": "Digits",
+   "protocol": "digits_matched",
+   "method": "graph",
+   "seed": 0,
+   "fit_scope": "transductive",
+   "cohort": "fit",
+   "status": "completed",
+   "metrics": {
+    "n": 1797,
+    "ari": 0.8218548877593791,
+    "knn_overlap15": 0.5332220367278798,
+    "trust15": 0.9867828275318775,
+    "continuity15": 0.9823274918299885,
+    "pair_distance_spearman": 0.35834795433624494,
+    "scale_aligned_stress": 0.41235064675039823,
+    "cluster_purity": 0.8820255982192543,
+    "class_completeness": 0.9532554257095158
+   },
+   "class1_components": {
+    "source": [
+     182
+    ],
+    "target": [
+     155,
+     27
+    ]
+   }
+  },
+  {
+   "id": "digits-transductive-fit-umap",
+   "dataset": "Digits",
+   "protocol": "digits_matched",
+   "method": "umap",
+   "seed": 0,
+   "fit_scope": "transductive",
+   "cohort": "fit",
+   "status": "completed",
+   "metrics": {
+    "n": 1797,
+    "ari": 0.8213126330655656,
+    "knn_overlap15": 0.5204971248376925,
+    "trust15": 0.9859104813086741,
+    "continuity15": 0.9831712505936551,
+    "pair_distance_spearman": 0.3487469801586883,
+    "scale_aligned_stress": 0.44033287472204286,
+    "cluster_purity": 0.8814691151919867,
+    "class_completeness": 0.9526989426822482
+   },
+   "class1_components": {
+    "source": [
+     182
+    ],
+    "target": [
+     155,
+     27
+    ]
+   }
+  }
+ ],
+ "candidate_outcomes": [
+  {
+   "id": "multiscale_log_distance",
+   "decision": "rejected_catastrophic_local_and_clustering_regression",
+   "promoted_to_default": false,
+   "protocol": {
+    "name": "multiscale log-distance continuation",
+    "ranks": [
+     15,
+     30,
+     60,
+     120,
+     240,
+     480,
+     960
+    ],
+    "local": "all exact15 directed pairs",
+    "tree": "complete Euclidean MST, source-only",
+    "level_weight": "equal mass per level including local and MST",
+    "target": "source Euclidean distance / median source15 distance",
+    "initial": "current GraphEmbedding centered / median target source15-edge length",
+    "optimizer": "L-BFGS-B analytic gradient",
+    "maxiter": 300,
+    "maxls": 30,
+    "ftol": 1e-10,
+    "gtol": 1e-07,
+    "query": "unchanged production GraphEmbedding.from_layout train_hull mapper",
+    "seeds": "no new randomness",
+    "selection": "single fixed run per cohort, no retries/tuning"
+   },
+   "code_sha256": "8a8d9c1771fa459ee773d44eb77c59a51ee50d1b9bde161723e24e1ba48acc09",
+   "registration_source_id": "log-distance-registration",
+   "records": [
+    {
+     "fit_scope": "split",
+     "seed": 0,
+     "optimizer_converged": true,
+     "iterations": 274,
+     "initial_loss": 12.396037843348566,
+     "final_loss": 0.13234818718173533,
+     "constraints": 32199,
+     "status": "completed",
+     "cohorts": {
+      "fit": {
+       "n": 1400,
+       "ari": 0.14157180276589532,
+       "knn_overlap15": 0.0360952380952381,
+       "trust15": 0.6555896877269427,
+       "continuity15": 0.7920208873672926,
+       "pair_distance_spearman": 0.3469216618139324,
+       "scale_aligned_stress": 0.41085656920451785,
+       "cluster_purity": 0.36357142857142855,
+       "class_completeness": 0.3607142857142857
+      },
+      "heldout397": {
+       "n": 397,
+       "ari": 0.4544166603578849,
+       "knn_overlap15": 0.2824517212426533,
+       "trust15": 0.7799530345685332,
+       "continuity15": 0.899497568663371,
+       "pair_distance_spearman": 0.48216516500269574,
+       "scale_aligned_stress": 0.3839254078040567,
+       "cluster_purity": 0.6347607052896725,
+       "class_completeness": 0.6196473551637279
+      },
+      "combined1797_inductive": {
+       "n": 1797,
+       "ari": 0.17800845350082503,
+       "knn_overlap15": 0.04956408829530699,
+       "trust15": 0.6807000351540011,
+       "continuity15": 0.8252258294284369,
+       "pair_distance_spearman": 0.37495803945866163,
+       "scale_aligned_stress": 0.40727747568965517,
+       "cluster_purity": 0.3989983305509182,
+       "class_completeness": 0.3984418475236505
+      }
+     }
+    },
+    {
+     "fit_scope": "transductive",
+     "seed": 0,
+     "optimizer_converged": false,
+     "iterations": 300,
+     "initial_loss": 11.872342436830081,
+     "final_loss": 0.13213477345792174,
+     "constraints": 41330,
+     "status": "iteration_cap_last_iterate",
+     "cohorts": {
+      "fit": {
+       "n": 1797,
+       "ari": 0.136789980578945,
+       "knn_overlap15": 0.033908365794843257,
+       "trust15": 0.5955785217209275,
+       "continuity15": 0.7813776227739372,
+       "pair_distance_spearman": 0.2079437794157509,
+       "scale_aligned_stress": 0.42696556271959835,
+       "cluster_purity": 0.33834168057874237,
+       "class_completeness": 0.33667223149693937
+      }
+     }
+    }
+   ],
+   "interpretation": "Structural loss falls but replacing local attraction/repulsion by sparse log-distance stress produces false neighbors and severe folding/mixing. Low selected-distance loss is not a topology or local-rank certificate."
+  },
+  {
+   "id": "linear_tail",
+   "decision": "not_confirmed_no_promotion",
+   "promoted_to_default": false,
+   "registration_source_id": "tail-registration",
+   "development_seed": 0,
+   "confirmation_seeds": [
+    1,
+    2
+   ],
+   "positive_new_seed_fit_ari_pairs": 1,
+   "new_seed_fit_pairs": 4,
+   "seed_metadata_note": "Actual confirmation seeds are 1 and 2. One of four paired fit-ARI changes is positive; no seed4 run is registered.",
+   "mechanism": "Attractive potential log(1+r^2) for r<=1, log(2)+r-1 above 1; threshold is existing kernel unit, not tuned. Original graph, initialization per seed, epochs300, negatives5, schedule and mapper retained.",
+   "records": [
+    {
+     "id": "split_seed0_original-fit",
+     "fit_scope": "split",
+     "cohort": "fit",
+     "seed": 0,
+     "method": "original",
+     "scope": "development",
+     "status": "completed",
+     "metrics": {
+      "ari": 0.7520994546995883,
+      "silhouette": 0.574099699405298,
+      "neighbors15": {
+       "overlap": 0.5534285714285714,
+       "trust": 0.9848655462184874,
+       "continuity": 0.9794250095099768
+      },
+      "pair_spearman": 0.3563668833835563,
+      "stress": 0.4494625493597308
+     },
+     "class1_components": {
+      "source": [
+       143
+      ],
+      "target": [
+       75,
+       46,
+       22
+      ]
+     },
+     "h1_source_aligned": {
+      "betti_L1_relative": 1.0227139148909203,
+      "target_to_source_total_persistence": 0.022935292731841347,
+      "source_bars": 1095,
+      "target_bars": 234
+     }
+    },
+    {
+     "id": "split_seed0_original-heldout397",
+     "fit_scope": "split",
+     "cohort": "heldout397",
+     "seed": 0,
+     "method": "original",
+     "scope": "development",
+     "status": "completed",
+     "metrics": {
+      "ari": 0.7636847599627562,
+      "silhouette": 0.569130133908006,
+      "neighbors15": {
+       "overlap": 0.6196473551637279,
+       "trust": 0.967289879084219,
+       "continuity": 0.9407862893268139
+      },
+      "pair_spearman": 0.29810304131601684,
+      "stress": 0.441979002959334
+     },
+     "class1_components": {
+      "source": [
+       39
+      ],
+      "target": [
+       23,
+       11,
+       5
+      ]
+     }
+    },
+    {
+     "id": "split_seed0_original-combined1797_inductive",
+     "fit_scope": "split",
+     "cohort": "combined1797_inductive",
+     "seed": 0,
+     "method": "original",
+     "scope": "development",
+     "status": "completed",
+     "metrics": {
+      "ari": 0.7531699032394984,
+      "silhouette": 0.5736610306907446,
+      "neighbors15": {
+       "overlap": 0.5160823594880356,
+       "trust": 0.9857552474300041,
+       "continuity": 0.982297294103894
+      },
+      "pair_spearman": 0.3430855408096009,
+      "stress": 0.447732153198891
+     },
+     "class1_components": {
+      "source": [
+       182
+      ],
+      "target": [
+       98,
+       57,
+       27
+      ]
+     }
+    },
+    {
+     "id": "split_seed0_linear_tail-fit",
+     "fit_scope": "split",
+     "cohort": "fit",
+     "seed": 0,
+     "method": "linear_tail",
+     "scope": "development",
+     "status": "completed",
+     "metrics": {
+      "ari": 0.7835558185129619,
+      "silhouette": 0.5126563663339446,
+      "neighbors15": {
+       "overlap": 0.5438095238095239,
+       "trust": 0.9805971227997372,
+       "continuity": 0.981810422934606
+      },
+      "pair_spearman": 0.42929168204259527,
+      "stress": 0.44171863595757144
+     },
+     "class1_components": {
+      "source": [
+       143
+      ],
+      "target": [
+       75,
+       46,
+       22
+      ]
+     },
+     "h1_source_aligned": {
+      "betti_L1_relative": 1.0409461803581626,
+      "target_to_source_total_persistence": 0.04097503754421594,
+      "source_bars": 1095,
+      "target_bars": 254
+     }
+    },
+    {
+     "id": "split_seed0_linear_tail-heldout397",
+     "fit_scope": "split",
+     "cohort": "heldout397",
+     "seed": 0,
+     "method": "linear_tail",
+     "scope": "development",
+     "status": "completed",
+     "metrics": {
+      "ari": 0.7825224506029632,
+      "silhouette": 0.5094526583342627,
+      "neighbors15": {
+       "overlap": 0.6087321578505458,
+       "trust": 0.9645419972431382,
+       "continuity": 0.9505807818891239
+      },
+      "pair_spearman": 0.3932417696870614,
+      "stress": 0.43594024244086105
+     },
+     "class1_components": {
+      "source": [
+       39
+      ],
+      "target": [
+       23,
+       11,
+       5
+      ]
+     }
+    },
+    {
+     "id": "split_seed0_linear_tail-combined1797_inductive",
+     "fit_scope": "split",
+     "cohort": "combined1797_inductive",
+     "seed": 0,
+     "method": "linear_tail",
+     "scope": "development",
+     "status": "completed",
+     "metrics": {
+      "ari": 0.7864407591447286,
+      "silhouette": 0.5130348896450542,
+      "neighbors15": {
+       "overlap": 0.5092561676868855,
+       "trust": 0.9814130277256532,
+       "continuity": 0.9837580568223334
+      },
+      "pair_spearman": 0.4204330383417742,
+      "stress": 0.44044550251932457
+     },
+     "class1_components": {
+      "source": [
+       182
+      ],
+      "target": [
+       98,
+       57,
+       27
+      ]
+     }
+    },
+    {
+     "id": "split_seed0_author_umap-fit",
+     "fit_scope": "split",
+     "cohort": "fit",
+     "seed": 0,
+     "method": "author_umap",
+     "scope": "development",
+     "status": "completed",
+     "metrics": {
+      "ari": 0.8102506819392427,
+      "silhouette": 0.5968969464302063,
+      "neighbors15": {
+       "overlap": 0.5494761904761905,
+       "trust": 0.9860645640972439,
+       "continuity": 0.9791745340111353
+      },
+      "pair_spearman": 0.41052685693081625,
+      "stress": 0.4131893274316707
+     },
+     "class1_components": {
+      "source": [
+       143
+      ],
+      "target": [
+       75,
+       46,
+       22
+      ]
+     },
+     "h1_source_aligned": {
+      "betti_L1_relative": 1.0110889447602074,
+      "target_to_source_total_persistence": 0.024871754173183998,
+      "source_bars": 1095,
+      "target_bars": 198
+     }
+    },
+    {
+     "id": "split_seed0_author_umap-heldout397",
+     "fit_scope": "split",
+     "cohort": "heldout397",
+     "seed": 0,
+     "method": "author_umap",
+     "scope": "development",
+     "status": "completed",
+     "metrics": {
+      "ari": 0.8178769359360286,
+      "silhouette": 0.584550678730011,
+      "neighbors15": {
+       "overlap": 0.6151133501259446,
+       "trust": 0.9702258920513477,
+       "continuity": 0.9418611960470014
+      },
+      "pair_spearman": 0.3786850693254909,
+      "stress": 0.4063132404259076
+     },
+     "class1_components": {
+      "source": [
+       39
+      ],
+      "target": [
+       23,
+       11,
+       5
+      ]
+     }
+    },
+    {
+     "id": "split_seed0_author_umap-combined1797_inductive",
+     "fit_scope": "split",
+     "cohort": "combined1797_inductive",
+     "seed": 0,
+     "method": "author_umap",
+     "scope": "development",
+     "status": "completed",
+     "metrics": {
+      "ari": 0.8117892840109786,
+      "silhouette": 0.5952253937721252,
+      "neighbors15": {
+       "overlap": 0.495937673900946,
+       "trust": 0.9859113805484401,
+       "continuity": 0.9816492977460242
+      },
+      "pair_spearman": 0.40304325947913117,
+      "stress": 0.4115707599019135
+     },
+     "class1_components": {
+      "source": [
+       182
+      ],
+      "target": [
+       98,
+       57,
+       27
+      ]
+     }
+    },
+    {
+     "id": "split_seed1_original-fit",
+     "fit_scope": "split",
+     "cohort": "fit",
+     "seed": 1,
+     "method": "original",
+     "scope": "independent_new_seed",
+     "status": "completed",
+     "metrics": {
+      "ari": 0.8219934774619344,
+      "silhouette": 0.5770674468689676,
+      "neighbors15": {
+       "overlap": 0.5570952380952381,
+       "trust": 0.986804613203306,
+       "continuity": 0.9802482622678701
+      },
+      "pair_spearman": 0.36999545168537434,
+      "stress": 0.4319374852501315
+     },
+     "class1_components": {
+      "source": [
+       143
+      ],
+      "target": [
+       75,
+       46,
+       22
+      ]
+     },
+     "h1_source_aligned": {
+      "betti_L1_relative": 1.024132604434553,
+      "target_to_source_total_persistence": 0.02414144862951431,
+      "source_bars": 1095,
+      "target_bars": 248
+     }
+    },
+    {
+     "id": "split_seed1_original-heldout397",
+     "fit_scope": "split",
+     "cohort": "heldout397",
+     "seed": 1,
+     "method": "original",
+     "scope": "independent_new_seed",
+     "status": "completed",
+     "metrics": {
+      "ari": 0.8286971343232886,
+      "silhouette": 0.5776328116480913,
+      "neighbors15": {
+       "overlap": 0.6214945424013434,
+       "trust": 0.9696228846473327,
+       "continuity": 0.9424552234449997
+      },
+      "pair_spearman": 0.3162496290819811,
+      "stress": 0.42084412013970723
+     },
+     "class1_components": {
+      "source": [
+       39
+      ],
+      "target": [
+       23,
+       11,
+       5
+      ]
+     }
+    },
+    {
+     "id": "split_seed1_original-combined1797_inductive",
+     "fit_scope": "split",
+     "cohort": "combined1797_inductive",
+     "seed": 1,
+     "method": "original",
+     "scope": "independent_new_seed",
+     "status": "completed",
+     "metrics": {
+      "ari": 0.8234793868224848,
+      "silhouette": 0.5778712176492723,
+      "neighbors15": {
+       "overlap": 0.5186792802819514,
+       "trust": 0.9865259377345473,
+       "continuity": 0.9825475337094665
+      },
+      "pair_spearman": 0.35798429527216663,
+      "stress": 0.42934341107772894
+     },
+     "class1_components": {
+      "source": [
+       182
+      ],
+      "target": [
+       98,
+       57,
+       27
+      ]
+     }
+    },
+    {
+     "id": "split_seed1_linear_tail-fit",
+     "fit_scope": "split",
+     "cohort": "fit",
+     "seed": 1,
+     "method": "linear_tail",
+     "scope": "independent_new_seed",
+     "status": "completed",
+     "metrics": {
+      "ari": 0.7724713441812194,
+      "silhouette": 0.5143520576368402,
+      "neighbors15": {
+       "overlap": 0.5464285714285714,
+       "trust": 0.9816760037348272,
+       "continuity": 0.9820888404744614
+      },
+      "pair_spearman": 0.39348856699497087,
+      "stress": 0.4189447314965533
+     },
+     "class1_components": {
+      "source": [
+       143
+      ],
+      "target": [
+       75,
+       46,
+       22
+      ]
+     },
+     "h1_source_aligned": {
+      "betti_L1_relative": 1.0421022360986774,
+      "target_to_source_total_persistence": 0.04384483226610097,
+      "source_bars": 1095,
+      "target_bars": 258
+     }
+    },
+    {
+     "id": "split_seed1_linear_tail-heldout397",
+     "fit_scope": "split",
+     "cohort": "heldout397",
+     "seed": 1,
+     "method": "linear_tail",
+     "scope": "independent_new_seed",
+     "status": "completed",
+     "metrics": {
+      "ari": 0.7762614865281895,
+      "silhouette": 0.510374048700701,
+      "neighbors15": {
+       "overlap": 0.6065491183879094,
+       "trust": 0.9596142189415267,
+       "continuity": 0.9460732678690895
+      },
+      "pair_spearman": 0.3326850705780979,
+      "stress": 0.41428230247758335
+     },
+     "class1_components": {
+      "source": [
+       39
+      ],
+      "target": [
+       23,
+       11,
+       5
+      ]
+     }
+    },
+    {
+     "id": "split_seed1_linear_tail-combined1797_inductive",
+     "fit_scope": "split",
+     "cohort": "combined1797_inductive",
+     "seed": 1,
+     "method": "linear_tail",
+     "scope": "independent_new_seed",
+     "status": "completed",
+     "metrics": {
+      "ari": 0.7741959623325275,
+      "silhouette": 0.5143998476493966,
+      "neighbors15": {
+       "overlap": 0.5102578371359674,
+       "trust": 0.9824342085864014,
+       "continuity": 0.9836418875921015
+      },
+      "pair_spearman": 0.3799311921516854,
+      "stress": 0.41787672787243707
+     },
+     "class1_components": {
+      "source": [
+       182
+      ],
+      "target": [
+       98,
+       57,
+       27
+      ]
+     }
+    },
+    {
+     "id": "split_seed1_author_umap-fit",
+     "fit_scope": "split",
+     "cohort": "fit",
+     "seed": 1,
+     "method": "author_umap",
+     "scope": "independent_new_seed",
+     "status": "completed",
+     "metrics": {
+      "ari": 0.8158222911496784,
+      "silhouette": 0.6030397415161133,
+      "neighbors15": {
+       "overlap": 0.5497142857142857,
+       "trust": 0.9859013728948369,
+       "continuity": 0.9791942110177404
+      },
+      "pair_spearman": 0.40923185970272596,
+      "stress": 0.42041226285116906
+     },
+     "class1_components": {
+      "source": [
+       143
+      ],
+      "target": [
+       75,
+       46,
+       22
+      ]
+     },
+     "h1_source_aligned": {
+      "betti_L1_relative": 1.0104199852020477,
+      "target_to_source_total_persistence": 0.023995416669233768,
+      "source_bars": 1095,
+      "target_bars": 225
+     }
+    },
+    {
+     "id": "split_seed1_author_umap-heldout397",
+     "fit_scope": "split",
+     "cohort": "heldout397",
+     "seed": 1,
+     "method": "author_umap",
+     "scope": "independent_new_seed",
+     "status": "completed",
+     "metrics": {
+      "ari": 0.8202337179616813,
+      "silhouette": 0.5867643356323242,
+      "neighbors15": {
+       "overlap": 0.6219983207388748,
+       "trust": 0.9708378794613792,
+       "continuity": 0.9400831548557138
+      },
+      "pair_spearman": 0.378821974657535,
+      "stress": 0.4155347848993104
+     },
+     "class1_components": {
+      "source": [
+       39
+      ],
+      "target": [
+       23,
+       11,
+       5
+      ]
+     }
+    },
+    {
+     "id": "split_seed1_author_umap-combined1797_inductive",
+     "fit_scope": "split",
+     "cohort": "combined1797_inductive",
+     "seed": 1,
+     "method": "author_umap",
+     "scope": "independent_new_seed",
+     "status": "completed",
+     "metrics": {
+      "ari": 0.8167395304698637,
+      "silhouette": 0.600465714931488,
+      "neighbors15": {
+       "overlap": 0.49827490261547025,
+       "trust": 0.985844083953861,
+       "continuity": 0.9815569688258668
+      },
+      "pair_spearman": 0.40210056257364407,
+      "stress": 0.4192749153449652
+     },
+     "class1_components": {
+      "source": [
+       182
+      ],
+      "target": [
+       98,
+       57,
+       27
+      ]
+     }
+    },
+    {
+     "id": "split_seed2_original-fit",
+     "fit_scope": "split",
+     "cohort": "fit",
+     "seed": 2,
+     "method": "original",
+     "scope": "independent_new_seed",
+     "status": "completed",
+     "metrics": {
+      "ari": 0.8199421548494521,
+      "silhouette": 0.5832456271621204,
+      "neighbors15": {
+       "overlap": 0.5555238095238095,
+       "trust": 0.9848059618909292,
+       "continuity": 0.979922986478542
+      },
+      "pair_spearman": 0.3579313777105093,
+      "stress": 0.42943300885748553
+     },
+     "class1_components": {
+      "source": [
+       143
+      ],
+      "target": [
+       75,
+       46,
+       22
+      ]
+     },
+     "h1_source_aligned": {
+      "betti_L1_relative": 1.0233791459988413,
+      "target_to_source_total_persistence": 0.023839693735893668,
+      "source_bars": 1095,
+      "target_bars": 239
+     }
+    },
+    {
+     "id": "split_seed2_original-heldout397",
+     "fit_scope": "split",
+     "cohort": "heldout397",
+     "seed": 2,
+     "method": "original",
+     "scope": "independent_new_seed",
+     "status": "completed",
+     "metrics": {
+      "ari": 0.8170375027549245,
+      "silhouette": 0.5822383112828844,
+      "neighbors15": {
+       "overlap": 0.6191435768261965,
+       "trust": 0.969101146297768,
+       "continuity": 0.9435813161994818
+      },
+      "pair_spearman": 0.3124506070403228,
+      "stress": 0.42241374914561286
+     },
+     "class1_components": {
+      "source": [
+       39
+      ],
+      "target": [
+       23,
+       11,
+       5
+      ]
+     }
+    },
+    {
+     "id": "split_seed2_original-combined1797_inductive",
+     "fit_scope": "split",
+     "cohort": "combined1797_inductive",
+     "seed": 2,
+     "method": "original",
+     "scope": "independent_new_seed",
+     "status": "completed",
+     "metrics": {
+      "ari": 0.8188645066629999,
+      "silhouette": 0.5834635431295225,
+      "neighbors15": {
+       "overlap": 0.5195696531255797,
+       "trust": 0.9850883670370489,
+       "continuity": 0.9824856952911414
+      },
+      "pair_spearman": 0.3476014845018874,
+      "stress": 0.42780206986213887
+     },
+     "class1_components": {
+      "source": [
+       182
+      ],
+      "target": [
+       98,
+       57,
+       27
+      ]
+     }
+    },
+    {
+     "id": "split_seed2_linear_tail-fit",
+     "fit_scope": "split",
+     "cohort": "fit",
+     "seed": 2,
+     "method": "linear_tail",
+     "scope": "independent_new_seed",
+     "status": "completed",
+     "metrics": {
+      "ari": 0.7724004052651271,
+      "silhouette": 0.5248704655567016,
+      "neighbors15": {
+       "overlap": 0.5463333333333333,
+       "trust": 0.9815629906283501,
+       "continuity": 0.9823793616211917
+      },
+      "pair_spearman": 0.406524197327274,
+      "stress": 0.42176563733589745
+     },
+     "class1_components": {
+      "source": [
+       143
+      ],
+      "target": [
+       75,
+       46,
+       22
+      ]
+     },
+     "h1_source_aligned": {
+      "betti_L1_relative": 1.0410719320835062,
+      "target_to_source_total_persistence": 0.04632382630679239,
+      "source_bars": 1095,
+      "target_bars": 256
+     }
+    },
+    {
+     "id": "split_seed2_linear_tail-heldout397",
+     "fit_scope": "split",
+     "cohort": "heldout397",
+     "seed": 2,
+     "method": "linear_tail",
+     "scope": "independent_new_seed",
+     "status": "completed",
+     "metrics": {
+      "ari": 0.792859291311263,
+      "silhouette": 0.5269637478434204,
+      "neighbors15": {
+       "overlap": 0.6082283795130142,
+       "trust": 0.9649398115096737,
+       "continuity": 0.9473250807078041
+      },
+      "pair_spearman": 0.35316681220275176,
+      "stress": 0.41659772681025015
+     },
+     "class1_components": {
+      "source": [
+       39
+      ],
+      "target": [
+       23,
+       11,
+       5
+      ]
+     }
+    },
+    {
+     "id": "split_seed2_linear_tail-combined1797_inductive",
+     "fit_scope": "split",
+     "cohort": "combined1797_inductive",
+     "seed": 2,
+     "method": "linear_tail",
+     "scope": "independent_new_seed",
+     "status": "completed",
+     "metrics": {
+      "ari": 0.7802488766248302,
+      "silhouette": 0.526089828765614,
+      "neighbors15": {
+       "overlap": 0.512409571508069,
+       "trust": 0.9826491268904686,
+       "continuity": 0.9840629409281033
+      },
+      "pair_spearman": 0.3943944883658271,
+      "stress": 0.4206181160671608
+     },
+     "class1_components": {
+      "source": [
+       182
+      ],
+      "target": [
+       98,
+       57,
+       27
+      ]
+     }
+    },
+    {
+     "id": "split_seed2_author_umap-fit",
+     "fit_scope": "split",
+     "cohort": "fit",
+     "seed": 2,
+     "method": "author_umap",
+     "scope": "independent_new_seed",
+     "status": "completed",
+     "metrics": {
+      "ari": 0.8189126742983207,
+      "silhouette": 0.5978257656097412,
+      "neighbors15": {
+       "overlap": 0.5521428571428572,
+       "trust": 0.9857206141715945,
+       "continuity": 0.9792158591831794
+      },
+      "pair_spearman": 0.35114155416393633,
+      "stress": 0.4344000590419927
+     },
+     "class1_components": {
+      "source": [
+       143
+      ],
+      "target": [
+       75,
+       46,
+       22
+      ]
+     },
+     "h1_source_aligned": {
+      "betti_L1_relative": 1.0120439119696238,
+      "target_to_source_total_persistence": 0.018345219511299346,
+      "source_bars": 1095,
+      "target_bars": 216
+     }
+    },
+    {
+     "id": "split_seed2_author_umap-heldout397",
+     "fit_scope": "split",
+     "cohort": "heldout397",
+     "seed": 2,
+     "method": "author_umap",
+     "scope": "independent_new_seed",
+     "status": "completed",
+     "metrics": {
+      "ari": 0.8215332224529487,
+      "silhouette": 0.5859118103981018,
+      "neighbors15": {
+       "overlap": 0.618303946263644,
+       "trust": 0.9670177849019159,
+       "continuity": 0.9403345950241787
+      },
+      "pair_spearman": 0.27582469779041896,
+      "stress": 0.43218805452035963
+     },
+     "class1_components": {
+      "source": [
+       39
+      ],
+      "target": [
+       23,
+       11,
+       5
+      ]
+     }
+    },
+    {
+     "id": "split_seed2_author_umap-combined1797_inductive",
+     "fit_scope": "split",
+     "cohort": "combined1797_inductive",
+     "seed": 2,
+     "method": "author_umap",
+     "scope": "independent_new_seed",
+     "status": "completed",
+     "metrics": {
+      "ari": 0.819492137536476,
+      "silhouette": 0.5956531167030334,
+      "neighbors15": {
+       "overlap": 0.4976442218512335,
+       "trust": 0.9858816847236103,
+       "continuity": 0.9821232598403494
+      },
+      "pair_spearman": 0.3345912962992336,
+      "stress": 0.43367547710289556
+     },
+     "class1_components": {
+      "source": [
+       182
+      ],
+      "target": [
+       98,
+       57,
+       27
+      ]
+     }
+    },
+    {
+     "id": "transductive_seed0_original-fit",
+     "fit_scope": "transductive",
+     "cohort": "fit",
+     "seed": 0,
+     "method": "original",
+     "scope": "development",
+     "status": "completed",
+     "metrics": {
+      "ari": 0.8218548877593791,
+      "silhouette": 0.6130173983425579,
+      "neighbors15": {
+       "overlap": 0.5332220367278798,
+       "trust": 0.9867825347561398,
+       "continuity": 0.9823120792786508
+      },
+      "pair_spearman": 0.35834795433624494,
+      "stress": 0.41235064675040256
+     },
+     "class1_components": {
+      "source": [
+       182
+      ],
+      "target": [
+       155,
+       27
+      ]
+     },
+     "h1_source_aligned": {
+      "betti_L1_relative": 1.0183018423044514,
+      "target_to_source_total_persistence": 0.03158651703428218,
+      "source_bars": 1440,
+      "target_bars": 314
+     }
+    },
+    {
+     "id": "transductive_seed0_linear_tail-fit",
+     "fit_scope": "transductive",
+     "cohort": "fit",
+     "seed": 0,
+     "method": "linear_tail",
+     "scope": "development",
+     "status": "completed",
+     "metrics": {
+      "ari": 0.8744546683837683,
+      "silhouette": 0.5618038857071795,
+      "neighbors15": {
+       "overlap": 0.524244110554628,
+       "trust": 0.9835919275037083,
+       "continuity": 0.9837587260240197
+      },
+      "pair_spearman": 0.39961611178101974,
+      "stress": 0.41530466923190934
+     },
+     "class1_components": {
+      "source": [
+       182
+      ],
+      "target": [
+       155,
+       27
+      ]
+     },
+     "h1_source_aligned": {
+      "betti_L1_relative": 1.0368644354863958,
+      "target_to_source_total_persistence": 0.043371776210440645,
+      "source_bars": 1440,
+      "target_bars": 306
+     }
+    },
+    {
+     "id": "transductive_seed0_author_umap-fit",
+     "fit_scope": "transductive",
+     "cohort": "fit",
+     "seed": 0,
+     "method": "author_umap",
+     "scope": "development",
+     "status": "completed",
+     "metrics": {
+      "ari": 0.8213126330655656,
+      "silhouette": 0.6237813234329224,
+      "neighbors15": {
+       "overlap": 0.5204971248376925,
+       "trust": 0.9859096448065662,
+       "continuity": 0.9831586612369315
+      },
+      "pair_spearman": 0.3487469801586883,
+      "stress": 0.44033287472204
+     },
+     "class1_components": {
+      "source": [
+       182
+      ],
+      "target": [
+       155,
+       27
+      ]
+     },
+     "h1_source_aligned": {
+      "betti_L1_relative": 1.0138351564149373,
+      "target_to_source_total_persistence": 0.013838509138894551,
+      "source_bars": 1440,
+      "target_bars": 284
+     }
+    },
+    {
+     "id": "transductive_seed1_original-fit",
+     "fit_scope": "transductive",
+     "cohort": "fit",
+     "seed": 1,
+     "method": "original",
+     "scope": "independent_new_seed",
+     "status": "completed",
+     "metrics": {
+      "ari": 0.7719314317886182,
+      "silhouette": 0.5863577402334108,
+      "neighbors15": {
+       "overlap": 0.5295121498794286,
+       "trust": 0.9861466258537288,
+       "continuity": 0.9822391362948436
+      },
+      "pair_spearman": 0.39242858823848703,
+      "stress": 0.4206299200112779
+     },
+     "class1_components": {
+      "source": [
+       182
+      ],
+      "target": [
+       96,
+       59,
+       27
+      ]
+     },
+     "h1_source_aligned": {
+      "betti_L1_relative": 1.0202038728049554,
+      "target_to_source_total_persistence": 0.024690188150310287,
+      "source_bars": 1440,
+      "target_bars": 321
+     }
+    },
+    {
+     "id": "transductive_seed1_linear_tail-fit",
+     "fit_scope": "transductive",
+     "cohort": "fit",
+     "seed": 1,
+     "method": "linear_tail",
+     "scope": "independent_new_seed",
+     "status": "completed",
+     "metrics": {
+      "ari": 0.877622461352361,
+      "silhouette": 0.5458593222496695,
+      "neighbors15": {
+       "overlap": 0.5271749211649045,
+       "trust": 0.9834082734659231,
+       "continuity": 0.9845672262238392
+      },
+      "pair_spearman": 0.36025279617102773,
+      "stress": 0.45536376445801197
+     },
+     "class1_components": {
+      "source": [
+       182
+      ],
+      "target": [
+       155,
+       27
+      ]
+     },
+     "h1_source_aligned": {
+      "betti_L1_relative": 1.0342061520554091,
+      "target_to_source_total_persistence": 0.034734484953281894,
+      "source_bars": 1440,
+      "target_bars": 330
+     }
+    },
+    {
+     "id": "transductive_seed1_author_umap-fit",
+     "fit_scope": "transductive",
+     "cohort": "fit",
+     "seed": 1,
+     "method": "author_umap",
+     "scope": "independent_new_seed",
+     "status": "completed",
+     "metrics": {
+      "ari": 0.8372356123122621,
+      "silhouette": 0.6075955629348755,
+      "neighbors15": {
+       "overlap": 0.5255054720831015,
+       "trust": 0.9869799074284943,
+       "continuity": 0.9814107482574093
+      },
+      "pair_spearman": 0.36012157534215733,
+      "stress": 0.42943251490581485
+     },
+     "class1_components": {
+      "source": [
+       182
+      ],
+      "target": [
+       99,
+       56,
+       27
+      ]
+     },
+     "h1_source_aligned": {
+      "betti_L1_relative": 1.0147336352935237,
+      "target_to_source_total_persistence": 0.015974515445087455,
+      "source_bars": 1440,
+      "target_bars": 280
+     }
+    },
+    {
+     "id": "transductive_seed2_original-fit",
+     "fit_scope": "transductive",
+     "cohort": "fit",
+     "seed": 2,
+     "method": "original",
+     "scope": "independent_new_seed",
+     "status": "completed",
+     "metrics": {
+      "ari": 0.8149299148376834,
+      "silhouette": 0.589866864333841,
+      "neighbors15": {
+       "overlap": 0.5297347430903357,
+       "trust": 0.9867448921612851,
+       "continuity": 0.981924778802702
+      },
+      "pair_spearman": 0.34553313107417577,
+      "stress": 0.43390952887295475
+     },
+     "class1_components": {
+      "source": [
+       182
+      ],
+      "target": [
+       99,
+       56,
+       27
+      ]
+     },
+     "h1_source_aligned": {
+      "betti_L1_relative": 1.0189613345879653,
+      "target_to_source_total_persistence": 0.02699508017163403,
+      "source_bars": 1440,
+      "target_bars": 304
+     }
+    },
+    {
+     "id": "transductive_seed2_linear_tail-fit",
+     "fit_scope": "transductive",
+     "cohort": "fit",
+     "seed": 2,
+     "method": "linear_tail",
+     "scope": "independent_new_seed",
+     "status": "completed",
+     "metrics": {
+      "ari": 0.8015070361406242,
+      "silhouette": 0.5368880928129411,
+      "neighbors15": {
+       "overlap": 0.5214616954182898,
+       "trust": 0.9824591154366635,
+       "continuity": 0.9843352641893238
+      },
+      "pair_spearman": 0.3807090262289752,
+      "stress": 0.42817046034102807
+     },
+     "class1_components": {
+      "source": [
+       182
+      ],
+      "target": [
+       155,
+       27
+      ]
+     },
+     "h1_source_aligned": {
+      "betti_L1_relative": 1.0329009073880997,
+      "target_to_source_total_persistence": 0.03420175189246434,
+      "source_bars": 1440,
+      "target_bars": 324
+     }
+    },
+    {
+     "id": "transductive_seed2_author_umap-fit",
+     "fit_scope": "transductive",
+     "cohort": "fit",
+     "seed": 2,
+     "method": "author_umap",
+     "scope": "independent_new_seed",
+     "status": "completed",
+     "metrics": {
+      "ari": 0.8204272387462438,
+      "silhouette": 0.5997605919837952,
+      "neighbors15": {
+       "overlap": 0.5206455203116305,
+       "trust": 0.9870567192345504,
+       "continuity": 0.9827954101965842
+      },
+      "pair_spearman": 0.3777475663755158,
+      "stress": 0.43085277307021375
+     },
+     "class1_components": {
+      "source": [
+       182
+      ],
+      "target": [
+       155,
+       27
+      ]
+     },
+     "h1_source_aligned": {
+      "betti_L1_relative": 1.011971093738876,
+      "target_to_source_total_persistence": 0.018592741576422125,
+      "source_bars": 1440,
+      "target_bars": 264
+     }
+    }
+   ],
+   "limitations": [
+    "Schedule identity audited, but floating reassociation differs below the join and prototype omits production event-budget abort checks; not a bitwise single-expression isolation.",
+    "Silhouette, k15 overlap and trustworthiness decrease in all four new-seed fit pairs; continuity improves.",
+    "Source-aligned relative Betti L1 worsens in all four new-seed pairs. Exact source-class preservation is not established.",
+    "Two seeds and related cohorts are not four independent datasets; no significance or general clustering-win claim."
+   ],
+   "raw_author_transfers": [
+    {
+     "dataset": "3Clusters",
+     "method": "original",
+     "seed": 0,
+     "rows": 800,
+     "status": "completed",
+     "metrics": {
+      "neighbors": {
+       "5": {
+        "overlap": 0.5525,
+        "trust": 0.9786881313131313,
+        "continuity": 0.9874138257575757
+       },
+       "15": {
+        "overlap": 0.5840833333333333,
+        "trust": 0.9664094809094809,
+        "continuity": 0.9735033247533248
+       },
+       "50": {
+        "overlap": 0.604525,
+        "trust": 0.9446229123533472,
+        "continuity": 0.9513277777777778
+       }
+      },
+      "pair_spearman": 0.784586667048183,
+      "stress": 0.2368053703238098,
+      "ari": 1.0,
+      "silhouette": 0.8136381316990234
+     },
+     "role": "paired force intervention"
+    },
+    {
+     "dataset": "3Clusters",
+     "method": "linear_tail",
+     "seed": 0,
+     "rows": 800,
+     "status": "completed",
+     "metrics": {
+      "neighbors": {
+       "5": {
+        "overlap": 0.524,
+        "trust": 0.9630388257575757,
+        "continuity": 0.9888292297979798
+       },
+       "15": {
+        "overlap": 0.5564166666666667,
+        "trust": 0.9505018232518232,
+        "continuity": 0.9758536036036036
+       },
+       "50": {
+        "overlap": 0.578375,
+        "trust": 0.9317302277432712,
+        "continuity": 0.9524896480331263
+       }
+      },
+      "pair_spearman": 0.7875885607057154,
+      "stress": 0.23143318397795729,
+      "ari": 1.0,
+      "silhouette": 0.8238138366568609
+     },
+     "role": "paired force intervention"
+    },
+    {
+     "dataset": "3Clusters",
+     "method": "UMAP_contextual",
+     "seed": 0,
+     "rows": 800,
+     "status": "completed",
+     "metrics": {
+      "neighbors": {
+       "5": {
+        "overlap": 0.57375,
+        "trust": 0.9842777777777778,
+        "continuity": 0.9859510732323232
+       },
+       "15": {
+        "overlap": 0.6170833333333333,
+        "trust": 0.974539039039039,
+        "continuity": 0.9709313599313599
+       },
+       "50": {
+        "overlap": 0.6187,
+        "trust": 0.9470822636300897,
+        "continuity": 0.9460902691511387
+       }
+      },
+      "pair_spearman": 0.8042782408190337,
+      "stress": 0.2835852124774264,
+      "ari": 1.0,
+      "silhouette": 0.8345841765403748
+     },
+     "role": "contextual unmatched UMAP"
+    },
+    {
+     "dataset": "Twist",
+     "method": "original",
+     "seed": 0,
+     "rows": 100,
+     "status": "completed",
+     "metrics": {
+      "neighbors": {
+       "5": {
+        "overlap": 0.908,
+        "trust": 0.9986521739130435,
+        "continuity": 0.9987608695652174
+       },
+       "15": {
+        "overlap": 0.912,
+        "trust": 0.9893939393939394,
+        "continuity": 0.9976450216450217
+       },
+       "50": {
+        "overlap": 0.7656,
+        "trust": 0.8392163265306123,
+        "continuity": 0.8175673469387755
+       }
+      },
+      "pair_spearman": 0.8455126444950718,
+      "stress": 0.27340971407861
+     },
+     "role": "paired force intervention"
+    },
+    {
+     "dataset": "Twist",
+     "method": "linear_tail",
+     "seed": 0,
+     "rows": 100,
+     "status": "completed",
+     "metrics": {
+      "neighbors": {
+       "5": {
+        "overlap": 0.908,
+        "trust": 0.9986956521739131,
+        "continuity": 0.9987391304347826
+       },
+       "15": {
+        "overlap": 0.9133333333333333,
+        "trust": 0.9901731601731601,
+        "continuity": 0.9977835497835498
+       },
+       "50": {
+        "overlap": 0.7894,
+        "trust": 0.8637224489795918,
+        "continuity": 0.8780163265306122
+       }
+      },
+      "pair_spearman": 0.9018194589149036,
+      "stress": 0.21873056867441404
+     },
+     "role": "paired force intervention"
+    },
+    {
+     "dataset": "Twist",
+     "method": "UMAP_contextual",
+     "seed": 0,
+     "rows": 100,
+     "status": "completed",
+     "metrics": {
+      "neighbors": {
+       "5": {
+        "overlap": 0.904,
+        "trust": 0.9986086956521739,
+        "continuity": 0.998804347826087
+       },
+       "15": {
+        "overlap": 0.9006666666666666,
+        "trust": 0.9871601731601731,
+        "continuity": 0.9970649350649351
+       },
+       "50": {
+        "overlap": 0.727,
+        "trust": 0.798269387755102,
+        "continuity": 0.7351755102040816
+       }
+      },
+      "pair_spearman": 0.6940800905576238,
+      "stress": 0.3623721807448632
+     },
+     "role": "contextual unmatched UMAP"
+    },
+    {
+     "dataset": "K4",
+     "method": "original",
+     "seed": 0,
+     "rows": 300,
+     "status": "completed",
+     "metrics": {
+      "neighbors": {
+       "5": {
+        "overlap": 0.7986666666666666,
+        "trust": 0.9978881278538813,
+        "continuity": 0.9941278538812786
+       },
+       "15": {
+        "overlap": 0.8686666666666667,
+        "trust": 0.9958563979141597,
+        "continuity": 0.9812611311672683
+       },
+       "50": {
+        "overlap": 0.7446,
+        "trust": 0.9611637713437268,
+        "continuity": 0.8785841128433556
+       }
+      },
+      "pair_spearman": 0.5767359803251312,
+      "stress": 0.41771642034111417
+     },
+     "role": "paired force intervention"
+    },
+    {
+     "dataset": "K4",
+     "method": "linear_tail",
+     "seed": 0,
+     "rows": 300,
+     "status": "completed",
+     "metrics": {
+      "neighbors": {
+       "5": {
+        "overlap": 0.798,
+        "trust": 0.9980593607305936,
+        "continuity": 0.9978196347031963
+       },
+       "15": {
+        "overlap": 0.8691111111111111,
+        "trust": 0.9942880064179703,
+        "continuity": 0.9925936622543121
+       },
+       "50": {
+        "overlap": 0.8028,
+        "trust": 0.9519902004454343,
+        "continuity": 0.9648504825538233
+       }
+      },
+      "pair_spearman": 0.7254239878068726,
+      "stress": 0.27313263566068036
+     },
+     "role": "paired force intervention"
+    },
+    {
+     "dataset": "K4",
+     "method": "UMAP_contextual",
+     "seed": 0,
+     "rows": 300,
+     "status": "completed",
+     "metrics": {
+      "neighbors": {
+       "5": {
+        "overlap": 0.8086666666666666,
+        "trust": 0.9982077625570777,
+        "continuity": 0.992568493150685
+       },
+       "15": {
+        "overlap": 0.8677777777777778,
+        "trust": 0.9957817890092259,
+        "continuity": 0.9711929402326515
+       },
+       "50": {
+        "overlap": 0.6835333333333333,
+        "trust": 0.9214138084632517,
+        "continuity": 0.8536703786191537
+       }
+      },
+      "pair_spearman": 0.5031913643977733,
+      "stress": 0.4580679982332634
+     },
+     "role": "contextual unmatched UMAP"
+    },
+    {
+     "dataset": "COIL20-1",
+     "method": "original",
+     "seed": 0,
+     "rows": 72,
+     "status": "completed",
+     "metrics": {
+      "neighbors": {
+       "5": {
+        "overlap": 0.8888888888888888,
+        "trust": 0.9974392361111111,
+        "continuity": 0.9974392361111111
+       },
+       "15": {
+        "overlap": 0.8888888888888888,
+        "trust": 0.9892290249433107,
+        "continuity": 0.9917044595616025
+       }
+      },
+      "pair_spearman": 0.940490058208184,
+      "stress": 0.3129788313442151
+     },
+     "role": "paired force intervention"
+    },
+    {
+     "dataset": "COIL20-1",
+     "method": "linear_tail",
+     "seed": 0,
+     "rows": 72,
+     "status": "completed",
+     "metrics": {
+      "neighbors": {
+       "5": {
+        "overlap": 0.8916666666666667,
+        "trust": 0.9973958333333334,
+        "continuity": 0.9973958333333334
+       },
+       "15": {
+        "overlap": 0.9018518518518519,
+        "trust": 0.992838246409675,
+        "continuity": 0.9923091458805745
+       }
+      },
+      "pair_spearman": 0.9451697029994993,
+      "stress": 0.32508571025849287
+     },
+     "role": "paired force intervention"
+    },
+    {
+     "dataset": "COIL20-1",
+     "method": "UMAP_contextual",
+     "seed": 0,
+     "rows": 72,
+     "status": "completed",
+     "metrics": {
+      "neighbors": {
+       "5": {
+        "overlap": 0.9,
+        "trust": 0.9978732638888889,
+        "continuity": 0.9970486111111111
+       },
+       "15": {
+        "overlap": 0.8481481481481481,
+        "trust": 0.9813303099017385,
+        "continuity": 0.9694066515495087
+       }
+      },
+      "pair_spearman": 0.9273111944965589,
+      "stress": 0.3090386169894402
+     },
+     "role": "contextual unmatched UMAP"
+    }
+   ],
+   "raw_transfer_note": "All four reconstructed original layouts reproduce old controls bitwise. Mixed transfers do not rescue failed Digits confirmation or certify H1 preservation.",
+   "fashion_transfer": {
+    "dataset": "Fashion-MNIST",
+    "fit_rows": 50000,
+    "seed": 0,
+    "status": "completed",
+    "decision": "negative_transfer_for_local_structure_and_information_agreement",
+    "protocol": "TRAIN-only existing fit-only PCA features and frozen source graph/initialization; no official TEST. 300 epochs, 5 negatives. KMeans10 n_init10 seed0 all50000; overlap on fixed512 queries against all50000; silhouette on fixed2048 points, RNG943.",
+    "metrics": {
+     "old_graph": {
+      "ari": 0.42312107844073515,
+      "nmi": 0.6149481392400004,
+      "silhouette_fixed2048": 0.1728964197878859,
+      "overlap15_fixed512": 0.1701822916666667
+     },
+     "author_umap": {
+      "ari": 0.41089016807473916,
+      "nmi": 0.6054162603385134,
+      "silhouette_fixed2048": 0.19001197814941406,
+      "overlap15_fixed512": 0.19075520833333334
+     },
+     "linear_tail": {
+      "ari": 0.42735984958591283,
+      "nmi": 0.5887999024318534,
+      "silhouette_fixed2048": 0.16861153261098066,
+      "overlap15_fixed512": 0.157421875
+     }
+    },
+    "interpretation": "ARI rises slightly, but NMI, sampled silhouette and sampled overlap decline versus original. Not an all-metric gain and not a heldout result."
+   }
+  },
+  {
+   "id": "oracle_critical_edges",
+   "decision": "rejected_as_general_or_same_cycle_preservation",
+   "promoted_to_default": false,
+   "registered_arms": [
+    "source_only",
+    "adaptive_mst",
+    "adaptive_full"
+   ],
+   "registration_source_id": "critical-edge-registration",
+   "protocol": {
+    "source_units": "raw float64 Euclidean",
+    "initialization": "same saved GraphEmbedding, centered then once globally least-squares scaled against all source pairs",
+    "objective": "Equal-weight sum of per-group mean squared edge-distance errors, preserving multiplicities; source distances are targets for all groups.",
+    "source_only": "Fixed author source MST, birth, death, strict-cascade groups.",
+    "adaptive_mst": "Fixed source groups plus target SciPy MST refreshed each round.",
+    "adaptive_full": "Adaptive MST plus author-oracle target birth/death groups refreshed each round; no target cascade.",
+    "outer_rounds": 20,
+    "lbfgs_options": {
+     "maxiter": 100,
+     "maxls": 40,
+     "ftol": 1e-12,
+     "gtol": 1e-08
+    },
+    "selection": "last finite iterate; no PH-based iterate selection, retuning or real fit retry",
+    "oracle_role": "Unchanged author PairCellsWithOracle for constraints; own direct-coordinate solver is not an independent TopoAE++ implementation."
+   },
+   "records": [
+    {
+     "dataset": "Twist",
+     "arm": "source",
+     "status": "completed",
+     "rows": 100,
+     "geometry": {
+      "overlap": 1.0,
+      "trustworthiness": 1.0,
+      "continuity": 1.0,
+      "raw_distance_stress": 0.0,
+      "ls_aligned_distance_stress": 0.0
+     },
+     "h1_raw_counts": {
+      "0.1": 1,
+      "0.25": 1,
+      "0.5": 1
+     },
+     "h1_own_median_normalized_counts": {
+      "0.1": 1,
+      "0.25": 1,
+      "0.5": 1
+     },
+     "h1_normalized_diagram_wasserstein": 0.0
+    },
+    {
+     "dataset": "Twist",
+     "arm": "graph_init",
+     "status": "completed",
+     "rows": 100,
+     "geometry": {
+      "overlap": 0.912,
+      "trustworthiness": 0.9893939393939394,
+      "continuity": 0.9976450216450217,
+      "raw_distance_stress": 0.27340971407861003,
+      "ls_aligned_distance_stress": 0.2734097140786101
+     },
+     "h1_raw_counts": {
+      "0.1": 1,
+      "0.25": 1,
+      "0.5": 1
+     },
+     "h1_own_median_normalized_counts": {
+      "0.1": 1,
+      "0.25": 1,
+      "0.5": 1
+     },
+     "h1_normalized_diagram_wasserstein": 0.32946985195323963
+    },
+    {
+     "dataset": "Twist",
+     "arm": "source_only",
+     "status": "completed",
+     "rows": 100,
+     "geometry": {
+      "overlap": 0.904,
+      "trustworthiness": 0.977004329004329,
+      "continuity": 0.9936363636363637,
+      "raw_distance_stress": 0.16279283024455166,
+      "ls_aligned_distance_stress": 0.16015410720189127
+     },
+     "h1_raw_counts": {
+      "0.1": 2,
+      "0.25": 2,
+      "0.5": 1
+     },
+     "h1_own_median_normalized_counts": {
+      "0.1": 2,
+      "0.25": 1,
+      "0.5": 1
+     },
+     "h1_normalized_diagram_wasserstein": 0.10012170698254007,
+     "completed_outer_rounds": 20,
+     "requested_outer_rounds": 20,
+     "nonconverged_rounds": 8,
+     "total_inner_iterations": 889,
+     "source_fixed_objective": 9.365860233833933e-07,
+     "wall_seconds": 0.17464837500000002,
+     "oracle_seconds": 0.0
+    },
+    {
+     "dataset": "Twist",
+     "arm": "adaptive_mst",
+     "status": "completed",
+     "rows": 100,
+     "geometry": {
+      "overlap": 0.8453333333333334,
+      "trustworthiness": 0.9792380952380952,
+      "continuity": 0.9897316017316017,
+      "raw_distance_stress": 0.13145550694566918,
+      "ls_aligned_distance_stress": 0.13120418899989783
+     },
+     "h1_raw_counts": {
+      "0.1": 1,
+      "0.25": 1,
+      "0.5": 1
+     },
+     "h1_own_median_normalized_counts": {
+      "0.1": 1,
+      "0.25": 1,
+      "0.5": 1
+     },
+     "h1_normalized_diagram_wasserstein": 0.09011617715275952,
+     "completed_outer_rounds": 20,
+     "requested_outer_rounds": 20,
+     "nonconverged_rounds": 20,
+     "total_inner_iterations": 2000,
+     "source_fixed_objective": 0.0001400009741323064,
+     "wall_seconds": 0.48054375000000005,
+     "oracle_seconds": 0.0
+    },
+    {
+     "dataset": "Twist",
+     "arm": "adaptive_full",
+     "status": "completed",
+     "rows": 100,
+     "geometry": {
+      "overlap": 0.9413333333333334,
+      "trustworthiness": 0.9972380952380953,
+      "continuity": 0.9974025974025974,
+      "raw_distance_stress": 0.21570757678506,
+      "ls_aligned_distance_stress": 0.07618376385293378
+     },
+     "h1_raw_counts": {
+      "0.1": 1,
+      "0.25": 1,
+      "0.5": 1
+     },
+     "h1_own_median_normalized_counts": {
+      "0.1": 1,
+      "0.25": 1,
+      "0.5": 1
+     },
+     "h1_normalized_diagram_wasserstein": 0.13755067179923613,
+     "completed_outer_rounds": 20,
+     "requested_outer_rounds": 20,
+     "nonconverged_rounds": 20,
+     "total_inner_iterations": 2000,
+     "source_fixed_objective": 1.3565458357148592e-06,
+     "wall_seconds": 0.806875834,
+     "oracle_seconds": 0.2327245840000005
+    },
+    {
+     "dataset": "K4",
+     "arm": "source",
+     "status": "completed",
+     "rows": 300,
+     "geometry": {
+      "overlap": 1.0,
+      "trustworthiness": 1.0,
+      "continuity": 1.0,
+      "raw_distance_stress": 0.0,
+      "ls_aligned_distance_stress": 0.0
+     },
+     "h1_raw_counts": {
+      "0.1": 3,
+      "0.25": 3,
+      "0.5": 3
+     },
+     "h1_own_median_normalized_counts": {
+      "0.1": 3,
+      "0.25": 3,
+      "0.5": 3
+     },
+     "h1_normalized_diagram_wasserstein": 0.0
+    },
+    {
+     "dataset": "K4",
+     "arm": "graph_init",
+     "status": "completed",
+     "rows": 300,
+     "geometry": {
+      "overlap": 0.8686666666666667,
+      "trustworthiness": 0.9958563979141597,
+      "continuity": 0.9812611311672683,
+      "raw_distance_stress": 0.41771642034111417,
+      "ls_aligned_distance_stress": 0.41771642034111417
+     },
+     "h1_raw_counts": {
+      "0.1": 1,
+      "0.25": 1,
+      "0.5": 0
+     },
+     "h1_own_median_normalized_counts": {
+      "0.1": 1,
+      "0.25": 1,
+      "0.5": 1
+     },
+     "h1_normalized_diagram_wasserstein": 1.1058536944744277
+    },
+    {
+     "dataset": "K4",
+     "arm": "source_only",
+     "status": "completed",
+     "rows": 300,
+     "geometry": {
+      "overlap": 0.5724444444444444,
+      "trustworthiness": 0.8921219414360209,
+      "continuity": 0.9728030485359005,
+      "raw_distance_stress": 0.4089279335896492,
+      "ls_aligned_distance_stress": 0.3445942882507744
+     },
+     "h1_raw_counts": {
+      "0.1": 4,
+      "0.25": 0,
+      "0.5": 0
+     },
+     "h1_own_median_normalized_counts": {
+      "0.1": 6,
+      "0.25": 2,
+      "0.5": 0
+     },
+     "h1_normalized_diagram_wasserstein": 1.1823199894886474,
+     "completed_outer_rounds": 20,
+     "requested_outer_rounds": 20,
+     "nonconverged_rounds": 8,
+     "total_inner_iterations": 823,
+     "source_fixed_objective": 0.0006101871333342547,
+     "wall_seconds": 0.28848320799999994,
+     "oracle_seconds": 0.0
+    },
+    {
+     "dataset": "K4",
+     "arm": "adaptive_mst",
+     "status": "completed",
+     "rows": 300,
+     "geometry": {
+      "overlap": 0.7242222222222222,
+      "trustworthiness": 0.9536590453269154,
+      "continuity": 0.9879269955876454,
+      "raw_distance_stress": 0.306226867704199,
+      "ls_aligned_distance_stress": 0.3062005572805389
+     },
+     "h1_raw_counts": {
+      "0.1": 5,
+      "0.25": 1,
+      "0.5": 0
+     },
+     "h1_own_median_normalized_counts": {
+      "0.1": 5,
+      "0.25": 4,
+      "0.5": 0
+     },
+     "h1_normalized_diagram_wasserstein": 1.2862555126027757,
+     "completed_outer_rounds": 20,
+     "requested_outer_rounds": 20,
+     "nonconverged_rounds": 20,
+     "total_inner_iterations": 2000,
+     "source_fixed_objective": 0.0018833471157473955,
+     "wall_seconds": 1.0158034579999997,
+     "oracle_seconds": 0.0
+    },
+    {
+     "dataset": "K4",
+     "arm": "adaptive_full",
+     "status": "completed",
+     "rows": 300,
+     "geometry": {
+      "overlap": 0.7326666666666667,
+      "trustworthiness": 0.9760962695547533,
+      "continuity": 0.9869474528680305,
+      "raw_distance_stress": 0.3270899087395942,
+      "ls_aligned_distance_stress": 0.3061542212765884
+     },
+     "h1_raw_counts": {
+      "0.1": 4,
+      "0.25": 3,
+      "0.5": 0
+     },
+     "h1_own_median_normalized_counts": {
+      "0.1": 4,
+      "0.25": 3,
+      "0.5": 0
+     },
+     "h1_normalized_diagram_wasserstein": 0.8864960136356106,
+     "completed_outer_rounds": 20,
+     "requested_outer_rounds": 20,
+     "nonconverged_rounds": 20,
+     "total_inner_iterations": 2000,
+     "source_fixed_objective": 0.003975251395319655,
+     "wall_seconds": 2.4474271250000004,
+     "oracle_seconds": 1.256612916
+    },
+    {
+     "dataset": "COIL20-1",
+     "arm": "source",
+     "status": "completed",
+     "rows": 72,
+     "geometry": {
+      "overlap": 1.0,
+      "trustworthiness": 1.0,
+      "continuity": 1.0,
+      "raw_distance_stress": 0.0,
+      "ls_aligned_distance_stress": 0.0
+     },
+     "h1_raw_counts": {
+      "0.1": 4,
+      "0.25": 2,
+      "0.5": 1
+     },
+     "h1_own_median_normalized_counts": {
+      "0.1": 1,
+      "0.25": 1,
+      "0.5": 0
+     },
+     "h1_normalized_diagram_wasserstein": 0.0
+    },
+    {
+     "dataset": "COIL20-1",
+     "arm": "graph_init",
+     "status": "completed",
+     "rows": 72,
+     "geometry": {
+      "overlap": 0.8888888888888888,
+      "trustworthiness": 0.9892290249433107,
+      "continuity": 0.9917044595616025,
+      "raw_distance_stress": 0.31297883134421517,
+      "ls_aligned_distance_stress": 0.31297883134421517
+     },
+     "h1_raw_counts": {
+      "0.1": 3,
+      "0.25": 3,
+      "0.5": 2
+     },
+     "h1_own_median_normalized_counts": {
+      "0.1": 2,
+      "0.25": 1,
+      "0.5": 0
+     },
+     "h1_normalized_diagram_wasserstein": 0.4419740194198814
+    },
+    {
+     "dataset": "COIL20-1",
+     "arm": "source_only",
+     "status": "completed",
+     "rows": 72,
+     "geometry": {
+      "overlap": 0.7564814814814815,
+      "trustworthiness": 0.9473167044595616,
+      "continuity": 0.9601473922902495,
+      "raw_distance_stress": 0.35920379953616954,
+      "ls_aligned_distance_stress": 0.29300566991270866
+     },
+     "h1_raw_counts": {
+      "0.1": 11,
+      "0.25": 7,
+      "0.5": 4
+     },
+     "h1_own_median_normalized_counts": {
+      "0.1": 2,
+      "0.25": 1,
+      "0.5": 0
+     },
+     "h1_normalized_diagram_wasserstein": 0.524310482740735,
+     "completed_outer_rounds": 20,
+     "requested_outer_rounds": 20,
+     "nonconverged_rounds": 8,
+     "total_inner_iterations": 825,
+     "source_fixed_objective": 0.15331620436952723,
+     "wall_seconds": 0.14247545899999992,
+     "oracle_seconds": 0.0
+    },
+    {
+     "dataset": "COIL20-1",
+     "arm": "adaptive_mst",
+     "status": "completed",
+     "rows": 72,
+     "geometry": {
+      "overlap": 0.7092592592592593,
+      "trustworthiness": 0.8934051398337113,
+      "continuity": 0.9428004535147392,
+      "raw_distance_stress": 0.5272465892671687,
+      "ls_aligned_distance_stress": 0.3167216392400573
+     },
+     "h1_raw_counts": {
+      "0.1": 9,
+      "0.25": 8,
+      "0.5": 6
+     },
+     "h1_own_median_normalized_counts": {
+      "0.1": 4,
+      "0.25": 1,
+      "0.5": 0
+     },
+     "h1_normalized_diagram_wasserstein": 0.7801076130326987,
+     "completed_outer_rounds": 20,
+     "requested_outer_rounds": 20,
+     "nonconverged_rounds": 20,
+     "total_inner_iterations": 2000,
+     "source_fixed_objective": 0.08274869629881636,
+     "wall_seconds": 0.399930125,
+     "oracle_seconds": 0.0
+    },
+    {
+     "dataset": "COIL20-1",
+     "arm": "adaptive_full",
+     "status": "failed",
+     "rows": 72,
+     "geometry": {
+      "overlap": 0.8805555555555555,
+      "trustworthiness": 0.9907596371882086,
+      "continuity": 0.9896069538926682,
+      "raw_distance_stress": 1.274839821347687,
+      "ls_aligned_distance_stress": 0.2996149463223237
+     },
+     "h1_raw_counts": {
+      "0.1": 10,
+      "0.25": 5,
+      "0.5": 3
+     },
+     "h1_own_median_normalized_counts": {
+      "0.1": 1,
+      "0.25": 1,
+      "0.5": 0
+     },
+     "h1_normalized_diagram_wasserstein": 0.5420641143548051,
+     "completed_outer_rounds": 14,
+     "requested_outer_rounds": 20,
+     "nonconverged_rounds": 14,
+     "total_inner_iterations": 1400,
+     "source_fixed_objective": 0.15563934105216656,
+     "wall_seconds": 20.555508416,
+     "oracle_seconds": 0.1657856250000007
+    }
+   ],
+   "completed_rounds": 174,
+   "nonconverged_rounds": 138,
+   "failures": [
+    "COIL20-1 adaptive_full target oracle times out before zero-based round14; last14-round iterate is partial/failed, not a successful result.",
+    "Initial registration filename collision and macOS RLIMIT_AS preflight refusal retained; authorized pre-data portability rebuild, no data-fit retry.",
+    "Post-export oracle probes passed17/19: coincident points rejected for invalid MST; exact square timed out. No fallback or jitter.",
+    "No hard RSS/address-space cap on macOS; wall/CPU bounds do not imply total memory guarantee."
+   ],
+   "interpretation": "K4 adaptive_full matches three bars at normalized lifetime0.25 but loses neighborhoods and fails exact same-Gamma gate. Source-only low stress and adaptive MST bar counts are not preservation certificates."
+  }
+ ],
+ "same_cycle_gate": {
+  "dataset": "K4",
+  "all_rows": 300,
+  "source_contract_source_id": "same-cycle-contract",
+  "a": 0.23680398464202881,
+  "b": 0.5310013934969902,
+  "units": "Original raw-source float64 Euclidean; closed <= thresholds, no target rescaling during gate",
+  "source_selection": "Three longest finite source H1 bars propose common interior interval; source MST fundamental cycles and cochain pairing select three independent Gamma chains. Same indexed chains transported unchanged.",
+  "source_cycle_edge_counts": [
+   98,
+   97,
+   129
+  ],
+  "source_triangle_count": 158561,
+  "source_triangle_cochain_violations": [
+   0,
+   0,
+   0
+  ],
+  "records": [
+   {
+    "method": "source",
+    "status": "completed",
+    "missing_birth_edge_counts": [
+     0,
+     0,
+     0
+    ],
+    "eligible_selected_rank": 3,
+    "rank_at_b_ignoring_birth": 3,
+    "full_beta1_at_b": 3,
+    "all_three_preserved": true,
+    "independent_reduction_agrees": true
+   },
+   {
+    "method": "graph_init",
+    "status": "completed",
+    "missing_birth_edge_counts": [
+     1,
+     2,
+     1
+    ],
+    "eligible_selected_rank": 0,
+    "rank_at_b_ignoring_birth": 0,
+    "full_beta1_at_b": 1,
+    "all_three_preserved": false,
+    "independent_reduction_agrees": true
+   },
+   {
+    "method": "source_only",
+    "status": "completed",
+    "missing_birth_edge_counts": [
+     0,
+     0,
+     0
+    ],
+    "eligible_selected_rank": 0,
+    "rank_at_b_ignoring_birth": 0,
+    "full_beta1_at_b": 0,
+    "all_three_preserved": false,
+    "independent_reduction_agrees": true
+   },
+   {
+    "method": "adaptive_mst",
+    "status": "completed",
+    "missing_birth_edge_counts": [
+     0,
+     0,
+     0
+    ],
+    "eligible_selected_rank": 0,
+    "rank_at_b_ignoring_birth": 0,
+    "full_beta1_at_b": 0,
+    "all_three_preserved": false,
+    "independent_reduction_agrees": true
+   },
+   {
+    "method": "adaptive_full",
+    "status": "completed",
+    "missing_birth_edge_counts": [
+     0,
+     0,
+     1
+    ],
+    "eligible_selected_rank": 0,
+    "rank_at_b_ignoring_birth": 1,
+    "full_beta1_at_b": 1,
+    "all_three_preserved": false,
+    "independent_reduction_agrees": true
+   },
+   {
+    "method": "author_baseline",
+    "status": "completed",
+    "missing_birth_edge_counts": [
+     3,
+     1,
+     3
+    ],
+    "eligible_selected_rank": 0,
+    "rank_at_b_ignoring_birth": 1,
+    "full_beta1_at_b": 1,
+    "all_three_preserved": false,
+    "independent_reduction_agrees": true
+   }
+  ],
+  "decision": "reject_all_saved_targets",
+  "paper_failure_claim": false,
+  "limitation": "This strict fixed-representative, fixed-interval, fixed-scale single-seed contract also rejects the actual author baseline. It does not claim paper failure, impossibility under other representatives/scales, or failure of all topology-preserving methods. Endpoint-only rank is diagnostic, never relaxed acceptance."
+ },
+ "figures": [
+  {
+   "dataset": "K4",
+   "path": "assets/visual-contracts-K4.png",
+   "sha256": "fb48253e8d3e9ddaddf35ef72d61df5c7dcae7c4ae9f6f24eca680f0d663745f",
+   "width": 2210,
+   "height": 816,
+   "panels": [
+    {
+     "points": 300,
+     "full_range": true,
+     "equal_aspect": true,
+     "independent_axes": true,
+     "coordinate_transform": "none",
+     "smoothed": false,
+     "all_points": true,
+     "method": "TopoAE++ adapter",
+     "protocol": "author_raw",
+     "cohort": "full_input",
+     "seed": 0
+    },
+    {
+     "points": 300,
+     "full_range": true,
+     "equal_aspect": true,
+     "independent_axes": true,
+     "coordinate_transform": "none",
+     "smoothed": false,
+     "all_points": true,
+     "method": "GraphEmbedding",
+     "protocol": "author_raw",
+     "cohort": "full_input",
+     "seed": 0
+    },
+    {
+     "points": 300,
+     "full_range": true,
+     "equal_aspect": true,
+     "independent_axes": true,
+     "coordinate_transform": "none",
+     "smoothed": false,
+     "all_points": true,
+     "method": "UMAP",
+     "protocol": "author_raw",
+     "cohort": "full_input",
+     "seed": 0
+    }
+   ],
+   "caption": "Actual frozen author-adapter output versus unchanged GraphEmbedding and genuine UMAP on the identical full raw input. Source-row hue is not a class, angle or persistent-generator annotation. No source projection or smoothed curves.",
+   "png_metadata_stripped": true,
+   "embedded_raw_point_arrays": false
+  },
+  {
+   "dataset": "Twist",
+   "path": "assets/visual-contracts-Twist.png",
+   "sha256": "73f637c82e7f0f8e126de523ac190c9d0254a7f5003330d6bfb3654e80589cfa",
+   "width": 2210,
+   "height": 816,
+   "panels": [
+    {
+     "points": 100,
+     "full_range": true,
+     "equal_aspect": true,
+     "independent_axes": true,
+     "coordinate_transform": "none",
+     "smoothed": false,
+     "all_points": true,
+     "method": "TopoAE++ adapter",
+     "protocol": "author_raw",
+     "cohort": "full_input",
+     "seed": 0
+    },
+    {
+     "points": 100,
+     "full_range": true,
+     "equal_aspect": true,
+     "independent_axes": true,
+     "coordinate_transform": "none",
+     "smoothed": false,
+     "all_points": true,
+     "method": "GraphEmbedding",
+     "protocol": "author_raw",
+     "cohort": "full_input",
+     "seed": 0
+    },
+    {
+     "points": 100,
+     "full_range": true,
+     "equal_aspect": true,
+     "independent_axes": true,
+     "coordinate_transform": "none",
+     "smoothed": false,
+     "all_points": true,
+     "method": "UMAP",
+     "protocol": "author_raw",
+     "cohort": "full_input",
+     "seed": 0
+    }
+   ],
+   "caption": "Actual frozen author-adapter output versus unchanged GraphEmbedding and genuine UMAP on the identical full raw input. Source-row hue is not a class, angle or persistent-generator annotation. No source projection or smoothed curves.",
+   "png_metadata_stripped": true,
+   "embedded_raw_point_arrays": false
+  },
+  {
+   "dataset": "COIL20-1",
+   "path": "assets/visual-contracts-COIL20-1.png",
+   "sha256": "ac9fef78320e6d8a621094db9288cd3ddacd342b142d55ac2577631d22164af5",
+   "width": 2210,
+   "height": 816,
+   "panels": [
+    {
+     "points": 72,
+     "full_range": true,
+     "equal_aspect": true,
+     "independent_axes": true,
+     "coordinate_transform": "none",
+     "smoothed": false,
+     "all_points": true,
+     "method": "TopoAE++ adapter",
+     "protocol": "author_raw",
+     "cohort": "full_input",
+     "seed": 0
+    },
+    {
+     "points": 72,
+     "full_range": true,
+     "equal_aspect": true,
+     "independent_axes": true,
+     "coordinate_transform": "none",
+     "smoothed": false,
+     "all_points": true,
+     "method": "GraphEmbedding",
+     "protocol": "author_raw",
+     "cohort": "full_input",
+     "seed": 0
+    },
+    {
+     "points": 72,
+     "full_range": true,
+     "equal_aspect": true,
+     "independent_axes": true,
+     "coordinate_transform": "none",
+     "smoothed": false,
+     "all_points": true,
+     "method": "UMAP",
+     "protocol": "author_raw",
+     "cohort": "full_input",
+     "seed": 0
+    }
+   ],
+   "caption": "Actual frozen author-adapter output versus unchanged GraphEmbedding and genuine UMAP on the identical full raw input. Source-row hue is not a class, angle or persistent-generator annotation. No source projection or smoothed curves.",
+   "png_metadata_stripped": true,
+   "embedded_raw_point_arrays": false
+  },
+  {
+   "dataset": "Digits",
+   "path": "assets/visual-contracts-Digits.png",
+   "sha256": "1495fc1641fe42c94ddaeebb1b1f00b2280e0398f49635d63ae8cbc5e30895d1",
+   "width": 1785,
+   "height": 1751,
+   "panels": [
+    {
+     "points": 1400,
+     "full_range": true,
+     "equal_aspect": true,
+     "independent_axes": true,
+     "coordinate_transform": "none",
+     "smoothed": false,
+     "all_points": true,
+     "method": "GraphEmbedding",
+     "protocol": "digits_matched",
+     "cohort": "fit1400",
+     "seed": 0,
+     "ari": 0.7520994546995883,
+     "class1_components": {
+      "source": [
+       143
+      ],
+      "target": [
+       75,
+       46,
+       22
+      ]
+     }
+    },
+    {
+     "points": 1400,
+     "full_range": true,
+     "equal_aspect": true,
+     "independent_axes": true,
+     "coordinate_transform": "none",
+     "smoothed": false,
+     "all_points": true,
+     "method": "Matched UMAP",
+     "protocol": "digits_matched",
+     "cohort": "fit1400",
+     "seed": 0,
+     "ari": 0.8102506819392427,
+     "class1_components": {
+      "source": [
+       143
+      ],
+      "target": [
+       75,
+       46,
+       22
+      ]
+     }
+    },
+    {
+     "points": 1797,
+     "full_range": true,
+     "equal_aspect": true,
+     "independent_axes": true,
+     "coordinate_transform": "none",
+     "smoothed": false,
+     "all_points": true,
+     "method": "GraphEmbedding",
+     "protocol": "digits_matched",
+     "cohort": "transductive1797",
+     "seed": 0,
+     "ari": 0.8218548877593791,
+     "class1_components": {
+      "source": [
+       182
+      ],
+      "target": [
+       155,
+       27
+      ]
+     }
+    },
+    {
+     "points": 1797,
+     "full_range": true,
+     "equal_aspect": true,
+     "independent_axes": true,
+     "coordinate_transform": "none",
+     "smoothed": false,
+     "all_points": true,
+     "method": "Matched UMAP",
+     "protocol": "digits_matched",
+     "cohort": "transductive1797",
+     "seed": 0,
+     "ari": 0.8213126330655656,
+     "class1_components": {
+      "source": [
+       182
+      ],
+      "target": [
+       155,
+       27
+      ]
+     }
+    }
+   ],
+   "caption": "Matched seed0 exact15 nonself support, 300 epochs and five negatives; UMAP has self column and native weights/kernel/scheduler. FIT1400 row is not interchangeable with a separate all1797 fit. Labels are actual classes and only post-fit diagnostics; KMeans10 seed0 n_init20.",
+   "png_metadata_stripped": true,
+   "embedded_raw_point_arrays": false
+  }
+ ],
+ "limitations": [
+  "Frozen historical settings and single raw-author seed; unequal compute. No state-of-the-art, speed, general clustering or untouched-paper reproduction claim.",
+  "Digits author-adapter and 3Clusters timeouts are resource-limited missing results, not proof of method incapability.",
+  "The raw-author UMAP protocol (15, automatic epochs) differs from the matched Digits UMAP protocol (16 including self, 300 epochs); do not pool their ARI results.",
+  "Class1 fragmentation is shared by Graph and matched UMAP; source bottlenecks, initialization and local-objective amplification are evidence, not semantic ground truth or a uniquely isolated cause.",
+  "All registered critical-edge arms and both multiscale cohorts are included, including optimizer caps and oracle timeout; candidates are not defaults.",
+  "Raster geometry alone does not certify H1 correspondence; bar counts, low stress and endpoint-only rank do not replace the same-cycle gate.",
+  "Optional MoCap and SingleCell metadata were inspected but runs were not scheduled; neither is an omitted failed fit.",
+  "Underlying upstream data and linked author binaries are not redistributed or granted an MIT license by this summary."
+ ]
+}
