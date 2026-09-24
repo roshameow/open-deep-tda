@@ -106,6 +106,20 @@ def test_k4_acceptance_requires_fresh_full_domain_checks(monkeypatch):
     assert result.h0_error <= .05
     assert result.embedding.flags.owndata and not result.embedding.flags.writeable
     np.testing.assert_array_equal(result.embedding, X)
+    # A later deterministic branch still consumes the declared audit budget;
+    # its exhaustion/timeout must not be hidden by an earlier valid winner.
+    for failure, expected in ((ResourceLimitError('late budget'), 'late budget'),
+                              (teacher._TimedOut('late clock'), 'max_seconds')):
+        def late(features, graph, branch_ids, paths, center, side):
+            if center == 3:
+                raise failure
+            return X.copy() if center == 2 else original(features, graph, branch_ids,
+                                                         paths, center, side)
+        with monkeypatch.context() as patch:
+            patch.setattr(teacher, '_scaffold', late)
+            with pytest.raises(ResourceLimitError, match=expected):
+                construct_source_teacher(D, X, cycles, .65, .7, .05,
+                    strategy='subdivided_k4', limits=TeacherLimits(max_iterations=0))
 
 
 def test_rejects_bad_input_budgets_and_unsupported_union():

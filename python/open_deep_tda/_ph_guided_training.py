@@ -251,9 +251,9 @@ def guide_existing_model(model, *, cycles, birth_radius, survival_radius,
         'certificate':current,'source_teacher':teacher.diagnostics,
         'optimization_history':trace,
         'phase_scopes':('original native PH fit; independently source-certified bounded single-cycle beam '
-                        '(first passing complete state); full-source H0 contacts; adaptive source-ID F2 cuts'
+                        '(first passing complete state); optional full-source H0 contacts and source-ID F2 cuts'
                         if strategy == 'single_beam' else
-                        'original native PH fit; source-certified teacher; full-source H0 contacts; adaptive source-ID F2 cuts'),
+                        'original native PH fit; source-certified teacher; optional full-source H0 contacts and source-ID F2 cuts'),
         'timings':{'guided_seconds':time.monotonic()-started},
         'query_claim':'transform remains inductive, but adding even one query changes PH/H0; no inherited certificate'})
     json.dumps(model.report_, allow_nan=False)

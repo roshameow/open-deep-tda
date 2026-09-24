@@ -163,6 +163,12 @@ def test_static_budget_and_unbounded_inner_edge_refused_before_native_fit(monkey
             m.fit_with_topology_guidance(X, cycles=CYCLE, birth_radius=2.01,
                                          survival_radius=2.1, strategy='single_beam',
                                          teacher_limits=teacher)
+    # Four high-dimensional rows have a small 3*n*n*d distance cube, but
+    # native fit's 1,024 sampled pair differences exceed one megabyte.
+    with pytest.raises(ResourceLimitError, match='pair-sample workspace'):
+        m.fit_with_topology_guidance(np.zeros((4, 2048)), cycles=CYCLE,
+            birth_radius=2.01, survival_radius=2.1, strategy='single_beam',
+            limits=GuidedLimits(max_feature_workspace_bytes=1_000_000))
     consumed = []
     def infinite_edge():
         while True:

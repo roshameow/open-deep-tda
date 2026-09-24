@@ -8,7 +8,7 @@
 
 **PH-Regularized Embedding（PH 正则化降维）**是本项目**一条拓扑参与训练的主算法**的工作名；在当前源码中通过 `DeepTDA` 使用。仓库/包标识暂时保留 `open-deep-tda` / `open_deep_tda`。这是独立实现，**不是** DataRefiner 官方 Deep TDA，也不是它的数值等价复现。
 
-`DeepTDA` 的训练目标结合参考空间几何、采样 Vietoris–Rips H₀/H₁ 损失和源关键边约束；有预算限制的精确 PH 由 C++ 计算，拟合后的模型可 `transform`。对于**事先仅从源数据选定的环契约**，显式启用 `fit_with_topology_guidance` 会继续训练**同一个已经使用 PH 的模型**：源数据结构验证、源引导平面布局、完整 TRAIN 的 H₀ 连接约束，以及必要时的精确 F₂ 填环约束。只有**全部传入 TRAIN 点**经独立检查通过才返回布局。目前这一有界路径仅支持一个所选简单环或 K4 型细分图的环族；普通 `fit` 不自动带此证书。两者均不保证新样本拓扑或类别完全分开。
+`DeepTDA` 的训练目标结合参考空间几何、采样 Vietoris–Rips H₀/H₁ 损失和源关键边约束；有预算限制的精确 PH 由 C++ 计算，拟合后的模型可 `transform`。对于**事先仅从源数据选定的环契约**，显式启用 `fit_with_topology_guidance` 会继续使用**同一个已经使用 PH 的模型**及经验证的源引导平面布局。如果 teacher 尚未通过最终验收，默认训练路径会按需加入完整 TRAIN 的 H₀ 连接约束和精确 F₂ 填环约束；单独的满行秩选项则校正该 MLP 的仿射头以贴近源 teacher。两种路径都只有在**全部传入 TRAIN 点**经独立检查通过后才返回布局。目前这一有界路径仅支持一个所选简单环或 K4 型细分图的环族；普通 `fit` 不自动带此证书。两者均不保证新样本拓扑或类别完全分开。
 
 ## 结果
 
@@ -95,7 +95,7 @@ Z_train = model.embedding_   # 所有传入 TRAIN 点均已独立结构核验
 Z_new = model.transform(X_new)  # 新总体需另行验证
 ```
 
-对一个简单环，`strategy="single_beam"` 是**显式启用、有资源上限的源端候选搜索**，替代默认的贪心源布局；仍须通过相同的全部 TRAIN 点 H₀/H₁ 独立验收。预算耗尽会报错，两种策略都不自动核验新点。`source_cycles`、`a`、`b` 必须**只从源训练数据**在同一参考单位下选取，不得从标签或输出反选；一个源类可使用 [`auto_global_witnesses`](python/open_deep_tda/structural_auto_witness.py)，三类可使用 [`auto_source_h1_family`](python/open_deep_tda/structural_auto_family.py)，显式设 `allow_external=True`，并让可选的 Ripser 在**独立进程**运行。外部求解器有自己的资源限制。源结构不支持、预算耗尽或联合结构未通过时会明确失败，**不会返回未经核验的 embedding**。输入、源环和模型可能携带敏感信息，不要直接公开。普通默认几何 stress＋H₀/H₁/关键边是在有限**子云**上训练，并不等于全体数据的 PH。图片实际设置见[结构结果](benchmarks/results/ph_guided_selected_cycles.json)与[聚类结果](benchmarks/results/phre_external_comparison.json)；保存模型不等于匿名化。可运行 `python examples/run_ph_guided.py` 做**解析正确性示例**，它不是实数据效果基准。
+对一个简单环，`strategy="single_beam"` 是**显式启用、有资源上限的源端候选搜索**，替代默认的贪心源布局。仅在此策略下可另设 `teacher_realization="affine_min_norm"`：对**同一个 PH 预训练 MLP**的仿射头插值源 teacher；默认仍是迭代的 `"adam"`。TRAIN 特征行不满秩、条件数过大或浮点更新不可表示时会拒绝。两种实现都须通过完整 TRAIN H₀/H₁ 独立验收；预算耗尽会报错，均不自动核验新点，也未隔离原生采样 H₁ 损失的因果作用。`source_cycles`、`a`、`b` 必须**只从源训练数据**在同一参考单位下选取，不得从标签或输出反选；一个源类可使用 [`auto_global_witnesses`](python/open_deep_tda/structural_auto_witness.py)，三类可使用 [`auto_source_h1_family`](python/open_deep_tda/structural_auto_family.py)，显式设 `allow_external=True`，并让可选的 Ripser 在**独立进程**运行。外部求解器有自己的资源限制。源结构不支持、预算耗尽或联合结构未通过时会明确失败，**不会返回未经核验的 embedding**。输入、源环和模型可能携带敏感信息，不要直接公开。普通默认几何 stress＋H₀/H₁/关键边是在有限**子云**上训练，并不等于全体数据的 PH。图片实际设置见[结构结果](benchmarks/results/ph_guided_selected_cycles.json)与[聚类结果](benchmarks/results/phre_external_comparison.json)；保存模型不等于匿名化。可运行 `python examples/run_ph_guided.py` 做**解析正确性示例**，它不是实数据效果基准。
 
 ## 署名与许可
 

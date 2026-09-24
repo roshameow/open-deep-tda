@@ -170,7 +170,7 @@ class DeepTDA:
                                    source_scale=1.0, h0_tolerance=0.05,
                                    strategy='single', limits=None,
                                    teacher_limits=None, filling_limits=None,
-                                   h1_limits=None):
+                                   h1_limits=None, teacher_realization='adam'):
         """Opt-in, fail-closed source-witness-guided fit of THIS PH-trained MLP.
 
         ``cycles`` and radii must be selected from the source without labels or
@@ -194,6 +194,10 @@ class DeepTDA:
         from .evaluation import evaluate_embedding
         if strategy not in ('single', 'single_beam', 'subdivided_k4'):
             raise ValueError('unsupported source topology strategy')
+        if teacher_realization not in ('adam', 'affine_min_norm'):
+            raise ValueError('teacher_realization must be adam or affine_min_norm')
+        if teacher_realization == 'affine_min_norm' and strategy != 'single_beam':
+            raise ValueError('affine_min_norm requires explicit single_beam source strategy')
         plan = GuidedLimits() if limits is None else limits
         source_limits = TeacherLimits() if teacher_limits is None else teacher_limits
         obstruction_limits = FillingLimits() if filling_limits is None else filling_limits
@@ -202,6 +206,18 @@ class DeepTDA:
         _check_teacher_limits(source_limits)
         _check_filling_limits(obstruction_limits)
         _check_h1_limits(topological_limits)
+        if source_limits.max_seconds == 0:
+            raise ResourceLimitError('source teacher max_seconds exhausted before native fit')
+        if (isinstance(h0_tolerance, (bool, np.bool_)) or
+                not isinstance(h0_tolerance, (int, float, np.integer, np.floating)) or
+                not np.isfinite(h0_tolerance) or not 0 < h0_tolerance <= 1):
+            raise ValueError('h0_tolerance must be finite in (0,1]')
+        if isinstance(source_scale, str) and source_scale != 'median_all_pairs':
+            raise ValueError('source_scale must be positive or median_all_pairs')
+        if not isinstance(source_scale, str) and (isinstance(source_scale, (bool, np.bool_)) or
+                not isinstance(source_scale, (int, float, np.integer, np.floating)) or
+                not np.isfinite(source_scale) or source_scale <= 0):
+            raise ValueError('source_scale must be finite positive')
         # Fail BEFORE native PH fit or materializing an unbounded generator.
         # This opt-in mode requires ordinary ndarray metadata for hard shape
         # and temporary distance-workspace preflight; ordinary fit remains
@@ -211,12 +227,35 @@ class DeepTDA:
         n,d = X.shape
         if n < 4 or not 2 <= d <= 4096:
             raise ValueError('guided source requires at least four rows and 2..4096 features')
+        effective_d = d * (2 if self.config.missing_indicators else 1)
+        if effective_d > 4096:
+            raise ValueError('guided preprocessed source exceeds 4096 feature ceiling')
+        if teacher_realization == 'affine_min_norm':
+            if (self.config.mode != 'geometry' or self.config.optimizer_mode != 'parametric'
+                    or self.config.n_components != 2 or self.config.device != 'cpu'
+                    or self.config.output_calibration != 'none'
+                    or self.config.lambda_h0 <= 0 or self.config.lambda_h1 <= 0
+                    or self.config.steps <= self.config.warmup_steps):
+                raise ValueError('affine_min_norm requires PH-active uncalibrated CPU parametric 2D fit')
+            if not self.config.missing_indicators and d+1 < n:
+                raise ValueError('affine_min_norm impossible: input dimension + 1 < TRAIN rows')
+            if (4*n*(effective_d+1)*8 + 4*n*n*8 +
+                    4*(effective_d+1)*2*8 > plan.max_feature_workspace_bytes):
+                raise ResourceLimitError('affine head workspace budget exceeded before fit')
         if (n > plan.max_vertices or n > source_limits.max_vertices or
                 n > obstruction_limits.max_vertices or n > topological_limits.max_vertices or
                 n*(n-1)//2 > source_limits.max_pairs or
-                3*n*n*d*8 > min(plan.max_feature_workspace_bytes,
-                                 source_limits.max_distance_workspace_bytes)):
+                3*n*n*(effective_d if teacher_realization == 'affine_min_norm' else d)*8 >
+                min(plan.max_feature_workspace_bytes,
+                    source_limits.max_distance_workspace_bytes)):
             raise ResourceLimitError('guided source vertex/pair/feature-workspace budget exceeded before fit')
+        # Native geometry reference-scale estimation draws at least 1,024
+        # pair rows, constructing float32 gathers and float64 differences.
+        # Its temporary peak is separate from the later source distance cube.
+        pair_count = min(max(1024, 2*n), 20000)
+        if 32*pair_count*effective_d + 16*pair_count > plan.max_feature_workspace_bytes:
+            raise ResourceLimitError('guided native pair-sample workspace budget exceeded before fit')
+        numeric_matrix(X)  # reject infinities before the native PH fit
         expected = 3 if strategy == 'subdivided_k4' else 1
         family = []
         try:
@@ -241,6 +280,10 @@ class DeepTDA:
         if len(family) != expected:
             raise ValueError('guided strategy requires exactly %d source cycle(s)' % expected)
         family = tuple(family)
+        if teacher_realization == 'affine_min_norm':
+            from ._ph_guided_affine import preflight_affine_reference
+            preflight_affine_reference(X, self.config, source_scale,
+                                       min(plan.max_seconds, source_limits.max_seconds))
         # A candidate owns every temporary parameter/tensor and report.
         # Publishing its state is the final atomic act, AFTER verification.
         start = time.perf_counter()
@@ -248,11 +291,18 @@ class DeepTDA:
         candidate.fit(X)
         guided_started = time.monotonic()
         with _torch_context(candidate.config.seed, candidate.config.num_threads, candidate.config.device):
-            guide_existing_model(candidate, cycles=family, birth_radius=birth_radius,
-                                 survival_radius=survival_radius, source_scale=source_scale,
-                                 h0_tolerance=h0_tolerance, strategy=strategy, limits=plan,
-                                 teacher_limits=source_limits, filling_limits=obstruction_limits,
-                                 h1_limits=topological_limits)
+            if teacher_realization == 'affine_min_norm':
+                from ._ph_guided_affine import guide_affine_min_norm
+                guide_affine_min_norm(candidate, cycles=family, birth_radius=birth_radius,
+                    survival_radius=survival_radius, source_scale=source_scale,
+                    h0_tolerance=h0_tolerance, limits=plan, teacher_limits=source_limits,
+                    h1_limits=topological_limits)
+            else:
+                guide_existing_model(candidate, cycles=family, birth_radius=birth_radius,
+                                     survival_radius=survival_radius, source_scale=source_scale,
+                                     h0_tolerance=h0_tolerance, strategy=strategy, limits=plan,
+                                     teacher_limits=source_limits, filling_limits=obstruction_limits,
+                                     h1_limits=topological_limits)
         # The stored float32 output must be EXACTLY what public transform
         # returns for the same training rows. It is the representation whose
         # float64 source-unit conversion received the independent certificate.
@@ -271,8 +321,10 @@ class DeepTDA:
         candidate.report_['status'] = 'guided_certified_train'
         candidate.report_['claims'] = ('Independent selected same-ID H0/H1 certificate on all supplied TRAIN rows; '
                                       'not all H1, generic clustering, or new-query topology.')
-        candidate.report_['history_scope'] = ('native PH training history precedes source-only teacher, '
-                                              'full-domain contact and F2 guidance phases')
+        candidate.report_['history_scope'] = (
+            'native PH training history precedes source-only teacher and affine head correction'
+            if teacher_realization == 'affine_min_norm' else
+            'native PH training history precedes source-only teacher; optional full-domain contact and F2 phases run only when needed')
         candidate.fit_seconds_ = time.perf_counter() - start
         candidate.report_['fit_seconds'] = candidate.fit_seconds_
         candidate.report_['guided_training'] = _primitive(candidate.report_['guided_training'])

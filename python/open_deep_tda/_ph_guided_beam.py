@@ -29,6 +29,12 @@ class Result:
     diagnostics: dict
 
 
+def _seed_compatible(seed_hierarchy, source_hierarchy, seq, delta, slack):
+    """A restricted minimax metric may LOSE shortcuts, never require equality."""
+    return bool(np.all(seed_hierarchy >=
+                       np.maximum(0., source_hierarchy[np.ix_(seq, seq)]-delta)-slack))
+
+
 def seed(D, guide, cycles, a, b, tolerance=.05):
     """Mirror public structural_constructive seed; deliberately no alternate orbit."""
     n = len(D)
@@ -67,8 +73,11 @@ def seed(D, guide, cycles, a, b, tolerance=.05):
     if not np.isfinite(z).all() or not np.isfinite(hole).all():
         raise ValueError('unrepresentable aligned seed')
     seed_hierarchy=full_hierarchy(pairwise_planar(z))
-    if float(np.max(np.abs(seed_hierarchy-W[np.ix_(seq,seq)])))>slack:
-        raise ValueError('unsupported circle-incompatible seed hierarchy')
+    # Restricting a minimax hierarchy to the cycle can remove source-only
+    # shortcuts through other IDs. That can INCREASE seed pair levels; only a
+    # decrease beyond the contracted source lower bound is incompatible.
+    if not _seed_compatible(seed_hierarchy, U, seq, delta, slack):
+        raise ValueError('seed hierarchy collapses source lower bound')
     hole_radius=float(np.nextafter(b/np.sqrt(3.),np.inf))+max(1e-6*b,32*slack)
     if np.any(np.hypot(*(z-hole).T)<=hole_radius):
         raise ValueError('seed cannot satisfy protected-hole guard')

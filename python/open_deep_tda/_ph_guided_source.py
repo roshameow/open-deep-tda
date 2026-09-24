@@ -351,12 +351,17 @@ def construct_source_teacher(D, X, cycles, a, b, h0_tol, *, strategy='single',
                     result = Y.copy()
                     result.setflags(write=False)
                     winner = (result, h1, error, center, phase)
-        except (FloatingPointError, OverflowError, np.linalg.LinAlgError, ValueError, _TimedOut) as exc:
+        except ResourceLimitError:
+            # A later branch's exhausted work must not be hidden by an earlier
+            # accepted candidate: the declared four-branch audit is incomplete.
+            raise
+        except _TimedOut as exc:
+            raise ResourceLimitError('source teacher max_seconds exceeded') from exc
+        except (FloatingPointError, OverflowError, np.linalg.LinAlgError, ValueError) as exc:
             record['failure'] = str(exc)
             record['status'] = 'failed'
-            if isinstance(exc, _TimedOut):
-                info['timeout'] = True
-                break
+        check_deadline()
+    check_deadline()
     if winner is not None:
         result, h1, error, center, phase = winner
         info['selected_branch'] = center
